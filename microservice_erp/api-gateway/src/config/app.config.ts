@@ -5,7 +5,7 @@ export const appConfig = {
         origin: [
             '*',
             'http://localhost:3030',
-            'https://hpm.ierps.vn',
+            'https://truongphat.ierps.vn',
             'https://erpsheet.online',
             'https://about.erpsheet.online',
         ],

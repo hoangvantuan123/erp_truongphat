@@ -66,7 +66,7 @@ async function bootstrap() {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          imgSrc: ["'self'", 'data:', 'http://localhost:5106', 'http://localhost:3030', 'https://hpm.ierps.vn'],
+          imgSrc: ["'self'", 'data:', 'http://localhost:5106', 'http://localhost:3030', 'https://truongphat.ierps.vn'],
         },
       },
     })
@@ -76,7 +76,7 @@ async function bootstrap() {
     origin: [
       '*',
       'http://localhost:3030',
-      'https://hpm.ierps.vn'
+      'https://truongphat.ierps.vn'
     ],
     methods: 'GET,POST,PUT,DELETE, OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization'],

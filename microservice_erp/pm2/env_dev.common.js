@@ -14,11 +14,11 @@ module.exports = {
     HOST_REDIS_QC: 'localhost',
 
     /* REDIS  PORT*/
-    PORT_REDIS_AUTH: 6383,
-    PORT_REDIS_WAREHOUSE: 6382,
-    PORT_REDIS_PRODUCTION: 6384,
-    PORT_REDIS_QC: 6386,
-    PORT_REDIS_PURCHASEN: 6385,
+    PORT_REDIS_AUTH: 5383,
+    PORT_REDIS_WAREHOUSE: 5382,
+    PORT_REDIS_PRODUCTION: 5384,
+    PORT_REDIS_QC: 5386,
+    PORT_REDIS_PURCHASEN: 5385,
 
 
 
@@ -27,7 +27,7 @@ module.exports = {
     DB_PORT: '1433',
     DB_USERNAME: 'genuine',
     DB_PASSWORD: 'Itmv209#',
-    DB_DATABASE: 'ITMT',
+    DB_DATABASE: 'ITMV',
 
 
 
@@ -36,28 +36,28 @@ module.exports = {
 
 
     /* GRPC SERVER */
-    HOST_RGPC_PDMM: 'localhost:5002',
-    HOST_RGPC_SP: 'localhost:5003',
-    HOST_RGPC_WC: 'localhost:5002',
-    HOST_RGPC_AUTH: 'localhost:5004',
-    HOST_RGPC_HR: 'localhost:5005',
-    HOST_GRPC_UPLOAD: 'localhost:5006',
-    HOST_GRPC_REPORT: 'localhost:5007',
+    HOST_RGPC_PDMM: 'localhost:4002',
+    HOST_RGPC_SP: 'localhost:4003',
+    HOST_RGPC_WC: 'localhost:4002',
+    HOST_RGPC_AUTH: 'localhost:4004',
+    HOST_RGPC_HR: 'localhost:4005',
+    HOST_GRPC_UPLOAD: 'localhost:4006',
+    HOST_GRPC_REPORT: 'localhost:4007',
     /* GRPC PORT */
-    PORT_GRPC_AUTH: 5004,
-    PORT_GRPC_PRODUCE: 5002,
-    PORT_GRPC_SP: 5003,
-    HOST_PORT_HR: 5005,
-    HOST_PORT_UPLOAD: 5006,
-    HOST_PORT_REPORT: 5007,
-    HOST_RGPC_WH: 'localhost:5009',
-    HOST_PORT_WH: 5099,
-    HTTP_PORT_UPLOAD: 5106,
+    PORT_GRPC_AUTH: 4004,
+    PORT_GRPC_PRODUCE: 4002,
+    PORT_GRPC_SP: 4003,
+    HOST_PORT_HR: 4005,
+    HOST_PORT_UPLOAD: 4006,
+    HOST_PORT_REPORT: 4007,
+    HOST_RGPC_WH: 'localhost:4009',
+    HOST_PORT_WH: 4099,
+    HTTP_PORT_UPLOAD: 4106,
 
     /* UPLOAD */
-    PORT_UPLOAD: 8089,
-    HOST_QR_CODE: 'localhost:8098',
-    PATH_PRINT_INFO_USER: 'localhost:8089',
+    PORT_UPLOAD: 7089,
+    HOST_QR_CODE: 'localhost:7098',
+    PATH_PRINT_INFO_USER: 'localhost:7089',
 
     // Các đường dẫn upload & templates
     UPLOAD_PATHS: '/storage_erp/uploads',
@@ -90,7 +90,7 @@ module.exports = {
     UPLOAD_PATHS_LOWER: '/storage_erp/uploads',
     UPLOAD_USER_PATHS_LOWER: '/storage_erp/user_files',
     ROOT_ASSET_PATH: '/storage_erp/asset_files',
-    UPLOAD_USER_PATHS_ROOT_LOWER: 'F:/storage_erp/user_files',
+    UPLOAD_USER_PATHS_ROOT_LOWER: '/storage_erp/user_files',
     PATH_INVOICES_LOWER: '/storage_erp/uploads/pdf',
     PATHS_TEMPLATE_LOWER: '/storage_erp/templates',
     PATH_PRINT_LOGS_DOCS_LOWER: '/storage_erp/print_logs_docs',
