@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package scom_cofirm;
+
+service SCOMConfirmService {
+  rpc SCOMConfirm (MetadataRequest) returns (MetadataResponse);
+}
+
+message Result { 
+  int32 CfmCode = 1;
+  int32 CfmSeq = 2;
+  string Reason = 3;
+
+}
+
+message MetadataRequest {
+  Result result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

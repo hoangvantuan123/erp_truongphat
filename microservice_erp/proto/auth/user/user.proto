@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package auth.user;
+
+service UsersService {
+  rpc addUsers (AddUsersRequest) returns (MetadataResponse);
+  rpc getHelpUserAuthQuery (GetHelpUserAuthQueryRequest) returns (MetadataResponse);
+  rpc deviceLogsQ (DeviceLogsQRequest) returns (MetadataResponse);
+
+}
+
+
+message AddUsersResult { 
+  string UserId = 1;
+  string  UserName = 2;
+  bool  AccountScope = 3;
+  string PwdMailAdder = 4;
+  int32 UserSeq = 5;
+  int32 EmpSeq = 6; 
+}
+message getHelpUserAuthResult { 
+  int32 EmpSeq = 1;
+  string  EmpID = 2;
+  string  Email = 3;
+  string UserName = 4;
+}
+message DeviceLogsQResult { 
+  int32 UserSeq = 1;
+  string UserLogin = 2;
+
+}
+
+
+message AddUsersRequest {
+  repeated AddUsersResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message GetHelpUserAuthQueryRequest {
+  getHelpUserAuthResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DeviceLogsQRequest {
+  DeviceLogsQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

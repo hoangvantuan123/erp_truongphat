@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package auth.roles.group_role;
+
+
+service GroupRoleService {
+  rpc RoleGroupA(RoleGroupARequest) returns (Response);
+  rpc RoleGroupU(RoleGroupURequest) returns (Response);
+  rpc RoleGroupD(RoleGroupDRequest) returns (Response);
+  rpc RoleGroupQ(RoleGroupQRequest) returns (Response);
+
+
+}
+
+
+
+
+
+message RoleGroupAResult { 
+  int32 IdxNo = 1;
+  string  Name = 2;
+}
+message RoleGroupUResult { 
+  int32 IdxNo = 1;
+  string  Name = 2;
+  int32 Id = 3;
+}
+
+message RoleGroupDResult { 
+  int32 IdxNo = 1;
+  string  Name = 2;
+  int32 Id = 3;
+}
+
+message RoleGroupQResult { 
+  int32 KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+}
+
+
+
+
+
+
+message RoleGroupARequest {
+ repeated RoleGroupAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message RoleGroupURequest {
+ repeated RoleGroupUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message RoleGroupDRequest {
+ repeated RoleGroupDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message RoleGroupQRequest {
+  RoleGroupQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

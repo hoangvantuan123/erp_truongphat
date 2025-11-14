@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package hr.define.define_item;
+
+
+service DefineItemService {
+  rpc DefineItemA (DefineItemARequest) returns (Response);
+  rpc DefineItemU (DefineItemURequest) returns (Response);
+  rpc DefineItemD (DefineItemDRequest) returns (Response);
+  rpc DefineItemQ (DefineItemQRequest) returns (Response);
+}
+
+message DefineItemAResult {
+  int32 IdxNo = 1;
+  string DefineSeq = 2;
+  string DefineItemName = 3;
+  bool IsActive = 4;
+  int32 CreatedBy = 5;
+  int32 UpdatedBy = 6;
+  int32 DefineKey = 7;
+  int32 Value = 8;
+}
+
+
+message DefineItemUResult { 
+  int32 IdxNo = 1;
+  string DefineSeq = 2;
+  string DefineItemName = 3;
+  bool IsActive = 4;
+  int32 CreatedBy = 5;
+  int32 UpdatedBy = 6;
+    int32 IdSeq = 7;
+
+     int32 DefineKey = 8;
+
+     int32 Value = 9;
+
+}
+message DefineItemDResult { 
+  int32 IdSeq = 1;
+}
+
+message DefineItemQResult { 
+    int32 KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+}
+
+
+
+message DefineItemARequest {
+  repeated DefineItemAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DefineItemURequest {
+  repeated  DefineItemUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DefineItemDRequest {
+  repeated  DefineItemDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DefineItemQRequest {
+  DefineItemQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

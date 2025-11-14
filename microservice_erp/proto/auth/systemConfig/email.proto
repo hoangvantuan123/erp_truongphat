@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package email;
+
+service EmailService {
+    rpc addEmail (AddEmailRequest) returns (MetadataResponse);
+    rpc updateEmail (UpdateEmailRequest) returns (MetadataResponse);
+    rpc deleteEmail (DeleteEmailRequest) returns (MetadataResponse);
+    rpc getEmail (GetEmailResultRequest) returns (MetadataResponse);
+
+
+
+    rpc addMailDetails (AEmailDetailRequest) returns (MetadataResponse);
+    rpc updateMailDetails (UEmailDetailRequest) returns (MetadataResponse);
+    rpc deleteMailDetails (DEmailDetailRequest) returns (MetadataResponse);
+    rpc getMailDetails (GetEmailDetailRequest) returns (MetadataResponse);
+    
+}
+
+
+message AddEmailResult { 
+  int32 IdxNo = 1;
+  string Host = 2;
+  string Port = 3;
+  string UserName = 4;
+  string Password  = 5;
+  string CodeMail = 6;
+}
+message UpdateMailResult { 
+  int32 IdxNo = 1;
+  string Host = 2;
+  string Port = 3;
+  string UserName = 4;
+  string Password  = 5;
+  string CodeMail = 6;
+  int32 IdSeq = 7;
+}
+message DMailResult { 
+  int32 IdSeq = 1;
+}
+
+
+
+message AddEmailDetailResult { 
+    int32 IdxNo = 1;
+    int32 MailSettingsSeq = 2;
+    int32 LanguageSeq = 3;
+    string Subject = 4;
+    string PlainText  = 5;
+    string FromMail = 6;
+    string HtmlContent = 7;
+  }
+message UEmailDetailResult { 
+    int32 IdxNo = 1;
+    int32 MailSettingsSeq = 2;
+    int32 LanguageSeq = 3;
+    string Subject = 4;
+    string PlainText  = 5;
+    string FromMail = 6;
+    string HtmlContent = 7;
+    int32 IdSeq = 8;
+  }
+ 
+message DEmailDetailResult { 
+    int32 IdSeq = 1;
+  }
+message GEmailDetailResult { 
+  int32 MailSettingsSeq = 1;
+}
+ 
+
+message AddEmailRequest {
+  repeated AddEmailResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message UpdateEmailRequest {
+  repeated UpdateMailResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DeleteEmailRequest {
+  repeated DMailResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message GetEmailResultRequest {
+  string result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+message AEmailDetailRequest {
+    repeated AddEmailDetailResult result = 1;  
+    map<string, string> metadata = 2;
+}
+  
+message UEmailDetailRequest {
+    repeated UEmailDetailResult result = 1;  
+    map<string, string> metadata = 2;
+}
+  
+message DEmailDetailRequest {
+    repeated DEmailDetailResult result = 1;  
+    map<string, string> metadata = 2;
+}
+  
+message GetEmailDetailRequest {
+  repeated GEmailDetailResult result = 1;  
+    map<string, string> metadata = 2;
+}
+  
+
+
+
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

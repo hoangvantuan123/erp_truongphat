@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_travel;
+
+
+service HrBaseTravelService {
+  rpc HrBaseTravelA (HrBaseTravelARequest) returns (Response);
+  rpc HrBaseTravelU (HrBaseTravelURequest) returns (Response);
+  rpc HrBaseTravelD (HrBaseTravelDRequest) returns (Response);
+  rpc HrBaseTravelQ (HrBaseTravelQRequest) returns (Response);
+}
+
+message HrBaseTravelAResult {
+    int32 IdxNo = 1;
+    int32 TravelRecSeq = 2;
+    int32 EmpSeq = 3;
+    string DptDate = 4;         
+    string ArvDate = 5;         
+    string SMAbrdName = 6;     
+    int32 SMAbrd = 7;           
+    string UMNationName = 8;    
+    int32 UMNationSeq = 9;     
+    string TripRec = 10;      
+    string TripArea = 11;      
+    string Rem = 12;           
+  }
+  
+message HrBaseTravelUResult { 
+    int32 IdxNo = 1;
+    int32 TravelRecSeq = 2;
+    int32 EmpSeq = 3;
+    string DptDate = 4;         
+    string ArvDate = 5;         
+    string SMAbrdName = 6;     
+    int32 SMAbrd = 7;           
+    string UMNationName = 8;    
+    int32 UMNationSeq = 9;     
+    string TripRec = 10;      
+    string TripArea = 11;      
+    string Rem = 12;  
+     
+}
+
+
+message HrBaseTravelDResult { 
+    int32 IdxNo = 1;
+    int32 TravelRecSeq = 2;
+    int32 EmpSeq = 3;
+    string DptDate = 4;         
+    string ArvDate = 5;         
+    string SMAbrdName = 6;     
+    int32 SMAbrd = 7;           
+    string UMNationName = 8;    
+    int32 UMNationSeq = 9;     
+    string TripRec = 10;      
+    string TripArea = 11;      
+    string Rem = 12;  
+  
+
+}
+
+message HrBaseTravelQResult { 
+  int32 DeptSeq = 1;
+  int32 EmpSeq = 2;
+  int32 EntRetTypeSeq = 3;
+  string QBegDate  = 4;
+  string QEndDate = 5; 
+  string SMAbrd = 6;
+  int32 UMNationSeq = 7;
+}
+
+
+
+
+message HrBaseTravelARequest {
+  repeated  HrBaseTravelAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaseTravelURequest {
+  repeated  HrBaseTravelUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaseTravelDRequest {
+  repeated  HrBaseTravelDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaseTravelQRequest {
+  HrBaseTravelQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

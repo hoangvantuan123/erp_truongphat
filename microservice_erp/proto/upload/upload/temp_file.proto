@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package upload.upload.temp_file;
+
+service TempFileService {
+  rpc TempFileA (TempFileARequest) returns (Response);
+  rpc TempFileU (TempFileURequest) returns (Response);
+ 
+  rpc TempFileD (TempFileDRequest) returns (Response);
+  rpc TempFileQ (TempFileQRequest) returns (Response);
+  rpc TempFileP (TempFilePRequest) returns (Response);
+  rpc TempFileO (TempFileORequest) returns (Response);
+}
+
+
+message TempFileAResult { 
+    int32 IdxNo = 1;
+    int32 CreatedBy = 2;
+    int32 UpdatedBy = 3;
+
+    string GroupsTempSeq =4;
+    string FormCode = 5; 
+    string FieldName = 6;
+    string OriginalName = 7;
+    string  Encoding = 8;
+    string MimeType = 9;
+    string Destination = 10;
+    string Filename =11;
+    string Path = 12;
+    string Size = 13;
+    bool IsActive =14;
+    string GroupsTempCode = 15;
+
+}
+
+message TempFileUResult { 
+  string IdSeq = 1;
+  int32 UpdatedBy = 2;
+  bool IsActive =3;
+  int32 IdxNo = 4;
+}
+
+
+
+
+message TempFileDResult { 
+  int32 IdxNo = 1;
+  string IdSeq = 2;
+}
+
+message TempFileQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+}
+
+message TempFilePResult {
+    string filename = 1;
+    bytes content = 2;
+    string mimetype = 3;
+    string encoding = 4;
+    string size = 5;
+    string fieldname = 6;
+  }
+message TempIdPResult {
+    string IdSeq = 1;
+    string Time = 2;
+    int32 CreatedBy = 3;
+    string GroupsTempCode = 4;
+  }
+message TempFileOResult {
+     string path = 1;
+}
+
+message TempFileARequest {
+  repeated TempFileAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message TempFileURequest {
+  repeated TempFileUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message TempFileDRequest {
+  repeated  TempFileDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message TempFileQRequest {
+  TempFileQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message TempFileORequest {
+  TempFileOResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message TempFilePRequest {
+    repeated TempFilePResult files = 1;
+     TempIdPResult result = 2;
+    map<string, string> metadata = 3;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

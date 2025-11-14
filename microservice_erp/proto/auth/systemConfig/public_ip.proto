@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package public_ip;
+
+service PublicIPService {
+  rpc addPublicIP (AddPublicIPRequest) returns (MetadataResponse);
+  rpc updatePublicIP (MetadataRequest) returns (MetadataResponse);
+    rpc deletePublicIP (DeletePublicIPRequest) returns (MetadataResponse);
+    rpc getPublicIP (GetPublicIPResultRequest) returns (MetadataResponse);
+}
+
+message Result { 
+  int32 IdSeq = 1;
+  int32 IdxNo = 2;
+  string IPAddress = 3;
+  string Description = 4;
+
+}
+message AddPublicIPResult { 
+  int32 IdxNo = 1;
+  string IPAddress = 2;
+  string Description = 3;
+}
+message GetPublicIPResult { 
+  int32 IdSeq = 1;
+  int32 IdxNo = 2;
+  string IPAddress = 3;
+  string Description = 4;
+
+}
+message DeletePublicIPResult { 
+  int32 IdSeq = 1;
+
+
+}
+
+message MetadataRequest {
+  repeated Result result = 1;  
+  map<string, string> metadata = 2;
+}
+message DeletePublicIPRequest {
+  repeated DeletePublicIPResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message AddPublicIPRequest {
+  repeated AddPublicIPResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message GetPublicIPResultRequest {
+   Result result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

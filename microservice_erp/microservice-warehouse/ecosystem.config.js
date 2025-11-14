@@ -1,0 +1,34 @@
+module.exports = {
+    apps: [{
+        name: 'microservice-warehouse-v1.0.0',
+        script: 'dist/main.js',
+        instances: 1,
+        exec_mode: 'cluster',
+        watch: false,
+        autorestart: false,
+        max_memory_restart: '8G', 
+        env: {
+            NODE_ENV: 'production',
+            NODE_OPTIONS: '--max-old-space-size=2048',
+            REQUEST_TIMEOUT: 1200000,
+            JWT_SECRET: 'P@5sW0rD!$R3c3nT@2024',
+            HOST_REDIS: '192.168.20.22',
+            HOST_REDIS_WAREHOUSE: '192.168.20.22',
+            HOST_REDIS_AUTH: '192.168.20.22',
+            HOST_REDIS_PRODUCTION: '192.168.20.22',
+            HOST_REDIS_PURCHASEN: '192.168.20.22',
+            HOST_REDIS_QC: '192.168.20.22',
+            DB_HOST: '192.168.35.150',
+            DB_PORT: '14233',
+            DB_USERNAME: 'genuine',
+            DB_PASSWORD: 'Itmv209#',
+            DB_DATABASE: 'ITMV',
+            PORT_REDIS_AUTH: 7383,
+            PORT_REDIS_WAREHOUSE: 7382,
+            PORT_REDIS_PRODUCTION: 7384,
+            PORT_REDIS_QC: 7386,
+            PORT_REDIS_PURCHASEN: 7385
+        },
+       
+    }],
+};

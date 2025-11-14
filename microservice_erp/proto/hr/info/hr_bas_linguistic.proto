@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_linguistic;
+
+
+service HrBaslinguisticService {
+  rpc HrBaslinguisticA (HrBaslinguisticARequest) returns (Response);
+  rpc HrBaslinguisticU (HrBaslinguisticURequest) returns (Response);
+  rpc HrBaslinguisticD (HrBaslinguisticDRequest) returns (Response);
+  rpc HrBaslinguisticQ (HrBaslinguisticQRequest) returns (Response);
+}
+
+message HrBaslinguisticAResult { 
+    int32 IdxNo = 1;
+    int32 AddressSeq = 2;
+    int32 EmpSeq = 3;
+    int32 linguisticSeq = 4;
+    string UMLanguageTypeName = 5;
+    int32 UMLanguageType = 6;
+    string UMAuthTypeName = 7;
+    int32 UMAuthType = 8;
+    int32 Score = 9;
+    string CharScore = 10;
+    string UMGradeName = 11;
+    int32 UMGrade = 12;
+    string BegDate = 13;
+    string EndDate = 14;
+    string IsAllowPay = 15;
+    string Remark = 16;
+
+}
+message HrBaslinguisticUResult { 
+    int32 IdxNo = 1;
+    int32 AddressSeq = 2;
+    int32 EmpSeq = 3;
+    int32 linguisticSeq = 4;
+    string UMLanguageTypeName = 5;
+    int32 UMLanguageType = 6;
+    string UMAuthTypeName = 7;
+    int32 UMAuthType = 8;
+    int32 Score = 9;
+    string CharScore = 10;
+    string UMGradeName = 11;
+    int32 UMGrade = 12;
+    string BegDate = 13;
+    string EndDate = 14;
+    string IsAllowPay = 15;
+    string Remark = 16;
+}
+
+
+message HrBaslinguisticDResult { 
+    int32 IdxNo = 1;
+    int32 AddressSeq = 2;
+    int32 EmpSeq = 3;
+    int32 linguisticSeq = 4;
+    string UMLanguageTypeName = 5;
+    int32 UMLanguageType = 6;
+    string UMAuthTypeName = 7;
+    int32 UMAuthType = 8;
+    int32 Score = 9;
+    string CharScore = 10;
+    string UMGradeName = 11;
+    int32 UMGrade = 12;
+    string BegDate = 13;
+    string EndDate = 14;
+    string IsAllowPay = 15;
+    string Remark = 16;
+
+}
+
+message HrBaslinguisticQResult { 
+    int32 DeptSeq = 1;
+    int32 EmpSeq = 2;
+    int32 EntRetTypeSeq = 3;
+    string QBegDate = 4;
+    string QEndDate = 5;
+    string UMLanguageType = 6;
+    string UMAuthType = 7;
+
+}
+
+
+
+
+message HrBaslinguisticARequest {
+  repeated  HrBaslinguisticAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaslinguisticURequest {
+  repeated  HrBaslinguisticUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaslinguisticDRequest {
+  repeated  HrBaslinguisticDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaslinguisticQRequest {
+  HrBaslinguisticQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

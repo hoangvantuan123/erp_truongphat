@@ -1,0 +1,46 @@
+import axios from 'axios'
+import { HOST_API_SERVER_13 } from '../../../services'
+import { accessToken } from '../../../services/tokenService'
+
+
+export const SearchAdmMultiOrdObj = async (result, signal) => {
+    try {
+        const token = accessToken()
+
+        const response = await axios.post(
+            `${HOST_API_SERVER_13}/hr-general/search-adm-multi-ord-obj`, {
+            result
+
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            signal
+        },
+        )
+
+        const { data } = response;
+        const { success, message, errors } = data;
+
+        if (success) {
+            return {
+                success: true,
+                data: JSON.parse(data.data),
+            };
+        }
+
+        return {
+            success: false,
+            message: message || ERROR_MESSAGES.ERROR,
+            errors: JSON.parse(data.errors),
+        };
+    } catch (error) {
+        return {
+            success: false,
+            message: error.response ?
+                error.response.data.message || `Error: ${error.response.status}` : 'Unable to connect to the server.',
+            errorDetails: error.response ? error.response.data : error.message,
+        }
+    }
+}

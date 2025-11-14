@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package hr.info.hr_file;
+
+
+service HrFileService {
+  rpc HrFileQ (HrFileQRequest) returns (Response);
+  rpc HrFileD (HrFileDRequest) returns (Response);
+}
+
+
+
+message HrFileQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+}
+message HrFileDResult { 
+    int32 IdxNo = 1;
+    int32 IdSeq = 2;
+  }
+
+message HrFileDRequest {
+    repeated  HrFileDResult result = 1;  
+    map<string, string> metadata = 2;
+  }
+
+message HrFileQRequest {
+  HrFileQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

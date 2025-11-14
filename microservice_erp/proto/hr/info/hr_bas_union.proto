@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_union;
+
+
+service HrBasUnionService {
+  rpc HrBasUnionA (HrBasUnionARequest) returns (Response);
+  rpc HrBasUnionU (HrBasUnionURequest) returns (Response);
+  rpc HrBasUnionD (HrBasUnionDRequest) returns (Response);
+  rpc HrBasUnionQ (HrBasUnionQRequest) returns (Response);
+}
+
+message HrBasUnionAResult {
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 UnionSeq = 3;
+  int32 UMUnionType = 4;
+  string BegDate = 5;
+  string EndDate = 6;
+  int32 UMUnionStatus = 7;
+  string UnionJdNm = 8;
+  string Remark = 9;
+  int32 IsLast = 10;
+  string IsAllowPay = 11;
+}
+
+  
+message HrBasUnionUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 UnionSeq = 3;
+  int32 UMUnionType = 4;
+  string BegDate = 5;
+  string EndDate = 6;
+  int32 UMUnionStatus = 7;
+  string UnionJdNm = 8;
+  string Remark = 9;
+  int32 IsLast = 10;
+  string IsAllowPay = 11;
+     
+}
+
+
+message HrBasUnionDResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 UnionSeq = 3;
+  int32 UMUnionType = 4;
+  string BegDate = 5;
+  string EndDate = 6;
+  int32 UMUnionStatus = 7;
+  string UnionJdNm = 8;
+  string Remark = 9;
+  int32 IsLast = 10;
+  string IsAllowPay = 11;
+  
+
+}
+
+message HrBasUnionQResult { 
+  int32 DeptSeq = 1;
+  int32 EmpSeq = 2;
+  int32 UMUnionStatus = 3;
+  string EntRetType  = 4;
+  string FrBegDate = 5; 
+  string ToBegDate = 6;
+  string FrEndDate = 7;
+  string ToEndDate = 8;
+  string UMUnionType = 9;
+  string IsLast = 10;
+  string IsSeveralUnion= 11;
+  
+
+
+}
+
+
+
+
+message HrBasUnionARequest {
+  repeated  HrBasUnionAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasUnionURequest {
+  repeated  HrBasUnionUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasUnionDRequest {
+  repeated  HrBasUnionDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasUnionQRequest {
+  HrBasUnionQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

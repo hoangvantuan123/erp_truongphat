@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package hr.hr_recruit.hr_office_skill_recruit;
+
+
+service HrOfficeSkillsService {
+  rpc HrOfficeSkillsA (HrOfficeSkillsARequest) returns (Response);
+  rpc HrOfficeSkillsU (HrOfficeSkillsURequest) returns (Response);
+  rpc HrOfficeSkillsD (HrOfficeSkillsDRequest) returns (Response);
+  rpc HrOfficeSkillsQ (HrOfficeSkillsQRequest) returns (Response);
+}
+
+message HrOfficeSkillsAResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+
+  int32 SkillNameSeq = 5;
+  int32 SkillTypeSeq = 6;
+  bool SkillLevelHigh = 7;
+  bool SkillLevelMedium = 8;
+  bool SkillLevelLow = 9;
+}
+
+
+
+message HrOfficeSkillsUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+  int32 SkillNameSeq = 5;
+  int32 SkillTypeSeq = 6;
+  bool SkillLevelHigh = 7;
+  bool SkillLevelMedium = 8;
+  bool SkillLevelLow = 9;
+  int32 IdSeq  = 10;
+
+}
+message HrOfficeSkillsDResult { 
+  int32 IdxNo = 1;
+  int32 IdSeq = 2;
+}
+
+message HrOfficeSkillsQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+}
+
+
+
+message HrOfficeSkillsARequest {
+  repeated HrOfficeSkillsAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrOfficeSkillsURequest {
+  repeated  HrOfficeSkillsUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrOfficeSkillsDRequest {
+  repeated  HrOfficeSkillsDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrOfficeSkillsQRequest {
+  HrOfficeSkillsQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

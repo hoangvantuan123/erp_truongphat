@@ -1,0 +1,148 @@
+syntax = "proto3";
+
+package hr.org.org_dept;
+
+
+service DaDeptService {
+  rpc searchDaDept (DaDeptSearchRequest) returns (Response);
+  rpc getDeptHis (DaDeptHisSearchRequest) returns (Response);
+  rpc getDeptCCtr (DaDeptCctrRequest) returns (Response);
+  rpc createOrUpdateDaDept (DaDeptRequest) returns (Response);
+  rpc deleteDeptHis (DaDeptHisRequest) returns (Response);
+  rpc deleteDeptOrg (DaDeptOrgRequest) returns (Response);
+}
+
+message DaDeptSearchResult { 
+  int32 IdxNo = 1;
+  string QBegDate = 2;
+  string QEndDate = 3;
+  string SMDeptType = 4;
+  string IsUse = 5;
+  string  ResidID = 6;
+  string DeptName = 7;
+}
+
+
+message DaDeptHisResult { 
+  int32 IdxNo = 1;
+  string DeptSeq = 2;
+  string DeptName = 3;
+
+}
+
+message DaDeptCctrResult { 
+  int32 IdxNo = 1;
+  string DeptSeq = 2;
+  string CCtrSeq = 3;
+  
+}
+
+message DaDeptResult { 
+  int32 IdxNo = 1;
+  string Seq = 2;
+  string DeptName = 3;
+  string DeptSeq = 4;
+  string AbrDeptName = 5;
+  string EngDeptName = 6;
+  string AbrEngDeptName = 7;
+  string BegDate = 8;
+  string EndDate = 9;
+  string CCtrName = 10;
+  string CCtrSeq = 11;
+  string SMDeptTypeName = 12;
+  string SMDeptType = 13;
+  string SMDeptClassName = 14;
+  string SMDeptClass = 15;
+  string DeptPhone = 16;
+  string DeptFax = 17;
+  string TaxName = 18;
+  string TaxUnit = 19;
+  string TaxNo = 20;
+  string AccUnitName = 21;
+  string AccUnit = 22;
+  string BizUnitName = 23;
+  string BizUnit = 24;
+  string SlipUnitName = 25;
+  string SlipUnit = 26;
+  string FactUnitName = 27;
+  string FactUnit = 28;
+  string UMCostTypeName = 29;
+  string UMCostType = 30;
+  string Remark = 31;
+  int32 DispSeq = 32;
+  string IsUse = 33;
+}
+
+message DaDeptResultDelete { 
+
+  string AbrDeptName = 1;
+  string AbrEngDeptName = 2;
+  string BegDate = 3;
+  string DeptName = 4;
+  string DeptSeq = 5;
+  string EndDate = 6;
+  string EngDeptName = 7;
+  int32 IdxNo = 8;
+  string IsLast = 9;
+  string LastDeptName = 10;
+  string Remark = 11;
+  int32 Seq = 12;
+  string status = 13;
+  
+}
+
+
+message DaDeptOrgResult { 
+
+  string BegYm = 1;
+  string CCtrName = 2;
+  int32 CCtrSeq = 3;
+  string DeptName = 4;
+  int32 DeptSeq = 5;
+  string EndYm = 6;
+  int32 IdxNo = 7;
+  string IsLast = 8;
+  string Remark = 9;
+  int32 Seq = 10;
+  string status = 11;
+  
+}
+
+
+message DaDeptSearchRequest {
+  repeated DaDeptSearchResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DaDeptHisSearchRequest {
+  repeated  DaDeptHisResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DaDeptCctrRequest {
+  repeated  DaDeptCctrResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message DaDeptRequest {
+  repeated DaDeptResult dataDept = 1;  
+  repeated DaDeptResultDelete dataDeptHis = 2;  
+  repeated DaDeptOrgResult dataOrgCCtr = 3;  
+  map<string, string> metadata = 4;
+}
+
+message DaDeptHisRequest {
+  repeated DaDeptResultDelete result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message DaDeptOrgRequest {
+  repeated DaDeptOrgResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

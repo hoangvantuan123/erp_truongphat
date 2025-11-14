@@ -1,0 +1,77 @@
+module.exports = {
+    NODE_ENV: 'prod',
+    NODE_OPTIONS: '--max-old-space-size=2048',
+    REQUEST_TIMEOUT: 1200000,
+    JWT_SECRET: 'P@5sW0rD!$R3c3nT@2024',
+    LOG_STORAGE: '/ERP/microservice_erp/grafana-logs/logs',
+
+    /*  HOST REDIS*/
+    HOST_REDIS: '192.168.35.150',
+    HOST_REDIS_WAREHOUSE: '192.168.35.150',
+    HOST_REDIS_AUTH: '192.168.35.150',
+    HOST_REDIS_PRODUCTION: '192.168.35.150',
+    HOST_REDIS_PURCHASEN: '192.168.35.150',
+    HOST_REDIS_QC: '192.168.35.150',
+
+    /* REDIS  PORT*/
+    PORT_REDIS_AUTH: 7383,
+    PORT_REDIS_WAREHOUSE: 7382,
+    PORT_REDIS_PRODUCTION: 7384,
+    PORT_REDIS_QC: 7386,
+    PORT_REDIS_PURCHASEN: 7385,
+
+
+
+    /* DB */
+    DB_HOST: '192.168.35.150',
+    DB_PORT: '14233',
+    DB_USERNAME: 'genuine',
+    DB_PASSWORD: 'Itmv209#',
+    DB_DATABASE: 'ITMV',
+
+
+
+    EMAIL_USER: 'erp@itmv.vn',
+    EMAIL_PASS: 'Itm#semi567@',
+
+
+    /* GRPC SERVER */
+    HOST_RGPC_PDMM: '192.168.35.150:4002',
+    HOST_RGPC_SP: '192.168.35.150:4003',
+    HOST_RGPC_WC: '192.168.35.150:4002',
+    HOST_RGPC_AUTH: '192.168.35.150:4004',
+    HOST_RGPC_HR: '192.168.35.150:4005',
+    HOST_GRPC_UPLOAD: 'localhost:4006',
+    HOST_GRPC_REPORT: 'localhost:4007',
+    /* GRPC PORT */
+    PORT_GRPC_AUTH: 4004,
+    PORT_GRPC_PRODUCE: 4002,
+    PORT_GRPC_SP: 4003,
+    HOST_PORT_HR: 4005,
+    HOST_PORT_UPLOAD: 4006,
+    HOST_PORT_REPORT: 4007,
+
+
+
+    /* UPLOAD */
+    PORT_UPLOAD: 4089,
+    UPLOAD_PATHS: '/ERP_CLOUD/uploads',
+    PATH_INVOICES: '/ERP_CLOUD/uploads/pdf',
+    PATHS_TEMPLATE: '/ERP_CLOUD/templates',
+    PATH_PRINT_LOGS_DOCS: '/ERP_CLOUD/print_logs_docs',
+    PATH_WINDOW_PRINT_LOGS_DOCS: '/ERP_CLOUD/window_print_logs_docs',
+    PATH_PRINT_LOGS: '/ERP_CLOUD/print_logs',
+    PATH_PRINT_DOCX_DIR: 'F:/ERP_CLOUD/print_logs/docx',
+    PATH_PRINT_PDF_DIR: 'F:/ERP_CLOUD/print_logs/pdf',
+    HOST_QR_CODE: '192.168.35.150:8098',
+    UPLOAD_USER_PATHS: '/ERP_CLOUD/user_files',
+    UPLOAD_USER_PATHS_ROOT: 'F:/ERP_CLOUD/user_files',
+    PATH_PRINT_INFO_USER: 'localhost:8089',
+
+    /* SOCKET */
+
+    PORT_API_GATEWAY: 4086,
+    PORT_SOCKET_GATEWAY: 8989,
+
+
+};

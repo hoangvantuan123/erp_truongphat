@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package report.sales.sales_report;
+
+
+service SalesReportService {
+  rpc SSLEISItemAnalysisQ (SSLEISItemAnalysisQRequest) returns (Response);
+}
+
+
+message SSLEISItemAnalysisQResult {
+    string SMYearActPlan = 1; 
+    string SMYearActPlanName = 2;
+    string BizUnit = 3; 
+    string BizUnitName = 4;
+   string FromYM = 5;
+   string ToYM  =6;
+   string SMOutSales = 7;
+   string SMOutSalesName = 8;
+   string SMSTDQueryType = 9;
+   string SMSTDQueryTypeName = 10;
+   string UMItemClass = 11;
+    string UMItemClassName = 12;
+    string SMQryUnitSeq = 13;
+    string SMRateAmt = 14;
+    string SMRateAmtName = 15;
+    string SMTermsKind = 16;
+    string SMTermsKindName  = 17;
+    string Ranking = 18;
+    string WorkingTag = 19;
+  }
+
+
+
+
+
+message SSLEISItemAnalysisQRequest {
+  repeated SSLEISItemAnalysisQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

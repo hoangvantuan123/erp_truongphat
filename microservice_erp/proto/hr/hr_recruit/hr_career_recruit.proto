@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package hr.hr_recruit.hr_career_recruit;
+
+
+service HrCareerRecruitService {
+  rpc HrCareerRecruitA (HrCareerRecruitARequest) returns (Response);
+  rpc HrCareerRecruitU (HrCareerRecruitURequest) returns (Response);
+  rpc HrCareerRecruitD (HrCareerRecruitDRequest) returns (Response);
+  rpc HrCareerRecruitQ (HrCareerRecruitQRequest) returns (Response);
+}
+
+message HrCareerRecruitAResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+  string CompanyName =  5;
+  string Position = 6;
+  int32 LaborScale = 7;
+  string JoinDate = 8;
+
+  string ResignDate = 9;
+  string JobDescription  = 10;
+  string Salary = 11;
+  string ReasonForLeaving = 12;
+
+
+
+}
+
+
+
+message HrCareerRecruitUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+  string CompanyName =  5;
+  string Position = 6;
+  int32 LaborScale = 7;
+  string JoinDate = 8;
+  
+  string ResignDate = 9;
+  string JobDescription  = 10;
+  string Salary = 11;
+  string ReasonForLeaving = 12;
+  string IdSeq  = 13;
+
+}
+message HrCareerRecruitDResult { 
+  int32 IdxNo = 1;
+  string IdSeq = 2;
+}
+
+message HrCareerRecruitQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+  string KeyItem5 = 5;
+  string KeyItem6 = 6;
+}
+
+
+
+message HrCareerRecruitARequest {
+  repeated HrCareerRecruitAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrCareerRecruitURequest {
+  repeated  HrCareerRecruitUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrCareerRecruitDRequest {
+  repeated  HrCareerRecruitDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrCareerRecruitQRequest {
+  HrCareerRecruitQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

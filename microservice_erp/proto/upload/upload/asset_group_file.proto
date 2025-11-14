@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package upload.upload.asset_group_file;
+
+service AssetGroupFileService {
+  rpc AssetGroupFileA (AssetGroupFileARequest) returns (Response);
+  rpc AssetGroupFileU (AssetGroupFileURequest) returns (Response);
+  rpc AssetGroupFileD (AssetGroupFileDRequest) returns (Response);
+  rpc AssetGroupFileQ (AssetGroupFileQRequest) returns (Response);
+  rpc AssetGroupFileP (AssetGroupFilePRequest) returns (Response);
+  rpc AssetGroupFileO (AssetGroupFileORequest) returns (Response);
+}
+
+
+message AssetGroupFileAResult { 
+    int32 IdxNo = 1;
+    int32 CreatedBy = 2;
+    int32 UpdatedBy = 3;
+
+    string AssetMSeq =4;
+    string FormCode = 5; 
+    string FieldName = 6;
+    string OriginalName = 7;
+    string  Encoding = 8;
+    string MimeType = 9;
+    string Destination = 10;
+    string Filename =11;
+    string Path = 12;
+    string Size = 13;
+    bool IsActive =14;
+    string GroupsTempCode = 15;
+
+}
+message AssetGroupFileUResult { 
+    int32 IdxNo = 1;
+    int32 UpdatedBy = 2;
+
+    string IdSeq =3;
+    int32 IsFeatured =4;
+   
+
+}
+
+
+
+
+
+
+message AssetGroupFileDResult { 
+  int32 IdxNo = 1;
+  string IdSeq = 2;
+}
+
+message AssetGroupFileQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+}
+
+message AssetGroupFilePResult {
+    string filename = 1;
+    bytes content = 2;
+    string mimetype = 3;
+    string encoding = 4;
+    string size = 5;
+    string fieldname = 6;
+  }
+message TempIdPResult {
+    string IdSeq = 1;
+    string Time = 2;
+    int32 CreatedBy = 3;
+    string AssetMSeq = 4;
+  }
+message AssetGroupFileOResult {
+     string path = 1;
+}
+
+message AssetGroupFileARequest {
+  repeated AssetGroupFileAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message AssetGroupFileURequest {
+  repeated AssetGroupFileUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message AssetGroupFileDRequest {
+  repeated  AssetGroupFileDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message AssetGroupFileQRequest {
+  AssetGroupFileQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message AssetGroupFileORequest {
+  AssetGroupFileOResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message AssetGroupFilePRequest {
+    repeated AssetGroupFilePResult files = 1;
+     TempIdPResult result = 2;
+    map<string, string> metadata = 3;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

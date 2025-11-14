@@ -1,0 +1,355 @@
+syntax = "proto3";
+
+package pdmm.pdsfc_work_report;
+
+service PdsfcWorkReportService {
+  rpc SPDSFCWorkReportQ2 (SPDSFCWorkReportQ2Request) returns (MetadataResponse);
+  rpc SCOMSourceDailyQ (SCOMSourceDailyQRequest) returns (MetadataResponse);
+  rpc SPDSFCWorkReportMatQ (SPDSFCWorkReportMatQRequest) returns (MetadataResponse);
+  rpc SPDSFCWorkReportToolQ (SPDSFCWorkReportToolQRequest) returns (MetadataResponse);
+  rpc SPDSFCWorkReportWorkEmpQ (SPDSFCWorkReportWorkEmpQRequest) returns (MetadataResponse);
+  rpc SPDSFCWorkReportNonWorkQ (SPDSFCWorkReportNonWorkQRequest) returns (MetadataResponse);
+  rpc SLGInOutDailyQ (SLGInOutDailyQRequest) returns (MetadataResponse);
+  rpc SLGInOutDailyItemQ (SLGInOutDailyItemQRequest) returns (MetadataResponse);
+
+  rpc SPDSFCWorkReportAUD (SPDSFCWorkReportAUDRequest) returns (MetadataResponse);
+  rpc SPDSFCWorkReportMatAUD (SPDSFCWorkReportMatAUDRequest) returns (MetadataResponse);
+  rpc SPDSFCWorkReportWorkEmpAUD (SPDSFCWorkReportWorkEmpAUDRequest) returns (MetadataResponse);
+  rpc SLGLotNoMasterAUD (SLGLotNoMasterAUDRequest) returns (MetadataResponse);
+  rpc SPDSFCWorkReportNonWorkAUD (SPDSFCWorkReportNonWorkAUDRequest) returns (MetadataResponse);
+  rpc SLGInOutDailyD (SLGInOutDailyDRequest) returns (MetadataResponse);
+  rpc SLGInOutDailyDItem (SLGInOutDailyDItemRequest) returns (MetadataResponse);
+
+
+
+  rpc SPDSFCWorkReportMatQCheck (SPDSFCWorkReportMatQCheckRequest) returns (MetadataResponse);
+}
+
+
+message SPDSFCWorkReportAUDResult {
+  string ItemBomRevName = 1;
+  int32 ProdQty = 2;
+  int32 OKQty = 3;
+  int32 BadQty = 4;
+  int32 ReOrderQty = 5;
+  int32 LossCostQty = 6;
+  int32 DisuseQty = 7;
+  string WorkStartTime = 8;
+  string WorkEndTime = 9;
+  int32 WorkHour = 10;
+  int32 ProcHour = 11;
+  int32 WorkerQty = 12;
+  string RealLotNo = 13;
+  string SerialNoFrom = 14;
+  string SerialNoTo = 15;
+  string WorkCondition1 = 16;
+  string WorkCondition2 = 17;
+  string WorkCondition3 = 18;
+  int32 WorkCondition4 = 19;
+  int32 WorkCondition5 = 20;
+  int32 WorkCondition6 = 21;
+  int32 WorkCondition7 = 22;
+  int32 StdUnitReOrderQty = 23;
+  int32 StdUnitLossCostQty = 24;
+  int32 StdUnitDisuseQty = 25;
+  string Remark = 26;
+  string ProcRev = 27;
+  int32 WorkReportSeq = 28;
+  int32 WorkOrderSeq = 29;
+  int32 WorkCenterSeq = 30;
+  int32 GoodItemSeq = 31;
+  int32 AssyItemSeq = 32;
+  int32 ProcSeq = 33;
+  int32 ProdUnitSeq = 34;
+  int32 ChainGoodsSeq = 35;
+  int32 EmpSeq = 36;
+  string WorkOrderSerl = 37;
+  int32 IsProcQC = 38;
+  int32 IsLastProc = 39;
+  int32 IsPjt = 40;
+  int32 PJTSeq = 41;
+  int32 WBSSeq = 42;
+  int32 SubEtcInSeq = 43;
+  string WorkTimeGroup = 44;
+  int32 QCSeq = 45;
+  string QCNo = 46;
+  int32 PreProdWRSeq = 47;
+  int32 PreAssySeq = 48;
+  int32 PreAssyQty = 49;
+  string PreLotNo = 50;
+  int32 PreUnitSeq = 51;
+  string FactUnit = 52;
+  int32 CustSeq = 53;
+  string WorkType = 54;
+  string TABLE_NAME = 55;
+  string WorkDate = 56;
+  int32 DeptSeq = 57;
+
+  int32 IdxNo=58;
+  string WorkingTag = 59;
+  string WorkOrderNo = 60;
+  int32 FactUnitMater = 61;
+  string DateMater = 62;
+  int32 DeptSeqMater = 63;
+  int32 StdUnitProdQty = 64;
+  int32 GoodInSeq = 65;
+}
+
+
+message SPDSFCWorkReportMatAUDResult {
+  int32 IdxNo = 1;
+  string Date = 2;
+  int32 MatItemSeq = 3;
+  int32 DeptSeq = 4;
+  int32 FactUnit = 5;
+  int32 Qty = 6;
+  int32 StdUnitQty = 7;
+  string RealLotNo = 8;
+  string Remark = 9;
+  int32 WorkReportSeq = 10;
+  int32 ItemSerl = 11;
+  int32 MatUnitSeq = 12;
+  int32 StdUnitSeq = 13;
+  int32 WHSeq = 14;
+  int32 GoodItemSeq = 15;
+  string WorkingTag = 16;
+  string MatItemName  = 17;
+  string MatItemSpec  = 18;
+  int32 ProcSeq  = 19;
+}
+message SPDSFCWorkReportWorkEmpAUDResult {
+  int32 IdxNo = 1;
+  int32 UMWorkCenterEmpType = 2;
+  string WorkStartTime = 3;
+  string WorkEndTime = 4;
+  int32 EmpCnt = 5;
+  string WorkHour = 6;
+  string ManHour = 7;
+  int32 EmpSeq = 8;
+  int32 WorkReportSeq = 9;
+  string Remark = 10;
+  string WorkingTag = 11;
+  int32 Serl = 12;
+
+
+
+}
+message SLGLotNoMasterAUDResult {
+
+  int32 InOutSeq = 1;
+  int32 InOutSerl = 2;
+  string ItemName = 3;
+  string ItemNo = 4;
+  string Spec = 5;
+  string UnitName = 6;
+  float Price = 7;
+  float Qty = 8;
+  float Amt = 9;
+  string InOutDetailKindName = 10;
+  string STDUnitName = 11;
+  float STDQty = 12;
+  string InWHName = 13;
+  string InOutKindName = 14;
+  string LotNo = 15;
+  string SerialNo = 16;
+  string InOutRemark = 17;
+  string DVPlaceName = 18;
+  string OriItemName = 19;
+  string OriUnitName = 20;
+  string CCtrName = 21;
+  float OriSTDQty = 22;
+  float OriQty = 23;
+  int32 OriItemSeq = 24;
+  int32 OriUnitSeq = 25;
+  string IsStockSales = 26;
+  string InOutDetailKind = 27;
+  string InOutKind = 28;
+  float EtcOutVAT = 29;
+  int32 UnitSeq = 30;
+  int32 OutWHSeq = 31;
+  int32 InWHSeq = 32;
+  int32 DVPlaceSeq = 33;
+  int32 CCtrSeq = 34;
+  float EtcOutAmt = 35;
+  int32 ItemSeq = 36;
+  string OutWHName = 37;
+  int32 IdxNo = 38;
+  string WorkingTag = 39;
+  int32 WorkReportSeq = 40;
+  string InOutNo = 41;
+}
+message SLGLotNoMasterHeaderResult {
+  int32 IdxNo = 1;
+  int32 BizUnit = 2;
+  string BizUnitName =3;
+  int32 InWHSeq  = 4;
+  string InWHName = 5;
+  int32 EmpSeq = 6;
+  string EmpName = 7 ;
+  int32 DeptSeq = 8;
+  string InOutDate = 9;
+  string WorkingTag = 11;
+  string InOutNo = 12;
+  int32 InOutSeq = 13;
+}
+message SLGInOutDailyDResult {
+  int32 IdxNo = 1;
+  int32 BizUnit = 2;
+  string BizUnitName =3;
+  int32 InWHSeq  = 4;
+  string InWHName = 5;
+  int32 EmpSeq = 6;
+  string EmpName = 7 ;
+  int32 DeptSeq = 8;
+  string InOutDate = 9;
+  string WorkingTag = 11;
+  string InOutNo = 12;
+  int32 InOutSeq = 13;
+
+}
+message SPDSFCWorkReportNonWorkAUDResult {
+  int32 IdxNo = 1;
+  string WorkingTag = 2;
+  string UMNonWorkTypeL =3;
+  string UMNonWorkTypeS  = 4;
+  string WorkStartTime = 5;
+  string WorkEndTime = 6;
+  string ToolName = 7 ;
+  string ToolNo = 8;
+  string NonWorkHour = 9;
+  string Remark = 10; 
+  int32 WorkReportSeq = 11;
+  int32 Serl = 12;
+  int32 ToolSeq = 13;
+  int32 UMNonWorkTypeLSeq = 14;
+  int32 UMNonWorkTypeSSeq = 15;
+}
+message SPDSFCWorkOrderQ2Result {
+  int32 DeptSeq = 1;
+  string DeptName = 2;
+  string FactUnit = 3;
+  string WorkDate = 4;
+  int32 WorkCenterSeq = 5;
+  string WorkCenterName = 6;
+  int32 WorkReportSeq = 7;
+}
+
+message SCOMSourceDailyQResult {
+  int32 ToSeq = 1;
+  int32 ToQty = 2;
+  int32 ToSTDQty = 3;
+}
+message SPDSFCWorkReportMatQResult {
+  int32 WorkReportSeq = 1;
+  int32 FactUnit = 2;
+}
+message SPDSFCWorkReportMatQCheckResult {
+  int32 WorkReportSeq = 1;
+  int32 WorkOrderSeq = 2;
+  int32 ProcSeq = 3;
+  int32 WorkOrderSerl =4;
+}
+
+
+message SPDSFCWorkReportToolQResult {
+  int32 WorkReportSeq = 1;
+}
+message SPDSFCWorkReportNonWorkQResult {
+  int32 WorkReportSeq = 1;
+}
+message SPDSFCWorkReportWorkEmpQResult {
+  int32 WorkReportSeq = 1;
+}
+
+
+message SLGInOutDailyQResult {
+  int32 InOutSeq = 1;
+  int32 InOutType = 2;
+}
+
+message SLGInOutDailyItemQResult {
+  int32 InOutSeq = 1;
+  int32 InOutType = 2;
+}
+
+
+message SPDSFCWorkReportQ2Request {
+  SPDSFCWorkOrderQ2Result result = 1;  
+  map<string, string> metadata = 2;
+}
+message SCOMSourceDailyQRequest {
+  SCOMSourceDailyQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDSFCWorkReportMatQRequest {
+  SPDSFCWorkReportMatQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDSFCWorkReportMatQCheckRequest {
+  SPDSFCWorkReportMatQCheckResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDSFCWorkReportToolQRequest {
+  SPDSFCWorkReportToolQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SPDSFCWorkReportWorkEmpQRequest {
+  SPDSFCWorkReportWorkEmpQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDSFCWorkReportNonWorkQRequest {
+  SPDSFCWorkReportNonWorkQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SLGInOutDailyQRequest {
+  SLGInOutDailyQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SLGInOutDailyItemQRequest {
+  SLGInOutDailyItemQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SPDSFCWorkReportAUDRequest {
+  repeated SPDSFCWorkReportAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDSFCWorkReportMatAUDRequest {
+  repeated SPDSFCWorkReportMatAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDSFCWorkReportWorkEmpAUDRequest {
+  repeated SPDSFCWorkReportWorkEmpAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SLGLotNoMasterAUDRequest {
+  repeated SLGLotNoMasterAUDResult result = 1;  
+   SLGLotNoMasterHeaderResult header = 2;  
+  map<string, string> metadata = 3;
+}
+message SLGInOutDailyDRequest {
+  repeated  SLGInOutDailyDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SLGInOutDailyDItemRequest {
+  repeated  SLGLotNoMasterAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDSFCWorkReportNonWorkAUDRequest {
+  repeated SPDSFCWorkReportNonWorkAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message ErrorDetail {
+  int32 IDX_NO = 1;
+  string Name = 2;
+  string result = 3;
+}
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  repeated ErrorDetail errors = 4;
+}

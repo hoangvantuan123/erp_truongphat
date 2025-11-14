@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package pdequipt_inspect_detail;
+
+service PdEquiptInspectDetailService {
+  rpc searchEquiptInspectDetail (PdEquipDetailSearchRequest) returns (Response);
+  rpc getToolDetailMatByTermSerl (PdEquipDetailSearchRequest) returns (Response);
+  rpc createOrUpdateInspectDetail (PdEquipInspectRequest) returns (Response);
+  rpc deleteInspect (PdToolInspectRequest) returns (Response);
+  rpc deleteInspectMat (PdToolMatRequest) returns (Response);
+
+  
+
+}
+
+message Result {
+  int32 ToolSeq = 1;
+  int32 TermSerl = 2;
+}
+
+
+message PdInspectRequest { 
+  
+  string Status = 1;
+  string InspectName = 2;
+  string CustName = 3;
+  string SMTermTypeName = 4;
+  int32 SMTermType = 5;
+  int32 Term = 6;
+  string TotShot = 7;
+  string Remark = 8;
+  string LastQCDate = 9;
+  string NextQCDate = 10;
+  int32 CustSeq = 11;
+  string TermSerl = 12;
+  string ToolSeq = 13;
+  string Id = 14;
+  int32 IdxNo = 15;
+  bool isEdited = 16;
+  string WorkingTag = 17;
+
+}
+
+
+message InspectMatRequest { 
+  string Status = 1;
+  string ItemNo = 2;
+  string Spec = 3;
+  string UnitName = 4;
+  string NeedQtyNumerator = 5;
+  string NeedQtyDenominator = 6;
+  string PartPrice = 7;
+  string PartAmt = 8;
+  string ItemName = 9;
+  string Id = 10;
+  int32 IdxNo = 11;
+  int32 ItemSeq = 12;
+  int32 UnitSeq = 13;
+  bool isEdited = 14;
+  string WorkingTag = 15;
+  int32 TermSerl = 16;
+  int32 ToolSeq = 17;
+  int32 Serl = 18;
+
+}
+
+
+
+message PdEquipDetailSearchRequest {
+  repeated Result result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message PdToolMatRequest {
+  repeated InspectMatRequest dataMat = 1;  
+  map<string, string> metadata = 2;
+}
+
+message PdToolInspectRequest {
+  repeated PdInspectRequest deleteInspect = 1;  
+  map<string, string> metadata = 2;
+}
+
+message PdEquipInspectRequest {
+  repeated PdInspectRequest dataInspectDetail = 1;  
+  repeated InspectMatRequest dataDetailMat = 2;  
+  map<string, string> metadata = 3;
+}
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

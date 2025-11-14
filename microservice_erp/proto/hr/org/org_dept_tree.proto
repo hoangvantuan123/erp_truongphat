@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package hr.org.org_dept_tree;
+
+
+service OrgDeptService {
+  rpc searchTreeOrg (OrgDeptSearchRequest) returns (Response);
+  rpc getDeptNew (OrgDeptNewSearchRequest) returns (Response);
+  rpc createOrUpdateOrgTree (OrgDeptTree) returns (Response);
+ 
+}
+
+message OrgDeptSearchResult { 
+  int32 OrgType = 1;
+  string baseDate = 2;
+  string isDisDate = 3;
+}
+
+message OrgDeptNewResult { 
+  int32 OrgType = 1;
+  string BaseDate = 2;
+}
+
+message OrgDeptTreeResult { 
+  string BaseDate = 1;
+  string DeptName = 2;
+  int32 DeptSeq = 3;
+  int32 IsFile = 4;
+  int32 Level = 5;
+  string NodeImg = 6;
+  string NodeName = 7;
+  int32 OrgType = 8;
+  int32 ParentSeq = 9;
+  int32 Seq = 10;
+  int32 Sort = 11;
+  repeated OrgDeptTreeResult children = 12;
+}
+
+message OrgDeptSearchRequest {
+  repeated OrgDeptSearchResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message OrgDeptNewSearchRequest {
+  repeated  OrgDeptNewResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message OrgDeptTree {
+  repeated  OrgDeptTreeResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

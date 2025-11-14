@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package wh.produ.sda_item_list;
+
+
+service SDAItemListService {
+  rpc SDAItemListQ (SDAItemListQRequest) returns (Response);
+  rpc SDAItemListAUD (SDAItemListAUDRequest) returns (Response);
+}
+
+
+message SDAItemListQResult {
+    string AssetSeq = 1;
+    string UMItemClassL = 2;
+    string UMItemClassM = 3;
+    string UMItemClassS = 4;
+    string SMInOutKind = 5;
+    string SMStatus = 6;
+    string SMABC = 7;
+    string MakerSeq = 8;
+    string DeptSeq = 9;
+    string EmpSeq = 10;
+    string UnitSeq = 11;
+    string ModelSeq = 12;
+    string ItemName = 13;
+    string ItemNo = 14;
+    string Spec = 15;
+    string FromDate = 16;
+    string ToDate = 17;
+
+  }
+
+message SDAItemListAUDResult {
+
+    int32 ItemSeq = 1;
+    string ItemName = 2;
+    string ItemNo = 3;
+    string Spec = 4;
+    string TrunName = 5;
+    string AssetName = 6;
+    int32 AssetSeq = 7;
+    string UnitName = 8;
+    int32 UnitSeq = 9;
+    string SMStatusName = 10;
+    string SMStatus = 11;
+    string SMInOutKind = 12;
+    string DeptName = 13;
+    int32 DeptSeq = 14;
+    string EmpName = 15;
+    int32 EmpSeq = 16;
+    string ModelName = 17;
+    int32 ModelSeq = 18;
+    string STDItemName = 19;
+    string ItemSName = 20;
+    string ItemEngName = 21;
+    string ItemEngSName = 22;
+    string ItemClassLName = 23;
+    string ItemClassMName = 24;
+    string ItemClassSName = 25;
+    string UMItemClassS = 26;
+    int32 IsInherit = 27;
+    int32 IsVessel = 28;
+    string IsVat = 29;
+    string SMVatKind = 30;
+    string SMVatType = 31;
+    string IsOption = 32;
+    string IsSet = 33;
+    string VatKindName = 34;
+    string VatTypeName = 35;
+    int32 Guaranty = 36;
+    string HSCode = 37;
+    int32 IsRollUnit = 38;
+    string IsSerialMng = 39;
+    string SeriNoCd = 40;
+    string IsLotMng = 41;
+    int32 IsQtyChange = 42;
+    string SafetyStk = 43;
+    string SMLimitTermKind = 44;
+    int32 LimitTerm = 45;
+    int32 STDLoadConvQty = 46;
+    string SMConsgnmtKind = 47;
+    string BOMUnitSeq = 48;
+    int32 OutLoss = 49;
+    int32 InLoss = 50;
+    string SMMrpKind = 51;
+    string SMOutKind = 52;
+    string SMProdMethod = 53;
+    string SMProdSpec = 54;
+    string ConsgnmtKind = 55;
+    string BOMUnitName = 56;
+    string MrpKind = 57;
+    string OutKind = 58;
+    string ProdMethod = 59;
+    string ProdSpec = 60;
+    string UMPurGroup = 61;
+    string MkCustSeq = 62;
+    string PurCustSeq = 63;
+    int32 MinQty = 64;
+    string StepQty = 65;
+    string SMPurKind = 66;
+    int32 IsPurVat = 67;
+    string IsAutoPurCreate = 68;
+    int32 OrderQty = 69;
+    int32 DelvDay = 70;
+    string CustomTaxRate = 71;
+    string PurGroup = 72;
+    string MkCustName = 73;
+    string PurCustName = 74;
+    int32 PurKind = 75;
+    string SMPurProdType = 76;
+    string PurProdType = 77;
+    string SMInOutKindName = 78;
+    string SMLimitTermKindName = 79;
+    string SMABCName = 80;
+    string SMABC = 81;
+    int32 IsInQC = 82;
+    int32 IsOutQC = 83;
+    int32 IsLastQC = 84;
+    string ItemRemark = 85;
+
+
+  string IdxNo = 86;
+  string WorkingTag = 87;
+
+  }
+
+
+
+
+
+message SDAItemListQRequest {
+  repeated SDAItemListQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SDAItemListAUDRequest {
+  repeated SDAItemListAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

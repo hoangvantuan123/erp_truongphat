@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package report.cogs.cogs_report;
+
+
+service CogsReportService {
+  rpc SESMCFProfitAmtQ (SESMCFProfitAmtQRequest) returns (Response);
+  rpc SESMCFMnfcostasQ (SESMCFMnfcostasQRequest) returns (Response);
+  rpc VTNSESMZProdCostMonListQ (VTNSESMZProdCostMonListQRequest) returns (Response);
+  rpc SBAZProdCostItemListQ (SBAZProdCostItemListQRequest) returns (Response);
+}
+
+
+message SESMCFProfitAmtQResult {
+    int32 ProfCostUnit = 1;
+    string SMCostMng =2;
+    string SMCostDiv = 3;
+    string CostYMFr = 4;
+    string CostYMTo = 5;
+    string UMCustClass = 6;
+    int32 ProfitDivSeq = 7;
+    string CustSeq = 8;
+    string PJTSeq = 9;
+  }
+  
+
+message SESMCFMnfcostasQResult {
+    int32 ProfCostUnit = 1;
+    string SMCostMng =2;
+    string SMCostDiv = 3;
+    string CostYMFr = 4;
+    string CostYMTo = 5;
+    string SMQryUnitSeq = 6;
+    int32 ProfitDivSeq = 7;
+    string CustSeq = 8;
+    string PJTSeq = 9;
+    string DeptSeq = 10;
+    string UMCustClass = 11;
+  }
+  
+
+message VTNSESMZProdCostMonListQResult {
+   string RptUnit = 1;
+   string SMCostMng = 2;
+   string CostMngAmdSeq  = 3;
+   string CostUnit = 4;
+   string CostYY = 5;
+   string AssetSeq = 6;
+   string QueryKind = 7;
+   string ItemSeq = 8;
+   string ItemName = 9;
+   string ItemNo = 10;
+   string ItemClassKind = 11;
+   string ItemClassSeq  = 12;
+   string PlanYear = 13;
+   string LanguageSeq = 14;
+   string WorkingTag = 15;
+
+  }
+  
+
+message SBAZProdCostItemListQResult {
+   string RptUnit = 1;
+   string SMCostMng = 2;
+   string FSDomainSeq  = 3;
+   string CostUnit = 4;
+   string CostYMFr = 5;
+   string CostYMTo = 6;
+   string ItemClassKind = 7;
+   string ItemClassSeq = 8;
+   string ItemSeq  =9;
+   string ItemNo = 10;
+   string AssetSeq = 11;
+   string AssetGroupSeq = 12;
+   int32 IsAssetType = 13;
+   string WorkOrderNo = 14;
+   string PlanYear = 15;
+   string CostMngAmdSeq = 16;
+   int32 IsAssetAcc = 17;
+
+
+
+  }
+  
+
+
+
+
+message SESMCFProfitAmtQRequest {
+  repeated SESMCFProfitAmtQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SESMCFMnfcostasQRequest {
+  repeated SESMCFMnfcostasQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message VTNSESMZProdCostMonListQRequest {
+  repeated VTNSESMZProdCostMonListQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SBAZProdCostItemListQRequest {
+  repeated SBAZProdCostItemListQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

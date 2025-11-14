@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.page-loading {
+  cursor: progress !important;
+}
+
+.page-loading>* {
+  pointer-events: none !important;
+}
+
+.page-loading-false {
+  cursor: progress !important;
+}
+
+/* .ant-modal-content {
+  padding: 10px !important;
+}
+ */
+
+:where(.css-dev-only-do-not-override-qnu6hi).ant-drawer-right>.ant-drawer-content-wrapper {
+  padding: 13px;
+  box-shadow: none;
+}
+
+:where(.css-dev-only-do-not-override-qnu6hi).ant-drawer .ant-drawer-content {
+  border-radius: 13px;
+}
+
+:where(.css-dev-only-do-not-override-qnu6hi).ant-card .ant-card-body {
+  padding: 14px;
+}
+
+:where(.css-dev-only-do-not-override-qnu6hi).ant-drawer .ant-drawer-body {
+  padding: 14px;
+}
+
+@media (max-width: 768px) {
+  :where(.css-dev-only-do-not-override-qnu6hi).ant-drawer .ant-drawer-content-wrapper {
+    padding: 12px;
+    box-shadow: none;
+  }
+
+  :where(.css-dev-only-do-not-override-qnu6hi).ant-drawer .ant-drawer-content {
+    border-radius: 12px;
+  }
+
+  :where(.css-dev-only-do-not-override-qnu6hi).ant-drawer .ant-drawer-content {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+}
+
+.spinner {
+  position: relative;
+  width: 15.7px;
+  height: 15.7px;
+}
+
+.spinner div {
+  animation: spinner-4t3wzl 1.875s infinite backwards;
+  background-color: #474bff;
+  border-radius: 50%;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #a3a3a3;
+  border: 3px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a3a3a3;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #a3a3a3 #f1f1f1;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 12px;
+  /* Chiều cao của thanh cuộn ngang */
+}
+
+::-webkit-scrollbar-track:horizontal {
+  background: #f1f1f1;
+  /* Màu nền của track */
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #a3a3a3;
+  /* Màu của thanh cuộn */
+  border-radius: 6px;
+  /* Bo góc thanh cuộn */
+  border: 3px solid #f1f1f1;
+  /* Viền xung quanh thanh cuộn */
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background-color: #a3a3a3;
+  /* Màu thanh cuộn khi hover */
+}
+
+
+/* Xóa viền của container */
+.rpv-default-layout__container {
+  border: 0 !important;
+  box-shadow: none !important;
+  /* Xóa cả bóng nếu có */
+}
+
+/* Ẩn footer hoặc giới thiệu nếu còn */
+.o-footer,
+.o-header-logo,
+.o-about {
+  display: none !important;
+}
+
+
+/* styles.css hoặc trong global stylesheet */
+.ant-descriptions-bordered,
+.ant-descriptions-bordered .ant-descriptions-view {
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-radius: 0 !important;
+
+}
+
+.ant-descriptions-bordered,
+.ant-descriptions-bordered .ant-descriptions-view {
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-radius: 0 !important;
+
+}
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background-color: #f7f7f7!important; 
+  font-weight: bold;
+  color: #333;
+}
+
+.ant-descriptions-bordered .ant-descriptions-item-label,
+.ant-descriptions-bordered .ant-descriptions-item-content {
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-radius: 0 !important;
+
+}
+
+

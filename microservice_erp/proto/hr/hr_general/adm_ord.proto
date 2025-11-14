@@ -1,0 +1,179 @@
+syntax = "proto3";
+
+package hr.hr_general.adm_ord;
+
+
+service HrAdmGeneralService {
+  rpc searchAdmOrd (AdmOrdSearchRequest) returns (Response);
+  rpc saveAdmOrd (AdmOrdSaveRequest) returns (Response);
+  rpc deleteAdmOrd (AdmOrdSaveRequest) returns (Response);
+  rpc searchAdmMultiOrd (AdmMultiOrdSearchRequest) returns (Response);
+  rpc searchAdmMultiOrdObj (AdmMultiOrdObjRequest) returns (Response);
+  rpc getAdmOrdByOrdDate (AdmOrdByOrdDateRequest) returns (Response);
+  rpc saveAdmMultiOrd (AdmMultiOrdRequest) returns (Response);
+  rpc deleteAdmMultiOrd (AdmMultiOrdRequest) returns (Response);
+}
+
+message AdmOrdSearchResult { 
+  int32 IdxNo = 1;
+  int32 UMOrdTypeSeq = 2;
+  int32 SMOrdAppSeq = 3;
+  string OrdName = 4;
+}
+
+
+
+message AdmOrdSaveResult {
+  int32 IdxNo = 1;
+  string OrdName = 2;
+  string UMOrdTypeName = 3;
+  string SMOrdAppName = 4;
+  string UMWsName = 5;
+  string IsPaid = 6;
+  string IsExAvgPay = 7;
+  string IsExWkTerm = 8;
+  int32 UMOrdTypeSeq = 9;
+  int32 SMOrdAppSeq = 10;
+  int32 UMWsSeq = 11;
+  string status = 12;
+  string OrdSeq = 13;
+}
+
+
+
+message AdmMultiOrdSearchResult { 
+  int32 IdxNo = 1;
+  string FrOrdDate = 2;
+  string ToOrdDate = 3;
+  int32 DeptSeq = 4;
+  int32 PosSeq = 5;
+  int32 OrdSeq = 6;
+  int32 UMJpSeq = 7;
+  int32 EmpSeq = 8;
+  int32 IsLast = 9;
+  int32 UMPgSeq = 10;
+  int32 UMJdSeq = 11;
+  int32 UMJoSeq = 12;
+  int32 EntRetTypeSeq = 13;
+  int32 PuSeq = 14;
+  int32 PtSeq = 15;
+  int32 UMWsSeq = 16;
+
+}
+
+message AdmOrdByOrdDateResult {
+  int32 EmpSeq = 1;
+  string OrdDate = 2;
+  int32 OrdSeq = 3;
+  int32 DeptSeq = 4;
+  int32 PosSeq = 5;
+  int32 UMJpSeq = 6;
+  int32 UMPgSeq = 7;
+  int32 UMJdSeq = 8;
+  int32 UMJoSeq = 9;
+  int32 PuSeq = 10;
+  int32 PtSeq = 11;
+  int32 UMWsSeq = 12;
+}
+
+message AdmMultiOrdResult { 
+  int32 IdxNo = 1;
+  string EmpName = 2;
+  int32 EmpSeq = 3;
+  string EmpID = 4;
+  string CurrOrdDate = 5;
+  string CurrOrdName = 6;
+  string OrdDate = 7;
+  string OrdName = 8;
+  int32 OrdSeq = 9;
+  string DeptName = 10;
+  int32 DeptSeq = 11;
+  string PosName = 12;
+  int32 PosSeq = 13;
+  string UMJpName = 14;
+  int32 UMJpSeq = 15;
+  string Ps = 16;
+  string UMPgName = 17;
+  int32 UMPgSeq = 18;
+  string UMJdName = 19;
+  int32 UMJdSeq = 20;
+  string UMJoName = 21;
+  int32 UMJoSeq = 22;
+  string JobName = 23;
+  int32 JobSeq = 24;
+  string PuName = 25;
+  int32 PuSeq = 26;
+  string PtName = 27;
+  int32 PtSeq = 28;
+  string UMWsName = 29;
+  int32 UMWsSeq = 30;
+  bool IsBoss = 31;
+  bool IsWkOrd = 32;
+  string WkDeptName = 33;
+  int32 WkDeptSeq = 34;
+  string Contents = 35;
+  string Remark = 36;
+  bool IsLast = 37;
+  string status = 38;
+  int32 IntSeq = 39;
+  int32 PrevEmpSeq = 40;
+  
+}
+
+
+message AdmMultiOrdObjResult {
+  int32 IdxNo = 1;
+  string FrOrdDate = 2;
+  string ToOrdDate = 3;
+  int32 DeptSeq = 4;
+  int32 PosSeq = 5;
+  int32 OrdSeq = 6;
+  int32 UMJpSeq = 7;
+  int32 EmpSeq = 8;
+  bool IsLast = 9;
+  int32 UMPgSeq = 10;
+  int32 UMJdSeq = 11;
+  int32 UMJoSeq = 12;
+  int32 EntRetTypeSeq = 13;
+  int32 PuSeq = 14;
+  int32 PtSeq = 15;
+  int32 UMWsSeq = 16;
+}
+  
+
+message AdmOrdSearchRequest {
+  repeated AdmOrdSearchResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message AdmOrdSaveRequest {
+  repeated  AdmOrdSaveResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message AdmMultiOrdSearchRequest {
+  repeated AdmMultiOrdSearchResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message AdmOrdByOrdDateRequest {
+  repeated AdmOrdByOrdDateResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message AdmMultiOrdRequest {
+  repeated AdmMultiOrdResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message AdmMultiOrdObjRequest {
+  repeated AdmMultiOrdObjResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

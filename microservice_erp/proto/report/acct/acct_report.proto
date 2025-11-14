@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package report.acct.acct_report;
+
+
+service AcctReportService {
+  rpc SACLedgerQueryAccBalanceQ (SACLedgerQueryAccBalanceQRequest) returns (Response);
+  rpc SACLedgerQueryDetaBalanceQ (SACLedgerQueryDetailedBalanceQRequest) returns (Response);
+  rpc SACSlipRowSRemDetaBalanceQ (SACSlipRowSRemDetaBalanceQRequest) returns (Response);
+  rpc SACLedgerQueryAccRemBalanceQ (SACLedgerQueryAccRemBalanceQRequest) returns (Response);
+}
+
+
+message SACLedgerQueryAccBalanceQResult {
+  string FSDomainSeq = 1;
+  string AccUnit = 2;
+  string AccDate = 3;
+  string AccDateTo = 4;
+  string SlipUnit = 5;
+
+  string AccSeqFr = 6;
+  string AccSeqTo = 7;
+  string UMCostType = 8;
+  string LinkCreateID = 9;
+  string SMAccStd  = 10;
+  string LanguageSeq = 11;
+  string WorkingTag = 12;
+  }
+message SACLedgerQueryDetailedBalanceQResult {
+ string AccUnit = 1;
+ string AccDate = 2;
+ string AccDateTo = 3;
+ string CurrSeq = 4;
+ string AccSeq = 5;
+ string UMCostType = 6;
+ string SlipUnit = 7;
+ string RemSeq  =8;
+ string RemValSeq = 9;
+ string LinkCreateID = 10;
+ string SMAccStd = 11;
+
+ string LanguageSeq = 12;
+ string WorkingTag = 13;
+
+  }
+message SACSlipRowSRemDetaBalanceQResult {
+ string AccUnit = 1;
+ string AccDate = 2;
+ string AccDateTo = 3;
+ string CurrSeq = 4;
+ string AccSeq = 5;
+ string UMCostType = 6;
+ string SlipUnit = 7;
+ string RemSeq  =8;
+ string RemValSeq = 9;
+ string FSDomainSeq = 10;
+ string SMAccStd = 11;
+ string LanguageSeq = 12;
+ string WorkingTag = 13;
+  }
+message SACLedgerQueryAccRemBalanceQResult {
+ string AccUnit = 1;
+ string AccDate = 2;
+ string AccDateTo = 3;
+ string CurrSeq = 4;
+ string AccSeq = 5;
+ string UMCostType = 6;
+ string SlipUnit = 7;
+ string RemSeq  =8;
+ string LinkCreateID = 9;
+ string SMAccStd = 10;
+ string LanguageSeq = 11;
+ string WorkingTag = 12;
+  }
+
+
+
+
+
+message SACLedgerQueryAccBalanceQRequest {
+  repeated SACLedgerQueryAccBalanceQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SACLedgerQueryDetailedBalanceQRequest {
+  repeated SACLedgerQueryDetailedBalanceQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SACSlipRowSRemDetaBalanceQRequest {
+  repeated SACSlipRowSRemDetaBalanceQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SACLedgerQueryAccRemBalanceQRequest {
+  repeated SACLedgerQueryAccRemBalanceQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

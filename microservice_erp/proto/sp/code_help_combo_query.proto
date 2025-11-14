@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package codehelpcomboquery;
+
+service CodehelpComboQueryService {
+  rpc sendCodehelpComboQuery (CodehelpComboQueryRequest) returns (CodehelpComboQueryResponse);
+  rpc getCodeHelpCombo230427 (CodehelpComboQueryRequest) returns (CodehelpComboQueryResponse);
+}
+
+message Result { 
+  string workingTag = 1;
+  int32 languageSeq = 2;
+  string codeHelpSeq = 3;
+  int32 companySeq = 4;
+  string keyword = 5;
+  string param1 = 6;
+  string param2 = 7;
+  string param3 = 8;
+  string param4 = 9;
+}
+
+message CodehelpComboQueryRequest {
+  Result result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message CodehelpComboQueryResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

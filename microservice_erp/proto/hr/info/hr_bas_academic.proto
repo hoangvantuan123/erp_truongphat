@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_academic;
+
+
+service HrBasAcademicService {
+  rpc HrBasAcademicA (HrBasAcademicARequest) returns (Response);
+  rpc HrBasAcademicU (HrBasAcademicURequest) returns (Response);
+  rpc HrBasAcademicD (HrBasAcademicDRequest) returns (Response);
+  rpc HrBasAcademicQ (HrBasAcademicQRequest) returns (Response);
+}
+
+message HrBasAcademicAResult {
+    int32 AcademicSeq = 1;
+    int32 EmpSeq = 2;
+    int32 DeptSeq = 3;
+    int32 UMSchCareerSeq = 4;
+    int32 UMSchSeq = 5;
+    int32 UMUniversityType = 6;
+    string EtcSchNm = 7;
+    int32 UMMajorDepart = 8;
+    int32 UMMinorDepart = 9;
+    int32 UMMajorCourse = 10;
+    int32 UMMinorCourse = 11;
+    string MajorCourse = 12;
+    string MinorCourse = 13;
+    int32 SMDayNightType = 14;
+    string EntYm = 15;
+    string GrdYm = 16;
+    int32 UMDegreeType = 17;
+    string DegreeNo = 18;
+    string ThesisNm = 19;
+    string Loc = 20;
+    bool IsLastSchCareer = 21;
+    bool IsAppSchCareer = 22;
+    int32 DispSeq = 23;
+    int32 IdxNo = 24;
+  }
+  
+message HrBasAcademicUResult { 
+    int32 AcademicSeq = 1;
+    int32 EmpSeq = 2;
+    int32 DeptSeq = 3;
+    int32 UMSchCareerSeq = 4;
+    int32 UMSchSeq = 5;
+    int32 UMUniversityType = 6;
+    string EtcSchNm = 7;
+    int32 UMMajorDepart = 8;
+    int32 UMMinorDepart = 9;
+    int32 UMMajorCourse = 10;
+    int32 UMMinorCourse = 11;
+    string MajorCourse = 12;
+    string MinorCourse = 13;
+    int32 SMDayNightType = 14;
+    string EntYm = 15;
+    string GrdYm = 16;
+    int32 UMDegreeType = 17;
+    string DegreeNo = 18;
+    string ThesisNm = 19;
+    string Loc = 20;
+    bool IsLastSchCareer = 21;
+    bool IsAppSchCareer = 22;
+    int32 DispSeq = 23;
+    int32 IdxNo = 24;
+}
+
+
+message HrBasAcademicDResult { 
+    int32 AcademicSeq = 1;
+    int32 EmpSeq = 2;
+    int32 DeptSeq = 3;
+    int32 UMSchCareerSeq = 4;
+    int32 UMSchSeq = 5;
+    int32 UMUniversityType = 6;
+    string EtcSchNm = 7;
+    int32 UMMajorDepart = 8;
+    int32 UMMinorDepart = 9;
+    int32 UMMajorCourse = 10;
+    int32 UMMinorCourse = 11;
+    string MajorCourse = 12;
+    string MinorCourse = 13;
+    int32 SMDayNightType = 14;
+    string EntYm = 15;
+    string GrdYm = 16;
+    int32 UMDegreeType = 17;
+    string DegreeNo = 18;
+    string ThesisNm = 19;
+    string Loc = 20;
+    bool IsLastSchCareer = 21;
+    bool IsAppSchCareer = 22;
+    int32 DispSeq = 23;
+    int32 IdxNo = 24;
+}
+
+message HrBasAcademicQResult {
+    int32 DeptSeq = 1;
+    int32 EmpSeq = 2;
+    int32 EntRetTypeSeq = 3;
+    string EntRetTypeName = 4;
+    int32 IsLastSchCareer = 5;
+    int32 UMSchCareerSeq = 6;
+    int32 UMMajorDepart = 7;
+    int32 UMMajorCourse = 8;
+  }
+  
+
+
+message HrBasAcademicARequest {
+  repeated  HrBasAcademicAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasAcademicURequest {
+  repeated  HrBasAcademicUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasAcademicDRequest {
+  repeated  HrBasAcademicDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasAcademicQRequest {
+  HrBasAcademicQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

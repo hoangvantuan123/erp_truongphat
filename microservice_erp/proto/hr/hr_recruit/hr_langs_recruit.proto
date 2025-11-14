@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package hr.hr_recruit.hr_langs_recruit;
+
+
+service HrLangsRecruitService {
+  rpc HrLangsRecruitA (HrLangsRecruitARequest) returns (Response);
+  rpc HrLangsRecruitU (HrLangsRecruitURequest) returns (Response);
+  rpc HrLangsRecruitD (HrLangsRecruitDRequest) returns (Response);
+  rpc HrLangsRecruitQ (HrLangsRecruitQRequest) returns (Response);
+}
+
+message HrLangsRecruitAResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+
+  int32 LanguageSeq = 5;
+  int32 CertifiTypeSeq = 6;
+  string Score = 7;
+  int32 ProfiLevelSeq = 8;
+  string Notes = 9;
+  bool  IsLanguageBonus = 10; 
+  string StartDate = 11;
+
+  string EndDate = 12;
+
+
+}
+
+
+
+message HrLangsRecruitUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+
+  int32 LanguageSeq = 5;
+  int32 CertifiTypeSeq = 6;
+  string Score = 7;
+  int32 ProfiLevelSeq = 8;
+  string Notes = 9;
+  int32 IdSeq  = 10;
+
+  bool  IsLanguageBonus = 11; 
+  string StartDate = 12;
+
+  string EndDate = 13;
+  
+
+}
+message HrLangsRecruitDResult { 
+  int32 IdxNo = 1;
+  int32 IdSeq = 2;
+}
+
+message HrLangsRecruitQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+}
+
+
+
+message HrLangsRecruitARequest {
+  repeated HrLangsRecruitAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrLangsRecruitURequest {
+  repeated  HrLangsRecruitUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrLangsRecruitDRequest {
+  repeated  HrLangsRecruitDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrLangsRecruitQRequest {
+  HrLangsRecruitQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

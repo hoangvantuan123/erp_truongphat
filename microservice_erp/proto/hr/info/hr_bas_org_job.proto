@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_org_job;
+
+
+service HrBasOrgJobService {
+  rpc HrBasOrgJobA (HrBasOrgJobARequest) returns (Response);
+  rpc HrBasOrgJobU (HrBasOrgJobURequest) returns (Response);
+  rpc HrBasOrgJobD (HrBasOrgJobDRequest) returns (Response);
+  rpc HrBasOrgJobQ (HrBasOrgJobQRequest) returns (Response);
+  rpc HrBasOrgJobClassSeqQ (HrBasOrgJobQRequest) returns (Response);
+}
+
+message HrBasOrgJobAResult {
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 JobSeq = 3;
+  string JobName = 4;
+  string AbrJobName = 5;
+  string JobEngName = 6;
+  string AbrJobEngName = 7;
+  int32 UMJobClass = 8;
+  int32 CompeSeq = 9;
+  string BegDate = 10;
+  string EndDate = 11;
+  string Descript = 12;
+  int32 DispSeq = 13;
+  int32 IsUse = 14;
+}
+
+  
+message HrBasOrgJobUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 JobSeq = 3;
+  string JobName = 4;
+  string AbrJobName = 5;
+  string JobEngName = 6;
+  string AbrJobEngName = 7;
+  int32 UMJobClass = 8;
+  int32 CompeSeq = 9;
+  string BegDate = 10;
+  string EndDate = 11;
+  string Descript = 12;
+  int32 DispSeq = 13;
+  int32 IsUse = 14;
+     
+}
+
+
+message HrBasOrgJobDResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 JobSeq = 3;
+  string JobName = 4;
+  string AbrJobName = 5;
+  string JobEngName = 6;
+  string AbrJobEngName = 7;
+  int32 UMJobClass = 8;
+  int32 CompeSeq = 9;
+  string BegDate = 10;
+  string EndDate = 11;
+  string Descript = 12;
+  int32 DispSeq = 13;
+  int32 IsUse = 14;
+  
+
+}
+
+message HrBasOrgJobClassSeqResult { 
+  int32 IdxNo = 1;
+  int32 UMJobClass = 14;
+}
+
+message HrBasOrgJobQResult { 
+  int32 IsChangedMst = 1;
+  string BegDate = 2;
+  string EndDate = 3;
+  string UMJobHighClass = 4;
+  string UMJobClass = 5;
+  string JobName = 6;
+  int32 SMIsUseSeq = 7;
+
+}
+
+
+
+
+message HrBasOrgJobARequest {
+  repeated  HrBasOrgJobAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasOrgJobURequest {
+  repeated  HrBasOrgJobUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasOrgJobDRequest {
+  repeated  HrBasOrgJobDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrBasOrgJobClassSeqQ {
+ HrBasOrgJobClassSeqResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasOrgJobQRequest {
+  HrBasOrgJobQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

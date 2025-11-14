@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_prz_pnl;
+
+
+service HrBasPrzPnlService {
+  rpc HrBasPrzPnlA (HrBasPrzPnlARequest) returns (Response);
+  rpc HrBasPrzPnlU (HrBasPrzPnlURequest) returns (Response);
+  rpc HrBasPrzPnlD (HrBasPrzPnlDRequest) returns (Response);
+  rpc HrBasPrzPnlQ (HrBasPrzPnlQRequest) returns (Response);
+}
+
+message HrBasPrzPnlAResult {
+  int32 IdxNo = 1;
+  int32 PrzPnlSeq = 2;
+  int32 EmpSeq = 3;
+  int32 SMPrzPnlType = 4;
+  string PrzPnlFrDate = 5;     
+  string PrzPnlToDate = 6;      
+  int32 SMInOutType = 7;       
+  int32 UMPrzPnlSeq = 8;     
+  string PrzPnlReason = 9;       
+  string PrzPnlInst = 10;     
+  string IsAllowDeduc = 11;       
+}
+
+message HrBasPrzPnlUResult { 
+  int32 IdxNo = 1;
+  int32 PrzPnlSeq = 2;
+  int32 EmpSeq = 3;
+  int32 SMPrzPnlType = 4;
+  string PrzPnlFrDate = 5;     
+  string PrzPnlToDate = 6;      
+  int32 SMInOutType = 7;       
+  int32 UMPrzPnlSeq = 8;     
+  string PrzPnlReason = 9;       
+  string PrzPnlInst = 10;     
+  string IsAllowDeduc = 11; 
+}
+
+
+message HrBasPrzPnlDResult { 
+  int32 IdxNo = 1;
+  int32 PrzPnlSeq = 2;
+  int32 EmpSeq = 3;
+  int32 SMPrzPnlType = 4;
+  string PrzPnlFrDate = 5;     
+  string PrzPnlToDate = 6;      
+  int32 SMInOutType = 7;       
+  int32 UMPrzPnlSeq = 8;     
+  string PrzPnlReason = 9;       
+  string PrzPnlInst = 10;     
+  string IsAllowDeduc = 11; 
+
+}
+
+message HrBasPrzPnlQResult { 
+    int32 DeptSeq = 1;
+    int32 EmpSeq = 2;
+    int32 EntRetTypeSeq = 3;
+    int32 UMPrzPnlSeq = 4;
+    string QBegDate = 5;
+    string QEndDate = 6;
+    string SMPrzPnlType = 7;
+
+}
+
+
+
+
+message HrBasPrzPnlARequest {
+  repeated  HrBasPrzPnlAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasPrzPnlURequest {
+  repeated  HrBasPrzPnlUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasPrzPnlDRequest {
+  repeated  HrBasPrzPnlDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasPrzPnlQRequest {
+  HrBasPrzPnlQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

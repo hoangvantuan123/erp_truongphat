@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package wh.inv_open.init_stock;
+
+
+service SLGWHInitStockService {
+  rpc SLGWHInitStockQ (SLGWHInitStockQRequest) returns (Response);
+  rpc SLGWHInitStockAUD (SLGWHInitStockAUDRequest) returns (Response);
+}
+
+
+message SLGWHInitStockQResult {
+    int32 IsGood = 1;
+    string AssetSeq = 2;
+    string AssetName = 3;
+    string UMItemClass = 4;
+    string ItemClassName = 5;
+    string ItemName = 6;
+    string ItemNo = 7;
+    string Spec = 8;
+    string StkYM = 9;
+    string BizUnit = 10;
+    string BizUnitName = 11;
+    string WHSeq = 12;
+    string WHName = 13;
+    int32 IsNew = 14;
+  }
+  
+
+  message SLGWHInitStockAUDResult {
+    string IdxNo = 1;
+    string WorkingTag = 2;
+    string ItemName = 3;
+    string ItemNo = 4;
+    string Spec = 5;
+    int32 ItemSeq = 6;
+    string UnitName = 7;
+    int32 UnitSeq = 8;
+    double PrevQty = 9;
+    string AssetName = 10;
+    int32 AssetSeq = 11;
+    string STDUnitName = 12;
+    int32 STDUnitSeq = 13;
+    double STDPrevQty = 14;
+    int32 FunctionWHSeq = 15;
+    int32 ItemSeqOLD = 16;
+    int32 UnitSeqOLD = 17;
+    int32 WHSeqOLD = 18;
+    int32 FunctionWHSeqOLD = 19;
+    string TABLE_NAME = 20;
+    string StkYM = 21;
+    int32 WHSeq = 22;
+    int32 BizUnit = 23;
+  }
+  
+
+
+
+message SLGWHInitStockQRequest {
+  repeated SLGWHInitStockQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SLGWHInitStockAUDRequest {
+  repeated SLGWHInitStockAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

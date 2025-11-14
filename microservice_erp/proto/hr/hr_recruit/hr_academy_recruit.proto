@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package hr.hr_recruit.hr_academy_recruit;
+
+
+service HrAcademyRecruitService {
+  rpc HrAcademyRecruitA (HrAcademyRecruitARequest) returns (Response);
+  rpc HrAcademyRecruitU (HrAcademyRecruitURequest) returns (Response);
+  rpc HrAcademyRecruitD (HrAcademyRecruitDRequest) returns (Response);
+  rpc HrAcademyRecruitQ (HrAcademyRecruitQRequest) returns (Response);
+}
+
+message HrAcademyRecruitAResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+
+
+string SchoolName =  5;
+string Major = 6;
+string Years = 7;
+string StartYear = 8;
+
+string GraduationYear = 9;
+string GraduationRank  = 10;
+
+
+
+}
+
+
+
+message HrAcademyRecruitUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+  string SchoolName =  5;
+  string Major = 6;
+  string Years = 7;
+  string StartYear = 8;
+  
+  string GraduationYear = 9;
+  string GraduationRank  = 10;
+  
+  int32 IdSeq  = 11;
+
+}
+message HrAcademyRecruitDResult { 
+  int32 IdxNo = 1;
+  int32 IdSeq = 2;
+}
+
+message HrAcademyRecruitQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+  string KeyItem5 = 5;
+}
+
+
+
+message HrAcademyRecruitARequest {
+  repeated HrAcademyRecruitAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrAcademyRecruitURequest {
+  repeated  HrAcademyRecruitUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrAcademyRecruitDRequest {
+  repeated  HrAcademyRecruitDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrAcademyRecruitQRequest {
+  HrAcademyRecruitQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

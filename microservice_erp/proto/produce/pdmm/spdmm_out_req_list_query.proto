@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package spdmm.out_req_list_query;
+
+service OutReqListQueryService {
+  rpc QueryOutReqList (MetadataRequest) returns (MetadataResponse);
+}
+
+message Result { 
+  int32 FactUnit = 1;
+  string ReqDate = 2;
+  string ReqDateTo = 3;
+  string OutReqNo = 4;
+  string UseType = 5;
+  string DeptSeq = 6;
+  string DeptName = 7;
+  string EmpSeq = 8;
+  string EmpName = 9;
+  string CustSeq = 10;
+  string CustName = 11;
+  string ProgStatus = 12;
+  string ProdPlanNo = 13;
+  string WorkOrderNo = 14;
+  string ProdReqNo = 15;
+}
+
+message MetadataRequest {
+  Result result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

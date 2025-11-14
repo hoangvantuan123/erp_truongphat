@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+
+package spdmm.out_req_item_stock_query;
+
+service SPDMMOutReqItemStockQueryService {
+  rpc SPDMMOutReqItemStockQuery (MetadataRequest) returns (MetadataResponse);
+}
+
+message Result { 
+  int32 OutWHSeq = 1;
+  int32 Qty = 2;
+  int32 FactUnit = 3;
+  int32 IdxNo = 4;
+  int32 ItemSeq = 5;
+  int32 Memo4 = 6;
+}
+
+
+message MetadataRequest { 
+  repeated Result result = 1;  
+    map<string, string> metadata = 2;
+  }
+  
+  message MetadataResponse {
+    bool status = 1;  
+    string message = 2;      
+    string data = 3; 
+  }
+  

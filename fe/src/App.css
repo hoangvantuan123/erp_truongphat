@@ -1,0 +1,178 @@
+/* Tùy chỉnh thanh cuộn cho Webkit (Chrome, Safari, Edge, Opera) */
+::-webkit-scrollbar {
+  width: 12px;
+  /* Chiều rộng của thanh cuộn dọc */
+  height: 12px;
+  /* Chiều cao của thanh cuộn ngang */
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Màu nền của track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #a3a3a3;
+  /* Màu thanh cuộn */
+  border: 3px solid #f1f1f1;
+  /* Viền của thanh cuộn */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+  /* Màu thanh cuộn khi hover */
+}
+
+/* Tùy chỉnh thanh cuộn ngang */
+::-webkit-scrollbar:horizontal {
+  height: 12px;
+  /* Chiều cao của thanh cuộn ngang */
+}
+
+::-webkit-scrollbar-track:horizontal {
+  background: #f1f1f1;
+  /* Màu nền của track */
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #a3a3a3;
+  /* Màu thanh cuộn */
+  border: 3px solid #f1f1f1;
+  /* Viền thanh cuộn ngang */
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background-color: #888;
+  /* Màu thanh cuộn ngang khi hover */
+}
+
+/* Hỗ trợ Firefox */
+html {
+  scrollbar-width: thin;
+  /* Đặt độ dày thanh cuộn cho Firefox */
+  scrollbar-color: #a3a3a3 #f1f1f1;
+  /* Màu sắc thanh cuộn và track trong Firefox */
+}
+
+/* Tùy chỉnh cho tất cả các phần tử */
+* {
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: #a3a3a3 #f1f1f1;
+  /* Firefox */
+}
+
+/* Khi loading, con trỏ sẽ hiển thị "wait" và vô hiệu hóa tất cả thao tác */
+.loading {
+  cursor: wait !important;
+  pointer-events: none !important;
+}
+
+.main-content.page-loading {
+  cursor: progress !important;
+}
+
+.main-content.page-loading * {
+  pointer-events: none !important;
+}
+
+
+/* Giảm chiều cao menu item */
+.ant-menu-item,
+.ant-menu-submenu-title {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  height: 34px !important;
+  line-height: 28px !important;
+  font-size: 12px !important;
+  min-height: 28px !important;
+  /* giảm min-height */
+}
+
+/* Giảm kích thước icon nếu muốn */
+.ant-menu-item-icon,
+.ant-menu-submenu-arrow {
+  font-size: 16px !important;
+}
+
+/* Giảm khoảng cách giữa icon và chữ */
+.ant-menu-item>a,
+.ant-menu-submenu-title {
+  display: flex;
+  align-items: center;
+}
+
+.ant-menu-item>a>span,
+.ant-menu-submenu-title>span {
+  margin-left: 8px !important;
+}
+
+/* 
+@media print {
+  .docx-viewer {
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  body {
+    margin: 0;
+  }
+} */
+
+/* Ẩn footer hoặc giới thiệu nếu còn */
+.o-footer,
+.o-header-logo,
+.o-about {
+  display: none !important;
+}
+
+
+/* styles.css hoặc trong global stylesheet */
+.ant-descriptions-bordered,
+.ant-descriptions-bordered .ant-descriptions-view {
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-radius: 0 !important;
+
+}
+
+.ant-descriptions-bordered,
+.ant-descriptions-bordered .ant-descriptions-view {
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-radius: 0 !important;
+
+}
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background-color: #f7f7f7!important; 
+  font-weight: bold;
+  color: #333;
+}
+
+.ant-descriptions-bordered .ant-descriptions-item-label,
+.ant-descriptions-bordered .ant-descriptions-item-content {
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-radius: 0 !important;
+
+}
+
+
+
+.safe-area {
+  height: 100vh;
+  height: 100dvh; /* Sử dụng dynamic viewport height */
+}
+
+.safe-area-padding {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 8px);
+}

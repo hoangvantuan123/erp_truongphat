@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package hr.define.define;
+
+
+service DefineService {
+  rpc DefineA (DefineARequest) returns (Response);
+  rpc DefineU (DefineURequest) returns (Response);
+  rpc DefineD (DefineDRequest) returns (Response);
+  rpc DefineQ (DefineQRequest) returns (Response);
+}
+
+message DefineAResult {
+  int32 IdxNo = 1;
+  string DefineName = 2;
+  int32 DefineKey = 3;
+  string Description = 4;
+  bool IsActive = 5;
+  int32 CreatedBy = 6;
+  int32 UpdatedBy = 7;
+}
+
+
+message DefineUResult { 
+   int32 IdxNo = 1;
+  string DefineName = 2;
+  int32 DefineKey = 3;
+  string Description = 4;
+  bool IsActive = 5;
+  int32 CreatedBy = 6;
+  int32 UpdatedBy = 7;
+    int32 IdSeq = 8;
+
+}
+message DefineDResult { 
+  int32 IdSeq = 1;
+}
+
+message DefineQResult { 
+    int32 KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+}
+
+
+
+message DefineARequest {
+  repeated DefineAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DefineURequest {
+  repeated  DefineUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DefineDRequest {
+  repeated  DefineDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DefineQRequest {
+  DefineQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

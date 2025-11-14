@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package spdmm.out_req;
+
+
+service OutReqService {
+    rpc AOutReq (MetadataRequest) returns (MetadataResponse);
+    rpc UOutReq (MetadataRequest) returns (MetadataResponse);
+    rpc DOutReq (MetadataRequest) returns (MetadataResponse);
+    rpc DOutReqItem (MetadataItemRequest) returns (MetadataResponse);
+    rpc AOutReqItem (MetadataItemRequest) returns (MetadataResponse);
+    rpc QOutReq (MetadataRequest) returns (MetadataResponse);
+    rpc QOutReqItem (MetadataRequest) returns (MetadataResponse);
+  }
+  
+
+message Result { 
+  int32 SupplyContCustSeq = 1;
+  int32 OutReqSeq = 2;
+  string OutReqNo = 3;
+  string UseType = 4;
+  int32 FactUnit = 5;
+  string ReqDate = 6;
+  string EmpSeq = 7;
+  int32 DeptSeq = 8;
+  string Remark = 9;
+  int32 IsReturn = 10;
+  int32 IsConfirm = 11;
+  int32 IsOutSide = 12;
+}
+message ResultSeq { 
+  int32 OutReqSeq = 1;
+}
+
+message ResultItems { 
+    int32 IdxNo = 1;
+    string ItemName = 2;
+    string ItemNo = 3;
+    string Spec = 4;
+    string UnitName = 5;
+    int32 NeedQty = 6;
+    int32 OutReqSeq = 7;
+    string OutReqItemSerl = 8;
+    int32 WorkOrderSeq = 9;
+    int32 ItemSeq = 10;
+    int32 UnitSeq = 11;
+    int32 PJTSeq = 12;
+    int32 WBSSeq = 13;
+    int32 WorkCenterSeq = 14;
+    string WorkOrderSerl = 15;
+    int32 Qty = 16;
+    string Remark = 17;
+    int32 CustSeq = 18;
+    string WorkCenterName = 19;
+    string OutWHName = 20;
+    string Memo1 = 21;
+    string Memo2 = 22;
+    string Memo3 = 23;
+    int32 Memo4 = 24;
+    int32 Memo5 = 25;
+    int32 Memo6 = 26;
+    string PrevQty = 27;
+
+  }
+
+  
+message ResultCheck { 
+  int32 IsChangedMst = 1;
+  string WorkingTag = 2;
+  int32 OutReqSeq = 3;
+
+}
+
+
+  
+message MetadataRequest {
+  Result result = 1;  
+  repeated  ResultItems resultItems = 2;  
+  ResultCheck resultCheck = 3;  
+  map<string, string> metadata = 4;
+}
+message MetadataItemRequest {
+  repeated  ResultItems resultItems = 1;  
+  ResultCheck resultCheck = 2;  
+  map<string, string> metadata = 3;
+}
+message MetadataSeqRequest {
+  ResultSeq result = 1;  
+  map<string, string> metadata = 2;
+}
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

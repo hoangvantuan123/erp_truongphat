@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package metadata;
+
+service MetadataService {
+  rpc sendMetadata (MetadataRequest) returns (MetadataResponse);
+}
+
+message Result { 
+  string FactUnit = 1;
+  string ProdPlanNo = 2;
+  string SrtDate = 3;
+  string EndDate = 4;
+  string FrProdPlanDate = 5;
+  string ToProdPlanDate = 6;
+  string AssetSeq = 7;
+  string ItemName = 8;
+  string ItemNo = 9;
+  string Spec = 10;
+  string DeptSeq = 11;
+  string ProcRevName = 12;
+  string CfmEmpName = 13;
+}
+
+message MetadataRequest {
+  Result result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

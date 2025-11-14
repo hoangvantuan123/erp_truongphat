@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package spdmm.out_req_item_list_query;
+
+service OutReqItemListQueryService {
+  rpc QueryOutReqItemList (MetadataRequest) returns (MetadataResponse);
+  rpc SPDMMOutProcItemListQuery (OutProcItemListRequest) returns (MetadataResponse);
+  
+}
+
+message Result { 
+  int32 FactUnit = 1;
+  string ReqDate = 2;
+  string ReqDateTo = 3;
+  string WorkDate = 4;
+  string WorkDateTo = 5;
+  string UseType = 6;
+  string WorkCenterSeq = 7;
+  string WorkCenterName = 8;
+  string DeptSeq = 9;
+  string DeptName = 10;
+  string EmpSeq = 11;
+  string EmpName = 12;
+  string OutReqNo = 13;
+  string InWHSeq = 14;
+  string AssyAssetSeq = 15;
+  string WorkOrderNo = 16;
+  string ProcName = 17;
+  string ProgStatus = 18;
+  string OutWHSeq = 19;
+  string PJTName = 20;
+  string AssetSeq = 21;
+  string PJTNo = 22;
+  string ProdPlanNo = 23;
+  string ItemName = 24;
+  string ItemNo = 25;
+  string Spec = 26;
+}
+message OutProcItemListResult { 
+  int32 FactUnit = 1;
+  string FactUnitName = 2;
+  string MatOutDate = 3;
+  string MatOutDateTo = 4;
+  int32 OutWHSeq = 5;
+  int32 InWHSeq = 6;
+  string ItemName = 7;
+  string ItemNo = 8;
+  string OutReqNo = 9;
+  string AssetSeq = 10;
+  int32 WorkCenterSeq = 11;
+  string WorkCenterName = 12;
+  string ItemLotNo = 13;
+  string WorkOrderNo = 14;
+  string ProdPlanNo = 15;
+  string MatOutNo = 16;
+  string EmpName = 17;
+}
+
+message MetadataRequest {
+  Result result = 1;  
+  map<string, string> metadata = 2;
+}
+message OutProcItemListRequest {
+  OutProcItemListResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

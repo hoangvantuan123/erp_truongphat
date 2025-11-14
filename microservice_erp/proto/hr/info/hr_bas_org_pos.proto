@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_org_pos;
+
+
+service HrBasOrgPosService {
+  rpc HrBasOrgPosA (HrBasOrgPosARequest) returns (Response);
+  rpc HrBasOrgPosU (HrBasOrgPosURequest) returns (Response);
+  rpc HrBasOrgPosD (HrBasOrgPosDRequest) returns (Response);
+  rpc HrBasOrgPosQ (HrBasOrgPosQRequest) returns (Response);
+}
+
+message HrBasOrgPosAResult {
+    int32 IdxNo = 1;
+    int32 PosSeq = 2;
+    string PosName = 3;
+    string AbrPosName = 4;
+    string PosEngName = 5;
+    string AbrPosEngName = 6;
+    string BegDate = 7;
+    string EndDate = 8;
+    int32 UMJoSeq = 9;
+    string CCtrSeq = 10;
+    int32 UMPosLvlSeq = 11;
+    string Descript = 12;
+    int32 DispSeq = 13;
+    string IsPJT = 14;
+}
+  
+  
+message HrBasOrgPosUResult { 
+    int32 IdxNo = 1;
+    int32 PosSeq = 2;
+    string PosName = 3;
+    string AbrPosName = 4;
+    string PosEngName = 5;
+    string AbrPosEngName = 6;
+    string BegDate = 7;
+    string EndDate = 8;
+    int32 UMJoSeq = 9;
+    string CCtrSeq = 10;
+    int32 UMPosLvlSeq = 11;
+    string Descript = 12;
+    int32 DispSeq = 13;
+    string IsPJT = 14;
+     
+}
+
+
+message HrBasOrgPosDResult { 
+    int32 IdxNo = 1;
+    int32 PosSeq = 2;
+    string PosName = 3;
+    string AbrPosName = 4;
+    string PosEngName = 5;
+    string AbrPosEngName = 6;
+    string BegDate = 7;
+    string EndDate = 8;
+    int32 UMJoSeq = 9;
+    string CCtrSeq = 10;
+    int32 UMPosLvlSeq = 11;
+    string Descript = 12;
+    int32 DispSeq = 13;
+    string IsPJT = 14;
+  
+
+}
+
+message HrBasOrgPosQResult { 
+  int32 DeptSeq = 1;
+  int32 EmpSeq = 2;
+  int32 UMJoSeq = 3;
+  string QBegDate  = 4;
+  string QEndDate = 5; 
+  int32 UMPosLvlSeq = 6;
+  string IsUse = 7;
+  string PosName = 8;
+}
+
+
+
+
+message HrBasOrgPosARequest {
+  repeated  HrBasOrgPosAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasOrgPosURequest {
+  repeated  HrBasOrgPosUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasOrgPosDRequest {
+  repeated  HrBasOrgPosDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasOrgPosQRequest {
+  HrBasOrgPosQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

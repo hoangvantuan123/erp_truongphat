@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+package asset.regi_te.spd_tool_repair;
+
+
+service SPDToolRepairService {
+  rpc SPDToolRepairTotalListQ (SPDToolRepairTotalListQRequest) returns (Response);
+
+  rpc SPDToolRepairQ (SPDToolRepairQRequest) returns (Response);
+  rpc SPDToolRepairMatQ (SPDToolRepairMatQRequest) returns (Response);
+  rpc SPDToolRepairMatAUD (SPDToolRepairMatAUDRequest) returns (Response);
+  rpc SPDToolRepairAUD (SPDToolRepairAUDRequest) returns (Response);
+
+}
+
+message SPDToolRepairTotalListQResult {
+    string UMToolKind = 1;
+    string UMReasonSeq = 2;
+    string DeptSeq = 3;
+    string CustSeq = 4;
+    string TermSerl = 5;
+    string UMContenteSeq = 6;
+    string IsLast = 7;
+    string DueCheckDateFr = 8;
+    string DueCheckDateTo = 9;
+    string CheckDateFr = 10;
+    string CheckDateTo = 11;
+    string RepDateFr = 12;
+    string RepDateTo = 13;
+    string ToolName = 14;
+    string ToolNo = 15;
+  }
+message SPDToolRepairQResult {
+    string RepairDateFr = 1;
+    string RepairDateTo = 2;
+    string ToolNo = 3;
+    string ToolName = 4;
+    string Spec = 5;
+    string UMToolKind = 6;
+    string RepairCustName = 7;
+    string EmpName = 8;
+    string TermSerl = 9;
+
+  }
+  
+
+message SPDToolRepairMatQResult {
+    string RepairDate = 1;
+    string Serl = 2;
+    int32 ToolSeq = 3;
+
+  }
+  
+
+message SPDToolRepairMatAUDResult {
+    string ItemName = 1;
+    int32 Serl = 2;
+    int32 ToolSeq = 3;
+  int32 MSerl = 4;
+  string ItemNo = 5;
+  string Spec = 6;
+
+int32 UnitName = 7;
+int32 ItemSeq = 8;
+string RepairDate = 9;
+
+int32 Qty = 10;
+string Remark  = 11;
+
+string IdxNo = 12;
+string WorkingTag = 13;
+
+  }
+  
+message SPDToolRepairAUDResult {
+  string ToolName = 1;
+  string ToolNo = 2;
+  string Spec = 3;
+  string RepairDate = 4;
+  string RepairCustName = 5;
+  string EmpName = 6;
+  int32 RepairTime = 7;
+  string UMReasonName = 8;
+  string Reason = 9;
+  string UMContenteName = 10;
+  string Contents = 11;
+  double RepairCost = 12;
+  string OutOrder = 13;
+  string OutDate = 14;
+  string OutTime = 15;
+  string RepFrDate = 16;
+  string RepFrTime = 17;
+  string RepToDate = 18;
+  string RepToTime = 19;
+  int32 RepairInput = 20;
+  string Remark = 21;
+  string UMToolKind = 22;
+  int32 Serl = 23;
+  int32 EmpSeq = 24;
+  int32 ToolSeq = 25;
+  int32 RepairCustSeq = 26;
+  int32 TermSerl = 27;
+  int32 UMContenteSeq = 28;
+  int32 UMReasonSeq = 29;
+
+  string IdxNo = 30;
+string WorkingTag = 31;
+
+  }
+  
+
+
+
+
+
+
+message SPDToolRepairTotalListQRequest {
+  repeated SPDToolRepairTotalListQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SPDToolRepairQRequest {
+  repeated SPDToolRepairQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDToolRepairMatQRequest {
+  repeated SPDToolRepairMatQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message SPDToolRepairMatAUDRequest {
+  repeated SPDToolRepairMatAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message SPDToolRepairAUDRequest {
+  repeated SPDToolRepairAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

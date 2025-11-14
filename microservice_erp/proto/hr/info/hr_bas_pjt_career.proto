@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_pjt_career;
+
+
+service HrBasPjtCareerService {
+  rpc HrBasPjtCareerA (HrBasPjtCareerARequest) returns (Response);
+  rpc HrBasPjtCareerU (HrBasPjtCareerURequest) returns (Response);
+  rpc HrBasPjtCareerD (HrBasPjtCareerDRequest) returns (Response);
+  rpc HrBasPjtCareerQ (HrBasPjtCareerQRequest) returns (Response);
+}
+
+message HrBasPjtCareerAResult { 
+    int32 IdxNo = 1;
+    int32 PjtCareerSeq = 2;
+    int32 UMPjtType = 3;
+    string PjtName = 4;
+    string EntDate = 5;
+    string RetDate = 6;
+    string PerRole = 7;
+    string PjtRemark = 8;
+    int32 UMChrgWkSeq = 9;
+    string ChrgWk = 10;
+    string OrdPlace = 11;
+    int32 JobSeq = 12;
+    int32 AppTermMm = 13;
+    int32 AppRate = 14;
+    string Rem = 15;
+    string TABLE_NAME = 16;
+    int32 EmpSeq = 17;
+    int32 CareerSeq = 18;
+
+}
+message HrBasPjtCareerUResult { 
+  int32 IdxNo = 1;
+  int32 PjtCareerSeq = 2;
+  int32 UMPjtType = 3;
+  string PjtName = 4;
+  string EntDate = 5;
+  string RetDate = 6;
+  string PerRole = 7;
+  string PjtRemark = 8;
+  int32 UMChrgWkSeq = 9;
+  string ChrgWk = 10;
+  string OrdPlace = 11;
+  int32 JobSeq = 12;
+  int32 AppTermMm = 13;
+  int32 AppRate = 14;
+  string Rem = 15;
+  string TABLE_NAME = 16;
+  int32 EmpSeq = 17;
+  int32 CareerSeq = 18;
+}
+
+
+message HrBasPjtCareerDResult { 
+  int32 IdxNo = 1;
+  int32 PjtCareerSeq = 2;
+  int32 UMPjtType = 3;
+  string PjtName = 4;
+  string EntDate = 5;
+  string RetDate = 6;
+  string PerRole = 7;
+  string PjtRemark = 8;
+  int32 UMChrgWkSeq = 9;
+  string ChrgWk = 10;
+  string OrdPlace = 11;
+  int32 JobSeq = 12;
+  int32 AppTermMm = 13;
+  int32 AppRate = 14;
+  string Rem = 15;
+  string TABLE_NAME = 16;
+  int32 EmpSeq = 17;
+  int32 CareerSeq = 18;
+
+}
+
+message HrBasPjtCareerQResult { 
+    int32 CareerSeq = 1;
+    int32 EmpSeq = 2;
+    string pjtBegDate = 3;
+    string pjtEndDate = 4;
+    string UMPjtType = 5;
+    string PjtName = 6;
+
+}
+
+
+
+
+message HrBasPjtCareerARequest {
+  repeated  HrBasPjtCareerAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasPjtCareerURequest {
+  repeated  HrBasPjtCareerUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasPjtCareerDRequest {
+  repeated  HrBasPjtCareerDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasPjtCareerQRequest {
+  HrBasPjtCareerQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

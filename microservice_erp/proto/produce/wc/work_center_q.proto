@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+
+package produce_wcq;
+
+service WorkCenterQueryService {
+  rpc workCenterQ (MetadataRequest) returns (MetadataResponse);
+}
+
+message Result { 
+  int32 FactUnit = 1;
+  string SMWorkCenterType = 2;
+  string WorkCenterName = 3;
+  string DeptName = 4;
+}
+
+
+message MetadataRequest {
+    Result result = 1;  
+    map<string, string> metadata = 2;
+  }
+  
+  message MetadataResponse {
+    bool status = 1;  
+    string message = 2;      
+    string data = 3; 
+  }
+  

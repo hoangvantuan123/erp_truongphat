@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package hr.org.emp_org_dept;
+
+
+service EmpOrgDeptService {
+  rpc searchTreeEmpOrg (EmpOrgDeptSearchRequest) returns (Response);
+  rpc getEmpByDept (EmpDeptSearch) returns (Response);
+ 
+}
+
+message EmpOrgDeptSearchResult { 
+  int32 OrgType = 1;
+  string baseDate = 2;
+  bool IsOut = 3;
+  bool IsRetire = 4;
+  bool IsWkDept = 5;
+  bool IsNotOne = 6;
+  bool IsLowDept = 7;
+}
+
+message EmpDeptResult { 
+  int32 OrgType = 1;
+  string baseDate = 2;
+  bool IsOut = 3;
+  bool IsRetire = 4;
+  bool IsWkDept = 5;
+  bool IsNotOne = 6;
+  bool IsLowDept = 7;
+  int32 DeptSeq = 8;
+}
+
+message EmpOrgDeptSearchRequest {
+  repeated EmpOrgDeptSearchResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message EmpDeptSearch {
+  repeated  EmpDeptResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

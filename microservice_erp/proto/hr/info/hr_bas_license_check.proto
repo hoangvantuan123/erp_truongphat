@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_license_check;
+
+
+service HrBasLicenseCheckService {
+  rpc HrBasLicenseCheckA (HrBasLicenseCheckARequest) returns (Response);
+  rpc HrBasLicenseCheckU (HrBasLicenseCheckURequest) returns (Response);
+  rpc HrBasLicenseCheckD (HrBasLicenseCheckDRequest) returns (Response);
+  rpc HrBasLicenseCheckQ (HrBasLicenseCheckQRequest) returns (Response);
+}
+
+message HrBasLicenseCheckAResult { 
+        int32 IdxNo = 1;
+        int32 LicenseSeq = 2;
+        int32 IssueInst = 3;
+        string LicNo = 4;
+        string AcqDate = 5;
+        string ValDate = 6;
+        string IsAllowPay = 7;
+        string IsLaw = 8;
+        string Rem = 9;
+        int32 UMLicSeq  = 10;
+        string EmpSeq = 11;
+}
+message HrBasLicenseCheckUResult { 
+    int32 IdxNo = 1;
+    int32 LicenseSeq = 2;
+    int32 IssueInst = 3;
+    string LicNo = 4;
+    string AcqDate = 5;
+    string ValDate = 6;
+    string IsAllowPay = 7;
+    string IsLaw = 8;
+    string Rem = 9;
+    int32 UMLicSeq  = 10;
+    string EmpSeq = 11;
+}
+
+
+message HrBasLicenseCheckDResult { 
+    int32 IdxNo = 1;
+    int32 LicenseSeq = 2;
+    int32 IssueInst = 3;
+    string LicNo = 4;
+    string AcqDate = 5;
+    string ValDate = 6;
+    string IsAllowPay = 7;
+    string IsLaw = 8;
+    string Rem = 9;
+    int32 UMLicSeq  = 10;
+    string EmpSeq = 11;
+
+}
+
+message HrBasLicenseCheckQResult { 
+  
+    int32 EmpSeq = 1;
+    
+
+}
+
+
+
+
+message HrBasLicenseCheckARequest {
+  repeated  HrBasLicenseCheckAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasLicenseCheckURequest {
+  repeated  HrBasLicenseCheckUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasLicenseCheckDRequest {
+  repeated  HrBasLicenseCheckDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasLicenseCheckQRequest {
+  HrBasLicenseCheckQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

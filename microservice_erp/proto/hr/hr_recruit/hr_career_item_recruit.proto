@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package hr.hr_recruit.hr_career_item_recruit;
+
+
+service HrCareerItemRecruitService {
+  rpc HrCareerItemRecruitA (HrCareerItemRecruitARequest) returns (Response);
+  rpc HrCareerItemRecruitU (HrCareerItemRecruitURequest) returns (Response);
+  rpc HrCareerItemRecruitD (HrCareerItemRecruitDRequest) returns (Response);
+  rpc HrCareerItemRecruitQ (HrCareerItemRecruitQRequest) returns (Response);
+}
+
+message HrCareerItemRecruitAResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+string ProjectName =  5;
+string StartDate = 6;
+string EndDate = 7;
+string JobDescription = 8;
+
+string ProjectYears = 9;
+string ProjectSummary  = 10;
+string CareerRecruitSeq = 11; // This field is used to link to the career recruitment sequence
+
+
+}
+
+
+
+message HrCareerItemRecruitUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+  string ProjectName =  5;
+  string StartDate = 6;
+  string EndDate = 7;
+  string JobDescription = 8;
+  
+  string ProjectYears = 9;
+  string ProjectSummary  = 10;
+  string IdSeq  = 11;
+
+}
+message HrCareerItemRecruitDResult { 
+  int32 IdxNo = 1;
+  string IdSeq = 2;
+}
+
+message HrCareerItemRecruitQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+  string KeyItem5 = 5;
+  string KeyItem6 = 6;
+}
+
+
+
+message HrCareerItemRecruitARequest {
+  repeated HrCareerItemRecruitAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrCareerItemRecruitURequest {
+  repeated  HrCareerItemRecruitUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrCareerItemRecruitDRequest {
+  repeated  HrCareerItemRecruitDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrCareerItemRecruitQRequest {
+  HrCareerItemRecruitQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

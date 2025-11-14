@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  react-app:
+    build:
+      context: . 
+    container_name: fe_erp:latest
+    ports:
+      - '3030:3030' 
+    deploy:
+      resources:
+        limits:
+          cpus: '2.5' 
+          memory: 4g
+        reservations:
+          cpus: '1.5' 
+          memory: 2g 
+    environment:
+      - NODE_ENV=production 
+      - PORT=3030 
+    volumes:
+      - .:/app 
+      - /app/node_modules 
+    networks:
+      - react_network 
+
+networks:
+  react_network:
+    driver: bridge

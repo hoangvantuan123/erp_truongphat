@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package hr.info.hr_emp_user_define;
+
+
+service EmpUserDefineService {
+  rpc EmpUserDefineU (EmpUserDefineURequest) returns (Response);
+  rpc EmpUserDefineQ (EmpUserDefineQRequest) returns (Response);
+  rpc AdmOrdEmpListQ (EmpUserDefineQRequest) returns (Response);
+}
+
+
+message EmpUserDefineUResult { 
+    int32 IdxNo = 1;
+    int32 EmpSeq = 2;
+    string Title = 3;
+    int32 Serl = 4;
+    string ValName = 5;
+    string ValSeq = 6;
+    string SMInputType = 7;
+   
+}
+
+
+message EmpUserDefineQResult { 
+  
+    int32 EmpSeq = 1;
+    
+
+}
+
+message EmpUserDefineURequest {
+  repeated  EmpUserDefineUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message EmpUserDefineQRequest {
+  EmpUserDefineQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

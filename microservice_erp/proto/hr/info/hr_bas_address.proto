@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_address;
+
+
+service HrBasAddressService {
+  rpc HrBasAddressA (HrBasAddressARequest) returns (Response);
+  rpc HrBasAddressU (HrBasAddressURequest) returns (Response);
+  rpc HrBasAddressD (HrBasAddressDRequest) returns (Response);
+  rpc HrBasAddressQ (HrBasAddressQRequest) returns (Response);
+}
+
+message HrBasAddressAResult { 
+        int32 IdxNo = 1;
+        int32 AddressSeq = 2;
+        int32 EmpSeq = 3;
+        string SMAddressType = 4;
+        string BegDate = 5;
+        string EndDate = 6;
+        string ZipNo = 7;
+        string AddrSeq = 8;
+        string Addr = 9;
+        string Addr2 = 10;
+        string AddrEng1 = 11;
+        string AddrEng2 = 12;
+
+}
+message HrBasAddressUResult { 
+    int32 IdxNo = 1;
+    int32 AddressSeq = 2;
+    int32 EmpSeq = 3;
+    string SMAddressType = 4;
+    string BegDate = 5;
+    string EndDate = 6;
+    string ZipNo = 7;
+    string AddrSeq = 8;
+    string Addr = 9;
+    string Addr2 = 10;
+    string AddrEng1 = 11;
+    string AddrEng2 = 12;
+}
+
+
+message HrBasAddressDResult { 
+    int32 IdxNo = 1;
+    int32 AddressSeq = 2;
+    int32 EmpSeq = 3;
+    string SMAddressType = 4;
+    string BegDate = 5;
+    string EndDate = 6;
+    string ZipNo = 7;
+    string AddrSeq = 8;
+    string Addr = 9;
+    string Addr2 = 10;
+    string AddrEng1 = 11;
+    string AddrEng2 = 12;
+
+}
+
+message HrBasAddressQResult { 
+    int32 DeptSeq = 1;
+    int32 EmpSeq = 2;
+    int32 EntRetTypeSeq = 3;
+    string SMAddressType = 4;
+    string QAddress = 5;
+    string QBegDate = 6;
+    string QEndDate = 7;
+
+}
+
+
+
+
+message HrBasAddressARequest {
+  repeated  HrBasAddressAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasAddressURequest {
+  repeated  HrBasAddressUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasAddressDRequest {
+  repeated  HrBasAddressDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasAddressQRequest {
+  HrBasAddressQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

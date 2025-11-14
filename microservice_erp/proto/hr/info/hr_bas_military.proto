@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_military;
+
+service HrBasMilitaryService {
+  rpc HrBasMilitaryA (HrBasMilitaryARequest) returns (Response);
+  rpc HrBasMilitaryU (HrBasMilitaryURequest) returns (Response);
+  rpc HrBasMilitaryD (HrBasMilitaryDRequest) returns (Response);
+  rpc HrBasMilitaryQ (HrBasMilitaryQRequest) returns (Response);
+}
+
+message HrBasMilitaryAResult { 
+    int32 IdxNo = 1;
+    int32 UMMilSrvSeq = 2;
+    int32 EmpSeq = 3;
+    string MilSoldierNo = 4;
+    int32 UMMilKindSeq = 5;
+    int32 UMMilBrnchSeq = 6;
+    int32 UMMilClsSeq = 7;
+    int32 UMMilSpcSeq = 8;
+    int32 UMMilRsrcSeq = 9;
+    string MilEnrolDate = 10;
+    string MilTransDate = 11;
+    int32 UMMilRnkSeq = 12;
+    int32 UMMilDschrgTypeSeq = 13;
+    int32 UMMilVetTypeSeq = 14;
+    int32 UMMilExTypeSeq = 15;
+    string MilExNo = 16;
+    string MilExBegDate = 17;
+    string MilExEndDate = 18;
+    string Remark = 19;
+
+}
+message HrBasMilitaryUResult { 
+    int32 IdxNo = 1;
+    int32 UMMilSrvSeq = 2;
+    int32 EmpSeq = 3;
+    string MilSoldierNo = 4;
+    int32 UMMilKindSeq = 5;
+    int32 UMMilBrnchSeq = 6;
+    int32 UMMilClsSeq = 7;
+    int32 UMMilSpcSeq = 8;
+    int32 UMMilRsrcSeq = 9;
+    string MilEnrolDate = 10;
+    string MilTransDate = 11;
+    int32 UMMilRnkSeq = 12;
+    int32 UMMilDschrgTypeSeq = 13;
+    int32 UMMilVetTypeSeq = 14;
+    int32 UMMilExTypeSeq = 15;
+    string MilExNo = 16;
+    string MilExBegDate = 17;
+    string MilExEndDate = 18;
+    string Remark = 19;
+}
+
+
+message HrBasMilitaryDResult { 
+    int32 IdxNo = 1;
+    int32 UMMilSrvSeq = 2;
+    int32 EmpSeq = 3;
+    string MilSoldierNo = 4;
+    int32 UMMilKindSeq = 5;
+    int32 UMMilBrnchSeq = 6;
+    int32 UMMilClsSeq = 7;
+    int32 UMMilSpcSeq = 8;
+    int32 UMMilRsrcSeq = 9;
+    string MilEnrolDate = 10;
+    string MilTransDate = 11;
+    int32 UMMilRnkSeq = 12;
+    int32 UMMilDschrgTypeSeq = 13;
+    int32 UMMilVetTypeSeq = 14;
+    int32 UMMilExTypeSeq = 15;
+    string MilExNo = 16;
+    string MilExBegDate = 17;
+    string MilExEndDate = 18;
+    string Remark = 19;
+
+}
+
+message HrBasMilitaryQResult { 
+
+    int32 EmpSeq = 1;
+   
+
+}
+
+
+
+
+message HrBasMilitaryARequest {
+  repeated  HrBasMilitaryAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasMilitaryURequest {
+  repeated  HrBasMilitaryUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasMilitaryDRequest {
+  repeated  HrBasMilitaryDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasMilitaryQRequest {
+  HrBasMilitaryQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

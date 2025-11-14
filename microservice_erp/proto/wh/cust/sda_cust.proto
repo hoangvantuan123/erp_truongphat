@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package wh.cust.sda_cust;
+
+
+service SDACustService {
+  rpc SDACustQ (SDACustQRequest) returns (Response);
+  rpc SDACustD (SDACustDRequest) returns (Response);
+  rpc SDACustAUD (SDACustAUDRequest) returns (Response);
+}
+
+
+message SDACustQResult {
+    string CustName = 1;
+    string CustNo = 2;
+    string BizNo = 3;
+    string MinorBizNo = 4;
+    string SMCustStatus = 5;
+    string UMCustKind = 6;
+    string Owner = 7;
+    string ChannelSeq = 8;
+    string Email = 9;
+    string PersonId2 = 10;
+
+  }
+message SDACustDResult {
+
+  string IdxNo = 1;
+  string WorkingTag = 2;
+  string CustSeq =3;
+
+  }
+
+message SDACustAUDResult {
+  string CustSeq = 1;
+  string TrunName = 2;
+  string FullName = 3;
+  string SMCustStatus = 4;
+  string SMCustStatusName = 5;
+  string UMCredLevel = 6;
+  string UMCredLevelName = 7;
+  string CustName = 8;
+  string CustNo = 9;
+  string SMDomFor = 10;
+  string SMDomForName = 11;
+  string UMCountrySeq = 12;
+  string UMCountryName = 13;
+  string FrDate = 14;
+  string BizNo = 15;
+  string LawRegNo = 16;
+  string Owner = 17;
+  string TelNo = 18;
+  string PersonId = 19;
+  string BizType = 20;
+  string BizKind = 21;
+  string BizAddr = 22;
+  string SMBizPers = 23;
+  string SMBizPersName = 24;
+  string IsBizNoNon = 25;
+  string IsRegNoNon = 26;
+  string MinorBizNo = 27;
+
+  string IdxNo = 28;
+  string WorkingTag = 29;
+  }
+
+
+
+
+
+message SDACustQRequest {
+  repeated SDACustQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SDACustDRequest {
+  repeated SDACustDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SDACustAUDRequest {
+  repeated SDACustAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

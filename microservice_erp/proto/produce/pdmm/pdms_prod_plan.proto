@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package pdmm.pdms_prod_plan;
+
+service PdmsProdPlanService {
+  rpc SCOMGetCloseTypeQ (SCOMGetCloseTypeQRequest) returns (MetadataResponse);
+  rpc SCOMCloseCheck (SCOMCloseCheckRequest) returns (MetadataResponse);
+  rpc SPDMPSProdPlanA (SPDMPSProdPlanRequest) returns (MetadataResponse);
+  rpc SPDMPSProdPlanD (SPDMPSProdPlanRequestD) returns (MetadataResponse);
+  rpc SPDMPSProdPlanU (SPDMPSProdPlanRequestU) returns (MetadataResponse);
+  rpc SPDMPSProdPlanStockQuery (SPDMPSProdPlanStockQueryRequest) returns (MetadataResponse);
+
+  rpc SPDMPSProdPlanConfirm (SPDMPSProdPlanConfirmRequest) returns (MetadataResponse);
+  rpc SPDMPSProdPlanSemiGoodCrt (SPDMPSProdPlanSemiGoodCrtquest) returns (MetadataResponse);
+  rpc SPDMPSProdPlanQuery (SPDMPSProdPlanQRequest) returns (MetadataResponse);
+
+
+
+
+
+}
+
+message SPDMPSProdPlanResult { 
+ 
+    string FactUnitName = 1;
+    int32 FactUnit = 2;
+    string ProdDeptName = 3;
+    int32 ProdDeptSeq = 4;
+    string ItemName = 5;
+    string ItemNo = 6;
+    string Spec = 7;
+    int32 IdxNo = 8;
+    int32 ItemSeq = 9;
+    string ProcRevName = 10;
+    string ProdPlanEndDate = 11;
+    string ProdPlanNo = 12;
+    int32 ProdPlanQty = 13;
+    string ProdPlanSeq = 14;
+    string Remark = 15;
+    string UnitName = 16;
+    int32 UnitSeq = 17;
+    int32 WorkCond7 = 18;
+    int32 DeptSeq = 19;
+    string ProcRev = 20;
+    string BOMRevName = 21;
+    string BOMRev = 22;
+    string ProdPlanDate = 23;
+    string AssetName = 24;
+
+
+}
+message SCOMGetCloseTypeQResult { 
+ int32 Dummy1 = 1;
+
+}
+message COMCloseCheckResult { 
+ string Date = 1;
+ int32 FactUnit = 2;
+ int32 ServiceSeq = 3;
+ int32 MethodSeq = 4;
+ int32 DtlUnitSeq = 5;
+}
+message SPDMPSProdPlanConfirmResult { 
+ int32 ProdPlanSeq = 1;
+ int32 CfmCode = 2;
+}
+message SPDMPSProdPlanSemiGoodCrtResult { 
+  string FactUnitName = 1;
+  string ProdPlanNo = 2;
+  string ItemName = 3;
+  string ItemNo = 4;
+  string Spec = 5;
+  string UnitName = 6;
+  string BOMRevName = 7;
+  string ProcRevName = 8;
+  int32 ProdPlanQty = 9;
+  string ProdPlanEndDate = 10;
+  string ProdDeptName = 11;
+  string Remark = 12;
+  int32 ProdDeptSeq = 13;
+  int32 FactUnit = 14;
+  string ProcRev = 15;
+  int32 ItemSeq = 16;
+  int32 ProdPlanSeq = 17;
+  string BOMRev = 18;
+  int32 UnitSeq = 19;
+  int32 IdxNo = 20;
+
+}
+message SPDMPSProdPlanStockQueryResult { 
+ int32 ProdPlanQty = 1;
+ int32 FactUnit = 2;
+ int32 ItemSeq = 3;
+ int32 IdxNo = 4;
+}
+message SPDMPSProdPlanQResult { 
+  string ProdReqEndDateTo = 1;
+  string ProdReqEndDateFrom = 2;
+  int32 FactUnit = 3;
+  string ProdDeptSeq = 4;
+  string ProdPlanEndDateFrom = 5;
+  string ProdPlanEndDateTo = 6;
+  string ReqType = 7;
+  string ReqDeptSeq = 8;
+  string ReqEmpSeq = 9;
+  string ProdPlanNoQry = 10;
+  int32 AssetSeq = 11;
+  string ProcTypeSeq = 12;
+  string ItemName = 13;
+  string ItemNo = 14;
+  string Spec = 15;
+  string CustSeq = 16;
+  string SoNo = 17;
+  string PONo = 18;
+ 
+}
+
+
+
+message SPDMPSProdPlanRequest {
+    repeated  SPDMPSProdPlanResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDMPSProdPlanRequestD {
+  repeated  SPDMPSProdPlanResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDMPSProdPlanRequestU {
+  repeated  SPDMPSProdPlanResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SCOMGetCloseTypeQRequest {
+    SCOMGetCloseTypeQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SCOMCloseCheckRequest {
+    COMCloseCheckResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDMPSProdPlanConfirmRequest {
+  repeated  SPDMPSProdPlanConfirmResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SPDMPSProdPlanSemiGoodCrtquest {
+  repeated  SPDMPSProdPlanSemiGoodCrtResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDMPSProdPlanQRequest {
+  repeated SPDMPSProdPlanQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SPDMPSProdPlanStockQueryRequest {
+    repeated   SPDMPSProdPlanStockQueryResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

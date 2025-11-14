@@ -1,0 +1,151 @@
+syntax = "proto3";
+
+package hr.hr_recruit.hr_emp_recruit;
+
+
+service HrEmpRecruitService {
+  rpc HrEmpRecruitA (HrEmpRecruitARequest) returns (Response);
+  rpc HrEmpRecruitU (HrEmpRecruitURequest) returns (Response);
+  rpc HrEmpRecruitD (HrEmpRecruitDRequest) returns (Response);
+  rpc HrEmpRecruitQ (HrEmpRecruitQRequest) returns (Response);
+  rpc HrEmpRecruitS (HrEmpRecruitSRequest) returns (Response);
+  rpc HrEmpRecruitMonthlySummary (HrEmpRecruitQRequest) returns (Response);
+}
+
+message HrEmpRecruitAResult {
+  string EmpID = 1;
+  string EmpName = 2;
+  string ResidID = 3;
+  string EmpFamilyName = 4;
+  string EmpFirstName = 5;
+  string EntDate = 6;
+  int32 IdxNo = 7;
+  int32 CreatedBy = 8;
+  int32 UpdatedBy = 9;
+  int32 DegreeSeq = 12;
+  string BirthDate = 13;
+  int32 SMSexSeq = 14;
+  string IssueDate = 15;
+  string IssuePlace = 16;
+  string PhoneNumber = 17;
+  string Email = 18;
+  string CategoryType = 19;
+  int32 RecruitmentSeq = 20;
+  int32 InterviewerSeq = 21;
+  int32 FactNameSeq = 22;
+  int32 DepartmentSeq = 23;
+  int32 TeamSeq = 24;
+  int32 PartNameSeq = 25;
+  string LineModel = 26;
+  int32 JopPositionSeq = 27;
+  string InterviewDate = 28;
+  string PerAddrStreet = 29;
+  string PerAddrWard = 30;
+  string PerAddrDistrict = 31;
+  string PerAddrProvince = 32;
+  string CurAddrStreet = 33;
+  string CurAddrWard = 34;
+  string CurAddrDistrict = 35;
+  string CurAddrProvince = 36;
+  string Ethnic = 37;
+  float DistanceKm = 38;
+  string ContractTerm = 39;
+  string StatusSync = 40;
+  string CheckAge = 41;
+  string Addr = 42; 
+  string Addr2 = 43;
+}
+
+
+
+message HrEmpRecruitUResult { 
+  string EmpID = 1;
+  string EmpName = 2;
+  string ResidID = 3;
+  string EmpFamilyName = 4;
+  string EmpFirstName = 5;
+  string EntDate = 6;
+  int32 IdxNo = 7;
+  int32 CreatedBy = 8;
+  int32 UpdatedBy = 9;
+  int32 DegreeSeq = 12;
+  string BirthDate = 13;
+  int32 SMSexSeq = 14;
+  string IssueDate = 15;
+  string IssuePlace = 16;
+  string PhoneNumber = 17;
+  string Email = 18;
+  string CategoryType = 19;
+  int32 RecruitmentSeq = 20;
+  int32 InterviewerSeq = 21;
+  int32 FactNameSeq = 22;
+  int32 DepartmentSeq = 23;
+  int32 TeamSeq = 24;
+  int32 PartNameSeq = 25;
+  string LineModel = 26;
+  int32 JopPositionSeq = 27;
+  string InterviewDate = 28;
+  string PerAddrStreet = 29;
+  string PerAddrWard = 30;
+  string PerAddrDistrict = 31;
+  string PerAddrProvince = 32;
+  string CurAddrStreet = 33;
+  string CurAddrWard = 34;
+  string CurAddrDistrict = 35;
+  string CurAddrProvince = 36;
+  string Ethnic = 37;
+  float DistanceKm = 38;
+  string ContractTerm = 39;
+  int32 IdSeq = 40; 
+  string StatusSync = 41;
+  string CheckAge = 42;
+  string Addr = 43; 
+  string Addr2 = 44;
+
+}
+message HrEmpRecruitDResult { 
+  int32 IdxNo = 1;
+  int32 IdSeq = 2;
+}
+
+message HrEmpRecruitQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+  string KeyItem5 = 5;
+  string KeyItem6 = 6;
+}
+message HrEmpRecruitSResult { 
+  int32 IdSeq = 1;
+}
+
+
+
+message HrEmpRecruitARequest {
+  repeated HrEmpRecruitAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEmpRecruitURequest {
+  repeated  HrEmpRecruitUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEmpRecruitDRequest {
+  repeated  HrEmpRecruitDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEmpRecruitQRequest {
+  HrEmpRecruitQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEmpRecruitSRequest {
+  repeated  HrEmpRecruitSResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

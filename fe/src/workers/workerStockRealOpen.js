@@ -1,0 +1,158 @@
+function checkBarcode(barcode, tableData, tableScanHistory) {
+  if (!barcode || !Array.isArray(tableData)) {
+    return {
+      success: false,
+      message: `Barcode "${barcode}" không hợp lệ hoặc barcode bị thiếu`,
+    }
+  }
+
+  const parts = barcode.split('/')
+
+  if (parts.length !== 5 && parts.length !== 2) {
+    return {
+        success: false,
+        message: `Barcode "${barcode}" không đúng định dạng.\nCó 2 loại định dạng barcode hợp lệ:\n1. Sản phẩm quản lý theo lô hàng: ItemCode/LotNo/Qty/DateCode/ReelNo\n2. Sản phẩm không quản lý theo lô: ItemCode/Qty.`,
+    };
+}
+const groupedData = tableScanHistory.reduce((acc, item) => {
+  const key = `${item.ItemNo}-${item.LotNo}`;
+  if (!acc.has(key)) {
+    acc.set(key, { ...item, Qty: 0 });
+  }
+  acc.get(key).Qty += item.Qty;
+  return acc;
+}, new Map());
+
+const scanQty = Array.from(groupedData.values());
+
+const code = parts[0];
+
+
+
+  const filteredIsLotMng = tableData.filter((item) => item?.ItemNo === code && item?.IsLotMng === '1' && item?.InventoryType === 11);
+  if (filteredIsLotMng.length > 0 && parts.length !== 5) {
+    return {
+      success: false,
+      message: `Barcode scan: "${barcode}". Mã hàng ${code} là sản phẩm có quản lý theo lô hàng, kiểm tra định dạng barcode là ItemCode/LotNo/Qty/DateCode/ReelNo.`,
+    }
+  }
+
+//console.log('item', item)
+if (parts.length === 5) { // Xử lý barcode có 5 phần
+  
+  const lot = parts[1] + "/" + parts[3] + "/" + parts[4]; 
+  const qty = parseFloat(parts[2]);
+  const dc = parts[3];
+  const reel = parts[4];
+
+  const filteredGroupedData = scanQty.filter(item => item.ItemNo === code && item.LotNo === lot);
+  const filteredItemsLot = tableData.filter((item) => item?.ItemNo === code && item?.LotNo === lot && item?.NotProgressQty > 0);
+  const item = filteredItemsLot.length > 0 
+  ? filteredItemsLot.reduce((minItem, currentItem) => (currentItem?.ReqSerl < minItem?.ReqSerl ? currentItem : minItem))
+  : null;
+  if (filteredItemsLot.length===0) {
+    return {
+      success: false,
+      message: `Barcode "${barcode}" Không tìm thấy mã ${code} và số lô ${lot} trong đơn kiểm tra hoặc số lượng còn lại bằng 0.`,
+    }
+  }
+  if (lot.length>30) {
+    return {
+        success: false,
+        message: `Độ dài Lot No "${lot}" không được lớn hơn 30 ký tự!`,
+    };
+}
+  if (isNaN(qty)) {
+      return {
+          success: false,
+          message: `Barcode "${barcode}".Số lượng (phần thứ 3 của barcode) không phải là số.`,
+      };
+  }
+
+  if (item.NotProgressQty < qty) {
+    return {
+      success: false,
+      message: `Số lượng quét (${qty}) vượt quá số lượng còn lại (${item.NotProgressQty}) của mã hàng ${item.ItemNo}.`,
+    }
+  }
+
+  return {
+      success: true,
+      message: `Barcode "${barcode}" khớp với mã hàng: ${item?.ItemNo}, Số lượng quét: ${qty}.`,
+      data: {
+          itemNo: item?.ItemNo,
+          qty,
+          lot,
+          dc,
+          reel,
+          barcode,
+          ItemSeq: item?.ItemSeq,
+          UnitSeq: item?.UnitSeq,
+          UnitName: item?.UnitName,
+          StkMngSeq: item?.StkMngSeq,
+          StkMngSerl: item?.StkMngSerl,
+          ScanQty: filteredGroupedData.length > 0 ? filteredGroupedData[0].Qty : 0,
+      },
+  };
+} 
+else if (parts.length === 2) { // Xử lý barcode có 2 phần
+  const qty = parseFloat(parts[1]);
+  const filteredItems = tableData.filter((item) => item?.ItemNo === code && item?.NotProgressQty > 0);
+  const item = filteredItems.length > 0 
+  ? filteredItems.reduce((minItem, currentItem) => (currentItem?.ReqSerl < minItem?.ReqSerl ? currentItem : minItem))
+  : null;
+  if (!item) {
+    return {
+      success: false,
+      message: `Barcode "${barcode}" Không tìm thấy mã ${code} trong đơn kiểm tra hoặc số lượng còn lại bằng 0.`,
+    }
+  }
+
+  const filteredGroupedData = scanQty.filter(item => item.ItemNo === code);
+  if (isNaN(qty)) {
+    return {
+        success: false,
+        message: `Barcode "${barcode}". Số lượng (phần thứ 2 của barcode) không phải là số.`,
+    };
+}
+
+if (item.NotProgressQty < qty) {
+  return {
+    success: false,
+    message: `Số lượng quét (${qty}) vượt quá số lượng còn lại (${item.NotProgressQty}) của mã hàng ${item.ItemNo}.`,
+  }
+}
+  return {
+      success: true,
+      message: `Barcode "${barcode}" khớp với mã hàng: ${item?.ItemNo}, Giá trị: ${qty}.`,
+      data: {
+        itemNo: item?.ItemNo,
+        qty,
+        ItemSeq: item?.ItemSeq,
+        UnitSeq: item?.UnitSeq,
+        UnitName: item?.UnitName,
+        StkMngSeq: item?.StkMngSeq,
+        StkMngSerl: item?.StkMngSerl,
+        ScanQty: filteredGroupedData.length > 0 ? filteredGroupedData[0].Qty : 0,
+      },
+  };
+}
+}
+
+self.onmessage = function (event) {
+  const { type, barcode, tableData, tableScanHistory } = event.data
+  let result
+
+  switch (type) {
+    case 'CHECK_BARCODE':
+      result = checkBarcode(barcode, tableData, tableScanHistory)
+      break
+    default:
+      result = {
+        success: false,
+        message: `Loại xử lý "${type}" không được hỗ trợ.`,
+      }
+  }
+
+  self.postMessage(result)
+}

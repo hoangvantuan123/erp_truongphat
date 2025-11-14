@@ -1,0 +1,35 @@
+module.exports = {
+    apps: [{
+        name: 'api-gateway',
+        script: 'dist/main.js',
+        instances: 1,
+        exec_mode: 'fork',
+        watch: false,
+        autorestart: false,
+        max_memory_restart: '8192M',
+        env: {
+            NODE_ENV: 'production',
+            NODE_OPTIONS: '--max-old-space-size=2048',
+            REQUEST_TIMEOUT: 1200000,
+            PORT_API_GATEWAY: 8086,
+            JWT_SECRET: 'P@5sW0rD!$R3c3nT@2024',
+            HOST_REDIS: '192.168.20.22',
+            HOST_REDIS_WAREHOUSE: '192.168.20.22',
+            HOST_REDIS_AUTH: '192.168.20.22',
+            HOST_REDIS_PRODUCTION: '192.168.20.22',
+            HOST_REDIS_PURCHASEN: '192.168.20.22',
+            HOST_REDIS_QC: '192.168.20.22',
+            HOST_RGPC_PDMM: '192.168.20.22:5002',
+            HOST_RGPC_SP: '192.168.20.22:5003',
+            HOST_RGPC_WC: '192.168.20.22:5002',
+            HOST_RGPC_AUTH: '192.168.20.22:5004',
+            HOST_RGPC_HR: '192.168.20.22:5006',
+            PORT_REDIS_AUTH: 6383,
+            PORT_REDIS_WAREHOUSE: 6382,
+            PORT_REDIS_PRODUCTION: 6384,
+            PORT_REDIS_QC: 6386,
+            PORT_REDIS_PURCHASEN: 6385
+        },
+
+    }],
+};

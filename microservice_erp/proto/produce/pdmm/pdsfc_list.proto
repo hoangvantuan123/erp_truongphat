@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package pdmm.pdsfc_list;
+
+service PdsfcListService {
+  rpc SPDSFCWorkOrderQ (SPDSFCWorkOrderQRequest) returns (MetadataResponse);
+  rpc SPDSFCMatProgressListQ (SPDSFCMatProgressListQRequest) returns (MetadataResponse);
+  rpc SPDSFCWorkReportQ (SPDSFCWorkReportQRequest) returns (MetadataResponse);
+  
+
+}
+
+message SPDSFCWorkOrderQResult { 
+    string GoodItemSpec = 1;
+    string ProcName = 2;
+    int32 DeptSeq = 3;
+    string DeptName = 4;
+    string WorkOrderNo = 5;
+    string ProdPlanNo = 6;
+    int32 WHSeq = 7;
+    string ProgStatus = 8;
+    string ProgStatusName = 9;
+    string WorkType = 10;
+    string WorkTypeName = 11;
+    int32 CustSeq = 12;
+    string CustName = 13;
+    string PoNo = 14;
+    string PJTName = 15;
+    string PJTNo = 16;
+    string FactUnit = 17;
+    string FactUnitName = 18;
+    string WorkOrderDate = 19;
+    string WorkOrderDateTo = 20;
+    string WorkDate = 21;
+    string WorkDateTo = 22;
+    int32 WorkCenterSeq = 23;
+    string WorkCenterName = 24;
+    string GoodItemName = 25;
+    string GoodItemNo = 26;
+    int32 ChainGoodsSeq = 27;
+
+}
+
+message SPDSFCMatProgressListQResult {
+    int32 FactUnit = 1;
+    string WorkOrderDate = 2;
+    string WorkOrderDateTo = 3;
+    string WorkOrderNo = 4;
+    string ProgressStatus = 5;
+    string GoodItemName = 6;
+    string GoodItemNo = 7;
+    string GoodItemSpec = 8;
+    string ProcName = 9;
+    string MatItemName = 10;
+    string MatItemNo = 11;
+    string MatItemSpec = 12;
+    int32 DeptSeq = 13;
+    string DeptName = 14;
+    string WorkDate = 15;
+    string WorkDateTo = 16;
+    int32 WorkCenterSeq = 17;
+    string WorkCenterName = 18;
+}
+      
+message SPDSFCWorkReportQResult {
+    string FactUnit = 1;
+    string WorkDate = 2;
+    string WorkDateTo = 3;
+    string WorkType = 4;
+    string WorkOrderNo = 5;
+    string DeptSeq = 6;
+    string DeptName = 7;
+    string WorkCenterSeq = 8;
+    string WorkCenterName = 9;
+    string RealLotNo = 10;
+    string ProdPlanNo = 11;
+    string SMIsMatInput = 12;
+    string GoodItemName = 13;
+    string GoodItemNo = 14;
+    string GoodItemSpec = 15;
+    string ProcName = 16;
+    string AssyItemName = 17;
+    string AssyItemNo = 18;
+    string AssyItemSpec = 19;
+    string PJTName = 20;
+    string PJTNo = 21;
+    string CustSeq = 22;
+    string PoNo = 23;
+    string EmpName = 24;
+    string WorkTimeGroup = 25;
+    string GoodItemSClass = 26;
+    string GoodItemSClassName = 27;
+    string CCtrSeq = 28;
+    string CCtrName = 29;
+  }
+  
+
+message SPDSFCWorkOrderQRequest {
+  SPDSFCWorkOrderQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDSFCMatProgressListQRequest {
+    SPDSFCMatProgressListQResult result = 1;  
+    map<string, string> metadata = 2;
+}
+message SPDSFCWorkReportQRequest {
+    SPDSFCWorkReportQResult result = 1;  
+    map<string, string> metadata = 2;
+}
+
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

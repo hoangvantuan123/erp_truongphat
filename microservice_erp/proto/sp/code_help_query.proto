@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package codehelpquery;
+
+service CodehelpQueryService {
+  rpc sendCodehelpQuery (CodehelpQueryRequest) returns (CodehelpQueryResponse);
+}
+
+message Result { 
+  string workingTag = 1;
+  int32 languageSeq = 2;
+  string codeHelpSeq = 3;
+  int32 companySeq = 4;
+  string keyword = 5;
+  string param1 = 6;
+  string param2 = 7;
+  string param3 = 8;
+  string param4 = 9;
+  string conditionSeq = 10;
+  int32 pageCount = 11;
+  int32 pageSize = 12;
+  string subConditionSql = 13;
+  string accUnit = 14;
+  int32 bizUnit = 15;
+  int32 factUnit = 16;
+  int32 deptSeq = 17;
+  int32 wkDeptSeq = 18;
+  int32 empSeq = 19;
+  int32 userSeq = 20;
+}
+
+message CodehelpQueryRequest {
+  Result result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message CodehelpQueryResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+}

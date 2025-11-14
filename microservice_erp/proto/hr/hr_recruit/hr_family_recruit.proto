@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package hr.hr_recruit.hr_family_recruit;
+
+
+service HrFamilyRecruitService {
+  rpc HrFamilyRecruitA (HrFamilyRecruitARequest) returns (Response);
+  rpc HrFamilyRecruitU (HrFamilyRecruitURequest) returns (Response);
+  rpc HrFamilyRecruitD (HrFamilyRecruitDRequest) returns (Response);
+  rpc HrFamilyRecruitQ (HrFamilyRecruitQRequest) returns (Response);
+}
+
+message HrFamilyRecruitAResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+
+  int32 FamilyTypeSeq = 5;
+  string NationalId = 6;
+  string FullName = 7;
+  string EducationLevel = 8;
+  string Occupation = 9;
+  string PhoneNumber = 10;
+  string DateOfBirth = 11;
+  bool LivesTogether = 12;
+}
+
+
+
+message HrFamilyRecruitUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 CreatedBy = 3;
+  int32 UpdatedBy = 4;
+
+
+  
+  int32 FamilyTypeSeq = 5;
+  string NationalId = 6;
+  string FullName = 7;
+  string EducationLevel = 8;
+  string Occupation = 9;
+  string PhoneNumber = 10;
+  string DateOfBirth = 11;
+  bool LivesTogether = 12;
+  int32 IdSeq  = 13;
+
+}
+message HrFamilyRecruitDResult { 
+  int32 IdxNo = 1;
+  int32 IdSeq = 2;
+}
+
+message HrFamilyRecruitQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+}
+
+
+
+message HrFamilyRecruitARequest {
+  repeated HrFamilyRecruitAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrFamilyRecruitURequest {
+  repeated  HrFamilyRecruitUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrFamilyRecruitDRequest {
+  repeated  HrFamilyRecruitDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrFamilyRecruitQRequest {
+  HrFamilyRecruitQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

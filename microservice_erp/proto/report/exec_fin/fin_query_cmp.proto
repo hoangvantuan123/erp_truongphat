@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package report.exec_fin.fin_query_cmp;
+
+
+service FinQueryCmpService {
+  rpc FinQueryCmpQ (FinQueryCmpQRequest) returns (Response);
+  rpc FSQueryTermByMonthQ (FSQueryTermByMonthQRequest) returns (Response);
+  rpc FSMonthlyProdCostQ (FSQueryTermByMonthQRequest) returns (Response);
+  rpc FinancialReportQ (FinancialReportQRequest) returns (Response);
+  rpc MonthlyFinancialReportQ (MonthlyFinancialReportQRequest) returns (Response);
+}
+
+
+message FinQueryCmpQResult {
+    int32 DisplayLevel = 1;
+    string AccUnit = 2;
+    string FrAccYM = 3;
+    string ToAccYM = 4;
+    string PrevFrAccYM = 5;
+    string PrevToAccYM = 6;
+    int32 LanguageSeq = 7;
+    int32 FormatSeq   = 8;
+    int32 IsDisplayZero = 9;
+  }
+  
+
+message FSQueryTermByMonthQResult {
+    int32 DisplayLevel = 1;
+    int32 AccUnit = 2;
+    string AccYear = 3;
+    int32 IsDisplayZero = 4;
+    int32 FormatSeq = 5;
+  }
+  
+message FinancialReportQResult {
+  int32 DisplayLevel = 1;
+  string AccUnit = 2;
+  string FrAccYM = 3;
+  string ToAccYM = 4;
+  string PrevFrAccYM = 5;
+  string PrevToAccYM = 6;
+  int32 LanguageSeq = 7;
+  int32 FormatSeq   = 8;
+  int32 IsDisplayZero = 9;
+  int32 IsInit = 10;
+  int32 PrevIsInit = 11;
+  }
+  
+message MonthlyFinancialReportQResult {
+    int32 DisplayLevel = 1;
+    int32 AccUnit = 2;
+    string AccYear = 3;
+    int32 IsDisplayZero = 4;
+    int32 FormatSeq = 5;
+  }
+  
+
+
+
+message FinQueryCmpQRequest {
+  repeated FinQueryCmpQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message FSQueryTermByMonthQRequest {
+  repeated FSQueryTermByMonthQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message FinancialReportQRequest {
+  repeated FinancialReportQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message MonthlyFinancialReportQRequest {
+  repeated MonthlyFinancialReportQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

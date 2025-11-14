@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package upload.upload.group_temp;
+
+service GroupsTempService {
+  rpc GroupsTempA (GroupsTempARequest) returns (Response);
+  rpc GroupsTempU (GroupsTempURequest) returns (Response);
+  rpc GroupsTempD (GroupsTempDRequest) returns (Response);
+  rpc GroupsTempQ (GroupsTempQRequest) returns (Response);
+
+}
+
+
+message GroupsTempAResult { 
+    int32 IdxNo = 1;
+    int32 CreatedBy = 2;
+    int32 UpdatedBy = 3;
+
+    string GroupsName =4;
+    string Description = 5; 
+    bool IsActive = 6;
+    string Code = 7;
+}
+
+
+
+message GroupsTempUResult { 
+    int32 IdxNo = 1;
+    int32 UpdatedBy = 2;
+    string GroupsName =3;
+    string Description = 4; 
+    bool IsActive = 5;
+    string IdSeq = 6;
+    string Code = 7;
+
+}
+message GroupsTempDResult { 
+  int32 IdxNo = 1;
+  string IdSeq = 2;
+}
+
+message GroupsTempQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+}
+
+
+
+message GroupsTempARequest {
+  repeated GroupsTempAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message GroupsTempURequest {
+  repeated  GroupsTempUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message GroupsTempDRequest {
+  repeated  GroupsTempDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message GroupsTempQRequest {
+  GroupsTempQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

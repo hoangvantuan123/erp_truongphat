@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package report.inventory.supplement_issue;
+
+
+service InventoryReportService {
+  rpc SupplementIssueQ (SupplementIssueQRequest) returns (Response);
+  rpc StockMonthlyAmtQ (StockMonthlyAmtQRequest) returns (Response);
+}
+
+
+message SupplementIssueQResult {
+    string SMCostMng = 1; // Cost Management
+    string CostUnit = 2;
+    string CostYMFr = 3; 
+    string CostYMTo = 4;
+   string AssetGroupSeq = 5;
+   string AssetSeq  =6;
+   string ItemSeq = 7;
+   string ItemNo = 8;
+   string SMAdjustKindSeq = 9;
+   string AppPriceKind = 10;
+   string ItemName = 11;
+  }
+
+message StockMonthlyAmtQResult {
+    string SMCostMng = 1; // Cost Management
+    string AppPriceKind = 2;
+    string CostYMFr = 3;
+    string CostYMTo = 4;
+    string ItemSeq = 5;
+    string ItemNo = 6;
+    string ItemName = 7;
+    string AssetSeq = 8;
+    string AssetGroupSeq = 9;
+    string IsAssetType = 10;
+    string IsDiff = 11;
+    string CostUnit = 12;
+    
+
+
+  }
+  
+
+
+
+
+message SupplementIssueQRequest {
+  repeated SupplementIssueQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message StockMonthlyAmtQRequest {
+  repeated StockMonthlyAmtQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

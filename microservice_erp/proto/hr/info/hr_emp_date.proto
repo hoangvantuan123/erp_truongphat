@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package hr.info.hr_emp_date;
+
+
+service HrEmpDateService {
+  rpc HrEmpDateU (HrEmpDateURequest) returns (Response);
+  rpc HrEmpDateQ (HrEmpDateQRequest) returns (Response);
+}
+
+message HrEmpDateUResult { 
+  int32 IdxNo = 1;
+  int32 EmpSeq = 2;
+  int32 EntRetTypeSeq = 3;
+  int32 UMEmpType = 4;
+  string EntDate = 5;
+  string RetireDate = 6;
+  string Height = 7;
+  string Weight = 8;
+  string EyeLt = 9;
+  string EyeRt = 10;
+  string SMBloodTypeName = 11;
+  int32 SMBloodType = 12;
+  int32 IsDisabled = 13;
+  int32 IsForeigner = 14;
+  int32 SMBirthType = 15;
+  string BirthDate = 16;
+  int32 UMNationSeq = 17;
+  int32 SMSexSeq = 18;
+  int32 IsMarriage = 19;
+  string MarriageDate = 20;
+  int32 UMReligionSeq = 21;
+  string Hobby = 22;
+  string Speciality = 23;
+  string Phone = 24;
+  string Cellphone = 25;
+  string Extension = 26;
+  string Email = 27;
+  int32 UMEmployType = 28;
+  string WishTask1 = 29;
+  string WishTask2 = 30;
+  string Recommender = 31;
+  string RcmmndrCom = 32;
+  string RcmmndrRank = 33;
+  string Remark = 34;
+  int32 UMHandiType = 35;
+  int32 UMHandiGrd = 36;
+  string HandiAppdate = 37;
+  int32 IsVeteranEmp = 38;
+  string VeteranNo = 39;
+  string UMRelName = 40;
+  int32 UMRelSeq = 41;
+  int32 IsJobEmp = 42;
+  int32 People = 43;
+  int32 UMHouseSort = 44;
+
+}
+
+message HrEmpDateQResult { 
+  string QBegDate = 1;
+  string QEndDate = 2;
+  string UMEmpType = 3;
+  string EmpSeq = 4;
+  string EntRetTypeSeq = 5;
+  int32 DeptSeq  = 6;
+}
+
+
+
+message HrEmpDateURequest {
+  repeated  HrEmpDateUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrEmpDateQRequest {
+  HrEmpDateQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

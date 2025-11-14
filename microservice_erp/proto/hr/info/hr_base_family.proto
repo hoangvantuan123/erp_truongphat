@@ -1,0 +1,147 @@
+syntax = "proto3";
+
+package hr.info.hr_base_family;
+
+
+service HrBaseFamilyService {
+  rpc HrBaseFamilyA (HrBaseFamilyARequest) returns (Response);
+  rpc HrBaseFamilyU (HrBaseFamilyURequest) returns (Response);
+  rpc HrBaseFamilyD (HrBaseFamilyDRequest) returns (Response);
+  rpc HrBaseFamilyQ (HrBaseFamilyQRequest) returns (Response);
+}
+
+message HrBaseFamilyAResult { 
+        int32 IdxNo = 1;
+        int32 FamilySeq = 2;
+        int32 EmpSeq = 3;
+        string FamilyName = 4;
+        string FamilyResidID = 6;
+        int32 UMRelSeq = 7;
+        int32 UMSchCareerSeq = 8;
+        string Occupation = 9;
+
+        string FamilyPhone = 10;
+        int32 SMBirthType = 11;
+        string BirthDate = 12;
+        string RegDate = 13;
+        string EndDate = 14;
+        string IsNationMerit = 15;
+        int32 UMNationSeq = 16;
+        string IsHandi = 17;
+        int32 UMHandiType = 18;
+        int32 UMHandiGrd = 19;
+        string HandiAppdate = 20;
+        string IsSameRoof = 21;
+        string IsDepend = 22;
+        string IsPayAllow = 23;
+        string IsMed = 24;
+        string IsDeath = 25;
+        int32 DispSeq = 26;
+
+}
+message HrBaseFamilyUResult { 
+        int32 IdxNo = 1;
+        int32 FamilySeq = 2;
+        int32 EmpSeq = 3;
+        string FamilyName = 4;
+        string FamilyResidID = 6;
+        int32 UMRelSeq = 7;
+        int32 UMSchCareerSeq = 8;
+        string Occupation = 9;
+        string FamilyPhone = 10;
+        int32 SMBirthType = 11;
+        string BirthDate = 12;
+        string RegDate = 13;
+        string EndDate = 14;
+        string IsNationMerit = 15;
+        int32 UMNationSeq = 16;
+        string IsHandi = 17;
+        int32 UMHandiType = 18;
+        int32 UMHandiGrd = 19;
+        string HandiAppdate = 20;
+        string IsSameRoof = 21;
+        string IsDepend = 22;
+        string IsPayAllow = 23;
+        string IsMed = 24;
+        string IsDeath = 25;
+        int32 DispSeq = 26;
+}
+
+
+message HrBaseFamilyDResult { 
+    int32 IdxNo = 1;
+    int32 FamilySeq = 2;
+    int32 EmpSeq = 3;
+    string FamilyName = 4;
+    string FamilyResidID = 6;
+    int32 UMRelSeq = 7;
+    int32 UMSchCareerSeq = 8;
+    string Occupation = 9;
+
+    string FamilyPhone = 10;
+    int32 SMBirthType = 11;
+    string BirthDate = 12;
+    string RegDate = 13;
+    string EndDate = 14;
+    string IsNationMerit = 15;
+    int32 UMNationSeq = 16;
+    string IsHandi = 17;
+    int32 UMHandiType = 18;
+    int32 UMHandiGrd = 19;
+    string HandiAppdate = 20;
+    string IsSameRoof = 21;
+    string IsDepend = 22;
+
+    string IsPayAllow = 23;
+
+    string IsMed = 24;
+
+    string IsDeath = 25;
+    int32 DispSeq = 26;
+
+}
+
+message HrBaseFamilyQResult { 
+  int32 DeptSeq = 1;
+  string IsChangedMst = 2;
+  string IsSameRoof = 3;
+  string IsDepend = 4;
+  string IsPayAllow = 5;
+  string IsMed = 6;
+  int32 EmpSeq = 7;
+  int32 EntRetTypeSeq = 8;
+  string EntRetTypeName = 9;
+  int32 UMRelSeq = 10;
+
+}
+
+
+
+
+message HrBaseFamilyARequest {
+  repeated  HrBaseFamilyAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaseFamilyURequest {
+  repeated  HrBaseFamilyUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaseFamilyDRequest {
+  repeated  HrBaseFamilyDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBaseFamilyQRequest {
+  HrBaseFamilyQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

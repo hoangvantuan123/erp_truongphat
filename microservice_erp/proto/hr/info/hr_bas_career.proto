@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+package hr.info.hr_bas_career;
+
+
+service HrBasCareerService {
+  rpc HrBasCareerA (HrBasCareerARequest) returns (Response);
+  rpc HrBasCareerU (HrBasCareerURequest) returns (Response);
+  rpc HrBasCareerD (HrBasCareerDRequest) returns (Response);
+  rpc HrBasCareerQ (HrBasCareerQRequest) returns (Response);
+}
+
+message HrBasCareerAResult { 
+        int32 IdxNo = 1;
+        int32 CareerSeq = 2;
+        int32 EmpSeq = 3;
+        string CoDeptName = 4;
+        string JpName = 5;
+        string Duty = 6;
+
+        string CoNm = 7;
+        string EntDate = 8;
+        string RetDate = 9;
+        int32 UMChrgWkSeq  = 10;
+        string ChrgWk = 11;
+        string Area = 12; 
+        string BusType = 13;
+        string UMRetReason = 14;
+        int32 AppCarTerm = 15;
+        string IsGrp = 16; 
+        string Rem  = 17;
+
+
+
+
+
+
+       
+
+}
+message HrBasCareerUResult { 
+         int32 IdxNo = 1;
+        int32 CareerSeq = 2;
+        int32 EmpSeq = 3;
+        string CoDeptName = 4;
+        string JpName = 5;
+        string Duty = 6;
+
+        string CoNm = 7;
+        string EntDate = 8;
+        string RetDate = 9;
+        int32 UMChrgWkSeq  = 10;
+        string ChrgWk = 11;
+        string Area = 12; 
+        string BusType = 13;
+        string UMRetReason = 14;
+        int32 AppCarTerm = 15;
+        string IsGrp = 16; 
+        string Rem  = 17;
+}
+
+
+message HrBasCareerDResult { 
+    int32 IdxNo = 1;
+    int32 CareerSeq = 2;
+    int32 EmpSeq = 3;
+    string CoDeptName = 4;
+    string JpName = 5;
+    string Duty = 6;
+
+    string CoNm = 7;
+    string EntDate = 8;
+    string RetDate = 9;
+    int32 UMChrgWkSeq  = 10;
+    string ChrgWk = 11;
+    string Area = 12; 
+    string BusType = 13;
+    string UMRetReason = 14;
+    string AppCarTerm = 15;
+    string IsGrp = 16; 
+    string Rem  = 17;
+
+}
+
+message HrBasCareerQResult { 
+    int32 DeptSeq = 1;
+    int32 EmpSeq = 2;
+    int32 EntRetTypeSeq = 3;
+    string CoNm = 4;
+    string QBegDate = 5;
+    string QEndDate = 6;
+
+}
+
+
+
+
+message HrBasCareerARequest {
+  repeated  HrBasCareerAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasCareerURequest {
+  repeated  HrBasCareerUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasCareerDRequest {
+  repeated  HrBasCareerDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrBasCareerQRequest {
+  HrBasCareerQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

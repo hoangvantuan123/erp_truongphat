@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package hr.info.hr_emp_pln;
+
+
+service HrEmpPlnService {
+  rpc HrEmpPlnA (HrEmpPlnARequest) returns (Response);
+  rpc HrEmpPlnU (HrEmpPlnURequest) returns (Response);
+  rpc HrEmpPlnD (HrEmpPlnDRequest) returns (Response);
+  rpc HrEmpPlnQ (HrEmpPlnQRequest) returns (Response);
+}
+
+message HrEmpPlnAResult { 
+  int32 IdxNo = 1;
+  string EmpFamilyName = 2;
+  string EmpFirstName = 3;
+  string EmpName = 4;
+  string EmpID = 5;
+  string  ResidID = 6;
+  string EntDate = 7;
+  int32 UMEmpType = 8;
+  string Remark = 9;
+  string EmpChnName = 10;
+  string EmpEngFirstName = 11;
+  string EmpEngLastName = 12;
+}
+
+
+message HrEmpPlnUResult { 
+  int32 IdxNo = 1;
+  string EmpFamilyName = 2;
+  string EmpFirstName = 3;
+  string EmpName = 4;
+  string EmpID = 5;
+  string  ResidID = 6;
+  string EntDate = 7;
+  int32 UMEmpType = 8;
+  string Remark = 9;
+  int32 EmpSeq = 10;
+  string EmpChnName = 11;
+  string EmpEngFirstName = 12;
+  string EmpEngLastName = 13;
+
+}
+message HrEmpPlnDResult { 
+  int32 IdxNo = 1;
+  string EmpFamilyName = 2;
+  string EmpFirstName = 3;
+  string EmpName = 4;
+  string EmpID = 5;
+  string  ResidID = 6;
+  string EntDate = 7;
+  int32 UMEmpType = 8;
+  string Remark = 9;
+  int32 EmpSeq = 10;
+
+  string EmpChnName = 11;
+  string EmpEngFirstName = 12;
+  string EmpEngLastName = 13;
+}
+
+message HrEmpPlnQResult { 
+  string FrEntDate = 1;
+  string ToEntDate = 2;
+  string UMEmpType = 3;
+  string EmpSeq = 4;
+}
+
+
+
+message HrEmpPlnARequest {
+  repeated HrEmpPlnAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEmpPlnURequest {
+  repeated  HrEmpPlnUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEmpPlnDRequest {
+  repeated  HrEmpPlnDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEmpPlnQRequest {
+  HrEmpPlnQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

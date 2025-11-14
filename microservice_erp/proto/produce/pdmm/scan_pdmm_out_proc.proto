@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package scan.pdmm_out_proc;
+
+service ScanPdmmOutProcService {
+  rpc SCOMSourceDailyJumpQuery (MetadataRequest) returns (MetadataResponse);
+  rpc SPDMMOutReqItemList (SPDMMOutReqItemListRequest) returns (MetadataResponse);
+  rpc SMaterialQRStockOutCheck (SMaterialQRStockOutCheckRequest) returns (MetadataResponse);
+  rpc CheckLogsTFIFOTemp (CheckLogsTFIFOTempRequest) returns (MetadataResponse);
+  rpc DCheckLogsTFIFOTemp (DCheckLogsTFIFOTempRequest) returns (MetadataResponse);
+  rpc SPDMMOutProcItemQuery (SPDMMOutProcItemQueryRequest) returns (MetadataResponse);
+}
+
+message Result { 
+  int32 ParamFromSeq = 1;
+  int32 ParamFromSerl = 2;
+  int32 FromTableSeq = 3;
+  int32 FromSeq = 4;
+  int32 FromSerl = 5;
+  int32 FromSubSerl = 6;
+  float  FromQty = 7;
+  float  FromSTDQty = 8;
+  int32 FromAmt = 9;
+  int32 FromVAT = 10;
+  int32 FromPgmSeq = 11;
+  int32 ToPgmSeq = 12;
+}
+message SPDMMOutReqItemListResult { 
+  int32 OutReqSeq = 1;
+}
+message SMaterialQRStockOutCheckResult { 
+  int32 InOutReqSeq = 1;
+  int32 InOutReqItemSerl = 2;
+  int32 BizUnit = 3;
+  string BizUnitName = 4;
+  int32 InWHSeq = 5;
+  string InWHName = 6;
+  int32 OutWHSeq = 7;
+  string OutWHName = 8;
+  int32 ItemSeq = 9;
+  int32 UnitSeq = 10;
+  string UnitName = 11;
+  string ItemNo = 12;
+  string LotNo = 13;
+  float  Qty = 14;
+  string DateCode = 15;
+  string ReelNo  = 16;
+  string Barcode  = 17;
+  float  ReqQty = 18;
+  float  ScanQty = 19;
+  string Remark = 20;
+  string ItemLotNo = 21;
+}
+message CheckLogsTFIFOTempResult { 
+  int32 OutReqSeq = 1;
+  string LotNo  = 2;
+  int32 ItemSeq = 3;
+
+
+}
+message SPDMMOutProcItemResult { 
+  int32 MatOutSeq = 1;
+
+}
+
+message MetadataRequest {
+  Result result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDMMOutReqItemListRequest {
+  SPDMMOutReqItemListResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SMaterialQRStockOutCheckRequest {
+  SMaterialQRStockOutCheckResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message CheckLogsTFIFOTempRequest {
+  CheckLogsTFIFOTempResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message DCheckLogsTFIFOTempRequest {
+  string result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPDMMOutProcItemQueryRequest {
+  SPDMMOutProcItemResult  result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message MetadataResponse {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

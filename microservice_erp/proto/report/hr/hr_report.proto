@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package report.hr.hr_report;
+
+
+service HrReportService {
+  rpc SHRInfMonthEntRetListQ (SHRInfMonthEntRetListQRequest) returns (Response);
+  rpc SHRInfMonthEntRetGraphList (SHRInfMonthEntRetListQRequest) returns (Response);
+  rpc SHRInfEmpEntRetListQ (SHRInfEmpEntRetListQRequest) returns (Response);
+}
+
+
+message SHRInfMonthEntRetListQResult {
+  string YY = 1; 
+  string WorkingTag = 2;
+  string LanguageSeq = 3;
+
+
+  }
+message SHRInfEmpEntRetListQResult {
+  string YY = 1; 
+  string WorkingTag = 2;
+  string LanguageSeq = 3;
+  string EntRetType = 4;
+
+
+  }
+
+
+
+
+
+message SHRInfMonthEntRetListQRequest {
+  repeated SHRInfMonthEntRetListQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SHRInfEmpEntRetListQRequest {
+  repeated SHRInfEmpEntRetListQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

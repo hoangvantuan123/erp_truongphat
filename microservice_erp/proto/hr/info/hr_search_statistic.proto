@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package hr.info.hr_search_statistic;
+
+
+service SearchStatisticService {
+  rpc searchInfoMonthPerCnt (InfoMonthPerCntSearchReq) returns (Response);
+  rpc searchInfoEmpList (InfoEmpListReq) returns (Response);
+  rpc searchInfoMultiEmpList (InfoMultiEmpRequest) returns (Response);
+  rpc HrEmpPlnQ (HrEmpPlnQRequest) returns (Response);
+}
+
+message InfoMonthPerCntSearchRes { 
+  int32 IdxNo = 1;
+  string YM = 2;
+  string GrpSort1 = 3;
+  string GrpSort2 = 4;
+  string EntRetType = 5;
+  bool chkOrg = 6;
+}
+
+
+message InfoEmpListResult { 
+  int32 IdxNo = 1;
+  int32 PosSeq = 2;
+  string BaseDate = 3;
+  int32 UMEmpType = 4;
+  string SMIsOrd = 5;
+  int32 EntRetType = 6;
+  int32 SMIsForSeq = 7;
+  int32 DeptSeq = 8;
+  int32 EmpSeq = 9;
+  bool IsLowDept = 10;
+  bool IsPhotoView = 11;
+
+}
+message InfoMultiEmpResult { 
+  int32 IdxNo = 1;
+  string EmpNameFr = 2;
+  string EmpNameTo = 3;
+  bool IsRetire = 4;
+
+  string EntDateFr = 5;
+  string EntDateTo = 6;
+  string RetDateFr = 7;
+  string RetDateTo = 8;
+  string DeptLevel = 9;
+
+  int32 DeptSeq = 10;
+  repeated int32 MultiDeptSeq = 11;
+  bool IsLowDept = 12;
+  string Ps = 13;
+  string JpSeq = 14;
+  repeated int32 MultiJpSeq = 15;
+  string SMMoreLess = 16;
+  string PgSeq = 17;
+  repeated int32 MultiPgSeq = 18;
+  string PuSeq = 19;
+  repeated int32 MultiPuSeq = 20;
+  string UMSchCareerSeq = 21;
+  repeated int32 MultiUMSchCareerSeq = 22;
+}
+
+message HrEmpPlnQResult { 
+  string FrEntDate = 1;
+  string ToEntDate = 2;
+  string UMEmpType = 3;
+  string EmpSeq = 4;
+}
+
+message InfoMonthPerCntSearchReq {
+  repeated InfoMonthPerCntSearchRes result = 1;  
+  map<string, string> metadata = 2;
+}
+message InfoEmpListReq {
+  repeated  InfoEmpListResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message InfoMultiEmpRequest {
+  repeated  InfoMultiEmpResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEmpPlnQRequest {
+  HrEmpPlnQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

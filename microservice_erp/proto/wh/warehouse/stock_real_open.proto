@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package wh.warehouse.stock_real_open;
+
+
+service StockRealOpenService {
+  rpc StockRealOpenQ (StockRealOpenQRequest) returns (Response);
+  rpc SLGWHStockRealOpenQ (SLGWHStockRealOpenQRequest) returns (Response);
+}
+
+
+message StockRealOpenQResult {
+    string IsChangedMst = 1;
+    string BizUnit = 2;
+    string StkDate = 3;
+    string StkDateTo = 4;
+    string WHSeq = 5;
+    string EmpSeq = 6;
+    string StkMngNo = 7;
+    string MakerSeq = 8;
+
+  }
+
+
+message SLGWHStockRealOpenQResult {
+    string StkMngSeq = 1;
+   
+
+  }
+
+
+
+
+message StockRealOpenQRequest {
+  repeated StockRealOpenQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SLGWHStockRealOpenQRequest {
+  repeated SLGWHStockRealOpenQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}
