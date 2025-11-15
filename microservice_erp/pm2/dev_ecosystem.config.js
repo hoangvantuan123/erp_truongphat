@@ -1,153 +1,105 @@
 const commonEnv = require('./env_dev.common');
 
 module.exports = {
-    apps: [{
-            name: 'api-gateway-dev',
+    apps: [
+        {
+            name: 'tp-gw',
             script: '../api-gateway/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
+            env: { ...commonEnv },
         },
         {
-            name: 'microservice-auth-dev',
+            name: 'tp-auth',
             script: '../microservice-auth/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
+            env: { ...commonEnv },
         },
         {
-            name: 'microservice-hr-dev',
+            name: 'tp-hr',
             script: '../microservice-hr/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
+            env: { ...commonEnv },
         },
         {
-            name: 'microservice-produce-dev',
+            name: 'tp-produce',
             script: '../microservice-produce/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
+            env: { ...commonEnv },
         },
         {
-            name: 'microservice-purchase-dev',
+            name: 'tp-purchase',
             script: '../microservice-purchase/dist/main.js',
             instances: 1,
             exec_mode: 'cluster',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
+            env: { ...commonEnv },
         },
         {
-            name: 'microservice-qc-dev',
+            name: 'tp-qc',
             script: '../microservice-qc/dist/main.js',
             instances: 1,
             exec_mode: 'cluster',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
+            env: { ...commonEnv },
         },
         {
-            name: 'microservice-sp-dev',
+            name: 'tp-sp',
             script: '../microservice-sp/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
-
+            env: { ...commonEnv },
         },
         {
-            name: 'microservice-warehouse-dev',
+            name: 'tp-warehouse',
             script: '../microservice-warehouse/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
-
+            env: { ...commonEnv },
         },
         {
-            name: 'microservice-upload-dev',
+            name: 'tp-upload',
             script: '../microservice-upload/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
             watch: false,
             autorestart: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
-
+            env: { ...commonEnv },
         },
         {
-            name: 'socket-gateway-dev',
-            script: '../socket-gateway/dist/main.js',
-            instances: 1,
-            exec_mode: 'fork',
-            watch: false,
-            autorestart: false,
-            max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
-
-        },
-        {
-            name: 'microservice-report-dev',
+            name: 'tp-report',
             script: '../microservice-report/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
             watch: false,
             max_memory_restart: '8192M',
-            env: {
-                ...commonEnv,
-
-            },
-
+            env: { ...commonEnv },
         },
-
     ]
 };

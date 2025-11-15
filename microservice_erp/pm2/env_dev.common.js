@@ -103,7 +103,7 @@ module.exports = {
 
     /* SOCKET */
 
-    PORT_API_GATEWAY: 8086,
+    PORT_API_GATEWAY: 7086,
     PORT_SOCKET_GATEWAY: 8888,
 
 
