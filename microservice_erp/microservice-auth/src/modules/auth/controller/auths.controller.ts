@@ -277,21 +277,8 @@ export class AuthController {
             const queryIP = `SELECT 1 FROM _ERPPublicIPs WHERE IPAddress = '${ipAddress}'`;
 
             return this.databaseService.executeQuery(queryIP).then((ipResult) => {
-                const isPublicIPAllowed = ipResult.length > 0;
 
-                if (!isPublicIPAllowed && !AccountScope) {
-                    return {
-                        status: false,
-                        message: 'IP address not allowed for this user',
-                    };
-                }
-
-                if (isPublicIPAllowed && AccountScope) {
-                    console.warn(
-                        `User ${UserId} đăng nhập từ IP không trong whitelist: ${ipAddress}`
-                    );
-                }
-
+           
                 const queryLogs = `
         SELECT StatusLogs FROM _ERPUserLoginLogs 
         WHERE UserSeq = '${UserSeq}' AND DeviceId = '${DeviceId}'
