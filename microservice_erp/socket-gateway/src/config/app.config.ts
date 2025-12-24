@@ -14,6 +14,7 @@ export const appConfig = {
             'https://192.168.35.150:3030',
             'https://192.168.35.150:8080',
             'https://truongphat.ierps.vn',
+            'https://ws-tp.ierps.vn'
         ],
         methods: 'GET,POST,PUT,DELETE',
         credentials: true,

@@ -15,10 +15,8 @@ let socketConnection = null;
 
 const baseUrl = `${currentHost}${currentPort ? ':' + currentPort : ''}`;
 
-if (baseUrl === '192.168.35.150:3030') {
-    HOST_SOCKET = 'https://192.168.35.150:3031';
-} else if (baseUrl === 'truongphat.ierps.vn') {
-    HOST_SOCKET = 'https://ws.truongphat.ierps.vn';
+ if (baseUrl === 'truongphat.ierps.vn') {
+    HOST_SOCKET = 'https://ws-tp.ierps.vn';
 } else {
     HOST_SOCKET = 'http://localhost:8888';
 }
