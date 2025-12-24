@@ -23,6 +23,9 @@ async function bootstrap() {
         'report.sales.sales_report',
         'report.hr.hr_report',
         'report.acct.acct_report',
+        'report.project.project_mgmt',
+        'report.project.pay_condition',
+        'report.pjt.pjt_project',
       ],
       protoPath: [
 
@@ -32,6 +35,9 @@ async function bootstrap() {
         join(__dirname, '..', '..', 'proto', 'report', 'sales', 'sales_report.proto'),
         join(__dirname, '..', '..', 'proto', 'report', 'hr', 'hr_report.proto'),
         join(__dirname, '..', '..', 'proto', 'report', 'acct', 'acct_report.proto'),
+        join(__dirname, '..', '..', 'proto', 'report', 'project', 'project_mgmt.proto'),
+        join(__dirname, '..', '..', 'proto', 'report', 'project', 'pay_condition.proto'),
+        join(__dirname, '..', '..', 'proto', 'report', 'pjt', 'pjt_project.proto'),
 
       ],
       loader: {

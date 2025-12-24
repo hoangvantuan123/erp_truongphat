@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet'
 import { FilterOutlined } from '@ant-design/icons'
 import { ArrowIcon } from '../../../components/icons'
-import { Input, Typography, Row, Col, message, Splitter } from 'antd'
+import { Input, Typography, Row, Col, message, Form } from 'antd'
 const { Title, Text } = Typography
 import { debounce } from 'lodash'
 import dayjs from 'dayjs'
@@ -19,7 +19,7 @@ import ErrorListModal from '../../default/errorListModal'
 import ModalSheetDelete from '../../../components/modal/default/deleteSheet'
 import { getQMore } from '../../../../features/basic/daMaterialList/getQMore'
 import { GetItemListBaseQuery } from '../../../../features/basic/daMaterialList/get'
-
+import { Splitter, SplitterPanel } from 'primereact/splitter'
 import DaMaterialListMoreQuery from '../../../components/query/basic/daMaterialListMoreQuery'
 import TableDaMaterialListMore from '../../../components/table/basic/tableDaMaterialListMore'
 import TabViewDeMaterSeq from '../../../components/view/basic/tabViewDeMaterSeq'
@@ -28,13 +28,11 @@ import { filterAndSelectColumns } from '../../../../utils/filterUorA'
 import { PostAMoreItem } from '../../../../features/basic/daMaterialList/postAMore'
 import { PostUMoreItem } from '../../../../features/basic/daMaterialList/postUMore'
 import { PostDMoreItem } from '../../../../features/basic/daMaterialList/postDMore'
-import DaMaterialListMoreAction from '../../../components/actions/basic/product/daMaterialListMoreAction'
+import DaMaterialListMoreAction from '../../../components/actions/basic/daMaterialListActionMore'
 import { uploadFilesItems } from '../../../../features/upload/postFileItems'
 import { getQFileSeq } from '../../../../features/basic/daMaterialList/getQFileSeq'
 import { deleteDataSheet } from '../../../../utils/deleteUtils'
-import { togglePageInteraction } from '../../../../utils/togglePageInteraction'
 import { PostDFilesItems } from '../../../../features/upload/postDFileItems'
-import { SDAItemListQ } from '../../../../features/basic/daMaterialList/SDAItemListQ'
 import TopLoadingBar from 'react-top-loading-bar';
 export default function DaMaterialListMore({
     permissions,
@@ -47,13 +45,63 @@ export default function DaMaterialListMore({
     const { t } = useTranslation()
     const formatDate = (date) => date.format('YYYYMMDD')
     const loadingBarRef = useRef(null);
-    const activeFetchCountRef = useRef(0);
     const defaultCols = useMemo(
         () => [
-            { title: '', id: 'Status', kind: 'Text', readonly: true, width: 50, hasMenu: true, visible: true, themeOverride: { textDark: "#225588", baseFontStyle: "600 13px" }, trailingRowOptions: { disabled: false }, icon: GridColumnIcon.HeaderLookup },
-            { title: t('1786'), id: 'ItemName', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
-            { title: t('2091'), id: 'ItemNo', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
-            { title: t('551'), id: 'Spec', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+            {
+                title: '',
+                id: 'Status',
+                kind: 'Text',
+                readonly: true,
+                width: 50,
+                hasMenu: true,
+                visible: true,
+                icon: GridColumnIcon.HeaderLookup,
+            },
+            {
+                title: 'ItemSeq',
+                id: 'ItemSeq',
+                kind: 'Text',
+                readonly: true,
+                width: 200,
+                hasMenu: true,
+                visible: false,
+                icon: GridColumnIcon.HeaderRowID,
+                trailingRowOptions: {
+                    disabled: true,
+                },
+
+
+            },
+            {
+                title: t('1786'),
+                id: 'ItemName',
+                kind: 'Text',
+                readonly: false,
+                width: 200,
+                hasMenu: true,
+                visible: true,
+                icon: GridColumnIcon.HeaderString,
+
+                trailingRowOptions: {
+                    disabled: true,
+                },
+            },
+            {
+                title: t('2091'),
+                id: 'ItemNo',
+                kind: 'Text',
+                readonly: false,
+                width: 200,
+                hasMenu: true,
+                visible: true,
+                icon: GridColumnIcon.HeaderRowID,
+
+                trailingRowOptions: {
+                    disabled: true,
+                },
+            },
+
+
         ],
         [t],
     )
@@ -507,113 +555,56 @@ export default function DaMaterialListMore({
             rows: CompactSelection.empty(),
         })
     }
-    const increaseFetchCount = () => {
-        activeFetchCountRef.current += 1;
-    };
 
-    const decreaseFetchCount = () => {
-        activeFetchCountRef.current -= 1;
-        if (activeFetchCountRef.current === 0) {
-            loadingBarRef.current?.complete();
-            togglePageInteraction(false);
-        }
-    };
-    const fetchGenericData = async ({
-        controllerKey,
-        postFunction,
-        searchParams,
-        useEmptyData = true,
-        defaultCols,
-        afterFetch = () => { },
-    }) => {
-        increaseFetchCount();
-
-        if (controllers.current[controllerKey]) {
-            controllers.current[controllerKey].abort();
-            await new Promise((resolve) => setTimeout(resolve, 10));
-            return fetchGenericData({
-                controllerKey,
-                postFunction,
-                searchParams,
-                afterFetch,
-                defaultCols,
-                useEmptyData,
-            });
-        }
-
-        const controller = new AbortController();
-        controllers.current[controllerKey] = controller;
-        const { signal } = controller;
-
-        togglePageInteraction(true);
-        loadingBarRef.current?.continuousStart();
-
-        try {
-            const response = await postFunction(searchParams, signal);
-            if (!response.success) {
-                HandleError([
-                    {
-                        success: false,
-                        message: response.message || 'Đã xảy ra lỗi vui lòng thử lại!',
-                    },
-                ]);
-            }
-            const data = response.success ? (response.data || []) : [];
-
-            let mergedData = updateIndexNo(data);
-
-            if (useEmptyData) {
-                const emptyData = updateIndexNo(generateEmptyData(100, defaultCols));
-                mergedData = updateIndexNo([...data, ...emptyData]);
-            }
-
-            await afterFetch(mergedData);
-        } catch (error) {
-            let emptyData = [];
-
-            if (useEmptyData) {
-                emptyData = updateIndexNo(generateEmptyData(100, defaultCols));
-            }
-
-            await afterFetch(emptyData);
-        } finally {
-            decreaseFetchCount();
-            controllers.current[controllerKey] = null;
-            togglePageInteraction(false);
-            loadingBarRef.current?.complete();
-        }
-    };
     const fetchData = useCallback(async () => {
 
+        setLoading(true)
+        if (controllers.current.fetchData) {
+            controllers.current.fetchData.abort();
+            controllers.current.fetchData = null;
+            await new Promise((resolve) => setTimeout(resolve, 10));
+        }
+        if (loadingBarRef.current) {
+            loadingBarRef.current.continuousStart();
+        }
+        const controller = new AbortController();
+        const signal = controller.signal;
 
-        const searchParams = [
-            {
-                AssetSeq: key10012,
-                UMItemClassL: UMItemClassL,
-                UMItemClassM: UMItemClassM,
-                UMItemClassS: UMItemClassS,
-                DeptSeq: keyDeptSeq,
-                EmpSeq: keyEmpSeq,
-                ItemName: keyItemName,
-                ItemNo: keyItemNo,
-                Spec: keySpec,
-                FromDate: formData ? formatDate(formData) : '',
-                ToDate: toDate ? formatDate(toDate) : '',
-            },
-        ]
+        controllers.current.fetchData = controller;
+        try {
 
-        fetchGenericData({
-            controllerKey: 'SDAItemListQ',
-            postFunction: SDAItemListQ,
-            searchParams,
-            defaultCols,
-            useEmptyData: false,
-            afterFetch: (data) => {
-                setGridData(data);
-                setNumRows(data.length);
-            },
-        });
+            const data = [
+                {
+                    AssetSeq: key10012,
+                    UMItemClassL: UMItemClassL,
+                    UMItemClassM: UMItemClassM,
+                    UMItemClassS: UMItemClassS,
+                    DeptSeq: keyDeptSeq,
+                    EmpSeq: keyEmpSeq,
+                    ItemName: keyItemName,
+                    ItemNo: keyItemNo,
+                    Spec: keySpec,
+                    FromDate: formData ? formatDate(formData) : '',
+                    ToDate: toDate ? formatDate(toDate) : '',
+                },
+            ]
 
+            const response = await GetItemListBaseQuery(data, signal)
+            const fetchedData = response.data.data || []
+
+            setGridData(fetchedData)
+            setNumRows(fetchedData.length)
+        } catch (error) {
+
+            setGridData([])
+            setNumRows(0)
+        } finally {
+            if (loadingBarRef.current) {
+                loadingBarRef.current.complete();
+            }
+            setLoading(false)
+            controllers.current.fetchData = null;
+        }
     }, [formData, toDate, key10012, keyItemName, keyItemNo, keySpec, keyDeptSeq, keyEmpSeq, UMItemClassS, UMItemClassM, UMItemClassL])
     const fetchDataSeq = useCallback(async (ItemNoSeq) => {
         setLoading(true)
@@ -794,14 +785,76 @@ export default function DaMaterialListMore({
                 data8047, data8048, data2002, data8007, data8004,
                 data2001, data2003, data8028, data10007, data10014, data10010, data10009, data17001, data2004, data2005, data2006
             ] = await Promise.all([
+                GetCodeHelpCombo('', 6, 10012, 1, '%', '', '', '', '', signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '6004', '', '', '', signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '6005', '', '', '', signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '6006', '', '', '', signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '6007', '', '', '', signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '8047', '', '', '', signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '8048', '', '', '', signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '2002', '', '', '', signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '8007', '', "", "", signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '8004', "", "", "", signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '2001', "", "", "", signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '2003', "", "", "", signal),
+                GetCodeHelpCombo('', 6, 19998, 1, '%', '8028', "", "", "", signal),
+                GetCodeHelp(10007, '', '', '', '', '', '', 1, 0, '', 0, 0, 0, signal),
+                GetCodeHelp(10014, '', '', '', '', '', '', 1, 0, '', 0, 0, 0, signal),
+                GetCodeHelp(10010, '', '', '', '', '', '', 1, 0, '', 0, 0, 0, signal),
+                GetCodeHelp(10009, '', '', '', '', '', '', 1, 0, '', 0, 0, 0, signal),
+                GetCodeHelp(17001, '', '', '', '', '', '', 1, 0, '', 0, 0, 0, signal),
 
-
+                GetCodeHelpCombo('', 6, 10014, 1, '%', '2004', "", "", "", signal),
+                GetCodeHelpCombo('', 6, 18098, 1, '%', '2005', "", "", "", signal),
+                GetCodeHelpCombo('', 6, 18097, 1, '%', '2006', "", "", "", signal)
             ]);
 
+            setSet10012(data10012.data || []);
+            setSet6004(data6004.data || []);
+            setSet6005(data6005.data || []);
+            setSet6006(data6006.data || []);
+            setSet6007(data6007.data || []);
+            setSet8047(data8047.data || []);
+            setSet8048(data8048.data || []);
+            setSet2002(data2002.data || []);
+            setSet8007(data8007.data || []);
+            setSet8004(data8004.data || []);
+            setSet2001(data2001.data || []);
+            setSet2003(data2003.data || []);
+            setSet8028(data8028.data || []);
 
+            setSet10007(data10007.data || []);
+            setSet10014(data10014.data || []);
+            setSet10010(data10010.data || []);
+            setSet10009(data10009.data || []);
+            setSet17001(data17001.data || []);
+
+            setSet2004(data2004.data || []);
+            setSet2005(data2005.data || []);
+            setSet2006(data2006.data || []);
 
         } catch (error) {
-
+            setSet10012([]);
+            setSet6004([]);
+            setSet6005([]);
+            setSet6006([]);
+            setSet6007([]);
+            setSet8047([]);
+            setSet8048([]);
+            setSet2002([]);
+            setSet8007([]);
+            setSet8004([]);
+            setSet2001([]);
+            setSet2003([]);
+            setSet8028([]);
+            setSet10007([]);
+            setSet10014([]);
+            setSet10010([]);
+            setSet10009([]);
+            setSet17001([]);
+            set2004([]);
+            set2005([]);
+            set2006([]);
         } finally {
             controllers.current.fetchCodeHelpData = null;
             setLoading(false);
@@ -1059,7 +1112,22 @@ export default function DaMaterialListMore({
 
         return rows
     }
+    const getSelectedRowsD = () => {
+        const selectedRows = selectionD.rows.items
+        let rows = []
+        selectedRows.forEach((range) => {
+            const start = range[0]
+            const end = range[1] - 1
 
+            for (let i = start; i <= end; i++) {
+                if (gridDataD[i]) {
+                    rows.push(gridDataD[i])
+                }
+            }
+        })
+
+        return rows
+    }
     const handleDelete = useCallback(() => {
         if (canDelete === false) {
             message.warning('Bạn không có quyền xóa dữ liệu');
@@ -1190,28 +1258,31 @@ export default function DaMaterialListMore({
     return (
         <>
             <Helmet>
-                <title> {t('Đăng ký danh mục hàng chi tiết')}</title>
+                <title>ITM - {t('Đăng ký danh mục hàng chi tiết')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
-            <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">
-                <div className="flex flex-col h-full">
-                    <div className="col-start-1 col-end-5 row-start-1 w-full ">
-                        <div className="flex items-end justify-end bg-white p-1">
+            <div className="bg-slate-50 p-3 h-screen overflow-hidden">
+                <div className="flex flex-col gap-4 md:grid md:grid-cols-4 md:grid-rows-[auto_1fr] md:gap-4 h-full">
+                    <div className="col-start-1 col-end-5 row-start-1 w-full rounded-lg ">
+                        <div className="flex items-center justify-between">
+                            <Title level={4} className="mt-2 uppercase opacity-85 ">
+                                {t('Đăng ký danh mục hàng chi tiết')}
+                            </Title>
                             <DaMaterialListMoreAction
-                                handleSearchData={fetchData}
-                                handleSaveData={handleSaveAll}
-                                handleDeleteDataSheet={handleDelete}
+                                fetchDataQuery={fetchData}
+                                handleSaveAll={handleSaveAll}
+                                handleDelete={handleDelete}
                             />
                         </div>
-                        <div className="group  bg-white">
+                        <div className="group p-2 border rounded-lg bg-white">
 
-                            <summary className="flex cursor-pointer border-t p-1 items-center justify-between gap-1.5 text-gray-900">
+                            <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
                                 <h2 className="text-xs font-medium flex items-center gap-2  uppercase">
                                     <FilterOutlined />
                                     Điều kiện truy vấn
                                 </h2>
                             </summary>
-                            <div className="flex p-1">
+                            <div className="flex p-2 gap-4">
                                 <DaMaterialListMoreQuery
                                     formData={formData}
                                     setFormData={setFormData}
@@ -1243,11 +1314,10 @@ export default function DaMaterialListMore({
                             </div>
                         </div>
                     </div>
-                    <div className="col-start-1 col-end-5 row-start-2 w-full  h-screen   overflow-auto">
-                        <Splitter
 
-                        >
-                            <Splitter.Panel defaultSize="35%" min="20%">
+                    <div className="col-start-1 flex gap-3 col-end-5 row-start-2 w-full     rounded-lg  overflow-hidden">
+                        <Splitter className="w-full h-full">
+                            <SplitterPanel size={25} minSize={10}>
                                 <TableDaMaterialListMore
                                     setSelection={setSelection}
                                     selection={selection}
@@ -1284,8 +1354,8 @@ export default function DaMaterialListMore({
                                     dataScopeName={dataScopeName}
 
                                 />
-                            </Splitter.Panel>
-                            <Splitter.Panel defaultSize="65%" min="40%">
+                            </SplitterPanel>
+                            <SplitterPanel size={75} minSize={20}>
 
 
                                 <TabViewDeMaterSeq
@@ -1345,9 +1415,8 @@ export default function DaMaterialListMore({
                                     imageList={imageList}
 
                                 />
-                            </Splitter.Panel>
+                            </SplitterPanel>
                         </Splitter>
-
                     </div>
                 </div>
             </div>

@@ -22,8 +22,7 @@ import { togglePageInteraction } from '../../../utils/togglePageInteraction'
 import LangSysActions from '../../components/actions/system/langsActions'
 import TableLangSys from '../../components/table/system/tableLangs'
 import { Splitter, SplitterPanel } from 'primereact/splitter'
-import { PostUpdateLangSys } from '../../../features/system/putLangSys'
-import { PostAddLangsys } from '../../../features/system/postAddLangSys'
+
 import { GetAllDictionarySys } from '../../../features/system/getDictionary'
 import TableLangSysList from '../../components/table/system/tableLangsList'
 import { GetALlLangSys } from '../../../features/system/getQLangs'
@@ -582,7 +581,7 @@ export default function DictSys({ permissions, isMobile, controllers, canDelete,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('850000016')}</title>
+                <title>ITM - {t('850000016')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-42px)] overflow-hidden">

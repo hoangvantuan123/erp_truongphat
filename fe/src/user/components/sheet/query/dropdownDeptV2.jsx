@@ -68,7 +68,8 @@ const DropdownDeptV2 = ({ helpData, setSearchText, searchText, setItemText, setD
             setItemText('');
             setFilteredData(helpData);
             setDataSearch(null);
-       
+            setNumRows(helpData.length);
+
         } else {
             const filtered = helpData.filter(
                 (item) =>
@@ -76,6 +77,7 @@ const DropdownDeptV2 = ({ helpData, setSearchText, searchText, setItemText, setD
                     item.DeptRemark.toLowerCase().includes(value.toLowerCase())
             );
             setFilteredData(filtered);
+            setNumRows(filtered.length);
         }
         setDropdownVisible(true);
     };
@@ -87,7 +89,7 @@ const DropdownDeptV2 = ({ helpData, setSearchText, searchText, setItemText, setD
             setSearchText(ItemName);
             setItemText(ItemName);
             setDataSearch(data[row]);
-          
+
             setDropdownVisible(false);
         }
     };
@@ -187,7 +189,7 @@ const DropdownDeptV2 = ({ helpData, setSearchText, searchText, setItemText, setD
                                 setItemText('');
                                 setFilteredData(helpData);
                                 setDataSearch(null);
-                               
+
                             }}
                         />
                     )}
@@ -195,7 +197,7 @@ const DropdownDeptV2 = ({ helpData, setSearchText, searchText, setItemText, setD
             </div>
             <DataEditor
                 ref={gridRef}
-                width={1200}
+                width={980}
                 height={500}
                 onFill={onFill}
                 className="cursor-pointer rounded-md"

@@ -985,7 +985,7 @@ export default function ImpDeliveryItemList({
     <>
       <Helmet>
         <title>
-          HPM - {t('Truy vấn chi tiết nhập kho sản phẩm nhập khẩu')}
+          ITM - {t('Truy vấn chi tiết nhập kho sản phẩm nhập khẩu')}
         </title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />

@@ -2033,7 +2033,7 @@ export default function ImpOrder({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập đặt hàng nhập khẩu')}</title>
+        <title>ITM - {t('Nhập đặt hàng nhập khẩu')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

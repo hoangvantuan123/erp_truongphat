@@ -2361,7 +2361,7 @@ export default function PurDelvInLink({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập kho mua hàng trong nước')}</title>
+        <title>ITM - {t('Nhập kho mua hàng trong nước')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

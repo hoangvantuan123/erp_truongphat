@@ -48,8 +48,7 @@ import ErrorListModal from '../default/errorListModal'
 import { updateIndexNo } from '../../components/sheet/js/updateIndexNo'
 import TopLoadingBar from 'react-top-loading-bar'
 import { togglePageInteraction } from '../../../utils/togglePageInteraction'
-import { playErrorSound } from '../../../utils/errorSound'
-import { playSuccessSound } from '../../../utils/errorSound'
+
 export default function LGEtcIn({
   permissions,
   isMobile,
@@ -1235,25 +1234,23 @@ export default function LGEtcIn({
           setGridData((prevData) =>
             prevData.map((item) =>
               item.ItemNo === formData[0].ItemNo &&
-                item.ReqSerl === formData[0].InOutReqItemSerl
+              item.ReqSerl === formData[0].InOutReqItemSerl
                 ? {
-                  ...item,
-                  ProgressingQty:
-                    (item?.ProgressingQty || 0) + formData[0].Qty,
-                  NotProgressQty:
-                    (item?.NotProgressQty || 0) - formData[0].Qty,
-                }
+                    ...item,
+                    ProgressingQty:
+                      (item?.ProgressingQty || 0) + formData[0].Qty,
+                    NotProgressQty:
+                      (item?.NotProgressQty || 0) - formData[0].Qty,
+                  }
                 : item,
             ),
           )
         })
-        playSuccessSound();
       } else {
         if (loadingBarRef.current) {
           loadingBarRef.current.complete()
           setDataError(resSuccess.data.errors)
         }
-        playErrorSound();
         setIsModalVisible(true)
       }
     }, 100),
@@ -1317,7 +1314,6 @@ export default function LGEtcIn({
         setModal2Open(true)
         setError(resultMessage)
         setInputBarCode('')
-        playErrorSound();
       }
     }
     return () => {
@@ -2039,7 +2035,6 @@ export default function LGEtcIn({
               setIsModalVisible(true)
               setIsAPISuccess(true)
               togglePageInteraction(false)
-              playSuccessSound();
               if (loadingBarRef.current) {
                 loadingBarRef.current.complete()
                 message.error(response.data.message || 'Xóa thất bại!')
@@ -2049,7 +2044,6 @@ export default function LGEtcIn({
           .catch((error) => {
             setModalMasterDeleteOpen(false)
             togglePageInteraction(false)
-            playErrorSound();
             setIsAPISuccess(true)
             if (loadingBarRef.current) {
               loadingBarRef.current.complete()
@@ -2163,7 +2157,7 @@ export default function LGEtcIn({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập kho sản phẩm khác')}</title>
+        <title>ITM - {t('Nhập kho sản phẩm khác')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3  h-[calc(100vh-30px)] overflow-hidden">

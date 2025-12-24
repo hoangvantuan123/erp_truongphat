@@ -1212,7 +1212,7 @@ export default function PdmpsProdPlan({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('Kế hoạch sản xuất')}</title>
+                <title>ITM - {t('Kế hoạch sản xuất')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-42px)] overflow-hidden">

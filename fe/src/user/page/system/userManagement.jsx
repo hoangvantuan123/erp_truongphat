@@ -524,7 +524,7 @@ export default function UserManagement({ permissions, canCreate,
   return (
     <>
       <Helmet>
-        <title>HPM - {t('850000021')}</title>
+        <title>ITM - {t('850000021')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-42px)] overflow-hidden">

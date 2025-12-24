@@ -17,13 +17,14 @@ import {
   CreditCardOutlined,
   ClusterOutlined,
   ScheduleOutlined,
-  BarChartOutlined,
+  ReconciliationOutlined,
   SafetyCertificateOutlined,
   DollarOutlined,
   GroupOutlined,
   IdcardOutlined,
   UserAddOutlined,
-  SolutionOutlined
+  SolutionOutlined,
+  ProjectOutlined
 } from '@ant-design/icons'
 
 export const iconMapping = {
@@ -47,4 +48,6 @@ export const iconMapping = {
   IdcardOutlined: <IdcardOutlined style={{ fontSize: '18px' }} />,
   UserAddOutlined: <UserAddOutlined style={{ fontSize: '18px' }} />,
   SolutionOutlined: <SolutionOutlined style={{ fontSize: '18px' }} />,
+  ReconciliationOutlined: <ReconciliationOutlined style={{ fontSize: '18px' }} />,
+  ProjectOutlined: <ProjectOutlined style={{ fontSize: '18px' }} />,
 }

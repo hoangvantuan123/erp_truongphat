@@ -327,7 +327,7 @@ function TableBomReportAll({
 
   return (
     <div className="w-full  h-full flex items-center justify-center">
-      <div className="w-full h-full flex flex-col bg-white overflow-x-hidden border rounded-lg overflow-hidden ">
+      <div className="w-full h-full flex flex-col bg-white overflow-x-hidden border overflow-hidden ">
         <h2 className="text-xs border-b font-medium flex items-center gap-2 p-2 text-blue-600 uppercase">
           <TableOutlined />
           DATA SHEET

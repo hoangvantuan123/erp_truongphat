@@ -1125,7 +1125,7 @@ export default function RoleManagement({ permissions, isMobile, canCreate, canEd
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Role Management')}</title>
+        <title>ITM - {t('Role Management')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">

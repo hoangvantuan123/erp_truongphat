@@ -9,6 +9,7 @@ import {
   TableOutlined,
   CloseOutlined,
   LoadingOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons'
 import useOnFill from '../../hooks/sheet/onFillHook'
 import { GetCodeHelpVer2 } from '../../../../features/codeHelp/getCodeHelpVer2'
@@ -22,12 +23,11 @@ function CodeHelpPeople({
   nameCodeHelp,
   modalVisiblePeople,
   setModalVisiblePeople,
-  dropdownRef,
   peopleSearchSh,
   setPeopleSearchSh,
   selectionPeople,
   setSelectionPeople,
-  gridRef,
+  setSelectEmp,
 
   empName,
   setEmpName,
@@ -41,6 +41,8 @@ function CodeHelpPeople({
   const [hoverRow, setHoverRow] = useState(null)
   const [PeopleSearch, setPeopleSearch] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [numRows, setNumRows] = useState(0)
+
 
   const defaultPeopleCols = [
     {
@@ -79,13 +81,12 @@ function CodeHelpPeople({
       width: 150,
     },
   ]
+  const gridRef = useRef(null)
+  const dropdownRef = useRef(null)
+
   const [colsPeople, setColsPeople] = useState(defaultPeopleCols)
   const [filteredPeopleData, setFilteredPeopleData] = useState([])
   const onPeopleFill = useOnFill(filteredPeopleData, colsPeople)
-
-  useEffect(() => {
-    setFilteredPeopleData(data)
-  }, [data])
 
   const onColumnPeopleResize = useCallback(
     (column, newSize) => {
@@ -193,6 +194,20 @@ function CodeHelpPeople({
     }
   }, [empName])
 
+  useEffect(() => {
+    if (modalVisiblePeople && dropdownRef.current) {
+      const dropdown = dropdownRef.current
+      dropdown.style.position = 'fixed'
+      dropdown.style.top = '50%'
+      dropdown.style.left = '50%'
+      dropdown.style.transform = 'translate(-50%, -50%)'
+      dropdown.style.zIndex = '1000'
+    }
+    const safeData = data || []
+    setFilteredPeopleData(safeData)
+    setNumRows(safeData.length)
+  }, [modalVisiblePeople])
+
   const handlePeopleCellClick = ([col, row]) => {
     const dataClick = peopleSearchSh.trim() === '' ? data : filteredPeopleData
     if (dataClick[row]) {
@@ -203,7 +218,9 @@ function CodeHelpPeople({
       setUserId(dataClick[row].EmpID)
       setPeopleSearch(selectedUserName)
       setPeopleSearchSh(selectedUserName)
+      
       setModalVisiblePeople(false)
+      setSelectEmp(dataClick[row])
     }
   }
 
@@ -224,6 +241,7 @@ function CodeHelpPeople({
       setUserId(selectedUser?.EmpID)
       setPeopleSearch(selectedUser?.EmpName)
       setPeopleSearchSh(selectedUser?.EmpName)
+      setSelectEmp(selectedUser)
       setModalVisiblePeople(false)
     }
     if (e.key === 'Escape') {
@@ -249,11 +267,21 @@ function CodeHelpPeople({
       </div>
       <div className="p-2 border-b border-t">
         <div className="w-full flex gap-2">
-          {isLoading ? (
-            <LoadingOutlined className="animate-spin" />
-          ) : (
-            <SearchOutlined />
-          )}
+          <button
+            onClick={() => {
+              if (!isLoading) {
+                fetchCodeHelpDataUserSearch(searchText)
+              }
+            }}
+            className="opacity-80 size-5 cursor-pointer"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <LoadingOutlined className="animate-spin" />
+            ) : (
+              <SearchOutlined />
+            )}
+          </button>
           <input
             value={peopleSearchSh}
             onChange={handlePeopleSearch}
@@ -263,6 +291,21 @@ function CodeHelpPeople({
             autoFocus={true}
             className="h-full w-full border-none focus:outline-none hover:border-none bg-inherit"
           />
+
+          {peopleSearchSh && (
+            <DeleteOutlined
+              className="absolute right-2 cursor-pointer opacity-50 hover:opacity-100"
+              onClick={() => {
+                setEmpName('')
+                setEmpSeq('')
+                setPeopleSearch('')
+                setFilteredPeopleData(data)
+                setNumRows(data.length)
+                
+  
+              }}
+            />
+          )}
         </div>
       </div>
       <DataEditor
@@ -271,7 +314,7 @@ function CodeHelpPeople({
         height={500}
         onFill={onPeopleFill}
         className="cursor-pointer rounded-md"
-        rows={filteredPeopleData.length}
+        rows={numRows}
         columns={colsPeople}
         gridSelection={selectionPeople}
         onGridSelectionChange={setSelectionPeople}

@@ -4,166 +4,168 @@ import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.ser
 import { GenerateXmlService } from '../generate-xml/generate-xml.service';
 import { ERROR_MESSAGES } from 'src/common/utils/constants';
 
-import { Observable, from, of, forkJoin } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { DataSource } from 'typeorm';
 @Injectable()
 export class DaMaterialListService {
-    constructor(
-        private readonly databaseService: DatabaseService,
-        private readonly dataSource: DataSource,
-        private readonly generateXmlService: GenerateXmlService) { }
+    constructor(private readonly databaseService: DatabaseService, private readonly generateXmlService: GenerateXmlService) { }
 
 
-
-    SDAItemListQ(
-        result: any,
-        userSeq: number,
-        companySeq: number,
-    ): Observable<SimpleQueryResult> {
-        const xmlDocument = this.generateXmlService.generateXMLSDAItemListBaseQuery(result);
+    async SDAWHItemListBaseQuery(result: any[], companySeq: number, userSeq: number, pgmSeq: number): Promise<SimpleQueryResult> {
+        const xmlDocument = await this.generateXmlService.generateXMLSDAItemListBaseQuery(result);
         const query = `
-            EXEC _SDAItemListQuery_WEB
-            @xmlDocument = N'${xmlDocument}',
-            @xmlFlags = 2,
-            @ServiceSeq = 5137,
-            @WorkingTag = N'${result[0].WorkingTag || ''}',
-            @CompanySeq = ${companySeq},
-            @LanguageSeq = 6,
-            @UserSeq = ${userSeq},
-            @PgmSeq = 17667;
-        `;
-
-        return from(this.dataSource.query(query)).pipe(
-            map(resultQuery => ({ success: true, data: resultQuery })),
-            catchError(error =>
-                of({
-                    success: false,
-                    message: error.message || ERROR_MESSAGES.DATABASE_ERROR
-                })
-            )
-        );
+      EXEC _SDAItemListQuery_WEB
+        @xmlDocument = N'${xmlDocument}',
+        @xmlFlags = 2,
+        @ServiceSeq = 5137,
+        @WorkingTag = N'',
+        @CompanySeq = ${companySeq},
+        @LanguageSeq = 6,
+        @UserSeq = ${userSeq},
+        @PgmSeq = ${pgmSeq};
+    `;
+        try {
+            const result = await this.databaseService.executeQuery(query);
+            return { success: true, data: result };
+        } catch (error) {
+            return { success: false, message: error.message || ERROR_MESSAGES.DATABASE_ERROR };
+        }
     }
 
-    private SDAItemListAutoCheck(
-        result: any[],
-        userSeq: number,
-        companySeq: number,
-        workingTag: string
-    ): Observable<any> {
+
+    /* A-U-D */
+    private async AutoCheck(result: any[], companySeq: number, userSeq: number, workingTag: string): Promise<SimpleQueryResult2> {
         const xmlFlags = 2;
+        const serviceSeq = 5199;
         const languageSeq = 6;
+        const pgmSeq = 124;
 
+        const generateQuery = (xmlDocument: string, procedure: string) => `
+              EXEC ${procedure}_WEB
+                @xmlDocument = N'${xmlDocument}',
+                @xmlFlags = ${xmlFlags},
+                @ServiceSeq = ${serviceSeq},
+                @WorkingTag = N'${workingTag}',
+                @CompanySeq = ${companySeq},
+                @LanguageSeq = ${languageSeq},
+                @UserSeq = ${userSeq},
+                @PgmSeq = ${pgmSeq};
+            `;
 
-        const generateQuery = (
-            xmlDocument: string,
-            procedure: string,
-            serviceSeq: number,
-            pgmSeq: number
-        ) => `
-            EXEC ${procedure}_WEB
-            @xmlDocument = N'${xmlDocument}',
-            @xmlFlags = ${xmlFlags},
-            @ServiceSeq = ${serviceSeq},
-            @WorkingTag = N'${workingTag}',
-            @CompanySeq = ${companySeq},
-            @LanguageSeq = ${languageSeq},
-            @UserSeq = ${userSeq},
-            @PgmSeq = ${pgmSeq};
-        `;
+        const checkResult = async () => {
+            try {
+                const xmlDocumentCheck = await this.generateXmlService.generateXMLItem(result, workingTag);
+                const queryCheck = generateQuery(xmlDocumentCheck, '_SDAItemUploadCheck');
+                const resultCheck = await this.databaseService.executeQuery(queryCheck);
 
-        // 🔹 Xác định proc, serviceSeq & hàm generateXML theo workingTag
-        const isUpdate = workingTag === 'U';
-        const procCheck = isUpdate ? '_SDAItemUpdateCheck' : '_SDAItemUploadCheck';
-        const procSave = isUpdate ? '_SDAItemUpdateSave' : '_SDAItemUploadSave';
-        const serviceSeq = isUpdate ? 7969 : 5199;
-
-        // 🔹 Gọi hàm tạo XML phù hợp
-        const xmlDoc1 = isUpdate
-            ? this.generateXmlService.generateXMLItemU(result, workingTag)
-            : this.generateXmlService.generateXMLItem(result, workingTag);
-
-        const query1 = generateQuery(xmlDoc1, procCheck, serviceSeq, 124);
-
-        return forkJoin([
-            from(this.dataSource.query(query1)),
-        ]).pipe(
-            switchMap(([data1]) => {
-                const results = [data1];
-
-                for (const data of results) {
-                    if (!data?.length) {
-                        return of({ success: false, errors: ["Không có dữ liệu trả về từ kiểm tra"] });
-                    }
-
-                    const hasInvalid = data.some((item: any) => item.Status !== 0);
-                    if (hasInvalid) {
-                        return of({
-                            success: false,
-                            message: 'Lỗi',
-                            errors: data
-                                .filter((item: any) => item.Status !== 0)
-                                .map((item: any) => ({
-                                    IDX_NO: item.IDX_NO,
-                                    Name: item.ItemName,
-                                    result: item.Result,
-                                })),
-                        });
-                    }
+                const invalidStatuses = resultCheck.some((item: any) => item.Status !== 0);
+                if (invalidStatuses) {
+                    const errorMessages = resultCheck
+                        .filter((item: any) => item.Status !== 0)
+                        .map((item: any) => ({
+                            IDX_NO: item.IDX_NO,
+                            Name: item.ItemName,
+                            result: item.Result,
+                        }));
+                    return { success: false, errors: errorMessages };
                 }
+                return { success: true, data: resultCheck };
+            } catch (error) {
+                return { success: false, errors: [error.message || ERROR_MESSAGES.DATABASE_ERROR] };
+            }
+        };
 
-                // 🔹 Gọi hàm generateXML phù hợp cho bước Save
-                const saveXmlDoc1 = isUpdate
-                    ? this.generateXmlService.generateXMLItemU(data1, workingTag)
-                    : this.generateXmlService.generateXMLItem(data1, workingTag);
+        const saveResult = async (checkData: any[]) => {
+            try {
+                const xmlDocumentSave = await this.generateXmlService.generateXMLItem(checkData, workingTag);
+                const querySave = generateQuery(xmlDocumentSave, '_SDAItemUploadSave');
+                const resultSave = await this.databaseService.executeQuery(querySave);
+                return { success: true, data: resultSave };
+            } catch (error) {
+                return { success: false, errors: [error.message || ERROR_MESSAGES.DATABASE_ERROR] };
+            }
+        };
 
-                const saveQuery1 = generateQuery(saveXmlDoc1, procSave, serviceSeq, 124);
+        try {
+            const check = await checkResult();
+            if (!check.success) {
+                return check;
+            }
+            return await saveResult(check.data);
+        } catch (error) {
+            return { success: false, errors: [error.message || ERROR_MESSAGES.DATABASE_ERROR] };
+        }
+    }
+    private async AutoCheckUpdate(result: any[], companySeq: number, userSeq: number, workingTag: string): Promise<SimpleQueryResult2> {
+        const xmlFlags = 2;
+        const serviceSeq = 7969;
+        const languageSeq = 6;
+        const pgmSeq = 124;
 
-                return forkJoin([
-                    from(this.dataSource.query(saveQuery1)),
-                ]).pipe(
-                    map(([saveData1]) => {
-                        const invalidItems = saveData1?.filter((item: any) => item.Status !== 0) || [];
+        const generateQuery = (xmlDocument: string, procedure: string) => `
+              EXEC ${procedure}_WEB
+                @xmlDocument = N'${xmlDocument}',
+                @xmlFlags = ${xmlFlags},
+                @ServiceSeq = ${serviceSeq},
+                @WorkingTag = N'${workingTag}',
+                @CompanySeq = ${companySeq},
+                @LanguageSeq = ${languageSeq},
+                @UserSeq = ${userSeq},
+                @PgmSeq = ${pgmSeq};
+            `;
 
-                        if (invalidItems.length) {
-                            const isInvalidFormat = invalidItems.some(
-                                (item: any) => !item.IDX_NO || !item.ItemName || !item.Result
-                            );
+        const checkResult = async () => {
+            try {
+                const xmlDocumentCheck = await this.generateXmlService.generateXMLItemUpdate(result, workingTag);
+                const queryCheck = generateQuery(xmlDocumentCheck, '_SDAItemUpdateCheck');
+                const resultCheck = await this.databaseService.executeQuery(queryCheck);
 
-                            if (isInvalidFormat) {
-                                return {
-                                    success: false,
-                                    errors: [{
-                                        IDX_NO: 1,
-                                        Name: 'Lỗi',
-                                        result: 'Không thể lấy dữ liệu chi tiết lỗi.',
-                                    }],
-                                };
-                            }
+                const invalidStatuses = resultCheck.some((item: any) => item.Status !== 0);
+                if (invalidStatuses) {
+                    const errorMessages = resultCheck
+                        .filter((item: any) => item.Status !== 0)
+                        .map((item: any) => ({
+                            IDX_NO: item.IDX_NO,
+                            Name: item.ItemName,
+                            result: item.Result,
+                        }));
+                    return { success: false, errors: errorMessages };
+                }
+                return { success: true, data: resultCheck };
+            } catch (error) {
+                return { success: false, errors: [error.message || ERROR_MESSAGES.DATABASE_ERROR] };
+            }
+        };
 
-                            return {
-                                success: false,
-                                errors: invalidItems.map((item: any) => ({
-                                    IDX_NO: item.IDX_NO,
-                                    Name: item.ItemName,
-                                    result: item.Result,
-                                })),
-                            };
-                        }
+        const saveResult = async (checkData: any[]) => {
+            try {
+                const xmlDocumentSave = await this.generateXmlService.generateXMLItemUpdate(checkData, workingTag);
+                const querySave = generateQuery(xmlDocumentSave, '_SDAItemUpdateSave');
+                const resultSave = await this.databaseService.executeQuery(querySave);
+                return { success: true, data: resultSave };
+            } catch (error) {
+                return { success: false, errors: [error.message || ERROR_MESSAGES.DATABASE_ERROR] };
+            }
+        };
 
-                        return { success: true, data: saveData1 };
-                    })
-                );
-            }),
-            catchError((err) => of(err))
-        );
+        try {
+            const check = await checkResult();
+            if (!check.success) {
+                return check;
+            }
+            return await saveResult(check.data);
+        } catch (error) {
+            return { success: false, errors: [error.message || ERROR_MESSAGES.DATABASE_ERROR] };
+        }
     }
 
-
-
-    SDAItemListAUD(result: any, companySeq: number, userSeq: number, workingTag: string): Observable<any> {
-        return this.SDAItemListAutoCheck(result, companySeq, userSeq, result[0].WorkingTag);
+    async AutoCheckA(result: any[], companySeq: number, userSeq: number): Promise<SimpleQueryResult2> {
+        return this.AutoCheck(result, companySeq, userSeq, 'A');
     }
 
+    async AutoCheckU(result: any[], companySeq: number, userSeq: number): Promise<SimpleQueryResult2> {
+        return this.AutoCheckUpdate(result, companySeq, userSeq, 'U');
+    }
 
+    async AutoCheckD(result: any[], companySeq: number, userSeq: number): Promise<SimpleQueryResult2> {
+        return this.AutoCheck(result, companySeq, userSeq, 'D');
+    }
 }

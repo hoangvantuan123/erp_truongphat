@@ -39,7 +39,7 @@ export default function ProfileUserId({ permissions, isMobile,   controllers,
   return (
     <>
       <Helmet>
-        <title>HPM - {t('User Management')}</title>
+        <title>ITM - {t('User Management')}</title>
       </Helmet>
       <div className="bg-slate-50 p-2 h-screen overflow-hidden">
         <div className="flex flex-col gap-6 md:grid md:grid-cols-4 md:grid-rows-[auto_1fr] md:gap-6 h-full">

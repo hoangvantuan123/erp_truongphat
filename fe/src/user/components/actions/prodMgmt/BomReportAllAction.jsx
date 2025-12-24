@@ -9,18 +9,17 @@ import {
 import { useTranslation } from 'react-i18next'
 
 export default function BomReportAllAction({
-  fetchData,
+  handleSearchData,
 }) {
   const { t } = useTranslation()
   return (
     <div className="flex items-center gap-2">
       <Button
-        key="Save"
         type="primary"
         icon={<SearchOutlined />}
         size="middle"
         className="uppercase"
-        onClick={fetchData}
+        onClick={handleSearchData}
       >
         {t('850000005')}
       </Button>

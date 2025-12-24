@@ -32,32 +32,35 @@ export default function LGLotNoMasterAction({
 }) {
   return (
     <div className="flex items-center gap-2">
-
       <Button
+        type="primary"
+        danger
+        icon={<DeleteOutlined />}
+        onClick={() => setModalOpen(true)}
+        size="middle"
+      >
+        XÓA SHEET
+      </Button>
+      <Button
+        key="save"
+        type="primary"
+        icon={<SaveOutlined />}
+        size="middle"
+        className="uppercase"
+        onClick={handleSaveData}
+        style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }}
+      >
+        Lưu
+      </Button>
+      <Button
+        key="Save"
+        type="primary"
         icon={<SearchOutlined />}
         size="middle"
         className="uppercase"
         onClick={fetchDataQuery}
       >
         Truy vấn
-      </Button>
-
-      <Button
-        icon={<SaveOutlined />}
-        size="middle"
-        className="uppercase"
-        onClick={handleSaveData}
-      >
-        Lưu
-      </Button>
-
-
-      <Button
-        icon={<DeleteOutlined />}
-        onClick={() => setModalOpen(true)}
-        size="middle"
-      >
-        XÓA SHEET
       </Button>
     </div>
   )

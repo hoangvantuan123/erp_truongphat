@@ -1974,7 +1974,7 @@ export default function PurOrdPOLink({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập đặt mua hàng trong nước')}</title>
+        <title>ITM - {t('Nhập đặt mua hàng trong nước')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

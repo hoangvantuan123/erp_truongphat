@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { Button, Form, Input, Row, Col, Select } from 'antd'
+import { Button, Form, Input, Row, Col, Select, DatePicker } from 'antd'
 import CustomRenderer, {
   getMiddleCenterBias,
   GridCellKind,
@@ -16,7 +16,12 @@ import { useTranslation } from 'react-i18next'
 export default function BomReportAllQuery({
   helpData01, setDataSearch, setHelpData01, dataSearch, helpData02, setDataSheetSearch, setItemText, itemText, searchText, setSearchText,
   setMinorValue,
-  controllers
+  controllers,
+
+  setFormDate,
+  formDate,
+  toDate,
+  setToDate,
 }) {
   const gridRef = useRef(null)
   const { t } = useTranslation()
@@ -49,10 +54,39 @@ export default function BomReportAllQuery({
       <Form layout="vertical">
         <Row className="gap-4 flex items-center ">
 
+          {/*  <Col>
+            <Form.Item
+              label={<span className="uppercase text-[10px]">{t('Thời gian đăng ký')}</span>}
+              style={{ marginBottom: 0 }}
+              labelCol={{ style: { marginBottom: 2, padding: 0 } }}
+              wrapperCol={{ style: { padding: 0 } }}
+            >
+              <div className='flex items-center'>
+
+                <DatePicker
+                  size="small"
+                  defaultValue={formDate}
+                  onChange={(value) => setFormDate(value)}
+                  className="w-full p-1 "
+                  placeholder="Chọn ngày"
+
+                />
+                ~
+                <DatePicker
+                  size="small"
+                  defaultValue={toDate}
+                  onChange={(value) => setToDate(value)}
+                  className="w-full   p-1 "
+                  placeholder="Chọn ngày"
+
+                />
+              </div>
+            </Form.Item>
+          </Col> */}
           <Col>
             <Form.Item
               label={
-                <span className="uppercase text-[9px]">{t('1786')}</span>
+                <span className="uppercase text-[9px] text-red-500">{t('1786')} *</span>
               }
               style={{ marginBottom: 0 }}
               labelCol={{ style: { marginBottom: 2, padding: 0 } }}

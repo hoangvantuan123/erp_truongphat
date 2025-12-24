@@ -6,8 +6,6 @@ import { map, catchError } from 'rxjs/operators';
 import 'dotenv/config';
 interface HelpDefineService {
     OrgCodeHelpDefineItemH(data: { result: any; metadata: Record<string, string> }): Observable<any>;
-    ItemAllH(data: { result: any; metadata: Record<string, string> }): Observable<any>;
-    CustAllH(data: { result: any; metadata: Record<string, string> }): Observable<any>;
 }
 
 @Injectable()
@@ -50,54 +48,6 @@ export class gRPCHelpDefineService {
         const metadataService = client.getService<HelpDefineService>('HelpDefineService');
 
         return metadataService.OrgCodeHelpDefineItemH({ result, metadata }).pipe(
-            map((grpcResponse) => {
-                return {
-                    success: grpcResponse?.success,
-                    message: grpcResponse?.message || 'No message received',
-                    data: grpcResponse?.data || null,
-                };
-            }),
-            catchError((error) => {
-                return new Observable((subscriber) => {
-                    subscriber.next({
-                        success: false,
-                        message: 'Không thể xử lý yêu cầu. Vui lòng thử lại sau.',
-                        errorDetails: error?.errors,
-                    });
-                    subscriber.complete();
-                });
-            })
-        );
-    }
-    ItemAllH(result: any, metadata: Record<string, string> = {}): Observable<any> {
-        const client = this.createGrpcClient();
-        const metadataService = client.getService<HelpDefineService>('HelpDefineService');
-
-        return metadataService.ItemAllH({ result, metadata }).pipe(
-            map((grpcResponse) => {
-                return {
-                    success: grpcResponse?.success,
-                    message: grpcResponse?.message || 'No message received',
-                    data: grpcResponse?.data || null,
-                };
-            }),
-            catchError((error) => {
-                return new Observable((subscriber) => {
-                    subscriber.next({
-                        success: false,
-                        message: 'Không thể xử lý yêu cầu. Vui lòng thử lại sau.',
-                        errorDetails: error?.errors,
-                    });
-                    subscriber.complete();
-                });
-            })
-        );
-    }
-    CustAllH(result: any, metadata: Record<string, string> = {}): Observable<any> {
-        const client = this.createGrpcClient();
-        const metadataService = client.getService<HelpDefineService>('HelpDefineService');
-
-        return metadataService.CustAllH({ result, metadata }).pipe(
             map((grpcResponse) => {
                 return {
                     success: grpcResponse?.success,

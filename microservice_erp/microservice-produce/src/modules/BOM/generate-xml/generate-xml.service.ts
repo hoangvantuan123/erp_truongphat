@@ -108,10 +108,14 @@ export class GenerateXmlService {
   </DataBlock5>
 </ROOT>`;
   }
-  async generateXMLSPDBOMReportAllQuery(result: any): Promise<string> {
-    return `<ROOT>
-       <DataBlock1>
-    <WorkingTag>A</WorkingTag>
+
+
+  generateXMLSPDBOMReportAllQuery(result: Array<{ [key: string]: any }>): string {
+    const xmlBlocks = result
+      .map(
+        (item) => `
+          <DataBlock1>
+            <WorkingTag>A</WorkingTag>
     <IDX_NO>1</IDX_NO>
     <Status>0</Status>
     <DataSeq>1</DataSeq>
@@ -119,16 +123,19 @@ export class GenerateXmlService {
     <TABLE_NAME>DataBlock1</TABLE_NAME>
     <IsChangedMst>1</IsChangedMst>
     <IsMaxRev>0</IsMaxRev>
-    <UMQueryType>${result?.UMQueryType}</UMQueryType>
-    <ItemSeq>${result?.ItemSeq}</ItemSeq>
-    <ItemNo>${result?.ItemNo}</ItemNo>
-    <AssetSeq>${result?.AssetSeq}</AssetSeq>
-    <DateFr>${result?.DateFr}</DateFr>
-    <DateTo>${result?.DateTo}</DateTo>
-  </DataBlock1>
-</ROOT>`;
-  }
+    <UMQueryType>${item?.UMQueryType}</UMQueryType>
+    <ItemSeq>${item?.ItemSeq}</ItemSeq>
+    <ItemNo>${item?.ItemNo}</ItemNo>
+    <AssetSeq>${item?.AssetSeq}</AssetSeq>
+    <DateFr>${item?.DateFr}</DateFr>
+    <DateTo>${item?.DateTo}</DateTo>
+          </DataBlock1>
+        `
+      )
+      .join('');
 
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
   async generateXMLSPDBOMSubItemCheck(result: Array<{ [key: string]: any }>): Promise<string> {
     const xmlBlocks = result
       .map(

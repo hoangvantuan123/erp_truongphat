@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from 'src/common/database/database.service';
+import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ERPUploadsFile } from '../entities/uploadFile.entity';
 import { Repository, In } from 'typeorm';
@@ -42,43 +42,43 @@ export class UploadService {
 
     for (const batch of batches) {
       const result = await this.ERPUploadsFileRepository.insert(batch);
-
+    
       const insertedIds = result.identifiers.map((item) => item.IdSeq);
-
+    
       const newlyInsertedRecords = await this.ERPUploadsFileRepository
-        .createQueryBuilder('file')
-        .select([
-          'file.IdSeq as "IdSeq"',
-          'file.FormCode as "FormCode"',
-          'file.FieldName as "FieldName"',
-          'file.OriginalName as "OriginalName"',
-          'file.Encoding as "Encoding"',
-          'file.MimeType as "MimeType"',
-          'file.Destination as "Destination"',
-          'file.Filename as "Filename"',
-          'file.Path as "Path"',
-          'file.Size as "Size"',
-          'file.IdxNo as "IdxNo"',
-          'file.CreatedBy as "CreatedBy"',
-          'file.CreatedAt as "CreatedAt"',
-          'file.UpdatedBy as "UpdatedBy"',
-          'file.UpdatedAt as "UpdatedAt"',
-          'UserSeq.UserName as "UserName"',
-          'UserSeq.UserId as "UserId"',
-        ])
-        .leftJoin(
-          '_TCAUser_WEB',
-          'UserSeq',
-          'file.CreatedBy = UserSeq.UserSeq'
-        )
-        .where('file.IdSeq IN (:...insertedIds)', { insertedIds })
-        .getRawMany();
-
-      affectedRows += result.identifiers.length;
-      insertedRecords = [...insertedRecords, ...newlyInsertedRecords];
-
+      .createQueryBuilder('file')
+      .select([
+        'file.IdSeq as "IdSeq"',
+        'file.FormCode as "FormCode"',
+        'file.FieldName as "FieldName"',
+        'file.OriginalName as "OriginalName"',
+        'file.Encoding as "Encoding"',
+        'file.MimeType as "MimeType"',
+        'file.Destination as "Destination"',
+        'file.Filename as "Filename"',
+        'file.Path as "Path"',
+        'file.Size as "Size"',
+        'file.IdxNo as "IdxNo"',
+        'file.CreatedBy as "CreatedBy"',
+        'file.CreatedAt as "CreatedAt"',
+        'file.UpdatedBy as "UpdatedBy"',
+        'file.UpdatedAt as "UpdatedAt"',
+        'UserSeq.UserName as "UserName"',
+        'UserSeq.UserId as "UserId"',
+      ])
+      .leftJoin(
+        '_TCAUser_WEB', 
+        'UserSeq',      
+        'file.CreatedBy = UserSeq.UserSeq' 
+      )
+      .where('file.IdSeq IN (:...insertedIds)', { insertedIds })
+      .getRawMany(); 
+    
+    affectedRows += result.identifiers.length;
+    insertedRecords = [...insertedRecords, ...newlyInsertedRecords];
+    
     }
-
+    
 
     return {
       affectedRows,

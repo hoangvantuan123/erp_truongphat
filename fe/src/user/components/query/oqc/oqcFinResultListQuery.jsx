@@ -75,6 +75,7 @@ export default function OqcFinResultListQuery({
     columns: CompactSelection.empty(),
     rows: CompactSelection.empty(),
   })
+  const [selectEmp, setSelectEmp] = useState(null)
 
   const [modalVisibleWorkCenter, setModalVisibleWorkCenter] = useState(false)
   const [WorkCenterSearchSh, setWorkCenterSearchSh] = useState('')
@@ -466,6 +467,7 @@ export default function OqcFinResultListQuery({
                   setEmpSeq={setEmpSeq}
                   setUserId={setUserId}
                   dropdownRef={dropdownRef}
+                  setSelectEmp={setSelectEmp}
                 />
               )}
             </Form.Item>

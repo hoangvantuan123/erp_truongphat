@@ -52,15 +52,6 @@ interface PdEquiptService {
     dataMng: any;
     metadata: Record<string, string>;
   }): Observable<any>;
-
-  AssetFileQ(data: {
-    result: any;
-    metadata: Record<string, string>;
-  }): Observable<any>;
-  AssetFileD(data: {
-    result: any;
-    metadata: Record<string, string>;
-  }): Observable<any>;
 }
 
 @Injectable()
@@ -249,39 +240,39 @@ export class GrpcPdEquiptService {
   }
 
   createOrUpdatePdEquip(
-    dataPdEquip: any[],
-    dataAssyTool: any[],
-    dataMng: any[],
+    dataPdEquip: any [],
+    dataAssyTool: any [],
+    dataMng: any [],
     metadata: Record<string, string> = {},
   ): Observable<any> {
     const client = this.createGrpcClient();
     const metadataService =
       client.getService<PdEquiptService>('PdEquiptService');
-    return metadataService
-      .createOrUpdatePdEquip({ dataPdEquip, dataAssyTool, dataMng, metadata })
-      .pipe(
-        map((grpcResponse) => ({
-          success: grpcResponse?.status ?? false,
-          // message: grpcResponse?.message || 'No message received',
-          data: grpcResponse?.data || null,
-          errors: grpcResponse?.errors || null,
-        })),
-        catchError((error) => {
-          console.log(error);
-          return new Observable((subscriber) => {
-            subscriber.next({
-              success: false,
-              message: 'Error while calling gRPC service',
-              errorDetails: error?.message || 'Unknown error',
-              errors: error?.errors || null,
-            });
-            subscriber.complete();
+    return metadataService.createOrUpdatePdEquip({ dataPdEquip, dataAssyTool, dataMng, metadata }).pipe(
+      map((grpcResponse) => (
+        {
+          
+        success: grpcResponse?.status ?? false,
+        // message: grpcResponse?.message || 'No message received',
+        data: grpcResponse?.data || null,
+        errors: grpcResponse?.errors || null,
+      })),
+      catchError((error) => {
+        console.log(error);
+        return new Observable((subscriber) => {
+          subscriber.next({
+            success: false,
+            message: 'Error while calling gRPC service',
+            errorDetails: error?.message || 'Unknown error',
+            errors: error?.errors || null,
           });
-        }),
-      );
+          subscriber.complete();
+        });
+      }),
+    );
   }
 
-  deleteMold(
+   deleteMold(
     dataMold: any[],
     metadata: Record<string, string> = {},
   ): Observable<any> {
@@ -289,7 +280,9 @@ export class GrpcPdEquiptService {
     const metadataService =
       client.getService<PdEquiptService>('PdEquiptService');
     return metadataService.deleteMold({ dataMold, metadata }).pipe(
-      map((grpcResponse) => ({
+      map((grpcResponse) => (
+        {
+          
         success: grpcResponse?.status ?? false,
         // message: grpcResponse?.message || 'No message received',
         data: grpcResponse?.data || null,
@@ -311,85 +304,29 @@ export class GrpcPdEquiptService {
   }
 
   deletePdEquip(
-    dataPdEquip: any[],
-    dataAssyTool: any[],
-    dataMng: any[],
+    dataPdEquip: any [],
+    dataAssyTool: any [],
+    dataMng: any [],
     metadata: Record<string, string> = {},
   ): Observable<any> {
     const client = this.createGrpcClient();
     const metadataService =
       client.getService<PdEquiptService>('PdEquiptService');
-    return metadataService
-      .deletePdEquip({ dataPdEquip, dataAssyTool, dataMng, metadata })
-      .pipe(
-        map((grpcResponse) => ({
-          success: grpcResponse?.status ?? false,
-          // message: grpcResponse?.message || 'No message received',
-          data: grpcResponse?.data || null,
-          errors: grpcResponse?.errors || null,
-        })),
-        catchError((error) => {
-          console.log(error);
-          return new Observable((subscriber) => {
-            subscriber.next({
-              success: false,
-              message: 'Error while calling gRPC service',
-              errorDetails: error?.message || 'Unknown error',
-              errors: error?.errors || null,
-            });
-            subscriber.complete();
-          });
-        }),
-      );
-  }
-
-  AssetFileQ(
-    result: any,
-    metadata: Record<string, string> = {},
-  ): Observable<any> {
-    const client = this.createGrpcClient();
-    const metadataService =
-      client.getService<PdEquiptService>('PdEquiptService');
-    return metadataService.AssetFileQ({ result, metadata }).pipe(
-      map((grpcResponse) => ({
+    return metadataService.deletePdEquip({ dataPdEquip, dataAssyTool, dataMng, metadata }).pipe(
+      map((grpcResponse) => (
+        {
+          
         success: grpcResponse?.status ?? false,
-        message: grpcResponse?.message || 'No message received',
+        // message: grpcResponse?.message || 'No message received',
         data: grpcResponse?.data || null,
         errors: grpcResponse?.errors || null,
       })),
       catchError((error) => {
+        console.log(error);
         return new Observable((subscriber) => {
           subscriber.next({
             success: false,
-            message: 'Hệ thống đang bận, vui lòng thử lại sau.',
-            errorDetails: error?.message || 'Unknown error',
-            errors: error?.errors || null,
-          });
-          subscriber.complete();
-        });
-      }),
-    );
-  }
-
-  AssetFileD(
-    result: any,
-    metadata: Record<string, string> = {},
-  ): Observable<any> {
-    const client = this.createGrpcClient();
-    const metadataService =
-      client.getService<PdEquiptService>('PdEquiptService');
-    return metadataService.AssetFileD({ result, metadata }).pipe(
-      map((grpcResponse) => ({
-        success: grpcResponse?.status ?? false,
-        message: grpcResponse?.message || 'No message received',
-        data: grpcResponse?.data || null,
-        errors: grpcResponse?.errors || null,
-      })),
-      catchError((error) => {
-        return new Observable((subscriber) => {
-          subscriber.next({
-            success: false,
-            message: 'Hệ thống đang bận, vui lòng thử lại sau.',
+            message: 'Error while calling gRPC service',
             errorDetails: error?.message || 'Unknown error',
             errors: error?.errors || null,
           });

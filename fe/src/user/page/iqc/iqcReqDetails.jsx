@@ -1766,7 +1766,7 @@ export default function IqcReqDetails({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('800000115')}</title>
+        <title>ITM - {t('800000115')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
 

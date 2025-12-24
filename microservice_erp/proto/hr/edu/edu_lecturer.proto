@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package hr.edu.edu_lecturer;
+
+
+service HrEduLecturerService {
+  rpc searchEduLecturer (HrEduLecturerSearchRequest) returns (Response);
+  rpc auEduLecturer (HrEduLecturerRequest) returns (Response);
+  rpc deleteEduLecturer (HrEduLecturerRequest) returns (Response);
+}
+
+
+message HrEduLecturerSearch {
+  int32 SMPayType = 1;
+  string DeptSeq = 2;
+  string EmpSeq = 3;
+  int32 EmpName = 4;
+  int32 SMInOutType = 5;
+  string LecturerName = 6;
+
+
+}
+
+message HrEduLecturerResult {
+
+  string IdxNo = 1;
+  int32 LecturerSeq = 2;
+  int32 SMInOutType = 3;
+  string SMInOutTypeName = 4;
+  int32 EmpSeq = 5;
+  string EmpName = 6;
+  string EmpID = 7;
+  string ResidID = 8;
+  string Address = 9;
+  int32 BasePrice = 10;
+  string SMPayTypeName = 11;
+  int32 SMPayType = 12;
+  string Remark = 13;
+  string status = 14;
+  string LecturerName = 15;
+
+}
+
+message HrEduLecturerSearchRequest {
+  repeated HrEduLecturerSearch result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEduLecturerRequest {
+  repeated HrEduLecturerResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

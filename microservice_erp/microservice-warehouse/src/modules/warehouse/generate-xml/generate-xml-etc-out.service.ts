@@ -33,7 +33,9 @@ export class GenerateXmlEtcOutService {
     return 0;
   }
   //Etc Out Req List
-  async generateXMLSLGInOutReqListQueryWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSLGInOutReqListQueryWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -60,14 +62,16 @@ export class GenerateXmlEtcOutService {
     <EmpSeq>${this.escapeXml(item.EmpSeq || '')}</EmpSeq>
     <EmpName>${this.escapeXml(item.EmpName || '')}</EmpName>
     <SMProgressType>${this.escapeXml(item.SMProgressType || '')}</SMProgressType>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSLGInOutReqItemListQueryWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSLGInOutReqItemListQueryWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -100,14 +104,16 @@ export class GenerateXmlEtcOutService {
     <EmpSeq>${this.escapeXml(item.EmpSeq || '')}</EmpSeq>
     <EmpName>${this.escapeXml(item.EmpName || '')}</EmpName>
     <ReqNo>${this.escapeXml(item.ReqNo || '')}</ReqNo>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSLGInOutItemListQueryWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSLGInOutItemListQueryWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -142,7 +148,7 @@ export class GenerateXmlEtcOutService {
     <ItemName>${this.escapeXml(item.ItemName || '')}</ItemName>
     <ItemNo>${this.escapeXml(item.ItemNo || '')}</ItemNo>
     <LotNo>${this.escapeXml(item.LotNo || '')}</LotNo>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
@@ -160,7 +166,7 @@ export class GenerateXmlEtcOutService {
     <TABLE_NAME>DataBlock1</TABLE_NAME>
     <IsChangedMst>0</IsChangedMst>
     <ReqSeq>${result}</ReqSeq>
-  </DataBlock1>`
+  </DataBlock1>`;
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
@@ -170,13 +176,14 @@ export class GenerateXmlEtcOutService {
         <DataBlock2>
     <IDX_NO>1</IDX_NO>
     <ReqSeq>${result}</ReqSeq>
-  </DataBlock2>`
+  </DataBlock2>`;
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-
-  async generateXMLSCOMConfirmWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSCOMConfirmWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -190,14 +197,16 @@ export class GenerateXmlEtcOutService {
     <CfmSeq>${this.escapeXml(item.ReqSeq || '')}</CfmSeq>
     <TABLE_NAME>DataBlock1</TABLE_NAME>
     <TableName>_TLGInOutReq</TableName>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSLGInOutReqStopSaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSLGInOutReqStopSaveWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -210,14 +219,17 @@ export class GenerateXmlEtcOutService {
     <IsStop>${this.escapeXml(item.IsStop || '')}</IsStop>
     <ReqSeq>${this.escapeXml(item.ReqSeq || '')}</ReqSeq>
     <TABLE_NAME>DataBlock1</TABLE_NAME>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSCOMCloseCheckWEB(result: Array<{ [key: string]: any }>, workingTag: string): Promise<string> {
+  async generateXMLSCOMCloseCheckWEB(
+    result: Array<{ [key: string]: any }>,
+    workingTag: string,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -234,14 +246,17 @@ export class GenerateXmlEtcOutService {
     <ServiceSeq>2631</ServiceSeq>
     <MethodSeq>1</MethodSeq>
     <DtlUnitSeq>1</DtlUnitSeq>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSLGInOutReqCheckWEB(result: Array<{ [key: string]: any }>, workingTag: string): Promise<string> {
+  async generateXMLSLGInOutReqCheckWEB(
+    result: Array<{ [key: string]: any }>,
+    workingTag: string,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -272,14 +287,16 @@ export class GenerateXmlEtcOutService {
     <EmpName>${this.escapeXml(item.EmpName || '')}</EmpName>
     <Remark>${this.escapeXml(item.Remark || '')}</Remark>
     <CompleteWishDate>${this.escapeXml(item.CompleteWishDate || '')}</CompleteWishDate>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSLGInOutReqItemCheckWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSLGInOutReqItemCheckWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -312,14 +329,16 @@ export class GenerateXmlEtcOutService {
     <TABLE_NAME>DataBlock2</TABLE_NAME>
     <BizUnit>${this.escapeXml(item.BizUnit || '')}</BizUnit>
     <ReqSeq>${this.escapeXml(item.ReqSeq || '')}</ReqSeq>
-  </DataBlock2>`
+  </DataBlock2>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSLGInOutInventoryCheckWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSLGInOutInventoryCheckWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -333,15 +352,16 @@ export class GenerateXmlEtcOutService {
     <ItemSeq>${this.escapeXml(item.ItemSeq || '0')}</ItemSeq>
 	  <Qty>${this.escapeXml(item.Qty || '0')}</Qty>
     <TABLE_NAME>DataBlock3</TABLE_NAME>
-  </DataBlock3>`
+  </DataBlock3>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-
-  async generateXMLSCOMConfirmDeleteWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSCOMConfirmDeleteWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -355,14 +375,16 @@ export class GenerateXmlEtcOutService {
     <IsChangedMst>1</IsChangedMst>
     <CfmSeq>${this.escapeXml(item.ReqSeq || '')}</CfmSeq>
     <TableName>_TLGInOutReq</TableName>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSLGInOutReqSaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSLGInOutReqSaveWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -391,21 +413,23 @@ export class GenerateXmlEtcOutService {
     <IsTrans>${this.escapeXml(item.IsTrans || '0')}</IsTrans>
     <IsStop>${this.escapeXml(item.IsStop || '0')}</IsStop>
     <ReqSeq>${this.escapeXml(item.ReqSeq || '0')}</ReqSeq>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSLGInOutReqItemSaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSLGInOutReqItemSaveWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
         <DataBlock2>
     <WorkingTag>${this.escapeXml(item.WorkingTag || '')}</WorkingTag>
     <IDX_NO>${this.escapeXml(item.IDX_NO || '')}</IDX_NO>
-    <DataSeq>${index+1}</DataSeq>
+    <DataSeq>${index + 1}</DataSeq>
     <Status>0</Status>
     <Selected>0</Selected>
     <TABLE_NAME>DataBlock2</TABLE_NAME>
@@ -430,15 +454,16 @@ export class GenerateXmlEtcOutService {
     <LotNo />
     <InventorySeq>${this.escapeXml(item.InventorySeq || '0')}</InventorySeq>
     <InventoryRemark>${this.escapeXml(item.InventoryRemark || '')}</InventoryRemark>
-  </DataBlock2>`
+  </DataBlock2>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  
-  async generateXMLSCOMConfirmCreateWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  async generateXMLSCOMConfirmCreateWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
     const xmlBlocks = result
       .map(
         (item, index) => `
@@ -450,15 +475,15 @@ export class GenerateXmlEtcOutService {
     <Status>0</Status>
     <TableName>_TLGInOutReq</TableName>
     <CfmSeq>${this.escapeXml(item.ReqSeq || '')}</CfmSeq>
-  </DataBlock1>`
+  </DataBlock1>`,
       )
       .join('');
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
-//FrmEtcIn
-async generateXMLSLGEtcInReqQuery2WEB(result: number) {
-  const xmlBlocks = `
+  //FrmEtcIn
+  async generateXMLSLGEtcInReqQuery2WEB(result: number) {
+    const xmlBlocks = `
       <DataBlock1>
   <WorkingTag>U</WorkingTag>
   <IDX_NO>1</IDX_NO>
@@ -468,13 +493,13 @@ async generateXMLSLGEtcInReqQuery2WEB(result: number) {
   <TABLE_NAME>DataBlock1</TABLE_NAME>
   <IsChangedMst>0</IsChangedMst>
   <ReqSeq>${result}</ReqSeq>
-</DataBlock1>`
+</DataBlock1>`;
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSLGEtcInSheetQueryWEB(result: number) {
-  const xmlBlocks = `
+  async generateXMLSLGEtcInSheetQueryWEB(result: number) {
+    const xmlBlocks = `
       <DataBlock1>
   <WorkingTag>U</WorkingTag>
   <IDX_NO>1</IDX_NO>
@@ -484,15 +509,17 @@ async generateXMLSLGEtcInSheetQueryWEB(result: number) {
   <TABLE_NAME>DataBlock1</TABLE_NAME>
   <IsChangedMst>0</IsChangedMst>
   <InOutSeq>${result}</InOutSeq>
-</DataBlock1>`
+</DataBlock1>`;
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
-  
-async generateXMLSLGLotNoMasterCheckWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
+
+  async generateXMLSLGLotNoMasterCheckWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock1>
   <WorkingTag>${this.escapeXml(item.Status || '')}</WorkingTag>
   <IDX_NO>${this.escapeXml(item.IdxNo || '0')}</IDX_NO>
@@ -540,17 +567,19 @@ async generateXMLSLGLotNoMasterCheckWEB(result: Array<{ [key: string]: any }>): 
   <Dummy9>0</Dummy9>
   <Dummy10>0</Dummy10>
   <TABLE_NAME>DataBlock1</TABLE_NAME>
-</DataBlock1>`
-    )
-    .join('');
+</DataBlock1>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSLGLotNoMasterSaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSLGLotNoMasterSaveWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock1>
   <WorkingTag>${this.escapeXml(item.WorkingTag || '')}</WorkingTag>
   <IDX_NO>${this.escapeXml(item.IDX_NO || '0')}</IDX_NO>
@@ -598,17 +627,19 @@ async generateXMLSLGLotNoMasterSaveWEB(result: Array<{ [key: string]: any }>): P
   <Dummy9>0</Dummy9>
   <Dummy10>0</Dummy10>
   <TABLE_NAME>DataBlock1</TABLE_NAME>
-</DataBlock1>`
-    )
-    .join('');
+</DataBlock1>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSLGLotNoMasterDeleteWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSLGLotNoMasterDeleteWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock1>
   <WorkingTag>D</WorkingTag>
   <IDX_NO>${this.escapeXml(item.IdxNo || '0')}</IDX_NO>
@@ -656,17 +687,19 @@ async generateXMLSLGLotNoMasterDeleteWEB(result: Array<{ [key: string]: any }>):
   <Dummy9>0</Dummy9>
   <Dummy10>0</Dummy10>
   <TABLE_NAME>DataBlock1</TABLE_NAME>
-</DataBlock1>`
-    )
-    .join('');
+</DataBlock1>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSEtcInQRCheckWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSEtcInQRCheckWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock1>
     <WorkingTag>A</WorkingTag>
     <IDX_NO>1</IDX_NO>
@@ -698,17 +731,20 @@ async generateXMLSEtcInQRCheckWEB(result: Array<{ [key: string]: any }>): Promis
   <InOutReqType>${this.escapeXml(item.InOutReqType || '0')}</InOutReqType>
   <ReqQty>${this.escapeXml(item.ReqQty || '0')}</ReqQty>
   <ScanQty>${this.escapeXml(item.ScanQty || '0')}</ScanQty>
-  </DataBlock1>`
-    )
-    .join('');
+  </DataBlock1>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSCOMCloseItemCheckWEB(result: Array<{ [key: string]: any }>, workingTag: string): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSCOMCloseItemCheckWEB(
+    result: Array<{ [key: string]: any }>,
+    workingTag: string,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock1>
   <WorkingTag>${workingTag}</WorkingTag>
   <IDX_NO>1</IDX_NO>
@@ -722,17 +758,20 @@ async generateXMLSCOMCloseItemCheckWEB(result: Array<{ [key: string]: any }>, wo
   <ServiceSeq>2669</ServiceSeq>
   <MethodSeq>2</MethodSeq>
   <DtlUnitSeq>1</DtlUnitSeq>
-</DataBlock1>`
-    )
-    .join('');
+</DataBlock1>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSLGInOutDailyCheckWEB(result: Array<{ [key: string]: any }>, workingTag: string): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSLGInOutDailyCheckWEB(
+    result: Array<{ [key: string]: any }>,
+    workingTag: string,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock1>
   <WorkingTag>${workingTag}</WorkingTag>
   <IDX_NO>1</IDX_NO>
@@ -759,17 +798,19 @@ async generateXMLSLGInOutDailyCheckWEB(result: Array<{ [key: string]: any }>, wo
   <UseDeptName>${this.escapeXml(item.DeptName || '')}</UseDeptName>
   <Remark>${this.escapeXml(item.Remark || '')}</Remark>
   <Memo>WEB</Memo>
-</DataBlock1>`
-    )
-    .join('');
+</DataBlock1>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSLGInOutDailyItemCheckWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSLGInOutDailyItemCheckWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock2>
   <WorkingTag>${this.escapeXml(item.Status || '')}</WorkingTag>
   <IDX_NO>${this.escapeXml(item.IdxNo || '')}</IDX_NO>
@@ -815,17 +856,19 @@ async generateXMLSLGInOutDailyItemCheckWEB(result: Array<{ [key: string]: any }>
     <TABLE_NAME>DataBlock2</TABLE_NAME>
     <InOutSeq>${this.escapeXml(item.InOutSeq || '0')}</InOutSeq>
     <InOutType>${this.escapeXml(item.InOutType || '0')}</InOutType>
-</DataBlock2>`
-    )
-    .join('');
+</DataBlock2>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSLGInOutDailySaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSLGInOutDailySaveWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock1>
   <WorkingTag>${this.escapeXml(item.WorkingTag || '')}</WorkingTag>
   <IDX_NO>${this.escapeXml(item.IDX_NO || '')}</IDX_NO>
@@ -850,21 +893,23 @@ async generateXMLSLGInOutDailySaveWEB(result: Array<{ [key: string]: any }>): Pr
   <UseDeptName>${this.escapeXml(item.DeptName || '')}</UseDeptName>
   <Remark>${this.escapeXml(item.Remark || '')}</Remark>
   <Memo>WEB</Memo>
-</DataBlock1>`
-    )
-    .join('');
+</DataBlock1>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSLGInOutDailyItemSaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSLGInOutDailyItemSaveWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock2>
   <WorkingTag>${this.escapeXml(item.WorkingTag || '')}</WorkingTag>
   <IDX_NO>${this.escapeXml(item.IDX_NO || '')}</IDX_NO>
-  <DataSeq>${index+1}</DataSeq>
+  <DataSeq>${index + 1}</DataSeq>
   <Status>0</Status>
   <Selected>1</Selected>
   <InOutSerl>${this.escapeXml(item.InOutSerl || '')}</InOutSerl>
@@ -906,21 +951,23 @@ async generateXMLSLGInOutDailyItemSaveWEB(result: Array<{ [key: string]: any }>)
     <TABLE_NAME>DataBlock2</TABLE_NAME>
     <InOutSeq>${this.escapeXml(item.InOutSeq || '0')}</InOutSeq>
     <InOutType>${this.escapeXml(item.InOutType || '0')}</InOutType>
-</DataBlock2>`
-    )
-    .join('');
+</DataBlock2>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
-async generateXMLSCOMSourceDailySaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-  const xmlBlocks = result
-    .map(
-      (item, index) => `
+  async generateXMLSCOMSourceDailySaveWEB(
+    result: Array<{ [key: string]: any }>,
+  ): Promise<string> {
+    const xmlBlocks = result
+      .map(
+        (item, index) => `
       <DataBlock1>
   <WorkingTag>${this.escapeXml(item.Status || '')}</WorkingTag>
   <IDX_NO>${this.escapeXml(item.IdxNo || '')}</IDX_NO>
-  <DataSeq>${index+1}</DataSeq>
+  <DataSeq>${index + 1}</DataSeq>
   <Status>0</Status>
   <Selected>1</Selected>
   <FromTableSeq>15</FromTableSeq>
@@ -941,11 +988,42 @@ async generateXMLSCOMSourceDailySaveWEB(result: Array<{ [key: string]: any }>): 
   <ToSTDQty>${this.escapeXml(item.Qty || '0')}</ToSTDQty>
   <ToAmt>${this.escapeXml(item.Amt || '0')}</ToAmt>
   <ToPrice>${this.escapeXml(item.Price || '0')}</ToPrice>
-</DataBlock1>`
-    )
-    .join('');
+</DataBlock1>`,
+      )
+      .join('');
 
-  return `<ROOT>${xmlBlocks}</ROOT>`;
-}
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
+  async generateXMLSLGInOutTPQueryWEB(result: number) {
+    const xmlBlocks = `
+        <DataBlock1>
+    <WorkingTag>A</WorkingTag>
+    <IDX_NO>1</IDX_NO>
+    <Status>0</Status>
+    <DataSeq>1</DataSeq>
+    <Selected>1</Selected>
+    <TABLE_NAME>DataBlock1</TABLE_NAME>
+    <IsChangedMst>1</IsChangedMst>
+    <InOutSeq>${result}</InOutSeq>
+  </DataBlock1>`;
+
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
+
+  async generateXMLSLGInOutTPItemQueryWEB(result: number) {
+    const xmlBlocks = `
+        <DataBlock2>
+    <WorkingTag>A</WorkingTag>
+    <IDX_NO>1</IDX_NO>
+    <Status>0</Status>
+    <DataSeq>1</DataSeq>
+    <Selected>1</Selected>
+    <TABLE_NAME>DataBlock2</TABLE_NAME>
+    <IsChangedMst>1</IsChangedMst>
+    <InOutSeq>${result}</InOutSeq>
+  </DataBlock2>`;
+
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 }

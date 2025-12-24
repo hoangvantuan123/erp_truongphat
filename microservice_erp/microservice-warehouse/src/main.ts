@@ -22,18 +22,12 @@ async function bootstrap() {
     options: {
       url: grpcHost,
       package: [
-        'wh.produ.sda_item_list',
         'wh.cust.sda_cust',
-        'wh.inv_open.init_stock',
-        'wh.warehouse.stock_real_open'
 
 
       ], // điền package gRPC
       protoPath: [
-        join(__dirname, '..', '..', 'proto', 'wh', 'produ', 'sda_item_list.proto'),
         join(__dirname, '..', '..', 'proto', 'wh', 'cust', 'sda_cust.proto'),
-        join(__dirname, '..', '..', 'proto', 'wh', 'inv_open', 'init_stock.proto'),
-        join(__dirname, '..', '..', 'proto', 'wh', 'warehouse', 'stock_real_open.proto'),
 
       ], // điền proto path
       loader: {

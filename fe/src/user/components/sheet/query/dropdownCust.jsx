@@ -36,9 +36,27 @@ const DropdownCust = ({ helpData, setSearchText, searchText, setItemText, setDat
         }
     }, [dropdownVisible]);
     const defaultCols = [
-        { title: 'Tên khách hàng', id: 'CustName', kind: 'Text', readonly: true, width: 300 },
-        { title: 'Mã số khách hàng', id: 'CustNo', kind: 'Text', readonly: true, width: 200 },
-        { title: 'Mã số kinh doanh', id: 'BizNo', kind: 'Text', readonly: true, width: 200 },
+        {
+            title: t('713'),
+            id: 'CustName',
+            kind: 'Text',
+            readonly: true,
+            width: 350,
+        },
+        {
+            title: t('640'),
+            id: 'BizNo',
+            kind: 'Text',
+            readonly: true,
+            width: 200,
+        },
+        {
+            title: t('1345'),
+            id: 'Address',
+            kind: 'Text',
+            readonly: true,
+            width: 300,
+        },
     ];
     const [cols, setCols] = useState(defaultCols);
     const onFill = useOnFill(filteredData, cols);
@@ -51,30 +69,35 @@ const DropdownCust = ({ helpData, setSearchText, searchText, setItemText, setDat
     }, [helpData]);
 
 
-
     const handleSearch = (e) => {
         const value = e.target.value;
         setSearchText(value);
-
-        const trimmed = value.trim().toLowerCase();
-        if (!trimmed) {
+        if (value.trim() === '' || value === null) {
+            setItemText('');
             setFilteredData(helpData);
-            setDataSearch([]);
+            setDataSearch(null);
+            setDataSheetSearch([]);
         } else {
-            const filtered = helpData.filter((item) =>
-                defaultCols.some((col) =>
-                    String(item[col.id] || '').toLowerCase().includes(trimmed)
-                )
+            const filtered = helpData.filter(
+                (item) =>
+                    item.CustName.toLowerCase().includes(value.toLowerCase()) ||
+                    item.Address.toLowerCase().includes(value.toLowerCase()) ||
+                    item.BizNo.toLowerCase().includes(value.toLowerCase())
             );
             setFilteredData(filtered);
+            setNumRows(filtered.length);
         }
+        setDropdownVisible(true);
     };
+
     const handleCellClick = ([col, row]) => {
         const data = searchText.trim() === '' ? helpData : filteredData;
-        const item = data[row];
-        if (item) {
-            setSearchText(item.CustName);
-            setDataSearch(item);
+        if (data[row]) {
+            const ItemName = data[row].CustName;
+            setSearchText(ItemName);
+            setItemText(ItemName);
+            setDataSearch(data[row]);
+            setDataSheetSearch([data[row]]);
             setDropdownVisible(false);
         }
     };
@@ -182,11 +205,11 @@ const DropdownCust = ({ helpData, setSearchText, searchText, setItemText, setDat
             </div>
             <DataEditor
                 ref={gridRef}
-                width={980}
+                width={1200}
                 height={500}
                 onFill={onFill}
                 className="cursor-pointer rounded-md"
-                rows={filteredData.length}
+                rows={numRows}
                 columns={cols}
                 gridSelection={selection}
                 onGridSelectionChange={setSelection}

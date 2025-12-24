@@ -128,8 +128,6 @@ html {
   display: none !important;
 }
 
-
-/* styles.css hoặc trong global stylesheet */
 .ant-descriptions-bordered,
 .ant-descriptions-bordered .ant-descriptions-view {
   border-right: none !important;
@@ -166,13 +164,8 @@ html {
 }
 
 
-
-.safe-area {
-  height: 100vh;
-  height: 100dvh; /* Sử dụng dynamic viewport height */
-}
-
-.safe-area-padding {
-  padding-bottom: env(safe-area-inset-bottom, 16px);
-  padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 8px);
+.ant-tabs,
+.ant-tabs-content,
+.ant-tabs-tabpane {
+    height: 100%;
 }

@@ -1,38 +1,33 @@
 import { Module } from '@nestjs/common';
+import { UploadService } from '../services/upload.service';
+import { UploadController } from '../controllers/upload.controller';
 import { MulterModule } from '@nestjs/platform-express';
+import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
+import { sqlServerITMV } from 'src/config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ErpGroupsTempService } from '../services/groupTemp.service';
-import { ERPGroupsTemp } from '../entities/groupTemp.entity';
-import { sqlServerERP } from 'src/config/database.config';
-import { ERPTempFile } from '../entities/tempFile.entity';
-import { ERPTempFileService } from '../services/tempFile.service';
-import { ErpGroupsTempController } from '../controller/groupTemp.controller';
-import { ErpTempFileController } from '../controller/tempFile.controller';
-
-
-
 import { ERPUploadsFile } from '../entities/uploadFile.entity';
-import { UploadFileTempController } from '../controller/uploadFileTemp.controller';
+import { UploadFileTempController } from '../controllers/uploadFileTemp.controller';
 import { UploadFileTempService } from '../services/uploadFileTemp.service';
 import { ERPUploadsFileTemp } from '../entities/uploadFileTemp.entity';
 import { ERPUploadsFileItems } from '../entities/uploadFileItems.entity';
 import { UploadFileItemsService } from '../services/uploadFileItems.service';
-import { UploadFileItemsController } from '../controller/uploadFileItems.controller';
-import { UploadUserController } from '../controller/uploadUser.controller';
+import { UploadFileItemsController } from '../controllers/uploadFileItems.controller';
+import { UploadUserController } from '../controllers/uploadUser.controller';
 import { UploadUserService } from '../services/uploadUser.service';
 import { ERPUploadsUserFile } from '../entities/uploadUserFile.entity';
-import { UploadController } from '../controller/upload.controller';
-import { UploadService } from '../services/upload.service';
-import { DatabaseService } from 'src/common/database/database.service';
+import { ERPTempFileService } from '../services/tempFile.service';
+import { ErpTempFileController } from '../controllers/tempFile.controller';
+import { ERPTempFile } from '../entities/tempFile.entity';
+import 'dotenv/config';
 @Module({
   imports: [
     MulterModule.register({
-      dest: '/var/www/uploads',
+      dest: process.env.UPLOAD_PATHS,
     }),
-    TypeOrmModule.forFeature([ERPGroupsTemp, ERPTempFile, ERPUploadsFile, ERPUploadsUserFile, ERPUploadsFileTemp, ERPUploadsFileItems]),
-    TypeOrmModule.forRoot(sqlServerERP)
+    TypeOrmModule.forFeature([ERPUploadsFile, ERPUploadsUserFile, ERPUploadsFileTemp, ERPUploadsFileItems, ERPTempFile]),
+    TypeOrmModule.forRoot(sqlServerITMV)
   ],
-  controllers: [ErpGroupsTempController, ErpTempFileController, UploadController, UploadFileTempController, UploadFileItemsController, UploadUserController],
-  providers: [ErpGroupsTempService, ERPTempFileService, UploadService, DatabaseService, UploadFileTempService, UploadFileItemsService, UploadUserService],
+  controllers: [UploadController, UploadFileTempController, UploadFileItemsController, UploadUserController, ErpTempFileController],
+  providers: [UploadService, DatabaseService, UploadFileTempService, UploadFileItemsService, UploadUserService, ERPTempFileService],
 })
 export class UploadModule { }

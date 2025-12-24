@@ -39,7 +39,8 @@ async function bootstrap() {
         'scan.pdmm_out_proc',
         'pdmm.pdms_prod_plan',
         'pdmm.pdsfc_list',
-        'pdmm.pdsfc_work_report'
+        'pdmm.pdsfc_work_report',
+        'produce.bom.bom',
 
       ],
       protoPath: [
@@ -55,6 +56,7 @@ async function bootstrap() {
         join(__dirname, '..', '..', 'proto', 'produce', 'pdmm', 'pdms_prod_plan.proto'),
         join(__dirname, '..', '..', 'proto', 'produce', 'pdmm', 'pdsfc_list.proto'),
         join(__dirname, '..', '..', 'proto', 'produce', 'pdmm', 'pdsfc_work_report.proto'),
+        join(__dirname, '..', '..', 'proto', 'produce', 'bom', 'bom.proto'),
       ],
       loader: {
         keepCase: true,

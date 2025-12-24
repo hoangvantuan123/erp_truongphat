@@ -81,13 +81,8 @@ function TablePdmmOutExtra({
     rightFill: true,
     selectColumn: false,
   })
-  const columnNames = ['ItemName', 'Memo2'];
-  const grayColumns = [
-    'Spec',
-    'ItemNo',
-    'UnitName',
+  const columnNames = ['ItemName', 'PrevQty', 'Memo2'];
 
-  ];
   const highlightRegions = columnNames.flatMap((columnName) => {
     const colIndex = reorderColumns(cols).indexOf(columnName);
 

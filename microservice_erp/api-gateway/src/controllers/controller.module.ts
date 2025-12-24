@@ -1,35 +1,45 @@
 import { Module } from '@nestjs/common';
 /*  */
 import { GRPCServiceModule } from 'src/grpc/grpc.module';
-/* ASSET */
-import { SPDToolMoveController } from './asset/regi_te/SPDToolMove.controller';
-import { SPDToolRepairController } from './asset/regi_te/SPDToolRepair.controller';
-import { GroupsTempController } from './upload/groupTemp.controller';
+
+import { SPRWkItemController } from './hr/dailyAtt/SPRWkItem.controller';
+import { HrEduTypeController } from './hr/edu/hr_edu_type.controller';
+import { HrEduCourseController } from './hr/edu/hr_edu_course.controller';
+import { HrEduClassController } from './hr/edu/hr_edu_class.controller';
+
+import { CalendarHolidayController } from './hr/dailyAtt/CalendarHoliday.controller';
+import { WkOverTimeApproveController } from './hr/dailyAtt/WkOverTimeApprove.controller';
+import { SPRWkAbsEmpController } from './hr/dailyAtt/SPRWkAbsEmp.controller';
+import { SPRWkMmEmpDaysController } from './hr/dailyAtt/SPRWkMmEmpDays.controller';
+import { HrEduLecturerController } from './hr/edu/hr_edu_lecturer.controller';
+import { SPRWkEmpDdController } from './hr/dailyAtt/SPRWkEmpDd.controller';
+import { HrEduPerRstController } from './hr/edu/hr_edu_per_rst.controller';
+import { ProjectMgmtController } from './report/ProjectMgmt.controller';
 import { TempFileController } from './upload/tempFIle.controller';
-import { JIGQRTaggingPrintController } from './upload/JIGQRTaggingPrint.controller';
-import { SDAItemListController } from './warehouse/basic/daMaterialList.controller';
+import { PayConditionController } from './report/PayCondition.controller';
 import { SDACustController } from './warehouse/customers/SDACust.controller';
-import { SLGWHInitStockQController } from './warehouse/invOpen/SLGWHInitStock.controller';
-import { ItemPrintController } from './upload/itemPrint/itemPrint.controller';
-import { ItemPrintQRTaggingController } from './upload/itemPrint/ItemQRTaggingPrint.controller';
-import { FilePrintController } from './upload/filePrint/filePrint.controller';
-import { StockRealOpenQController } from './warehouse/warehouse/StockRealOpen.controller';
+import { SPBOMController } from './produce/BOM/BOMReportAll.controller';
+import { NotificationController } from './socket/notification/Notification.controller';
+
 
 const AllProviders = [
-
-    /* ASSET */
-    SPDToolMoveController,
-    SPDToolRepairController,
+    SPRWkItemController,
+    CalendarHolidayController,
+    WkOverTimeApproveController,
+    SPRWkAbsEmpController,
+    SPRWkMmEmpDaysController,
+    HrEduTypeController,
+    HrEduCourseController,
+    HrEduClassController,
+    HrEduLecturerController,
+    SPRWkEmpDdController,
+    HrEduPerRstController,
+    ProjectMgmtController,
     TempFileController,
-    GroupsTempController,
-    JIGQRTaggingPrintController,
-    SDAItemListController,
+    PayConditionController,
     SDACustController,
-    SLGWHInitStockQController,
-    ItemPrintController,
-    ItemPrintQRTaggingController,
-    FilePrintController,
-    StockRealOpenQController
+    SPBOMController,
+    NotificationController
 ];
 
 @Module({

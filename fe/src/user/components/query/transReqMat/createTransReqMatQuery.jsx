@@ -94,6 +94,7 @@ export default function CreateTransReqMatQuery({
   const handleDateReq = (date) => {
     setDateReq(date)
   }
+  const [selectEmp, setSelectEmp] = useState(null)
 
   const onChangeBizUnit = (value) => {
     setBizUnit(value)
@@ -285,6 +286,7 @@ export default function CreateTransReqMatQuery({
                   empSeq={empSeq}
                   setEmpSeq={setEmpSeq}
                   setUserId={setUserId}
+                  setSelectEmp={setSelectEmp}
                   />
                 )
               }

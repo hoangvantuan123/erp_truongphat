@@ -58,50 +58,6 @@ export class GenerateXmlStockRealService {
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  generateXMLStockRealOpenQ(result: Array<{ [key: string]: any }>): string {
-    const xmlBlocks = result
-      .map((item) => `
-       <DataBlock1>
-    <WorkingTag>A</WorkingTag>
-    <IDX_NO>1</IDX_NO>
-    <Status>0</Status>
-    <DataSeq>1</DataSeq>
-    <Selected>1</Selected>
-    <TABLE_NAME>DataBlock1</TABLE_NAME>
-    <IsChangedMst>${this.escapeXml(item.IsChangedMst || '')}</IsChangedMst>
-    <BizUnit>${this.escapeXml(item.BizUnit || '')}</BizUnit>
-    <StkDate>${this.escapeXml(item.StkDate || '')}</StkDate>
-    <StkDateTo>${this.escapeXml(item.StkDateTo || '')}</StkDateTo>
-    <WHSeq>${this.escapeXml(item.WHSeq || '')}</WHSeq>
-    <EmpSeq>${this.escapeXml(item.EmpSeq || '')}</EmpSeq>
-    <StkMngNo>${this.escapeXml(item.StkMngNo || '')}</StkMngNo>
-  </DataBlock1>
-      `)
-      .join('');
-
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
-  generateXMLSLGWHStockRealOpenQ(result: Array<{ [key: string]: any }>): string {
-    const xmlBlocks = result
-      .map((item) => `
-        <DataBlock1>
-    <WorkingTag>A</WorkingTag>
-    <IDX_NO>1</IDX_NO>
-    <Status>0</Status>
-    <DataSeq>1</DataSeq>
-    <Selected>1</Selected>
-    <TABLE_NAME>DataBlock1</TABLE_NAME>
-    <IsChangedMst>0</IsChangedMst>
-    <StkMngSeq>${item.StkMngSeq}</StkMngSeq>
-  </DataBlock1>
-      `)
-      .join('');
-
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
-
-
-
   async generateXMLSLGWHStockRealOpenResultListQueryWEB(result: Array<{ [key: string]: any }>): Promise<string> {
     const xmlBlocks = result
       .map(
@@ -263,8 +219,8 @@ export class GenerateXmlStockRealService {
         (item, index) => `
         <DataBlock2>
     <WorkingTag>${workingTag}</WorkingTag>
-    <IDX_NO>${index + 1}</IDX_NO>
-    <DataSeq>${index + 1}</DataSeq>
+    <IDX_NO>${index+1}</IDX_NO>
+    <DataSeq>${index+1}</DataSeq>
     <Status>0</Status>
     <Selected>0</Selected>
     <TABLE_NAME>DataBlock2</TABLE_NAME>
@@ -285,10 +241,10 @@ export class GenerateXmlStockRealService {
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
-  async generateXMLSStockRealQRCheckWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-    const xmlBlocks = result
-      .map(
-        (item, index) => `
+async generateXMLSStockRealQRCheckWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  const xmlBlocks = result
+    .map(
+      (item, index) => `
       <DataBlock1>
     <WorkingTag>A</WorkingTag>
     <IDX_NO>1</IDX_NO>
@@ -308,17 +264,17 @@ export class GenerateXmlStockRealService {
     <ReelNo>${this.escapeXml(item.ReelNo || '')}</ReelNo>
     <Barcode>${this.escapeXml(item.Barcode || '')}</Barcode>
   </DataBlock1>`
-      )
-      .join('');
+    )
+    .join('');
 
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
+  return `<ROOT>${xmlBlocks}</ROOT>`;
+}
 
 
-  async generateXMLSLGWHStockRealRegSaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-    const xmlBlocks = result
-      .map(
-        (item, index) => `
+async generateXMLSLGWHStockRealRegSaveWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  const xmlBlocks = result
+    .map(
+      (item, index) => `
       <DataBlock2>
     <WorkingTag>U</WorkingTag>
     <IDX_NO>${index + 1}</IDX_NO>
@@ -344,15 +300,15 @@ export class GenerateXmlStockRealService {
     <StkMngSeq>${this.escapeXml(item.StkMngSeq || '0')}</StkMngSeq>
     <Remark>${this.escapeXml(item.Remark || '')}</Remark>
   </DataBlock2>`
-      )
-      .join('');
+    )
+    .join('');
 
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
-  async generateXMLSLGWHStockRealRegDeleteWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-    const xmlBlocks = result
-      .map(
-        (item, index) => `
+  return `<ROOT>${xmlBlocks}</ROOT>`;
+}
+async generateXMLSLGWHStockRealRegDeleteWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  const xmlBlocks = result
+    .map(
+      (item, index) => `
       <DataBlock2>
     <WorkingTag>D</WorkingTag>
     <IDX_NO>${index + 1}</IDX_NO>
@@ -377,16 +333,16 @@ export class GenerateXmlStockRealService {
     <StkMngSeq>${this.escapeXml(item.StkMngSeq || '0')}</StkMngSeq>
     <Remark>${this.escapeXml(item.Barcode || '0')}</Remark>
   </DataBlock2>`
-      )
-      .join('');
+    )
+    .join('');
 
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
+  return `<ROOT>${xmlBlocks}</ROOT>`;
+}
 
-  async generateXMLSLGWHStockRealRegMasterDeleteWEB(result: Array<{ [key: string]: any }>): Promise<string> {
-    const xmlBlocks = result
-      .map(
-        (item, index) => `
+async generateXMLSLGWHStockRealRegMasterDeleteWEB(result: Array<{ [key: string]: any }>): Promise<string> {
+  const xmlBlocks = result
+    .map(
+      (item, index) => `
       <DataBlock2>
     <WorkingTag>D</WorkingTag>
     <IDX_NO>${index + 1}</IDX_NO>
@@ -397,10 +353,10 @@ export class GenerateXmlStockRealService {
     <StkMngSeq>${this.escapeXml(item.StkMngSeq || '0')}</StkMngSeq>
     <Remark></Remark>
   </DataBlock2>`
-      )
-      .join('');
+    )
+    .join('');
 
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
+  return `<ROOT>${xmlBlocks}</ROOT>`;
+}
 
 }

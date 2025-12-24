@@ -8,7 +8,6 @@ import { ArrowIcon } from '../../components/icons'
 import dayjs from 'dayjs'
 import { GetCodeHelp } from '../../../features/codeHelp/getCodeHelp'
 import { GetCodeHelpCombo } from '../../../features/codeHelp/getCodeHelpCombo'
-import { GetQBomReportAll } from '../../../features/bom/getQBomReportAll'
 import { CompactSelection, GridColumnIcon } from '@glideapps/glide-data-grid'
 import { debounce } from 'lodash'
 import { useNavigate } from 'react-router-dom'
@@ -395,7 +394,7 @@ export default function PdmpsProdReqList({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('850000162')}</title>
+                <title>ITM - {t('850000162')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-35px)] p-3 overflow-hidden">

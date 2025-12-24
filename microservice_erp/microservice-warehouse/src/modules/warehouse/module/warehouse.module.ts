@@ -33,8 +33,6 @@ import { LGWHStockClosingService } from '../service/lgWHStockClosing.service';
 import { LGWHStockClosingController } from './../controller/lgWHStockClosing.controller';
 import { BizStockListController } from '../controller/bizStockList.controller';
 import { BizStockListService } from '../service/bizStockList.service';
-import { LGWHStockRealV2Service } from '../service/lgWHStockRealV2.service';
-import { LgWHStockRealV2Controller } from '../controller/lgWHStockRealV2.controller';
 @Module({
   imports: [],
   providers: [
@@ -59,8 +57,6 @@ import { LgWHStockRealV2Controller } from '../controller/lgWHStockRealV2.control
     LGWHStockRealService,
     LGWHStockClosingService,
     BizStockListService,
-    LGWHStockRealV2Service
-
   ],
   controllers: [
     WarehouseController,
@@ -76,9 +72,7 @@ import { LgWHStockRealV2Controller } from '../controller/lgWHStockRealV2.control
     LGWHStockRealController,
     LGWHStockClosingController,
     BizStockListController,
-    LgWHStockRealV2Controller
-
   ],
   exports: [WarehouseService],
 })
-export class WarehouseModule { }
+export class WarehouseModule {}

@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package report.project.pay_condition;
+
+
+service PayConditionService {
+  rpc PayConditionA (PayConditionARequest) returns (Response);
+  rpc PayConditionU (PayConditionURequest) returns (Response);
+  rpc PayConditionD (PayConditionDRequest) returns (Response);
+  rpc PayConditionQ (PayConditionQRequest) returns (Response);
+}
+
+message PayConditionAResult {
+  int32 IdxNo = 1;
+  int32 CreatedBy = 2;
+  int32 UpdatedBy = 3;
+
+
+  string UMPayCondSeq = 4;
+  int32 SupplyContSeq = 5;
+
+
+  string PayRate = 6;
+  string PayAmt = 7;
+  string DomPayAmt = 8;
+  string PayVATAmt = 9;
+  string DomPayVATAmt = 10;
+  string SumPayAmt = 11;
+  string DomSumPayAmt = 12;
+  string PayPlanDate = 13;
+  string VATAmt = 14;
+  string PayCondRemark = 15;
+  string PayCondStatusSeq = 16;
+  string PayRepeatDate = 17;
+
+
+
+
+}
+
+
+message PayConditionUResult { 
+int32 IdxNo = 1;
+  int32 UpdatedBy = 3;
+  string UMPayCondSeq = 4;
+  string IdSeq = 5;
+  string PayRate = 6;
+  string PayAmt = 7;
+  string DomPayAmt = 8;
+  string PayVATAmt = 9;
+  string DomPayVATAmt = 10;
+  string SumPayAmt = 11;
+  string DomSumPayAmt = 12;
+  string PayPlanDate = 13;
+  string VATAmt = 14;
+  string PayCondRemark = 15;
+  string PayCondStatusSeq = 16;
+  string PayRepeatDate = 17;
+
+}
+message PayConditionDResult { 
+  string IdSeq = 1;
+}
+
+message PayConditionQResult { 
+    string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+}
+
+
+
+message PayConditionARequest {
+  repeated PayConditionAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message PayConditionURequest {
+  repeated  PayConditionUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message PayConditionDRequest {
+  repeated  PayConditionDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message PayConditionQRequest {
+  PayConditionQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

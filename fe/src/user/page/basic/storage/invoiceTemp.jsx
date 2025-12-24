@@ -452,7 +452,7 @@ export default function InvoiceTemp({
     return (
         <>
             <Helmet>
-                <title>HPM - {t('850000055')}</title>
+                <title>ITM - {t('850000055')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 p-3 h-screen overflow-hidden">

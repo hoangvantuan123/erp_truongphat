@@ -1,326 +1,567 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Helmet } from 'react-helmet'
-import {
-  BoxPlotFilled,
-  FilterOutlined,
-  UserSwitchOutlined,
-} from '@ant-design/icons'
-import { ArrowIcon } from '../../../components/icons'
-import { Input, Space, Table, Typography, message, Flex, Splitter } from 'antd'
-const { Title, Text } = Typography
-import { debounce } from 'lodash'
+
+import { notification, message, Splitter, Tabs } from 'antd'
 import { CompactSelection, GridColumnIcon } from '@glideapps/glide-data-grid'
-import useKeydownHandler from '../../../components/hooks/sheet/useKeydownHandler'
 import { loadFromLocalStorageSheet } from '../../../../localStorage/sheet/sheet'
 import { onRowAppended } from '../../../components/sheet/js/onRowAppended'
-import useDynamicFilter from '../../../components/hooks/sheet/useDynamicFilter'
-import { validateColumns } from '../../../../utils/validateColumns'
-import { GetCodeHelpCombo } from '../../../../features/codeHelp/getCodeHelpCombo'
-
-import ErrorListModal from '../../default/errorListModal'
-import ModalSheetDelete from '../../../components/modal/default/deleteSheet'
-import { UpdatedBy } from '../../../../features/basic/customer/updatedBy'
-import CustomerRegistrationQueryDetails from '../../../components/query/basic/customers/customerRegistrationQueryDetails'
-import CustRegistBasicInfo from '../../../components/query/basic/customers/custRegistBasicInfo'
-import CustRegistTaxInfo from '../../../components/query/basic/customers/custRegistTaxInfo'
-import CustRegistBankInfo from '../../../components/query/basic/customers/custRegistBankInfo'
-import { useNavigate, useParams } from 'react-router-dom'
-import CryptoJS from 'crypto-js'
-import {
-  GetBankInfoById,
-  GetBasicInfoById,
-  GetMasterById,
-  GetCustKindById,
-  GetCustAddInfoById,
-  GetCustRemarkById,
-} from '../../../../features/basic/customer/getDetails'
-import CustomerRegistActionDetails from '../../../components/actions/basic/customers/customerRegistActionDetails'
-import CustRegistKindInfo from '../../../components/query/basic/customers/custRegistKindInfo'
+import { generateEmptyData } from '../../../components/sheet/js/generateEmptyData'
 import TopLoadingBar from 'react-top-loading-bar';
-const columnsError = [
-  {
-    title: 'Thương hiệu',
-    dataIndex: 'FullName',
-    key: 'FullName',
-  },
-  {
-    title: 'Tên khách hàng',
-    dataIndex: 'CustName',
-    key: 'CustName',
-  },
-  {
-    title: 'Kết quả',
-    dataIndex: 'result',
-    key: 'result',
-  },
-]
+import { updateIndexNo } from '../../../components/sheet/js/updateIndexNo'
+import { filterValidRows } from '../../../../utils/filterUorA'
+import { togglePageInteraction } from '../../../../utils/togglePageInteraction'
+import { HandleError } from '../../default/handleError'
+import { debounce } from 'lodash'
+import dayjs from 'dayjs'
+import CustomerRegistActionDetails from '../../../components/actions/basic/customers/customerRegistActionDetails'
+import CustomerRegistrationQuery from '../../../components/query/basic/customers/customerRegistrationQuery'
+import TableCustomerRegistration from '../../../components/table/basic/customers/tableCustomerRegistration'
 
-export default function CustomersRegistrationDetails({
-  permissions,
-  isMobile,
-  canCreate,
-  canEdit,
-  canDelete,
-  keyPath,
-  setKeyPath, controllers,
-  cancelAllRequests
-}) {
+import { SDACustQ } from '../../../../features/basic/customer/SDACustQ'
+import { SDACustAUD } from '../../../../features/basic/customer/SDACustAUD'
+import { SDACustD } from '../../../../features/basic/customer/SDACustD'
+import { SDACustEmpInfoAUD } from '../../../../features/basic/customer/SDACustEmpInfoAUD'
+import TableCustomerRegistrationB from '../../../components/table/basic/customers/tableCustomerRegistrationB'
+import { SDACustEmpInfoQ } from '../../../../features/basic/customer/SDACustEmpInfoQ'
+import { GetCodeHelpComboVer2 } from '../../../../features/codeHelp/getCodeHelpComboVer2'
+import TableCustomerRegistrationA from '../../../components/table/basic/customers/tableCustomerRegistrationA'
+export default function CustomersRegistrationDetails({ permissions, isMobile, canCreate, canEdit, canDelete, controllers,
+  cancelAllRequests }) {
+  const langCode = localStorage.getItem('language') || '6';
+  const userFrom = JSON.parse(localStorage.getItem('userInfo'))
   const loadingBarRef = useRef(null);
+  const activeFetchCountRef = useRef(0);
   const { t } = useTranslation()
-  const { id } = useParams()
-  const navigate = useNavigate()
-  const secretKey = 'TEST_ACCESS_KEY'
-  const [loading, setLoading] = useState(false)
+  const defaultCols = useMemo(() => [
+    { title: '', id: 'Status', kind: 'Text', readonly: true, width: 50, hasMenu: true, visible: true, themeOverride: { textDark: "#225588", baseFontStyle: "600 13px" }, trailingRowOptions: { disabled: false }, icon: GridColumnIcon.HeaderLookup },
+    { title: t('Thương hiệu'), id: 'FullName', kind: 'Text', readonly: false, width: 230, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
+    { title: t('Tên khách hàng'), id: 'CustName', kind: 'Text', readonly: false, width: 230, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
+    { title: t('Mã số khách hàng'), id: 'CustNo', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Mã số kinh doanh'), id: 'BizNo', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
+    { title: t('Số pháp nhân'), id: 'LawRegNo', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Địa chỉ doanh nghiệp đóng thuế'), id: 'BizAddr', kind: 'Text', readonly: false, width: 230, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Người đại diện'), id: 'Owner', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Số CCCD'), id: 'PersonId', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('SĐT'), id: 'TelNo', kind: 'Text', readonly: false, width: 170, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Tình trạng kinh doanh'), id: 'BizType', kind: 'Text', readonly: false, width: 170, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+
+  ], [t]);
+  const defaultColsB = useMemo(() => [
+    { title: '', id: 'Status', kind: 'Text', readonly: true, width: 50, hasMenu: true, visible: true, themeOverride: { textDark: "#225588", baseFontStyle: "600 13px" }, trailingRowOptions: { disabled: false }, icon: GridColumnIcon.HeaderLookup },
+    { title: t('Tên người phụ trách'), id: 'EmpName', kind: 'Text', readonly: false, width: 230, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, themeOverride: { textHeader: '#DD1144', bgIconHeader: '#DD1144', fontFamily: '' } },
+    { title: t('Chức vị'), id: 'JpName', kind: 'Text', readonly: false, width: 230, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
+    { title: t('Bộ phận'), id: 'DeptName', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Số điện thoại'), id: 'TELNo', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
+    { title: t('Điện thoại di động'), id: 'MobileNo', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Số fax'), id: 'FAX', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Thư điện tử'), id: 'EMail', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Ghi chú'), id: 'Remark', kind: 'Text', readonly: false, width: 130, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Phân loại người phụ trách'), id: 'UMJobRollKindName', kind: 'Text', readonly: false, width: 170, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+    { title: t('Phụ trách đại diện'), id: 'IsStd', kind: 'Text', readonly: false, width: 170, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+
+  ], [t]);
   const [gridData, setGridData] = useState([])
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalOpen, setModalOpen] = useState(false)
+  const [gridDataB, setGridDataB] = useState([])
   const [selection, setSelection] = useState({
     columns: CompactSelection.empty(),
-    rows: CompactSelection.empty(),
+    rows: CompactSelection.empty()
   })
-
-  const defaultCols = useMemo(() => [
-    {
-      id: 'Sel',
-      title: 'Lựa chọn',
-      kind: 'Boolean',
-      readonly: false,
-      hasMenu: true,
-      visible: true,
-    },
-    {
-      id: 'UMCustKindName',
-      title: 'Loại khách hàng',
-      width: 400,
-      kind: 'Text',
-      readonly: true,
-      hasMenu: true,
-      visible: true,
-    },
-    {
-      id: 'IsBizNoNon',
-      title: 'Có bắt buộc số kinh doanh không?',
-      width: 240,
-      kind: 'Boolean',
-      readonly: true,
-      hasMenu: true,
-      visible: true,
-    },
-    {
-      id: 'IsBizNoOne',
-      title: 'Duy nhất số đăng ký kinh doanh',
-      width: 240,
-      kind: 'Boolean',
-      readonly: true,
-      hasMenu: true,
-      visible: true,
-    },
-    {
-      id: 'IsRegNoNon',
-      title: 'Bắt buộc số chứng minh thư',
-      width: 240,
-      kind: 'Boolean',
-      readonly: true,
-      hasMenu: true,
-      visible: true,
-    },
-    {
-      id: 'IsRegNoOne',
-      title: 'Duy nhất số chứng minh thư',
-      width: 240,
-      kind: 'Boolean',
-      readonly: true,
-      hasMenu: true,
-      visible: true,
-    },
-  ])
-
+  const [selectionB, setSelectionB] = useState({
+    columns: CompactSelection.empty(),
+    rows: CompactSelection.empty()
+  })
   const [showSearch, setShowSearch] = useState(false)
-  const [lastClickedCell, setLastClickedCell] = useState(null)
+  const [showSearchB, setShowSearchB] = useState(false)
   const [addedRows, setAddedRows] = useState([])
+  const [addedRowsB, setAddedRowsB] = useState([])
 
   const [editedRows, setEditedRows] = useState([])
-  const [onSelectRow, setOnSelectRow] = useState([])
+  const [editedRowsB, setEditedRowsB] = useState([])
   const [numRowsToAdd, setNumRowsToAdd] = useState(null)
+  const [numRowsToAddB, setNumRowsToAddB] = useState(null)
   const [numRows, setNumRows] = useState(0)
-  const [clickCount, setClickCount] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSent, setIsSent] = useState(false)
+  const [numRowsB, setNumRowsB] = useState(0)
   const [openHelp, setOpenHelp] = useState(false)
-  const [isCellSelected, setIsCellSelected] = useState(false)
+  const [keyItem1, setKeyItem1] = useState('')
+  const [keyItem2, setKeyItem2] = useState('')
+  const [keyItem3, setKeyItem3] = useState('')
+  const [keyItem4, setKeyItem4] = useState('')
+  const [keyItem5, setKeyItem5] = useState('')
+  const [activeTab, setActiveTab] = useState("1");
 
-  const [dataError, setDataError] = useState([])
+  const [searchText, setSearchText] = useState('')
+  const [dataSearch, setDataSearch] = useState([])
 
-  const [dataMasterInfo, setDataMasterInfo] = useState([])
-  const [dataBankInfo, setDataBankInfo] = useState([])
-  const [dataCustKindName, setDataCustKindName] = useState([])
-  const [dataCustAddInfo, setDataCustAddInfo] = useState([])
+  const [searchText2, setSearchText2] = useState('')
+  const [dataSearch2, setDataSearch2] = useState([])
 
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [count, setCount] = useState(0)
-  const [emptyWordIds, setEmptyWordIds] = useState([])
-  const lastWordEntryRef = useRef(null)
 
-  const [custName, setCustName] = useState('')
-  const [custNo, setCustNo] = useState('')
+  const [itemText3, setItemText3] = useState(null)
+  const [searchText3, setSearchText3] = useState('')
+  const [dataSearch3, setDataSearch3] = useState([])
+
+
+
+  const [itemText4, setItemText4] = useState(null)
+  const [searchText4, setSearchText4] = useState('')
+  const [dataSearch4, setDataSearch4] = useState([])
+
+
+  const [itemText5, setItemText5] = useState(null)
+  const [searchText5, setSearchText5] = useState('')
+  const [dataSearch5, setDataSearch5] = useState([])
+
+  const [whName, setWHName] = useState('')
+  const [helpData01, setHelpData01] = useState([])
+  const [helpData02, setHelpData02] = useState([])
+  const [helpData03, setHelpData03] = useState([])
+  const [helpData04, setHelpData04] = useState([])
+  const [helpData05, setHelpData05] = useState([])
+  const [helpData06, setHelpData06] = useState([])
+  const [helpData07, setHelpData07] = useState([])
+  const [helpData08, setHelpData08] = useState([])
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [formDate, setFormDate] = useState(dayjs().startOf('month'));
+  const [toDate, setToDate] = useState(dayjs())
+
+
+  const [searchText1, setSearchText1] = useState('')
+  const [dataSearch1, setDataSearch1] = useState('')
+  const [itemName, setItemName] = useState('')
+  const [itemNo, setItemNo] = useState('')
+  const [spec, setSpec] = useState('')
+  const [CustName, setCustName] = useState('')
+  const [CustNo, setCustNo] = useState('')
   const [BizNo, setBizNo] = useState('')
-  const [custStatus, setCustStatus] = useState('')
-  const [owner, setOwner] = useState('')
-
-  const [custSeq, setCustSeq] = useState('')
-  const [fullName, setFullName] = useState('')
-  const [countryName, setCountryName] = useState('')
-  const [country, setCountry] = useState('')
-  const [smCustStatusName, setSmCustStatusName] = useState('')
-  const [BizAdd, setBizAdd] = useState('')
-
-  const [EngCustName, setEngCustName] = useState('')
-  const [UMChannelName, setUMChannelName] = useState('')
-  const [UMChannel, setUMChannel] = useState('')
-  const [SMBizPerName, setSMBizPerName] = useState('')
-  const [Email, setEmail] = useState('')
-  const [TelNo, setTelNo] = useState('')
-  const [Fax, setFax] = useState('')
-  const [Tel2, setTel2] = useState('')
-
-  const [LawRegNo, setLawRegNo] = useState('')
-  const [BizType, setBizType] = useState('')
-
-  const [BankNumber, setBankNumber] = useState('')
-  const [BankName, setBankName] = useState('')
-  const [BankAccName, setBankAccName] = useState('')
-  const [BankPhoneNumber, setBankPhoneNumber] = useState('')
-  const [AbbrName, setAbbrName] = useState('')
-  const [SpBankPhone, setSpBankPhone] = useState('')
-  const [CustRemark, setCustRemark] = useState('')
-  const [dataUMChannel, setDataUMChannel] = useState([])
-
-  const [dataBizPername, setDataBizPername] = useState([])
-  const [SMBizPersName, setSMBizPersName] = useState('')
-  const [SMBizPers, setSMBizPers] = useState('')
-
-  const [dataSMDomForName, setDataSMDomForName] = useState([])
-  const [SMDomForName, setSMDomForName] = useState('')
-  const [SMDomFor, setSMDomFor] = useState('')
-
-  const [dataUMCoutry, setDataUMCoutry] = useState([])
-
+  const [Owner, setOwner] = useState('')
+  const [CustSeq, setCustSeq] = useState(null)
+  const [dataSheetSearch2, setDataSheetSearch2] = useState([])
+  const formatDate = (date) => date.format('YYYYMMDD')
   const [cols, setCols] = useState(() =>
     loadFromLocalStorageSheet(
-      'S_ERP_COLS_PAGE_CUST_KIND',
-      defaultCols.filter((col) => col.visible),
-    ),
+      'page_customrer_reg_a_a',
+      defaultCols.filter((col) => col.visible)
+    )
+  )
+  const [colsB, setColsB] = useState(() =>
+    loadFromLocalStorageSheet(
+      'page_customrer_reg_b_a',
+      defaultColsB.filter((col) => col.visible)
+    )
   )
 
-  const [dataSelectCustKind, setDataSelectCustKind] = useState([])
-
-  const [dataCustStatus, setDataCustStatus] = useState([])
-
-  const fieldsToTrack = [
-    'Sel',
-    'UMCustKindName',
-    'IsBizNoOne',
-    'IsRegNoNon',
-    'IsBizNoOne',
-  ]
-  const { filterValidEntries, findLastEntry, findMissingIds } =
-    useDynamicFilter(gridData, fieldsToTrack)
-    useEffect(() => {
-      cancelAllRequests();
-      message.destroy();
-    }, [])
+  const [PuSeq, setPuSeq] = useState('')
+  const [PtSeq, setPtSeq] = useState('')
   const resetTable = () => {
     setSelection({
       columns: CompactSelection.empty(),
-      rows: CompactSelection.empty(),
+      rows: CompactSelection.empty()
+    })
+  }
+  const resetTableB = () => {
+    setSelectionB({
+      columns: CompactSelection.empty(),
+      rows: CompactSelection.empty()
     })
   }
 
   useEffect(() => {
-    if (id) {
-      const data = decryptData(id)
-      if (data) {
-        setCustSeq(data?.CustSeq)
+    cancelAllRequests()
+    notification.destroy();
+    message.destroy();
+  }, [])
+
+  const increaseFetchCount = () => {
+    activeFetchCountRef.current += 1;
+  };
+
+  const decreaseFetchCount = () => {
+    activeFetchCountRef.current -= 1;
+    if (activeFetchCountRef.current === 0) {
+      loadingBarRef.current?.complete();
+      togglePageInteraction(false);
+    }
+  };
+
+  const getSelectedRows = () => {
+    const selectedRows = selection.rows.items
+    let rows = []
+    selectedRows.forEach((range) => {
+      const start = range[0]
+      const end = range[1] - 1
+
+      for (let i = start; i <= end; i++) {
+        if (gridData[i]) {
+          rows.push(gridData[i])
+        }
       }
-    }
-  }, [custSeq])
+    })
 
-  const decryptData = (encryptedToken) => {
-    try {
-      const base64Data = decodeBase64Url(encryptedToken)
-      const bytes = CryptoJS.AES.decrypt(base64Data, secretKey)
-      const decryptedData = bytes.toString(CryptoJS.enc.Utf8)
-      return JSON.parse(decryptedData)
-    } catch (error) {
-      navigate(`/wms/u/basic/customers/register`)
-      return null
-    }
+    return rows
+  }
+  const getSelectedRowsB = () => {
+    const selectedRows = selectionB.rows.items
+    let rows = []
+    selectedRows.forEach((range) => {
+      const start = range[0]
+      const end = range[1] - 1
+
+      for (let i = start; i <= end; i++) {
+        if (gridDataB[i]) {
+          rows.push(gridDataB[i])
+        }
+      }
+    })
+
+    return rows
   }
 
-  const decodeBase64Url = (base64Url) => {
-    try {
-      let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-      const padding =
-        base64.length % 4 === 0 ? '' : '='.repeat(4 - (base64.length % 4))
-      return base64 + padding
-    } catch (error) {
-      throw new Error('Invalid Base64 URL')
+  const handleRowAppend = useCallback(
+    (numRowsToAdd) => {
+      if (canCreate === false) {
+        return
+      }
+      onRowAppended(cols, setGridData, setNumRows, setAddedRows, numRowsToAdd)
+    },
+    [cols, setGridData, setNumRows, setAddedRows, numRowsToAdd]
+  )
+  const handleRowAppendB = useCallback(
+    (numRowsToAddB) => {
+      if (canCreate === false) {
+        return
+      }
+      if (!CustSeq) {
+        return
+      }
+      onRowAppended(colsB, setGridDataB, setNumRowsB, setAddedRowsB, numRowsToAddB)
+    },
+    [colsB, setGridDataB, setNumRowsB, setAddedRowsB, numRowsToAddB, CustSeq]
+  )
+  const fetchGenericData = async ({
+    controllerKey,
+    postFunction,
+    searchParams,
+    useEmptyData = true,
+    defaultCols,
+    afterFetch = () => { },
+  }) => {
+    increaseFetchCount();
+
+    if (controllers.current[controllerKey]) {
+      controllers.current[controllerKey].abort();
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      return fetchGenericData({
+        controllerKey,
+        postFunction,
+        searchParams,
+        afterFetch,
+        defaultCols,
+        useEmptyData,
+      });
     }
-  }
 
-  const fetchCodeHelpData = useCallback(async () => {
-    setLoading(true)
+    const controller = new AbortController();
+    controllers.current[controllerKey] = controller;
+    const { signal } = controller;
+
+    togglePageInteraction(true);
+    loadingBarRef.current?.continuousStart();
+
     try {
-      const data = [
-        {
-          CustSeq: custSeq,
-        },
-      ]
+      const response = await postFunction(searchParams, signal);
+      if (!response.success) {
+        HandleError([
+          {
+            success: false,
+            message: response.message || 'Đã xảy ra lỗi vui lòng thử lại!',
+          },
+        ]);
+      }
+      const data = response.success ? (response.data || []) : [];
 
-      const [
-        dataMasterInfo,
-        dataBankInfo,
-        dataCustKindName,
-        dataCustAddInfo,
-        dataCustRemark,
-        codeHelpCustStatusName,
-        codeHelpChanelName,
-        codeHelpSMBizPerName,
-        codeHelpSMDomForName,
-        codeHelpUMCountry,
-      ] = await Promise.all([
-        GetMasterById(data),
-        GetBankInfoById(data),
-        GetCustKindById(data),
-        GetCustAddInfoById(data),
-        GetCustRemarkById(data),
-        GetCodeHelpCombo('', 6, 19998, 1, '%', '2004', '', '', ''),
-        GetCodeHelpCombo('', 6, 19999, 1, '%', '8004', '', '', ''),
-        GetCodeHelpCombo('', 6, 19998, 1, '%', '4019', '', '', ''),
-        GetCodeHelpCombo('', 6, 19998, 1, '%', '1013', '', '', ''),
-        GetCodeHelpCombo('', 6, 19999, 1, '%', '1002', '', '', ''),
-      ])
+      let mergedData = updateIndexNo(data);
 
-      setDataMasterInfo(dataMasterInfo?.data.data[0] || [])
-      setDataCustKindName(dataCustKindName?.data.data || [])
-      setDataBankInfo(dataBankInfo?.data.data || [])
-      setDataCustAddInfo(dataCustAddInfo?.data.data[0])
-      setDataCustStatus(codeHelpCustStatusName?.data || [])
-      setDataUMChannel(codeHelpChanelName?.data || [])
-      setDataBizPername(codeHelpSMBizPerName?.data || [])
-      setDataSMDomForName(codeHelpSMDomForName?.data || [])
-      setCustRemark(dataCustRemark?.data.data[0].CustRemark)
-      setDataUMCoutry(codeHelpUMCountry?.data || [])
+      if (useEmptyData) {
+        const emptyData = updateIndexNo(generateEmptyData(100, defaultCols));
+        mergedData = updateIndexNo([...data, ...emptyData]);
+      }
 
-      setGridData(dataCustKindName?.data.data)
-      setNumRows(dataCustKindName?.data.data.length)
+      await afterFetch(mergedData);
     } catch (error) {
+      let emptyData = [];
+
+      if (useEmptyData) {
+        emptyData = updateIndexNo(generateEmptyData(100, defaultCols));
+      }
+
+      await afterFetch(emptyData);
     } finally {
-      setLoading(false)
+      decreaseFetchCount();
+      controllers.current[controllerKey] = null;
+      togglePageInteraction(false);
+      loadingBarRef.current?.complete();
     }
-  }, [custSeq])
+  };
 
+  const handleSearchData = useCallback(async () => {
+    const searchParams = [
+      {
+        CustName: CustName || '',
+        CustNo: CustNo || '',
+        BizNo: BizNo || '',
+        MinorBizNo: '',
+        SMCustStatus: '',
+        UMCustKind: '',
+        Owner: Owner || '',
+        ChannelSeq: '',
+        Email: '',
+        PersonId2: '',
+      },
+    ];
+
+    fetchGenericData({
+      controllerKey: 'SDACustQ',
+      postFunction: SDACustQ,
+      searchParams,
+      defaultCols,
+      useEmptyData: false,
+      afterFetch: (data) => {
+        setGridData(data);
+        setNumRows(data.length);
+      },
+    });
+
+    // Chỉ gọi hàm thứ 2 khi CustSeq có giá trị
+    if (CustSeq !== null && CustSeq !== undefined) {
+      const searchParams2 = [{ CustSeq: CustSeq }];
+
+      fetchGenericData({
+        controllerKey: 'SDACustEmpInfoQ',
+        postFunction: SDACustEmpInfoQ,
+        searchParams: searchParams2,
+        defaultCols: defaultColsB,
+        useEmptyData: true,
+        afterFetch: (data) => {
+          setGridDataB(data);
+          setNumRowsB(data.length);
+        },
+      });
+    }
+  }, [CustName, CustNo, BizNo, Owner, CustSeq]);
+
+
+
+  const handleSaveData = useCallback(async () => {
+    if (!canCreate) return true;
+
+    const resulA = filterValidRows(gridDataB, 'A').map(item => ({
+      ...item,
+      WorkingTag: 'A',
+      CustSeq: CustSeq
+
+
+    }));
+    const resulU = filterValidRows(gridDataB, 'U').map(item => ({
+      ...item,
+      WorkingTag: 'U',
+      CustSeq: CustSeq
+
+    }));
+
+
+    const requiredFields = [
+      { key: 'EmpName', label: t('Người đại diện') },
+
+    ];
+    const validateRequiredFields = (data, fields) =>
+      data.flatMap((row, i) =>
+        fields
+          .filter(({ key }) => !row[key]?.toString().trim())
+          .map(({ key, label }) => ({
+            row: i + 1,
+            field: key,
+            message: `Cột ${label} không được để trống (hàng ${i + 1})`,
+          }))
+      );
+    const errors = [
+      ...validateRequiredFields(resulA, requiredFields),
+      ...validateRequiredFields(resulU, requiredFields),
+    ];
+
+    if (errors.length > 0) {
+      HandleError([
+        {
+          success: false,
+          message: [
+            errors[0].message,
+            ...(errors.length > 1 ? [`...và còn ${errors.length - 1} lỗi khác.`] : []),
+          ],
+        },
+      ]);
+      return;
+    }
+    if (resulA.length === 0 && resulU.length === 0) {
+      togglePageInteraction(false);
+      loadingBarRef.current?.complete();
+      return true;
+    }
+
+    togglePageInteraction(true);
+    loadingBarRef.current?.continuousStart();
+
+    try {
+      const apiCalls = [];
+      if (resulA.length > 0) apiCalls.push(SDACustEmpInfoAUD(resulA));
+
+      if (resulU.length > 0) apiCalls.push(SDACustEmpInfoAUD(resulU));
+
+      const results = await Promise.all(apiCalls);
+
+      const isSuccess = results.every(result => result?.success);
+
+      if (!isSuccess) {
+        HandleError(results);
+        return;
+      }
+      const [addMenuRaw, uMenuRaw] =
+        resulA.length && resulU.length
+          ? results
+          : resulA.length
+            ? [results[0], []]
+            : [[], results[0]];
+
+      const addMenuData = addMenuRaw?.data || [];
+      const uMenuData = uMenuRaw?.data || [];
+
+      setGridDataB(prev => {
+        const updated = prev.map(item => {
+          const found = [...addMenuData, ...uMenuData].find(x => x?.IDX_NO === item?.IdxNo);
+          console.log('found', found)
+          return found ? {
+            ...item, Status: '', CustSeq: found.CustSeq, EmpSerl: found.EmpSerl
+          } : item;
+        });
+        return updateIndexNo(updated);
+      });
+
+    } catch (error) {
+      HandleError([
+        {
+          success: false,
+          message: error.message || 'Đã xảy ra lỗi khi xóa!',
+        },
+      ]);
+    } finally {
+      loadingBarRef.current?.complete();
+      togglePageInteraction(false);
+    }
+  }, [gridDataB, canCreate, CustSeq]);
+
+  const handleDeleteDataSheet = useCallback(
+    (e) => {
+      if (canDelete === false) return;
+
+      togglePageInteraction(true);
+      loadingBarRef.current?.continuousStart();
+
+      const selectedRows = getSelectedRowsB();
+
+      const rowsWithStatusD = selectedRows
+        .filter((row) => !row.Status || row.Status === 'U' || row.Status === 'D' || row.Status === 'E')
+        .map((row) => ({
+          ...row,
+          Status: 'D',
+          WorkingTag: 'D',
+          CustSeq: CustSeq
+        }));
+
+
+      const rowsWithStatusA = selectedRows.filter((row) => row.Status === 'A');
+
+      const finish = () => {
+        loadingBarRef.current?.complete();
+        togglePageInteraction(false);
+      };
+
+      if (rowsWithStatusD.length > 0) {
+        SDACustEmpInfoAUD(rowsWithStatusD)
+          .then((response) => {
+            if (response.success) {
+              const deletedIds = rowsWithStatusD.map((item) => item.IdxNo);
+              const updatedData = gridDataB.filter((row) => !deletedIds.includes(row.IdxNo));
+              setGridDataB(updateIndexNo(updatedData));
+              setNumRowsB(updatedData.length);
+              resetTableB();
+            } else {
+              setGridDataB(prev => {
+                const updated = prev.map(item => {
+                  const isSelected = rowsWithStatusD.some(row => row.IdxNo === item.IdxNo);
+                  return isSelected ? { ...item, Status: 'E' } : item;
+                });
+                return updated;
+              });
+              HandleError([
+                {
+                  success: false,
+                  message: response.message || 'Đã xảy ra lỗi khi xóa!',
+                },
+              ]);
+            }
+          })
+          .catch((error) => {
+            HandleError([
+              {
+                success: false,
+                message: error.message || 'Đã xảy ra lỗi khi xóa!',
+              },
+            ]);
+          })
+          .finally(() => {
+            finish();
+          });
+      } else {
+
+        if (rowsWithStatusA.length > 0) {
+          const idsWithStatusA = rowsWithStatusA.map((row) => row.Id);
+          const remainingRows = gridDataB.filter((row) => !idsWithStatusA.includes(row.Id));
+          setGridDataB(updateIndexNo(remainingRows));
+          setNumRowsB(remainingRows.length);
+          resetTableB();
+        }
+        finish();
+      }
+    },
+    [gridDataB, selectionB, editedRows,CustSeq]
+  );
+  const fetchCodeHelpData = useCallback(async () => {
+    increaseFetchCount();
+
+    if (controllers.current.fetchCodeHelpData) {
+      controllers.current.fetchCodeHelpData.abort();
+      controllers.current.fetchCodeHelpData = null;
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+
+    loadingBarRef.current?.continuousStart();
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+    controllers.current.fetchCodeHelpData = controller;
+
+
+    try {
+      const [res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11] = await Promise.allSettled([
+        GetCodeHelpComboVer2('', langCode, 19999, 1, '%', '8024', '', '', '', signal),
+      ]);
+      setHelpData01(res1.status === 'fulfilled' ? res1.value?.data || [] : []);
+
+
+
+    } finally {
+      decreaseFetchCount();
+      controllers.current.fetchCodeHelpData = null;
+    }
+  }, [langCode]);
   const debouncedFetchCodeHelpData = useMemo(
     () => debounce(fetchCodeHelpData, 100),
     [fetchCodeHelpData],
@@ -331,364 +572,156 @@ export default function CustomersRegistrationDetails({
       debouncedFetchCodeHelpData.cancel()
     }
   }, [debouncedFetchCodeHelpData])
-  const openModal = () => {
-    setIsModalOpen(true)
-  }
-  const closeModal = () => {
-    setIsModalOpen(false)
-  }
 
-  const handleRowAppend = useCallback(
-    (numRowsToAdd) => {
-      if (canCreate === false) {
-        message.warning('Bạn không có quyền thêm dữ liệu')
-        return
-      }
-      onRowAppended(cols, setGridData, setNumRows, setAddedRows, numRowsToAdd)
+
+  const items = [
+    {
+      key: '1',
+      label: (
+        <span className="flex items-center gap-1  text-blue-700 ml-2">
+          Địa chỉ thông tin người phụ trách
+        </span>
+      ),
+      children: (
+        <div className="col-start-1 col-end-5 row-start-2 w-full h-full border-t overflow-auto">
+          <TableCustomerRegistrationB
+            setSelection={setSelectionB}
+            selection={selectionB}
+            showSearch={showSearchB}
+            setShowSearch={setShowSearchB}
+            numRows={numRowsB}
+            setGridData={setGridDataB}
+            gridData={gridDataB}
+            setNumRows={setNumRowsB}
+            setCols={setColsB}
+            handleRowAppend={handleRowAppendB}
+            cols={colsB}
+            canCreate={canCreate}
+            defaultCols={defaultColsB}
+            canEdit={canEdit}
+            helpData01={helpData01}
+            setHelpData01={setHelpData01}
+          />
+        </div>
+      ),
     },
-    [setGridData, setNumRows, setAddedRows, numRowsToAdd],
-  )
 
+  ]; const getSelectedRowsA = () => {
+    return selection.rows.items.flatMap(([start, end]) =>
+      gridData.slice(start, end)
+    );
+  };
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-        e.preventDefault()
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [])
+    const data = getSelectedRowsA();
 
-  /* HOOKS KEY */
-  useKeydownHandler(isCellSelected, setOpenHelp)
+    if (!data || data.length === 0) return;
 
-  const handleSaveData = useCallback(async () => {
-    if (canCreate === false) {
-      message.warning('Bạn không có quyền thêm dữ liệu')
-      return
-    }
-
-    const dataUpdate = [
-      {
-        FullName: fullName,
-        CustName: custName,
-        CustNo: custNo,
-        LawRegNo: LawRegNo,
-        BizAddr: BizAdd,
-        BizType: BizType,
-        TelNo: TelNo,
-        ChannelName: '',
-        UMChannelName: UMChannelName,
-        UMChannel: UMChannel,
-        UMCredLevelName: '',
-        SMDomFor: SMDomFor,
-        SMDomForName: SMDomForName,
-        SMCustStatusName: smCustStatusName,
-        SMCustStatus: custStatus,
-        Fax: Fax,
-        // ZipNo: ZipNo,
-        Addr: BizAdd,
-        UMCustKindName: '',
-        CustRemark: CustRemark,
-        BankNumber: BankNumber,
-        BankAccName: BankAccName,
-        BankName: BankName,
-        CustAbbrName: AbbrName,
-        CustPhone: TelNo,
-        CustPhone2: Tel2,
-        Tel2: SpBankPhone,
-        Email: Email,
-        SMBizPerName: SMBizPerName,
-        CustSeq: custSeq,
-        dataCustKind: gridData,
-        SMBizPers: SMBizPers,
-        SMBizPersName: SMBizPersName,
-        BizNo: BizNo,
-        Owner: owner,
-        EngCustName: EngCustName,
+    const seq = data[0]?.CustSeq;
+    if (seq == null || seq === '') return;
+    const searchParams = [{
+      CustSeq: data[0]?.CustSeq,
+    }]
+    setCustSeq(seq)
+    setCustName(data[0]?.CustName || '')
+    setCustNo(data[0]?.CustNo || '')
+    setBizNo(data[0]?.BizNo || '')
+    setOwner(data[0]?.Owner || '')
+    fetchGenericData({
+      controllerKey: 'SDACustEmpInfoQ',
+      postFunction: SDACustEmpInfoQ,
+      searchParams,
+      defaultCols: defaultColsB,
+      useEmptyData: true,
+      afterFetch: (data) => {
+        setGridDataB(data);
+        setNumRowsB(data.length);
       },
-    ]
-
-    if (isSent) return
-    setIsSent(true)
-
-    try {
-      const loadingMessage = message.loading('Đang thực hiện lưu dữ liệu...')
-      const promises = []
-      promises.push(UpdatedBy(dataUpdate))
-
-      const results = await Promise.all(promises)
-
-      results.forEach((result, index) => {
-        if (result.data.success === true) {
-          const newData = result.data.data
-
-          if (index === 0) {
-            message.success('Thêm thành công!')
-          } else {
-            message.success('Cập nhật thành công!')
-          }
-          loadingMessage()
-          setIsLoading(false)
-          setIsSent(false)
-          setEditedRows([])
-          setAddedRows([])
-          resetTable()
-        } else {
-          loadingMessage()
-          setIsLoading(false)
-          setIsSent(false)
-          setDataError(result.data.errors)
-          setIsModalVisible(true)
-          message.error('Có lỗi xảy ra khi lưu dữ liệu')
-        }
-      })
-    } catch (error) {
-      setIsLoading(false)
-      setIsSent(false)
-      message.error(error.message || 'Có lỗi xảy ra khi lưu dữ liệu')
-    }
-  }, [
-    fullName,
-    custName,
-    custNo,
-    owner,
-    LawRegNo,
-    BizAdd,
-    BizType,
-    TelNo,
-    UMChannelName,
-    UMChannel,
-    smCustStatusName,
-    custStatus,
-    Fax,
-    BizAdd,
-    CustRemark,
-    BankNumber,
-    BankAccName,
-    BankName,
-    AbbrName,
-    TelNo,
-    Tel2,
-    Email,
-    SMBizPerName,
-    custSeq,
-    SMBizPers,
-    SMDomFor,
-    SMDomForName,
-    BizNo,
-    EngCustName,
-    SpBankPhone,
-    gridData,
-  ])
-
+    });
+  }, [selection.rows.items]);
   return (
     <>
-      <Helmet>
-        <title>HPM - {t('Chi tiết đăng ký khách hàng')}</title>
-      </Helmet>
-      <div className="bg-slate-50 p-3 h-screen overflow-hidden">
-        <div className="flex flex-col gap-4 md:grid md:grid-cols-4 md:grid-rows-[auto_1fr] md:gap-4 h-full">
-          <div className="col-start-1 col-end-5 row-start-1 w-full rounded-lg ">
-            <div className="flex items-center justify-between">
-              <Title level={4} className="mt-2 uppercase opacity-85 ">
-                {t('Chi tiết đăng ký khách hàng')}
-              </Title>
-
+      <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
+      <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">
+        <div className="flex flex-col h-full">
+          <div className="col-start-1 col-end-5 row-start-1 w-full rounded-lg">
+            <div className="flex items-end justify-end bg-white p-1">
               <CustomerRegistActionDetails
-                setModalOpen={setModalOpen}
-                handleRestSheet={''}
-                fetchDataQuery={''}
-                openModal={openModal}
-                setNumRowsToAdd={setNumRowsToAdd}
-                numRowsToAdd={numRowsToAdd}
-                setClickCount={setClickCount}
-                clickCount={clickCount}
-                handleRowAppend={handleRowAppend}
+                handleSearchData={handleSearchData}
                 handleSaveData={handleSaveData}
+                handleDeleteDataSheet={handleDeleteDataSheet}
               />
             </div>
             <details
-              className="group p-2 [&_summary::-webkit-details-marker]:hidden border rounded-lg bg-white overflow-y-auto max-h-[730px] "
+              className="group [&_summary::-webkit-details-marker]:hidden border-t   bg-white"
               open
             >
-              <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                <h2 className="text-xs font-medium flex items-center gap-2  uppercase">
-                  <FilterOutlined />
-                  Thông tin cơ bản
-                </h2>
-              </summary>
-              <div className="flex p-2 gap-4 ">
-                <CustomerRegistrationQueryDetails
-                  dataMasterInfo={dataMasterInfo}
-                  dataBankInfo={dataBankInfo}
-                  custName={custName}
-                  setCustName={setCustName}
-                  custNo={custNo}
-                  setCustNo={setCustNo}
-                  custSeq={custSeq}
-                  setCustSeq={setCustSeq}
-                  fullName={fullName}
-                  setFullName={setFullName}
-                  UMCountryName={countryName}
-                  setUmCountryName={setCountryName}
-                  setUMCountry={setCountry}
-                  smCustStatusName={smCustStatusName}
-                  setSmCustStatusName={setSmCustStatusName}
-                  setCustStatus={setCustStatus}
-                  dataSMDomForName={dataSMDomForName}
-                  SMDomForName={SMDomForName}
-                  setSMDomForName={setSMDomForName}
-                  setSMDomFor={setSMDomFor}
-                  dataCustStatus={dataCustStatus}
-                />
-              </div>
-
-              <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                <h2 className="text-xs font-medium flex items-center gap-2  uppercase">
-                  <FilterOutlined />
-                  Thông tin khách hàng
-                </h2>
-              </summary>
-              <div className="flex p-2 gap-4 ">
-                <CustRegistBasicInfo
-                  dataMasterInfo={dataMasterInfo}
-                  dataCustAddInfo={dataCustAddInfo}
-                  UMChannelName={UMChannelName}
-                  setUMChannelName={setUMChannelName}
-                  setUMChannel={setUMChannel}
-                  SMBizPerName={SMBizPerName}
-                  setSMBizPerName={setSMBizPerName}
-                  EngCustName={EngCustName}
-                  setEngCustName={setEngCustName}
-                  Email={Email}
-                  setEmail={setEmail}
-                  TelNo={TelNo}
-                  setTelNo={setTelNo}
-                  Fax={Fax}
-                  setFax={setFax}
-                  Tel2={Tel2}
-                  setTel2={setTel2}
-                  dataUMChannel={dataUMChannel}
-                  dataBizPername={dataBizPername}
-                  setSMBizPers={setSMBizPers}
-                  SMBizPersName={SMBizPersName}
-                  setSMBizPersName={setSMBizPersName}
-                  setSMDomFor={setSMDomFor}
-                />
-              </div>
-
-              <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                <h2 className="text-xs font-medium flex items-center gap-2  uppercase">
-                  <FilterOutlined />
-                  Thông tin về thuế
+              <summary className="flex cursor-pointer items-center justify-between p-1 gap-1.5 border-b text-gray-900" onClick={(e) => e.preventDefault()}>
+                <h2 className="text-[9px] font-medium flex items-center   uppercase text-blue-500">
+                  {t('850000014')}
                 </h2>
               </summary>
 
-              <div className="flex p-2 gap-4 ">
-                <CustRegistTaxInfo
-                  dataMasterInfo={dataMasterInfo}
-                  BizAdd={BizAdd}
-                  setBizAdd={setBizAdd}
-                  LawRegNo={LawRegNo}
-                  setLawRegNo={setLawRegNo}
-                  BizNo={BizNo}
-                  setBizNo={setBizNo}
-                  SMBizPerName={SMBizPerName}
-                  setSMBizPerName={setSMBizPerName}
-                  TelNo={TelNo}
-                  setTelNo={setTelNo}
-                  BizType={BizType}
-                  setBizType={setBizType}
-                  Owner={owner}
-                  setOwner={setOwner}
-                />
-              </div>
 
-              <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                <h2 className="text-xs font-medium flex items-center gap-2  uppercase">
-                  <FilterOutlined />
-                  Thông tin ngân hàng
-                </h2>
-              </summary>
-              <div className="flex p-2 gap-4 ">
-                <CustRegistBankInfo
-                  dataBankInfo={dataBankInfo}
-                  BankNumber={BankNumber}
-                  setBankNumber={setBankNumber}
-                  BankName={BankName}
-                  setBankName={setBankName}
-                  BankAccName={BankAccName}
-                  setBankAccName={setBankAccName}
-                  BankPhoneNumber={BankPhoneNumber}
-                  setBankPhoneNumber={setBankPhoneNumber}
-                  AbbrName={AbbrName}
-                  setAbbrName={setAbbrName}
-                  SpBankPhone={SpBankPhone}
-                  setSpBankPhone={setSpBankPhone}
-                />
-              </div>
+              <CustomerRegistrationQuery
+                CustName={CustName}
+                setCustName={setCustName}
+                CustNo={CustNo}
+                setCustNo={setCustNo}
+                BizNo={BizNo}
+                setBizNo={setBizNo}
+                Owner={Owner}
+                setOwner={setOwner}
 
-              <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                <h2 className="text-xs font-medium flex items-center gap-2  uppercase">
-                  <FilterOutlined />
-                  Phân loại khách hàng
-                </h2>
-              </summary>
-              <div className="h-96">
-                <CustRegistKindInfo
+
+              />
+            </details>
+
+          </div>
+
+          <div className="col-start-1 col-end-5 row-start-2 w-full h-full border-t  overflow-auto">
+
+            <Splitter
+              layout="vertical"
+            >
+              <Splitter.Panel defaultSize="40%" min="20%">
+                <TableCustomerRegistrationA
                   setSelection={setSelection}
                   selection={selection}
-                  setShowSearch={setShowSearch}
                   showSearch={showSearch}
-                  setEditedRows={setEditedRows}
-                  setOnSelectRow={setOnSelectRow}
-                  setOpenHelp={setOpenHelp}
-                  openHelp={openHelp}
+                  setShowSearch={setShowSearch}
+                  numRows={numRows}
                   setGridData={setGridData}
                   gridData={gridData}
-                  numRows={numRows}
-                  handleRowAppend={handleRowAppend}
+                  setNumRows={setNumRows}
                   setCols={setCols}
+                  handleRowAppend={handleRowAppend}
                   cols={cols}
+                  canCreate={canCreate}
                   defaultCols={defaultCols}
-                  setDataSelectCustKind={setDataSelectCustKind}
-                />
-              </div>
+                  canEdit={canEdit}
 
-              <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
-                <h2 className="text-xs font-medium flex items-center gap-2  uppercase">
-                  <FilterOutlined />
-                  Ghi chú
-                </h2>
-              </summary>
-              <div className="">
-                <Input
-                  placeholder=""
-                  size="middle"
-                  value={CustRemark}
-                  className="h-40"
-                  allowClear
-                  onChange={(e) => setCustRemark(e.target.value)}
                 />
-              </div>
-            </details>
+              </Splitter.Panel>
+              <Splitter.Panel defaultSize="60%" min="20%">
+
+
+                <div className=" w-full h-full">
+                  <Tabs defaultActiveKey="1"
+
+                    size="small"
+                    items={items}
+                    className="h-full "
+                    onChange={(key) => setActiveTab(key)}
+                  />
+                </div>
+              </Splitter.Panel>
+            </Splitter>
+
+
           </div>
         </div>
       </div>
-      <ErrorListModal
-        dataError={dataError}
-        setIsModalVisible={setIsModalVisible}
-        isModalVisible={isModalVisible}
-        columns={columnsError}
-      />
-      <ModalSheetDelete
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        confirm={''}
-      />
+
     </>
   )
 }

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+
+package produce.bom.bom;
+
+service BOMService {
+  rpc SPDBOMReportAllQ (SPDBOMReportAllQRequest) returns (Response);
+}
+
+message SPDBOMReportAllQResult { 
+  int32 UMQueryType = 1;
+  string ItemSeq = 2;
+  string ItemNo = 3;
+  string AssetSeq = 4;
+  string DateFr = 5;
+  string DateTo = 6;
+}
+
+
+message SPDBOMReportAllQRequest {
+    repeated SPDBOMReportAllQResult result = 1;  
+    map<string, string> metadata = 2;
+}
+  
+  
+message Response {
+    bool success = 1;  
+    string message = 2;      
+    string data = 3; 
+    string errors = 4;
+  }

@@ -1,0 +1,189 @@
+syntax = "proto3";
+
+package report.pjt.pjt_project;
+
+
+service PjtProjectService {
+  rpc searchPjtProject (PjtProjectSearchRequest) returns (Response);
+  rpc searchPjtProjectDetail (PjtDetailSearchRequest) returns (Response);
+  rpc auPjtProject (PjtRequest) returns (Response);
+  rpc deletePjtProjectItem (PjtItemRequest) returns (Response);
+  rpc deletePjtDelv (PjtDelvRequest) returns (Response);
+  rpc deletePjtProject (PjtRequest) returns (Response);
+  rpc confirmPjtProject (PjtConfirmRequest) returns (Response);
+}
+
+
+message PjtProjectRequest {
+  string PlanFrDate = 1;
+  string PlanToDate = 2;
+  string QryFr = 3;
+  string QryTo = 4;
+  int32 PJTTypeSeq = 5;
+  string PJTName = 6;
+  string PJTNo = 7;
+  string SMSalesRecognize = 8;
+  int32 SMStatusSeq = 9;
+  int32 CustSeq = 10;
+  int32 ChargeDeptSeq = 11;
+  int32 ChargeEmpSeq = 12;
+  string SMExpKind = 13;
+  string FactUnit = 14;
+  string FactUnitName = 15;
+  int32 PMSeq = 16;
+  string ContractFrDate = 17;
+  string ContractToDate = 18;
+  int32 BizUnit = 19;
+}
+
+message PjtDetailRequest {
+ string PJTSeq = 1;
+ string LanguageSeq = 2;
+ string WorkingTag = 3;
+
+}
+
+message PjtProjectResult {
+
+  string WorkingTag = 1;
+  int32 PJTSeq = 2;
+  string PJTName = 3;
+  string PJTNo = 4;
+  string PlanFrDate = 5;
+  string PlanToDate = 6;
+  string ContractFrDate = 7;
+  string ContractToDate = 8;
+  string PJTTypeName = 9;
+  int32 PJTTypeSeq = 10;
+  string ResultStdUnitName = 11;
+  int32 BizUnit = 12;
+  int32 CustSeq = 13;
+  string CustName = 14;
+  string ChargeEmpName = 15;
+  int32 ChargeEmpSeq = 16;
+  string ChargeDeptName = 17;
+  int32 ChargeDeptSeq = 18;
+  string CurrName = 19;
+  int32 CurrSeq = 20;
+  double CurrRate = 21;
+  string RegDate = 22;
+  string ContractDate = 23;
+  string Etc = 24;
+
+
+}
+message PjtProjectItemResult {
+  string Status = 1;
+  string SMInputTypeName = 2;
+  string ItemName = 3;
+  string ItemNo = 4;
+  string UnitName = 5;
+  double ItemQty = 6;
+  double ItemPrice = 7;
+  double ItemAmt = 8;
+  double ItemVatAmt = 9;
+  double SumItemAmt = 10;
+  double ItemDomPrice = 11;
+  double ItemDomAmt = 12;
+  double ItemDomVatAmt = 13;
+  double SumItemDomAmt = 14;
+  string Remark = 15;
+  string Id = 16;
+  int32 IdxNo = 17;
+  int32 SMInputType = 18;
+  bool isEdited = 19;
+  int32 ItemSeq = 20;
+  string Spec = 21;
+  int32 UnitSeq = 22;
+  string WorkingTag = 23;
+  int32 PJTSeq = 24;
+  int32 PJTItemSerl = 25;
+}
+
+message PjtProjectDevlResult {
+    string Status = 1;
+    string SMDelvTypeName = 2;
+    string DelvExpectDate = 3;
+    string ChangeDeliveyDate = 4;
+    string ItemName = 5;
+    string ItemNo = 6;
+    string UnitName = 7;
+    double DelvQty = 8;
+    string ISPJTSales = 9;
+    double DelvPrice = 10;
+    double DelvAmt = 11;
+    double DelvVatAmt = 12;
+    double SumDelvAmt = 13;
+    string DelvCustName = 14;
+    string Remark = 15;
+    double DelvDomPrice = 16;
+    double DelvDomAmt = 17;
+    double SumDelvDomAmt = 18;
+    string WBSName = 19;
+    string DelayDesc = 20;
+    string ExpReceiptDate = 21;
+    string Id = 22;
+    int32 IdxNo = 23;
+    int32 SMDelvType = 24;
+    bool isEdited = 25;
+    int32 ItemSeq = 26;
+    string Spec = 27;
+    int32 UnitSeq = 28;
+    string WorkingTag = 29;
+    int32 PJTSeq = 30;
+    int32 DelvSerl = 31;
+
+}
+
+message PjtProjectConfirmResult {
+  string Status = 1;
+  int32 PJTSeq = 2;
+  string ProcDate = 3;
+  string SMStatusName = 4;
+  string ProcEmpSeq = 5;
+  string ProcDesc = 6;
+}
+
+
+
+
+
+message PjtProjectSearchRequest {
+  repeated PjtProjectRequest result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message PjtDetailSearchRequest {
+  repeated PjtDetailRequest result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message PjtRequest {
+  repeated PjtProjectResult masterData = 1;  
+  repeated PjtProjectItemResult  dataItem = 2;  
+  repeated PjtProjectDevlResult dataDelv = 3;   
+  map<string, string> metadata = 4;
+}
+
+message PjtItemRequest {
+  repeated PjtProjectItemResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message PjtDelvRequest {
+  repeated PjtProjectDevlResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message PjtConfirmRequest {
+  repeated PjtProjectConfirmResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

@@ -5,7 +5,6 @@ const notificationStyle = {
   fontSize: 13,
 };
 
-
 export function HandleSuccess(results = []) {
   if (!results.length) return;
 
@@ -35,8 +34,8 @@ export function HandleSuccess(results = []) {
 
   if (hasA) {
     notification.success({
-      message: <span className="font-medium opacity-85 text-sm">Thành công</span>,
-      description: formatMessage(resultA) || resultA.message || 'Thao tác thành công!',
+      message: <span className="font-medium opacity-85 text-sm">Thông báo</span>,
+      description: formatMessage(resultA),
       placement: 'topRight',
       style: notificationStyle,
     });
@@ -44,20 +43,17 @@ export function HandleSuccess(results = []) {
 
   if (hasU) {
     notification.success({
-      message: 'Thành công',
-      description: formatMessage(resultU) || resultU.message || 'Thao tác thành công!',
+      message: 'Thông báo',
+      description: formatMessage(resultU),
       placement: 'topRight',
       style: notificationStyle,
     });
   }
 
-  // Nếu không có A hoặc U mà vẫn có kết quả thành công chung
-  if (!hasA && !hasU && results[0]?.success) {
+  if (!hasA && !hasU) {
     notification.success({
-      message: 'Thành công',
-      description: Array.isArray(results[0].message)
-        ? results[0].message.join(', ')
-        : results[0].message || 'Thao tác thành công!',
+      message: 'Thông báo',
+      description: 'Thao tác thành công!',
       placement: 'topRight',
       style: notificationStyle,
     });

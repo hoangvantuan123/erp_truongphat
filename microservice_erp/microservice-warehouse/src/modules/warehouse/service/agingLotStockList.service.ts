@@ -20,6 +20,7 @@ export class AgingLotStockListService {
         @UserSeq = ${userSeq},
         @PgmSeq = ${pgmSeq};
     `;
+    console.log(query)
         try {
             const result = await this.databaseService.executeQuery(query);
             return { success: true, data: result };

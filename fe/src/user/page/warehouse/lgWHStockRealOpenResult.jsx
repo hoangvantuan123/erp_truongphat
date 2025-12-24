@@ -1695,7 +1695,7 @@ export default function LGWHStockRealOpenResult({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập kết quả kiểm kê')}</title>
+        <title>ITM - {t('Nhập kết quả kiểm kê')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3  h-[calc(100vh-30px)] overflow-hidden">

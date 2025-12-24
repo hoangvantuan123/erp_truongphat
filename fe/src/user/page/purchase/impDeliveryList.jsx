@@ -770,7 +770,7 @@ export default function ImpDeliveryList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn nhập kho sản phẩm nhập khẩu')}</title>
+        <title>ITM - {t('Truy vấn nhập kho sản phẩm nhập khẩu')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

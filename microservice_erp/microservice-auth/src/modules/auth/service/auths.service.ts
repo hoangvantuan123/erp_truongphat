@@ -260,9 +260,22 @@ export class AuthService {
                 if (!user.CheckPass1) {
                     throw { message: 'Account not activated.', code: 'ACCOUNT_NOT_ACTIVATED' };
                 }
+                const clientIP = deviceInfo?.IpAddress;
 
+                const query = `SELECT 1 FROM _ERPPublicIPs WHERE IPAddress = '${clientIP}'`;
+                const isPublicIPAllowed = await this.databaseService.executeQuery(query)
+                    .then(result => result.length > 0);
+                if (isPublicIPAllowed === false && user.AccountScope === false) {
+                    return {
+                        success: false,
+                        error: {
+                            message: 'Tài khoản của bạn không được phép đăng nhập từ địa chỉ IP này.',
+                            code: 'FORBIDDEN_NETWORK',
+                        }
+                    };
+                }
 
-                const requiresOTP = user.ForceOtpLogin || user.AccountScope;
+                const requiresOTP = !isPublicIPAllowed || user.ForceOtpLogin || user.AccountScope;
                 const queryMail = `SELECT * FROM _ERPMails WHERE CodeMail = 'mail_otp_login'`;
                 const hostMail = await this.databaseService.executeQuery(queryMail)
                 if (requiresOTP) {

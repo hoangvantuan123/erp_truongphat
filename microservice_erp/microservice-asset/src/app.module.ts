@@ -7,14 +7,16 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { sqlServerITMV, sqlServerITMVCOMMON } from './config/database.config';
 import { APP_FILTER } from '@nestjs/core';
 import { AssetModule } from './modules/asset-mgn/modules/asset.module';
-import { RegiTEModule } from './modules/regi-te/modules/regite.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({ ...sqlServerITMV, name: 'ITMV' }),
+    TypeOrmModule.forRoot({
+      ...sqlServerITMVCOMMON,
+      name: 'ITMVCOMMON',
+    }),
     AssetModule,
-    RegiTEModule
 
   ],
   providers: [
@@ -28,13 +30,18 @@ import { RegiTEModule } from './modules/regi-te/modules/regite.module';
 export class AppModule implements OnModuleInit {
   constructor(
     @InjectConnection('ITMV') private readonly connection2: Connection,
+    @InjectConnection('ITMVCOMMON')
+    private readonly connectionCommon: Connection,
   ) { }
 
   async onModuleInit() {
     if (this.connection2.isConnected) {
-      console.log('✅ ITMVJIG Database connected');
+      console.log('✅ ITMV Database connected');
+    }
+    if (this.connectionCommon.isConnected) {
+      console.log('✅ ITMVCOMMON Database connected');
     } else {
-      console.error('❌ Failed to connect to the ITMVJIG database');
+      console.error('❌ Failed to connect to the ITMV database');
     }
   }
 

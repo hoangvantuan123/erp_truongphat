@@ -21,7 +21,7 @@ export default function LabelPrint({ permissions, isMobile }) {
   return (
     <Layout className="h-screen bg-slate-50">
       <Helmet>
-        <title>HPM - {t('Label Printer')}</title>
+        <title>ITM - {t('Label Printer')}</title>
       </Helmet>
 
       <div className="flex flex-col h-full ">

@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package socket.notification.notification;
+
+
+service NotificationService {
+  rpc NotificationReadStatusA (NotificationReadStatusARequest) returns (Response);
+  rpc NotificationQ(notificationQRequest) returns(Response);
+}
+
+message NotificationReadStatusAResult {
+  int32 IdxNo = 1;
+  int32 CreatedBy = 2;
+  int32 UpdatedBy = 3;
+
+
+  int32 UserId = 4;
+  bool IsRead = 5;
+
+
+  string NotificationIdSeq = 6;
+
+
+
+
+
+}
+
+message notificationQResult { 
+  int32 UserId = 1;
+  int32 Page = 2;
+  int32 PageSize = 3;
+  string KeyItem1 = 4;
+  bool OnlyUnread = 5;
+
+}
+
+
+message NotificationReadStatusARequest {
+  repeated NotificationReadStatusAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message notificationQRequest {
+  notificationQResult result = 1;
+    map < string, string > metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3;
+
+
+
+
+}

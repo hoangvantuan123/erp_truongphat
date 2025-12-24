@@ -1197,7 +1197,7 @@ export default function PurOrdPOList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn đặt mua hàng trong nước')}</title>
+        <title>ITM - {t('Truy vấn đặt mua hàng trong nước')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

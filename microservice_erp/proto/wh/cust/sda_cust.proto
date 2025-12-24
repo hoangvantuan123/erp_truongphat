@@ -7,6 +7,8 @@ service SDACustService {
   rpc SDACustQ (SDACustQRequest) returns (Response);
   rpc SDACustD (SDACustDRequest) returns (Response);
   rpc SDACustAUD (SDACustAUDRequest) returns (Response);
+  rpc SDACustEmpInfoQ (SDACustEmpInfoQRequest) returns (Response);
+  rpc SDACustEmpInfoAUD (SDACustEmpInfoAUDRequest) returns (Response);
 }
 
 
@@ -66,6 +68,33 @@ message SDACustAUDResult {
 
 
 
+message SDACustEmpInfoQResult {
+  string CustSeq = 1;
+  string IdxNo = 2;
+  string WorkingTag = 3;
+  }
+message SDACustEmpInfoAUDResult {
+  string EmpSerl = 1;
+  string IdxNo = 2;
+  string WorkingTag = 3;
+  string EmpName = 4; 
+  string JpName = 5; 
+  string DeptName = 6;
+  string TELNo = 8;
+  string MobileNo= 9;
+  string FAX = 10;
+  string EMail = 12;
+  string Remark = 13; 
+  string UMJobRollKindName = 14; 
+  string UMJobRollKind = 15; 
+  string IsStd = 16;
+  int32 CustSeq = 17;
+
+
+  }
+
+
+
 
 
 message SDACustQRequest {
@@ -78,6 +107,14 @@ message SDACustDRequest {
 }
 message SDACustAUDRequest {
   repeated SDACustAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SDACustEmpInfoQRequest {
+  repeated SDACustEmpInfoQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SDACustEmpInfoAUDRequest {
+  repeated SDACustEmpInfoAUDResult result = 1;  
   map<string, string> metadata = 2;
 }
 

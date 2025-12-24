@@ -574,7 +574,7 @@ export default function PdmpsProdReqItemList({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('850000161')}</title>
+                <title>ITM - {t('850000161')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-35px)] p-3 overflow-hidden">

@@ -49,6 +49,8 @@ export default function HrBasCetificateQuery({
   })
   const [EmpSearchSh, setEmpSearchSh] = useState('')
   const [modalVisibleEmpName, setModalVisibleEmpName] = useState(false)
+  const [selectEmp, setSelectEmp] = useState(null)
+
 
   const [modalVisibleDept, setModalVisibleDept] = useState(false)
   const [selectionDept, setSelectionDept] = useState({
@@ -241,6 +243,8 @@ export default function HrBasCetificateQuery({
                   empSeq={EmpSeq}
                   setEmpSeq={setEmpSeq}
                   setUserId={setEmpID}
+                  setSelectEmp={setSelectEmp}
+
                 />
               )}
             </Form.Item>

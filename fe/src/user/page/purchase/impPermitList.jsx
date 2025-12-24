@@ -842,7 +842,7 @@ export default function ImpPermitList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn tờ khai nhập khẩu')}</title>
+        <title>ITM - {t('Truy vấn tờ khai nhập khẩu')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

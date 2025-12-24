@@ -39,6 +39,11 @@ async function bootstrap() {
         'hr.info.hr_file',
         'hr.info.hr_emp_date',
         'hr.info.hr_search_statistic',
+        'hr.edu.edu_type',
+        'hr.edu.edu_course',
+        'hr.edu.edu_class',
+        'hr.edu.edu_lecturer',
+        'hr.edu.edu_per_rst',
 
 
         /* TUYỂN DỤNG  */
@@ -56,6 +61,15 @@ async function bootstrap() {
         'hr.hr_general.labor_contract',
         'hr.hr_general.labor_contract_print',
 
+
+        /* LUONG */
+
+        'hr.daily_att.sp_r_wk_item',
+        'hr.daily_att.calendar_holiday',
+        'hr.daily_att.wk_over_time_approve',
+        'hr.daily_att.sprwk_abs_emp',
+        'hr.daily_att.sp_rwk_mm_emp_day',
+        'hr.daily_att.sp_wk_emp_dd'
       ],
       protoPath: [
         join(__dirname, '..', '..', 'proto', 'hr', 'info', 'hr_emp_pln.proto'),
@@ -96,9 +110,24 @@ async function bootstrap() {
         join(__dirname, '..', '..', 'proto', 'hr', 'hr_recruit', 'hr_office_skill_recruit.proto'),
         join(__dirname, '..', '..', 'proto', 'hr', 'define', 'define_item.proto'),
         join(__dirname, '..', '..', 'proto', 'hr', 'define', 'define.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'edu', 'edu_type.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'edu', 'edu_course.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'edu', 'edu_class.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'edu', 'edu_lecturer.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'edu', 'edu_per_rst.proto'),
 
 
-        
+
+        /* LUONG */
+        join(__dirname, '..', '..', 'proto', 'hr', 'daily_att', 'sp_r_wk_item.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'daily_att', 'calendar_holiday.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'daily_att', 'wk_over_time_approve.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'daily_att', 'sprwk_abs_emp.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'daily_att', 'sp_rwk_mm_emp_day.proto'),
+        join(__dirname, '..', '..', 'proto', 'hr', 'daily_att', 'sp_wk_emp_dd.proto'),
+
+
+
 
 
       ],

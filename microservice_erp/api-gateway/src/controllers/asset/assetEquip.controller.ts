@@ -118,136 +118,71 @@ export class AssetEquipController {
       });
   }
 
-  @Post('/cud-pd-equip')
-  createOrUpdateDaDept(
-    @Body() body: { dataPdEquip: any[]; dataAssyTool: any[]; dataMng: any[] },
-    @Req() req: Request,
-  ) {
-    if (!body) {
-      return { success: false, message: 'Invalid request: Missing "result"' };
+      @Post('/cud-pd-equip')
+    createOrUpdateDaDept(@Body() body: { dataPdEquip: any[], dataAssyTool: any[], dataMng: any[] }, @Req() req: Request) {
+        if (!body) {
+            return { success: false, message: 'Invalid request: Missing "result"' };
+        }
+
+
+        const authorization = req.headers.authorization || '';
+        const requestData = { dataPdEquip: body.dataPdEquip, dataAssyTool: body.dataAssyTool, dataMng: body.dataMng, metadata: { authorization } };
+
+        return lastValueFrom(this.grpcPdEquip.createOrUpdatePdEquip(
+          requestData.dataPdEquip, 
+          requestData.dataAssyTool,
+          requestData.dataMng,
+          requestData.metadata))
+            .then((resu) => {
+                return resu;
+            })
+            .catch((error) => {
+                return { success: false, message: 'Internal Server Error' };
+            });
     }
 
-    const authorization = req.headers.authorization || '';
-    const requestData = {
-      dataPdEquip: body.dataPdEquip,
-      dataAssyTool: body.dataAssyTool,
-      dataMng: body.dataMng,
-      metadata: { authorization },
-    };
+    @Post('/delete-mold')
+    deleteMold(@Body() body: { dataMold: any[] }, @Req() req: Request) {
+        if (!body) {
+            return { success: false, message: 'Invalid request: Missing "result"' };
+        }
 
-    return lastValueFrom(
-      this.grpcPdEquip.createOrUpdatePdEquip(
-        requestData.dataPdEquip,
-        requestData.dataAssyTool,
-        requestData.dataMng,
-        requestData.metadata,
-      ),
-    )
-      .then((resu) => {
-        return resu;
-      })
-      .catch((error) => {
-        return { success: false, message: 'Internal Server Error' };
-      });
-  }
+        const authorization = req.headers.authorization || '';
+        const requestData = { dataMold: body.dataMold, metadata: { authorization } };
 
-  @Post('/delete-mold')
-  deleteMold(@Body() body: { dataMold: any[] }, @Req() req: Request) {
-    if (!body) {
-      return { success: false, message: 'Invalid request: Missing "result"' };
+        return lastValueFrom(this.grpcPdEquip.deleteMold(
+          requestData.dataMold, 
+          
+          requestData.metadata))
+            .then((resu) => {
+                return resu;
+            })
+            .catch((error) => {
+                return { success: false, message: 'Internal Server Error' };
+            });
     }
 
-    const authorization = req.headers.authorization || '';
-    const requestData = {
-      dataMold: body.dataMold,
-      metadata: { authorization },
-    };
+    @Post('/delete-pd-equip')
+    deletePdEquip(@Body() body: { dataPdEquip: any[], dataAssyTool: any[], dataMng: any[] }, @Req() req: Request) {
+        if (!body) {
+            return { success: false, message: 'Invalid request: Missing "result"' };
+        }
 
-    return lastValueFrom(
-      this.grpcPdEquip.deleteMold(
-        requestData.dataMold,
 
-        requestData.metadata,
-      ),
-    )
-      .then((resu) => {
-        return resu;
-      })
-      .catch((error) => {
-        return { success: false, message: 'Internal Server Error' };
-      });
-  }
+        const authorization = req.headers.authorization || '';
+        const requestData = { dataPdEquip: body.dataPdEquip, dataAssyTool: body.dataAssyTool, dataMng: body.dataMng, metadata: { authorization } };
 
-  @Post('/delete-pd-equip')
-  deletePdEquip(
-    @Body() body: { dataPdEquip: any[]; dataAssyTool: any[]; dataMng: any[] },
-    @Req() req: Request,
-  ) {
-    if (!body) {
-      return { success: false, message: 'Invalid request: Missing "result"' };
+        return lastValueFrom(this.grpcPdEquip.deletePdEquip(
+          requestData.dataPdEquip, 
+          requestData.dataAssyTool,
+          requestData.dataMng,
+          requestData.metadata))
+            .then((resu) => {
+                return resu;
+            })
+            .catch((error) => {
+                return { success: false, message: 'Internal Server Error' };
+            });
     }
 
-    const authorization = req.headers.authorization || '';
-    const requestData = {
-      dataPdEquip: body.dataPdEquip,
-      dataAssyTool: body.dataAssyTool,
-      dataMng: body.dataMng,
-      metadata: { authorization },
-    };
-
-    return lastValueFrom(
-      this.grpcPdEquip.deletePdEquip(
-        requestData.dataPdEquip,
-        requestData.dataAssyTool,
-        requestData.dataMng,
-        requestData.metadata,
-      ),
-    )
-      .then((resu) => {
-        return resu;
-      })
-      .catch((error) => {
-        return { success: false, message: 'Internal Server Error' };
-      });
-  }
-
-  @Post('get-asset-file')
-  AssetFileQ(@Body() body: { result: any }, @Req() req: Request) {
-    if (!body?.result) {
-      return { success: false, message: 'Invalid request: Missing "result"' };
-    }
-
-    const authorization = req.headers.authorization || '';
-    const requestData = { result: body.result, metadata: { authorization } };
-
-    return lastValueFrom(
-      this.grpcPdEquip.AssetFileQ(requestData.result, requestData.metadata),
-    )
-      .then((resu) => {
-        return resu;
-      })
-      .catch((error) => {
-        return { success: false, message: 'Internal Server Error' };
-      });
-  }
-
-  @Post('delete-asset-file')
-  AssetFileD(@Body() body: { result: any }, @Req() req: Request) {
-    if (!body?.result) {
-      return { success: false, message: 'Invalid request: Missing "result"' };
-    }
-
-    const authorization = req.headers.authorization || '';
-    const requestData = { result: body.result, metadata: { authorization } };
-
-    return lastValueFrom(
-      this.grpcPdEquip.AssetFileD(requestData.result, requestData.metadata),
-    )
-      .then((resu) => {
-        return resu;
-      })
-      .catch((error) => {
-        return { success: false, message: 'Internal Server Error' };
-      });
-  }
 }

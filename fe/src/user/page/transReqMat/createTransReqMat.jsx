@@ -672,7 +672,7 @@ export default function CreateTransReqMat({ permissions, isMobile }) {
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Di chuyển vật liệu')}</title>
+        <title>ITM - {t('Di chuyển vật liệu')}</title>
       </Helmet>
       <div className="bg-slate-50 p-3 h-screen overflow-hidden">
         <div className="flex flex-col gap-4 md:grid md:grid-cols-4 md:grid-rows-[auto_1fr] md:gap-4 h-full">

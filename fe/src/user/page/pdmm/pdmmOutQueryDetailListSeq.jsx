@@ -55,8 +55,6 @@ import { PostDCheckLogs } from '../../../features/pdmm/postDCheckLogs'
 import { PostQOutProcItem } from '../../../features/pdmm/postQOutProcItem'
 import CheckScanErrorLogsDrawer from './checkLogsScanError'
 import { v4 as uuidv4 } from 'uuid';
-import { playErrorSound } from '../../../utils/errorSound'
-import { playSuccessSound } from '../../../utils/errorSound'
 export default function PdmmOutQueryDetailListSeq({
   permissions,
   isMobile,
@@ -1165,7 +1163,7 @@ export default function PdmmOutQueryDetailListSeq({
     setDataLogsError((prevLogs) => [
       ...prevLogs,
       {
-        Id: uuidv4(),
+        Id: uuidv4(), 
         Status: status,
         QrCode: qrcode,
         Logs: logMessage,
@@ -1203,14 +1201,13 @@ export default function PdmmOutQueryDetailListSeq({
             ),
           )
         })
-        playSuccessSound();
+
         appendToLogs('Success', formData[0].Barcode, '');
       } else {
         if (loadingBarRef.current) {
           loadingBarRef.current.complete()
           setDataError(resSuccess.errors)
         }
-        playErrorSound();
         appendToLogs('Error', formData[0].Barcode, resSuccess.errors[0].result);
         setIsModalVisible(true)
       }
@@ -1288,7 +1285,6 @@ export default function PdmmOutQueryDetailListSeq({
         setModal2Open(true)
         setError(resultMessage)
         setInputBarCode('')
-        playErrorSound();
       }
     }
     return () => {
@@ -1670,12 +1666,11 @@ export default function PdmmOutQueryDetailListSeq({
         const updatedData = updateIndexNo(newDataMaster)
         setMaterialData(updatedData)
         resetTableItem()
-        playSuccessSound();
+
         message.success('Lưu dữ liệu thành công!')
       } else {
         setDataError(response.errors)
         setIsModalVisible(true)
-        playErrorSound();
         message.error('Có lỗi xảy ra khi lưu dữ liệu')
       }
 
@@ -1810,7 +1805,6 @@ export default function PdmmOutQueryDetailListSeq({
               fetchSheetQuery(reqSeq)
               togglePageInteraction(false)
               setIsAPISuccess(true)
-              playSuccessSound();
               if (loadingBarRef.current) {
                 loadingBarRef.current.complete()
                 message.success('Xóa thành công!')
@@ -1818,7 +1812,6 @@ export default function PdmmOutQueryDetailListSeq({
             } else {
               setDataError(response.errors)
               setIsModalVisible(true)
-              playErrorSound();
               togglePageInteraction(false)
               setIsAPISuccess(true)
               if (loadingBarRef.current) {
@@ -2037,7 +2030,6 @@ export default function PdmmOutQueryDetailListSeq({
               setInOutSeq('0')
               togglePageInteraction(false)
               setIsAPISuccess(true)
-              playSuccessSound();
               if (loadingBarRef.current) {
                 loadingBarRef.current.complete()
                 message.success('Xóa thành công!')
@@ -2046,7 +2038,6 @@ export default function PdmmOutQueryDetailListSeq({
               setModalMasterDeleteOpen(false)
               setDataError(response.errors)
               setIsModalVisible(true)
-              playErrorSound();
               setIsAPISuccess(true)
               togglePageInteraction(false)
               if (loadingBarRef.current) {
@@ -2203,11 +2194,11 @@ export default function PdmmOutQueryDetailListSeq({
   }
 
 
-
+  
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Yêu cầu xuất kho nguên vật liệu')}</title>
+        <title>ITM - {t('Yêu cầu xuất kho nguên vật liệu')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-36px)] overflow-hidden">

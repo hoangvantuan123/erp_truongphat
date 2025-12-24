@@ -69,6 +69,35 @@ function TableDaMaterialListMore({
   }, [])
 
   const [dataSearch, setDataSearch] = useState([])
+  const columnNames = [
+    'AssetName',
+    'UnitName',
+    'SMStatusName',
+    'DeptName',
+    'ItemClassSName',
+    'VatKindName',
+    'VatTypeName',
+    'MrpKind',
+    'OutKind',
+    'ProdMethod',
+    'ProdSpec',
+    'PurKind',
+    'PurProdType',
+    'SMInOutKindName',
+    'SMLimitTermKindName',
+    'SMABCName',
+    'EmpName',
+    'PurCustName',
+  ]
+  const highlightRegions = columnNames.map((columnName) => ({
+    color: '#e8f0ff',
+    range: {
+      x: reorderColumns(cols).indexOf(columnName),
+      y: 0,
+      width: 1,
+      height: numRows,
+    },
+  }))
 
   const [keybindings, setKeybindings] = useState({
     downFill: true,
@@ -269,8 +298,8 @@ function TableDaMaterialListMore({
   }
 
   return (
-    <div className="w-full gap-1 h-full flex items-center justify-center ">
-      <div className="w-full h-full flex flex-col border-t  bg-white  overflow-hidden ">
+    <div className="w-full gap-1 h-full flex items-center justify-center pb-8">
+      <div className="w-full h-full flex flex-col border bg-white rounded-lg overflow-hidden ">
         <h2 className="text-xs border-b font-medium flex items-center gap-2 p-2 text-blue-600 uppercase">
           <TableOutlined />
           SHEET DATA
@@ -296,16 +325,15 @@ function TableDaMaterialListMore({
           getRowThemeOverride={(i) =>
             i === hoverRow
               ? {
-                bgCell: '#f7f7f7',
-                bgCellMedium: '#f0f0f0',
-              }
+                  bgCell: '#f7f7f7',
+                  bgCellMedium: '#f0f0f0',
+                }
               : i % 2 === 0
                 ? undefined
                 : {
-                  bgCell: '#FBFBFB',
-                }
+                    bgCell: '#FBFBFB',
+                  }
           }
-          rowHeight={25}
           overscrollY={0}
           overscrollX={0}
           smoothScrollY={true}
@@ -314,7 +342,7 @@ function TableDaMaterialListMore({
           fillHandle={true}
           keybindings={keybindings}
           onCellClicked={onCellClicked}
-
+          highlightRegions={highlightRegions}
           onColumnResize={onColumnResize}
           onHeaderMenuClick={onHeaderMenuClick}
           onColumnMoved={onColumnMoved}

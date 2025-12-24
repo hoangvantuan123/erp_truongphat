@@ -91,18 +91,7 @@ export default function WHAgingLotStockList({
       id: 'ItemNo',
       kind: 'Text',
       readonly: true,
-      width: 140,
-      hasMenu: true,
-      visible: true,
-
-      icon: GridColumnIcon.HeaderString,
-    },
-    {
-      title: t('Pallet'),
-      id: 'Pallet',
-      kind: 'Text',
-      readonly: true,
-      width: 130,
+      width: 100,
       hasMenu: true,
       visible: true,
 
@@ -229,7 +218,6 @@ export default function WHAgingLotStockList({
 
       icon: GridColumnIcon.HeaderString,
     },
-
     {
       title: t('17387'),
       id: 'ProdDate',
@@ -487,7 +475,6 @@ export default function WHAgingLotStockList({
 
   const [whName, setWhName] = useState('')
   const [whSeq, setWhSeq] = useState('')
-  const [Pallet, setPallet] = useState('')
   const [itemMClassName, setItemMClassName] = useState('')
   const [itemMClassSeq, setItemMClassSeq] = useState('')
   const [isAPISuccess, setIsAPISuccess] = useState(true)
@@ -553,7 +540,7 @@ export default function WHAgingLotStockList({
           IsUnitQry: '1',
           IsZeroQty: '0',
           BizUnit: bizUnit,
-          BizUnitName: Pallet || '',
+          BizUnitName: '',
           DateFr: formData ? formatDate(formData) : '',
           DateTo: toDate ? formatDate(toDate) : '',
           SMWHKind: whKindName,
@@ -589,7 +576,7 @@ export default function WHAgingLotStockList({
         if (loadingBarRef.current) {
           loadingBarRef.current.complete()
         }
-        setNumRows(fetchedData.length + 1)
+        setNumRows(fetchedData.length)
         setIsQuery(true)
         resetTable()
       } else {
@@ -783,7 +770,7 @@ export default function WHAgingLotStockList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn tồn kho lô hàng theo từng kho')}</title>
+        <title>ITM - {t('Truy vấn tồn kho lô hàng theo từng kho')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3  h-[calc(100vh-30px)] overflow-hidden">
@@ -850,8 +837,6 @@ export default function WHAgingLotStockList({
                   dataItemMClass={dataItemMClass}
                   resetTable={resetTable}
                   resetTable2={resetTable2}
-                  setPallet={setPallet}
-                  Pallet={Pallet}
                 />
               </div>
             </details>

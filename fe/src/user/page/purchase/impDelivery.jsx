@@ -52,7 +52,6 @@ import ErrorListModal from '../default/errorListModal'
 import { updateIndexNo } from '../../components/sheet/js/updateIndexNo'
 import TopLoadingBar from 'react-top-loading-bar'
 import { togglePageInteraction } from '../../../utils/togglePageInteraction'
-import { playSuccessSound } from '../../../utils/errorSound'
 
 export default function ImpDelivery({
   permissions,
@@ -1314,24 +1313,22 @@ export default function ImpDelivery({
           setGridData((prevData) =>
             prevData.map((item) =>
               item.ItemNo === formData[0].ItemNo &&
-                item.PermitSerl === formData[0].PermitSerl
+              item.PermitSerl === formData[0].PermitSerl
                 ? {
-                  ...item,
-                  ProgressingQty:
-                    (item?.ProgressingQty || 0) + formData[0].Qty,
-                  NotProgressQty:
-                    (item?.NotProgressQty || 0) - formData[0].Qty,
-                }
+                    ...item,
+                    ProgressingQty:
+                      (item?.ProgressingQty || 0) + formData[0].Qty,
+                    NotProgressQty:
+                      (item?.NotProgressQty || 0) - formData[0].Qty,
+                  }
                 : item,
             ),
           )
         })
-        playSuccessSound();
       } else {
         if (loadingBarRef.current) {
           loadingBarRef.current.complete()
         }
-        playErrorSound();
         setDataError(resSuccess.data.errors)
         setIsModalVisible(true)
       }
@@ -1399,7 +1396,6 @@ export default function ImpDelivery({
         setModal2Open(true)
         setError(resultMessage)
         setInputBarCode('')
-        playErrorSound();
       }
     }
     return () => {
@@ -2172,7 +2168,7 @@ export default function ImpDelivery({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập kho sản phẩm nhập khẩu')}</title>
+        <title>ITM - {t('Nhập kho sản phẩm nhập khẩu')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

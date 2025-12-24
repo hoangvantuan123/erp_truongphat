@@ -885,7 +885,7 @@ export default function QaItemQcType({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('800000139')}</title>
+        <title>ITM - {t('800000139')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3 h-screen overflow-hidden">

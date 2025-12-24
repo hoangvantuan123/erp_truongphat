@@ -36,7 +36,7 @@ function TableAdditionalMaterial({
     setDataSearch,
     dataSearch,
     setOnSelectRow,
-
+   
 }) {
     const gridRef = useRef(null)
     const [open, setOpen] = useState(false)
@@ -361,7 +361,7 @@ function TableAdditionalMaterial({
                         onSearchClose={onSearchClose}
                         rowMarkers="both"
                         width="100%"
-                        height="100%"
+                        height="calc(100vh - 275px)"
                         rowSelect="multi"
                         gridSelection={selection}
                         onGridSelectionChange={setSelection}
@@ -372,8 +372,18 @@ function TableAdditionalMaterial({
                             tint: true,
                         }}
                         freezeColumns={1}
-
-                        rowHeight={25}
+                        getRowThemeOverride={(i) =>
+                            i === hoverRow
+                                ? {
+                                    bgCell: '#f7f7f7',
+                                    bgCellMedium: '#f0f0f0',
+                                }
+                                : i % 2 === 0
+                                    ? undefined
+                                    : {
+                                        bgCell: '#FBFBFB',
+                                    }
+                        }
                         overscrollY={0}
                         overscrollX={50}
                         smoothScrollX={true}

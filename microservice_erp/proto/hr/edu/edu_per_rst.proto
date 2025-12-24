@@ -1,0 +1,284 @@
+syntax = "proto3";
+
+package hr.edu.edu_per_rst;
+
+
+service HrEduPerRstService {
+  rpc searchEduPerRst (HrEduPerRstSearchRequest) returns (Response);
+  rpc auEduPerRst (HrEduRstRequest) returns (Response);
+  rpc deleteEduRstCost (HrEduCostRstRequest) returns (Response);
+  rpc deleteEduRstItem (HrEduItemRstRequest) returns (Response);
+  rpc searchEduCostRst (HrEduCostItemRstRequest) returns (Response);
+  rpc searchEduItemRst (HrEduCostItemRstRequest) returns (Response);
+  rpc searchEduRst (HrEduRstSearchRequest) returns (Response);
+  rpc searchEduRstEnd (HrEduRstSearchRequest) returns (Response);
+  rpc auEduRstEnd (HrEduRstEndRequest) returns (Response);
+  rpc searchEduRstBatch (HrEduPerRstSearchRequest) returns (Response);
+  rpc auEduRstBatch (HrEduRstRequest) returns (Response);
+  rpc searchEduCostRstBatch (HrEduCostItemRstRequest) returns (Response);
+  rpc searchEduItemRstBatch (HrEduCostItemRstRequest) returns (Response);
+  rpc deleteEduRstCostBatch (HrEduCostRstRequest) returns (Response);
+  rpc deleteEduRstItemBatch (HrEduItemRstRequest) returns (Response);
+  rpc deleteEduRstObjBatch (HrEduObjRequest) returns (Response);
+  rpc searchEduRstObjBatch (HrEduCostItemRstRequest) returns (Response);
+}
+
+
+message HrEduPerRstSearch {
+  int32 EmpSeq = 1;
+  int32 RstSeq = 2;
+  int32 SMEduPlanType = 3;
+  string SMEduPlanTypeName = 4;
+  int32 ReqSeq = 5;
+  int32 CfmEmpSeq = 6;
+  int32 EduTypeSeq = 7;
+
+}
+
+
+message HrEduRstResult {
+    string WorkingTag = 1;
+    string CfmEmpName = 2;
+    string EduClassName = 3;
+    string EduTypeName = 4;
+    string EduCourseName = 5;
+    string UMInstituteName = 6;
+    string LecturerName = 7;
+    string RegDate = 8;
+    string RstNo = 9;
+    string SerialNo = 10;
+    string UMEduGrpTypeName = 11;
+    string EtcCourseName = 12;
+    string SMInOutTypeName = 13;
+    string EduBegDate = 14;
+    int32 EduDd = 15;
+    int32 EduTm = 16;
+    int32 EduPoint = 17;
+    string SatisLevelName = 18;
+    string UMlocationName = 19;
+    string EtcInstitute = 20;
+    string Etclocation = 21;
+    string EtcLecturer = 22;
+    string RstRem = 23;
+    string RstSummary = 24;
+    int32 CfmEmpSeq = 25;
+    int32 EduClassSeq = 26;
+    string EduEndDate = 27;
+    int32 EmpSeq = 28;
+    int32 ReqSeq = 29;
+    int32 RstSeq = 30;
+    bool IsBatchReq = 31;
+    int32 UMEduGrpType = 32;
+    int32 EduTypeSeq = 33;
+    int32 EduCourseSeq = 34;
+    int32 SMInOutType = 35;
+    int32 SatisLevel = 36;
+    int32 UMInstitute = 37;
+    int32 UMlocation = 38;
+    int32 LecturerSeq = 39;
+
+}
+
+message HrEduRstCostResult {
+
+  string Status = 1;
+  string UMCostItemName = 2;
+  int32 RstCost = 3;
+  bool IsReturnItem = 4;
+  bool IsInsur = 5;
+  int32 ReturnAmt = 6;
+  string Rem = 7;
+  string Id = 8;
+  int32 IdxNo = 9;
+  int32 UMCostItem = 10;
+  bool isEdited = 11;
+  string WorkingTag = 12;
+  int32 RstSeq = 13;
+}
+
+message HrEduRstItemResult {
+  string Status = 1;
+  string EduItemName = 2;
+  string SMDataTypeName = 3;
+  string RstValueText = 4;
+  string Rem = 5;
+  string Id = 6;
+  int32 IdxNo = 7;
+  string WorkingTag = 8;
+}
+
+message HrEduRstCostItemResult {
+  string Status = 1;
+  int32 RstSeq = 2;
+  int32 ReqSeq = 3;
+  int32 EduTypeSeq = 4;
+  int32 IsSearch = 5;
+  string Id = 6;
+  int32 IdxNo = 7;
+  string WorkingTag = 8;
+}
+
+message HrEduPerObjResult {
+  string Status = 1;
+  int32 RstSeq = 2;
+  int32 EmpSeq = 3;
+  string EmpName = 4;
+  string EmpID = 5;
+  int32 DeptSeq = 6;
+  string DeptName = 7;
+  int32 EmpSeqOld = 8;
+  string Id = 9;
+  int32 IdxNo = 10;
+  string WorkingTag = 11;
+}
+
+message HrEduRstSearch {
+    string RstNo = 1;
+    string RegBegDate = 2;
+    string RegEndDate = 3;
+    string EduRstType = 4;
+    string UMEduGrpType = 5;
+    int32 EduTypeSeq = 6;
+    int32 UMEduHighClass = 7;
+    int32 UMEduMidClass = 8;
+    int32 EduClassSeq = 9;
+    int32 EduCourseSeq = 10;
+    int32 DeptSeq = 11;
+    string CfmEmpSeq = 12;
+    string EmpSeq = 13;
+    int32 IsConfirm = 14;
+    int32 IsNotConfirm = 15;
+
+}
+
+message HrEduRstEndSearch {
+    string RstNo = 1;
+    string RegBegDate = 2;
+    string RegEndDate = 3;
+    string EduRstType = 4;
+    string UMEduGrpType = 5;
+    int32 EduTypeSeq = 6;
+    int32 UMEduHighClass = 7;
+    int32 UMEduMidClass = 8;
+    int32 EduClassSeq = 9;
+    int32 EduCourseSeq = 10;
+    int32 DeptSeq = 11;
+    string CfmEmpSeq = 12;
+    string EmpSeq = 13;
+    int32 IsConfirm = 14;
+    int32 IsNotConfirm = 15;
+
+}
+
+message HrEduRstEnd {
+    int32 RstSeq = 1;
+    string RstNo = 2;
+    int32 EmpSeq = 3;
+    string EmpName = 4;
+    string EmpID = 5;
+    int32 DeptSeq = 6;
+    string DeptName = 7;
+    int32 UMJpSeq = 8;
+    string UMJpName = 9;
+    int32 PosSeq = 10;
+    string PosName = 11;
+    int32 EduClassSeq = 12;
+    string EduClassName = 13;
+    int32 UMEduGrpType = 14;
+    string EtcCourseName = 15;
+    int32 EduCourseSeq = 16;
+    string EduCourseName = 17;
+    string EduBegDate = 18;
+    string EduEndDate = 19;
+    int32 EduDd = 20;
+    int32 EduTm = 21;
+    string RegDate = 22;
+    int32 EduOkDd = 23;
+    int32 EduOkTm = 24;
+    int32 SMGradeSeq = 25;
+    bool IsEndEval = 26;
+    bool IsEnd = 27;
+    int32 EduTypeSeq = 28;
+    int32 SMEduPlanType = 29;
+    int32 RstCost = 30;
+    string UMEduGrpTypeName = 31;
+    string SMGradeName = 32;
+    string SMEduPlanTypeName = 33;
+    int32 CfmEmpSeq = 34;
+    string CfmEmpName = 35;
+    int32 FileNo = 36;
+    string EduTypeName = 37;
+    int32 SMInOutType = 38;
+    string SMInOutTypeName = 39;
+    int32 ReqSeq = 40;
+    int32 PlanSeq = 41;
+    int32 PlanSerl = 42;
+    string SatisLevelName = 43;
+    int32 SatisLevel = 44;
+    int32 EduPoint = 45;
+    int32 EduOKPoint = 46;
+    bool IsBatchReq = 47;
+    string ReqNum = 48;
+    string CfmDate = 49;
+    int32 IdxNo = 50;
+    bool isEdited = 51;
+    string Status = 52;
+    string WorkingTag = 53;
+
+}
+
+
+message HrEduPerRstSearchRequest {
+  repeated HrEduPerRstSearch result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEduRstRequest {
+  repeated HrEduRstResult info = 1;  
+  repeated HrEduRstCostResult dataRstCost = 2;  
+  repeated HrEduRstItemResult dataRstItem = 3;   
+  repeated HrEduPerObjResult dataEduPerObj = 4;   
+  map<string, string> metadata = 5;
+}
+
+message HrEduCostRstRequest {
+  repeated HrEduRstCostResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrEduItemRstRequest {
+  repeated HrEduRstItemResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrEduCostItemRstRequest {
+  repeated HrEduRstCostItemResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrEduRstSearchRequest {
+  repeated HrEduRstSearch result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrEduRstEndSearchRequest {
+  repeated HrEduRstEndSearch result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrEduRstEndRequest {
+  repeated HrEduRstEnd result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message HrEduObjRequest {
+  repeated HrEduPerObjResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

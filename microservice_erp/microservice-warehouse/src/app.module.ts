@@ -11,7 +11,6 @@ import { CodeHelpComboQueryModule } from './modules/codeHelp/module/codeHelpComb
 import { DaMaterialListModule } from './modules/basic/module/daMaterialList.module';
 import { MaterialModule } from './modules/material/module/material.module';
 import { CustomerModule } from './modules/customer/module/customers.module';
-import { SLGWHInitStockModule } from './modules/invOpen/modules/regite.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -23,10 +22,9 @@ import { SLGWHInitStockModule } from './modules/invOpen/modules/regite.module';
     }),
     WarehouseModule,
     CodeHelpComboQueryModule,
-    DaMaterialListModule,
+    DaMaterialListModule, 
     MaterialModule,
     CustomerModule,
-    SLGWHInitStockModule
   ],
   providers: [{
     provide: APP_FILTER,

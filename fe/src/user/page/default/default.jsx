@@ -7,7 +7,7 @@ const { Title, Text } = Typography
 const { TabPane } = Tabs
 const { Header, Content, Footer } = Layout
 import 'moment/locale/vi'
-import BG from '../../../assets/RootLogo.png'
+import BG from '../../../assets/ItmLogo.png'
 
 export default function Default({ permissions, isMobile }) {
   const { t } = useTranslation()

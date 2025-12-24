@@ -227,7 +227,7 @@ export default function IQCStatus({ permissions, isMobile, controllers,
   return (
     <>
       <Helmet>
-        <title>HPM - {t('IQC Status')}</title>
+        <title>ITM - {t('IQC Status')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3 h-screen overflow-hidden">

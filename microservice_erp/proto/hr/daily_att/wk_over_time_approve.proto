@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package hr.daily_att.wk_over_time_approve;
+
+
+service WkOverTimeApproveService {
+  rpc WkOverTimeApproveQ (WkOverTimeApproveQRequest) returns (Response);
+  rpc WkOverTimeApproveConfirm (WkOverTimeApproveConfirmRequest) returns (Response);
+  rpc WkOverTimeApproveAUD (WkOverTimeApproveAUDRequest) returns (Response);
+}
+
+
+message WkOverTimeApproveQResult {
+  string FromDate = 1;
+  string ToDate = 2;
+  string WkItemSeq = 3;
+  int32 DeptSeq = 4;
+  int32 EmpSeq = 5;
+  string UMEmpType = 6;
+  int32 IsCheck = 7;
+
+
+  }
+
+message WkOverTimeApproveAUDResult {
+  string IdxNo = 1;
+  string WorkingTag = 2;
+
+
+  int32 IsCheck = 3;
+  int32 EmpSeq = 4;
+  string WkDate = 5;
+  int32 WkItemSeq = 6;
+  string PayDTime = 7;
+
+  int32 PayDTCnt = 8;
+  int32 PayMinCnt = 9;
+  string Remark = 10;
+
+  string Seq = 11;
+
+
+
+
+
+
+  }
+message WkOverTimeApproveConfirmResult {
+  string IdxNo = 1;
+  string WorkingTag = 2;
+
+
+  int32 CfmCode = 3;
+  string CfmSeq = 4;
+  }
+
+
+
+
+
+message WkOverTimeApproveQRequest {
+  repeated WkOverTimeApproveQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message WkOverTimeApproveAUDRequest {
+  repeated WkOverTimeApproveAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message WkOverTimeApproveConfirmRequest {
+  repeated WkOverTimeApproveConfirmResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

@@ -65,6 +65,9 @@ export default function HrBasCetificateListQuery({
   })
   const [DeptSearchSh, setDeptSearchSh] = useState('')
 
+  const [selectEmp, setSelectEmp] = useState(null)
+
+
   const onChangeSMCertiTypeName = (value) => {
     if (value === null || value === undefined) {
       setSMCertiType('')
@@ -244,6 +247,8 @@ export default function HrBasCetificateListQuery({
                   empSeq={EmpSeq}
                   setEmpSeq={setEmpSeq}
                   setUserId={setEmpID}
+                  setSelectEmp={setSelectEmp}
+
                 />
               )}
             </Form.Item>

@@ -1952,7 +1952,7 @@ export default function PurOrdApprovalReqLink({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập xin phép mua hàng')}</title>
+        <title>ITM - {t('Nhập xin phép mua hàng')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

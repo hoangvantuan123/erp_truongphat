@@ -8,6 +8,8 @@ interface SDACustService {
     SDACustQ(data: { result: any[]; metadata: Record<string, string> }): Observable<any>;
     SDACustAUD(data: { result: any[]; metadata: Record<string, string> }): Observable<any>;
     SDACustD(data: { result: any[]; metadata: Record<string, string> }): Observable<any>;
+    SDACustEmpInfoQ(data: { result: any[]; metadata: Record<string, string> }): Observable<any>;
+    SDACustEmpInfoAUD(data: { result: any[]; metadata: Record<string, string> }): Observable<any>;
 }
 
 @Injectable()
@@ -94,6 +96,53 @@ export class GrpcSDACustService {
         const client = this.createGrpcClient();
         const metadataService = client.getService<SDACustService>('SDACustService');
         return metadataService.SDACustD({ result, metadata }).pipe(
+            map((grpcResponse) => ({
+                success: grpcResponse?.success ?? false,
+                message: grpcResponse?.message || 'No message received',
+                data: grpcResponse?.data || null,
+                errors: grpcResponse?.errors || null,
+            })),
+            catchError((error) => {
+                return new Observable((subscriber) => {
+                    subscriber.next({
+                        success: false,
+                        message: 'Hệ thống đang bận, vui lòng thử lại sau.',
+                        errorDetails: error?.message || 'Unknown error',
+                        errors: error?.errors || null,
+                    });
+                    subscriber.complete();
+                });
+            })
+        );
+    }
+    SDACustEmpInfoQ(result: any, metadata: Record<string, string> = {}): Observable<any> {
+        const client = this.createGrpcClient();
+        const metadataService = client.getService<SDACustService>('SDACustService');
+        return metadataService.SDACustEmpInfoQ({ result, metadata }).pipe(
+            map((grpcResponse) => ({
+                success: grpcResponse?.success ?? false,
+                message: grpcResponse?.message || 'No message received',
+                data: grpcResponse?.data || null,
+                errors: grpcResponse?.errors || null,
+            })),
+            catchError((error) => {
+                return new Observable((subscriber) => {
+                    subscriber.next({
+                        success: false,
+                        message: 'Hệ thống đang bận, vui lòng thử lại sau.',
+                        errorDetails: error?.message || 'Unknown error',
+                        errors: error?.errors || null,
+                    });
+                    subscriber.complete();
+                });
+            })
+        );
+    }
+
+    SDACustEmpInfoAUD(result: any, metadata: Record<string, string> = {}): Observable<any> {
+        const client = this.createGrpcClient();
+        const metadataService = client.getService<SDACustService>('SDACustService');
+        return metadataService.SDACustEmpInfoAUD({ result, metadata }).pipe(
             map((grpcResponse) => ({
                 success: grpcResponse?.success ?? false,
                 message: grpcResponse?.message || 'No message received',

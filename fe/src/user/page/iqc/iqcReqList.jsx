@@ -1255,7 +1255,7 @@ export default function IqcReqList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('800000081')}</title>
+        <title>ITM - {t('800000081')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3 h-screen overflow-hidden">

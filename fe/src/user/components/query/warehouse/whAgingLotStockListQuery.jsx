@@ -54,8 +54,8 @@ export default function WhAgingLotStockListQuery({
   dataWarehouse,
   setDataItemMClass,
   dataItemMClass,
-  Pallet,
-  setPallet,
+  setItemSpec,
+  resetTable,
   resetTable2,
 }) {
   const gridRef = useRef(null)
@@ -732,27 +732,6 @@ export default function WhAgingLotStockListQuery({
                   width: 190,
                 }}
                 //className=" text-sm p-2"
-              />
-            </Form.Item>
-          </Col>
-          <Col>
-            <Form.Item
-              label={
-                <span className="uppercase text-[10px]">{t('Pallet')}</span>
-              }
-              className="mb-2"
-              style={{ marginBottom: 0 }}
-              labelCol={{ style: { marginBottom: 2, padding: 0 } }}
-              wrapperCol={{ style: { padding: 0 } }}
-            >
-              <Input
-                value={Pallet}
-                onChange={(e) => setPallet(e.target.value)}
-                size="middle"
-                maxLength={250}
-                style={{
-                  width: 190,
-                }}
               />
             </Form.Item>
           </Col>

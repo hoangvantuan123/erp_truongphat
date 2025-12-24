@@ -390,7 +390,7 @@ export default function PublicIPSettings({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('Địa chỉ IP Public')}</title>
+                <title>ITM - {t('Địa chỉ IP Public')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-42px)] overflow-hidden">

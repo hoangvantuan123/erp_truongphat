@@ -17,7 +17,36 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
 
-  // ✅ Middleware log toàn bộ request gửi đến API Gateway
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.GRPC,
+    options: {
+      url: process.env.HOST_GRPC_SOCKET,
+      package: [
+        'socket.notification.notification',
+
+      ],
+      protoPath: [
+
+        join(__dirname, '..', '..', 'proto', 'socket', 'notification', 'notification.proto'),
+
+      ],
+      loader: {
+        keepCase: true,
+        longs: String,
+        enums: String,
+        defaults: true,
+        oneofs: true,
+      },
+      channelOptions: {
+        'grpc.max_concurrent_streams': 100,
+        'grpc.default_compression_algorithm': 2, // Gzip
+        'grpc.max_receive_message_length': 1024 * 1024 * 1024, // ✅ 200MB nhận
+        'grpc.max_send_message_length': 1024 * 1024 * 1024, // ✅ 200MB gửi
+        'grpc.http2.lookahead_bytes': 0, // ⚡ Tăng tốc streaming
+        'grpc.enable_http_proxy': 0, // 🔒 Tránh bị proxy chặn
+      },
+    },
+  });
   server.use((req, res, next) => {
     const start = Date.now();
     console.log(`📤 [REQUEST] ${req.method} ${req.originalUrl} - Body:`);

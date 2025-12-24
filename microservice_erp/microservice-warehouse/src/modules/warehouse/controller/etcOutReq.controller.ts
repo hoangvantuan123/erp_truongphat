@@ -696,4 +696,212 @@ export class EtcOutReqController {
       });
     }
   }
+  //TP
+  @MessagePattern('slg-in-out-tp-sheet-query-out')
+  async SLGInOutTPItemQueryWEB(
+    @Payload() data: { result: number; authorization: string },
+  ): Promise<SimpleQueryResult> {
+    const { result, authorization } = data;
+    if (!authorization) {
+      throw new UnauthorizedException(
+        'You do not have permission to access this API.',
+      );
+    }
+    const token = authorization.split(' ')[1];
+    if (!token) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+    try {
+      const decodedToken = jwt.verify(token, jwtConstants.secret) as {
+        UserId: any;
+        EmpSeq: any;
+        UserSeq: any;
+        CompanySeq: any;
+      };
+      return this.etcOutReqService.SLGInOutTPItemQueryWEB(
+        result,
+        decodedToken.CompanySeq,
+        decodedToken.UserSeq,
+        3317,
+      );
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+  }
+
+  @MessagePattern('slg-in-out-tp-master-query-out')
+  async SLGInOutTPQueryWEB(
+    @Payload() data: { result: number; authorization: string },
+  ): Promise<SimpleQueryResult> {
+    const { result, authorization } = data;
+    if (!authorization) {
+      throw new UnauthorizedException(
+        'You do not have permission to access this API.',
+      );
+    }
+    const token = authorization.split(' ')[1];
+    if (!token) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+    try {
+      const decodedToken = jwt.verify(token, jwtConstants.secret) as {
+        UserId: any;
+        EmpSeq: any;
+        UserSeq: any;
+        CompanySeq: any;
+      };
+      return this.etcOutReqService.SLGInOutTPQueryWEB(
+        result,
+        decodedToken.CompanySeq,
+        decodedToken.UserSeq,
+        3317,
+      );
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+  }
+  //end
+  @MessagePattern('slg-in-out-tp-aud-out')
+  async SLGInOutTPSave(
+    @Payload()
+    data: {
+      dataMaster: any[];
+      dataSheetAUD: any[];
+      authorization: string;
+    },
+  ): Promise<SimpleQueryResult> {
+    const { dataMaster, dataSheetAUD, authorization } = data;
+    if (!authorization) {
+      throw new UnauthorizedException(
+        'You do not have permission to access this API.',
+      );
+    }
+    const token = authorization.split(' ')[1];
+    if (!token) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+    try {
+      const decodedToken = jwt.verify(token, jwtConstants.secret) as {
+        UserId: any;
+        EmpSeq: any;
+        UserSeq: any;
+        CompanySeq: any;
+      };
+
+      return this.etcOutReqService.SLGInOutTPSave(
+        dataMaster,
+        dataSheetAUD,
+        decodedToken.CompanySeq,
+        decodedToken.UserSeq,
+      );
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+  }
+
+  @MessagePattern('slg-in-out-tp-sheet-delete-out')
+  async SLGInOutTPSheetDelete(
+    @Payload()
+    data: {
+      dataMaster: any[];
+      dataSheetAUD: any[];
+      authorization: string;
+    },
+  ): Promise<SimpleQueryResult> {
+    const { dataMaster, dataSheetAUD, authorization } = data;
+    if (!authorization) {
+      throw new UnauthorizedException(
+        'You do not have permission to access this API.',
+      );
+    }
+    const token = authorization.split(' ')[1];
+    if (!token) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+    try {
+      const decodedToken = jwt.verify(token, jwtConstants.secret) as {
+        UserId: any;
+        EmpSeq: any;
+        UserSeq: any;
+        CompanySeq: any;
+      };
+
+      return this.etcOutReqService.SLGInOutTPSheetDelete(
+        dataMaster,
+        dataSheetAUD,
+        decodedToken.CompanySeq,
+        decodedToken.UserSeq,
+      );
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+  }
+
+  @MessagePattern('slg-in-out-tp-master-delete-out')
+  async SLGInOutTPMasterDelete(
+    @Payload()
+    data: {
+      dataMaster: any[];
+      dataSheetAUD: any[];
+      authorization: string;
+    },
+  ): Promise<SimpleQueryResult> {
+    const { dataMaster, dataSheetAUD, authorization } = data;
+    if (!authorization) {
+      throw new UnauthorizedException(
+        'You do not have permission to access this API.',
+      );
+    }
+    const token = authorization.split(' ')[1];
+    if (!token) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+    try {
+      const decodedToken = jwt.verify(token, jwtConstants.secret) as {
+        UserId: any;
+        EmpSeq: any;
+        UserSeq: any;
+        CompanySeq: any;
+      };
+
+      return this.etcOutReqService.SLGInOutTPMasterDelete(
+        dataMaster,
+        dataSheetAUD,
+        decodedToken.CompanySeq,
+        decodedToken.UserSeq,
+      );
+    } catch (error) {
+      throw new RpcException({
+        statusCode: 401,
+        message: 'Invalid or expired token.',
+      });
+    }
+  }
 }

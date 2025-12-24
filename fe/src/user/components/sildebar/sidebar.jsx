@@ -44,7 +44,7 @@ import ModalLogout from '../modal/logout/modalLogout'
 import ModalSetting from '../modal/setting/modalSetting'
 import { getSocket } from '../../../services/socket'
 import { deviceId } from '../../../services/tokenService'
-const Sidebar = ({ permissions, rootMenu, menuTransForm, setCollapsed, collapsed, handleCancelRequest }) => {
+const Sidebar = ({ permissions, rootMenu, menuTransForm, setCollapsed, collapsed, handleCancelRequest, unreadCount }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const userFromLocalStorage = JSON.parse(localStorage.getItem('userInfo'))
@@ -253,7 +253,7 @@ const Sidebar = ({ permissions, rootMenu, menuTransForm, setCollapsed, collapsed
                               <Tooltip title={t(item?.LabelSeq)} placement="right">
                                 <a
                                   onClick={() => handleOnClickMenuFast(item)}
-                                  className="group relative flex justify-center rounded-md px-2 py-2 border mb-2 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                                  className="group relative flex justify-center rounded-lg px-2 py-2 border mb-2 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                                 >
                                   {iconMapping[item.RootMenuIcon]}
                                 </a>
@@ -264,7 +264,7 @@ const Sidebar = ({ permissions, rootMenu, menuTransForm, setCollapsed, collapsed
                         return null
                       })}
 
-                 {/*    <li>
+                    {/*    <li>
                       <Dropdown
                         menu={shortcutMenu}
                         placement="bottomLeft"
@@ -284,9 +284,11 @@ const Sidebar = ({ permissions, rootMenu, menuTransForm, setCollapsed, collapsed
 
             <div className="sticky  gap-3 flex-col inset-x-0 bottom-0 border-t border-gray-100 bg-white p-2 flex justify-between items-center">
               <div className='mt-2'>
-                <Badge count={0} overflowCount={99} size="large">
-                  <BellOutlined className="text-xl cursor-pointer hover:text-gray-700" />
-                </Badge>
+                <Link to="/u/notifications">
+                  <Badge count={unreadCount} overflowCount={99} size="large">
+                    <BellOutlined className="text-xl cursor-pointer hover:text-gray-700" />
+                  </Badge>
+                </Link>
               </div>
               {/* Avatar */}
               <Dropdown overlay={menuUser} trigger={['click']} placement="bottomRight">

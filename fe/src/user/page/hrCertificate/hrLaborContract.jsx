@@ -703,7 +703,7 @@ export default function HrLaborContract({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('110001417')}</title>
+        <title>ITM - {t('110001417')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-40px)] overflow-hidden">

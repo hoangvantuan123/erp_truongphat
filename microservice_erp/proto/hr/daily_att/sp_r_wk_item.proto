@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package hr.daily_att.sp_r_wk_item;
+
+
+service SPRWkItemService {
+  rpc SPRWkItemQ (SPRWkItemQRequest) returns (Response);
+  rpc SPRWkItemAUD (SPRWkItemAUDRequest) returns (Response);
+}
+
+
+message SPRWkItemQResult {
+  string SMWkItemType = 1;
+  string SMDTCType = 2;
+
+  }
+
+message SPRWkItemAUDResult {
+  string IdxNo = 1;
+  string WorkingTag = 2;
+
+
+  int32 WkItemSeq = 3;
+  string WkItemName = 4;
+  string WkItemSName = 5;
+  string WkItemType = 6;
+  int32 SMWkItemType = 7;
+  string DTCType = 8;
+  int32 SMDTCType = 9;
+  int32 DecPntCnt = 10;
+  int32 IsAbsReason = 11;
+  int32 IsLongAbs = 12;
+  string AbsWkSort = 13;
+  int32 SMAbsWkSort = 14;
+  int32 IsPaid = 15;
+  int32 IsHalf = 16;
+  int32 IsDeduc = 17;
+  int32 IsSat = 18;
+  int32 IsSun = 19;
+  int32 IsHoli = 20;
+  int32 IsLimit = 21;
+  string LimitGrp = 22;
+  int32 SMLimitGrp = 23;
+  string WkMth = 24;
+  int32 SMWkMth = 25;
+  string WkMthGrp = 26;
+  int32 SMWkMthGrp = 27;
+  int32 TmUnit = 28;
+  string AppMth = 29;
+  int32 SMAppMth = 30;
+  int32 IsUse = 31;
+  int32 DispSeq = 32;
+  int32 IsPrint = 33;
+  string Remark = 34;
+  }
+
+
+
+
+
+message SPRWkItemQRequest {
+  repeated SPRWkItemQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPRWkItemAUDRequest {
+  repeated SPRWkItemAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

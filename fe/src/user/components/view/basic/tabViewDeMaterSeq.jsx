@@ -93,15 +93,15 @@ const TabViewDeMaterSeq = ({
             const isSizeValid = file.size / 1024 / 1024 < 10;
             if (!isAllowedType) {
                 message.error(t('850000036'));
-                return Upload.LIST_IGNORE;
+                return Upload.LIST_IGNORE; 
             }
 
             if (!isSizeValid) {
                 message.error(t('850000037'));
-                return Upload.LIST_IGNORE;
+                return Upload.LIST_IGNORE; 
             }
 
-            return false;
+            return false; 
         },
         showUploadList: false,
     };
@@ -118,15 +118,15 @@ const TabViewDeMaterSeq = ({
             const isSizeValid = file.size / 1024 / 1024 < 10;
             if (!isImage) {
                 message.error(t('850000038'));
-                return Upload.LIST_IGNORE;
+                return Upload.LIST_IGNORE; 
             }
 
             if (!isSizeValid) {
                 message.error(t('850000039'));
-                return Upload.LIST_IGNORE;
+                return Upload.LIST_IGNORE; 
             }
 
-            return false;
+            return false; 
         },
         showUploadList: false,
         accept: 'image/*',
@@ -137,24 +137,26 @@ const TabViewDeMaterSeq = ({
             key: '0',
             label: t('850000040'),
             children: (
-                <TableAdditionalMaterial
-                    setSelection={setSelection}
-                    selection={selection}
-                    showSearch={showSearch}
-                    setShowSearch={setShowSearch}
-                    setAddedRows={setAddedRows}
-                    addedRows={addedRows}
-                    setEditedRows={setEditedRows}
-                    numRows={numRows}
-                    setGridData={setGridData}
-                    gridData={gridData}
-                    setNumRows={setNumRows}
-                    setCols={setCols}
-                    handleRowAppend={handleRowAppend}
-                    cols={cols}
-                    defaultCols={defaultCols}
-                    canEdit={canEdit}
-                />
+                <div className=' w-full h-screen '>
+                    <TableAdditionalMaterial
+                        setSelection={setSelection}
+                        selection={selection}
+                        showSearch={showSearch}
+                        setShowSearch={setShowSearch}
+                        setAddedRows={setAddedRows}
+                        addedRows={addedRows}
+                        setEditedRows={setEditedRows}
+                        numRows={numRows}
+                        setGridData={setGridData}
+                        gridData={gridData}
+                        setNumRows={setNumRows}
+                        setCols={setCols}
+                        handleRowAppend={handleRowAppend}
+                        cols={cols}
+                        defaultCols={defaultCols}
+                        canEdit={canEdit}
+                    />
+                </div>
             ),
         },
         {
@@ -210,8 +212,8 @@ const TabViewDeMaterSeq = ({
     ];
 
     return (
-        <div className="w-full gap-1 h-full flex items-center justify-center ">
-            <div className="w-full h-full flex flex-col border bg-white overflow-x-hidden overflow-hidden">
+        <div className="w-full gap-1 h-full flex items-center justify-center pb-[30px]">
+            <div className="w-full h-full flex flex-col border bg-white rounded-lg overflow-x-hidden overflow-hidden">
                 <div className="h-20 w-full bg-white p-2">
                     <Form className="h-full flex flex-col">
                         <Row className="gap-4 flex items-center h-full">
@@ -219,7 +221,7 @@ const TabViewDeMaterSeq = ({
                                 <Form.Item
                                     label={
                                         <span className="uppercase text-[9px]">
-                                            {t('850000043')}
+                                          {t('850000043')}
                                         </span>
                                     }
                                     className="mb-0"
@@ -235,7 +237,7 @@ const TabViewDeMaterSeq = ({
                         </Row>
                     </Form>
                 </div>
-                <div className="w-full h-full  border-t  flex  bg-white overflow-hidden">
+                <div className="h-full w-full flex border-t">
                     <Menu
                         onClick={handleMenuClick}
                         selectedKeys={[current]}
@@ -249,7 +251,7 @@ const TabViewDeMaterSeq = ({
                         ))}
                     </Menu>
 
-                    <div className="w-full border-l h-full flex flex-col overflow-hidden">
+                    <div className="flex-1 border-l overflow-hidden">
                         {items.find((item) => item.key === current)?.children}
                     </div>
                 </div>

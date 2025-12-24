@@ -91,6 +91,7 @@ export default function TransReqMatQuery({
   const [modalVisibleOutWh, setModalVisibleOutWh] = useState(false)
   const [modalVisiblePeople, setModalVisiblePeople] = useState(false)
   const [modalVisibleDept, setModalVisibleDept] = useState(false)
+  const [selectEmp, setSelectEmp] = useState(null)
   const handleFromDate = (date) => {
     setFromDate(date)
   }
@@ -293,6 +294,7 @@ export default function TransReqMatQuery({
                   empSeq={empSeq}
                   setEmpSeq={setEmpSeq}
                   setUserId={setUserId}
+                  setSelectEmp={setSelectEmp}
                   />
                 )
 

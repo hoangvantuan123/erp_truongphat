@@ -1197,7 +1197,7 @@ export default function ImpOrderList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn đặt mua hàng nhập khẩu')}</title>
+        <title>ITM - {t('Truy vấn đặt mua hàng nhập khẩu')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

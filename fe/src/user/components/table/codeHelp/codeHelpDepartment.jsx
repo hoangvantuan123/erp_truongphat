@@ -9,9 +9,11 @@ import {
   TableOutlined,
   CloseOutlined,
   LoadingOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons'
 import useOnFill from '../../hooks/sheet/onFillHook'
 import { GetCodeHelpVer2 } from '../../../../features/codeHelp/getCodeHelpVer2'
+import { set } from 'lodash'
 
 const DEBOUNCE_DELAY = 500
 let debounceTimer = null
@@ -20,12 +22,11 @@ function CodeHelpDepartment({
   nameCodeHelp,
   modalVisibleDept,
   setModalVisibleDept,
-  dropdownRef,
   deptSearchSh,
   setDeptSearchSh,
   selectionDept,
   setSelectionDept,
-  gridRef,
+  
 
   deptName,
   setDeptName,
@@ -37,7 +38,9 @@ function CodeHelpDepartment({
   const [hoverRow, setHoverRow] = useState(null)
   const [deptSearch, setDeptSearch] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
+  const [numRows, setNumRows] = useState(0)
+  const gridRef = useRef(null)
+  const dropdownRef = useRef(null)
   const defaultDeptCols = [
     {
       title: t('Bộ phận'),
@@ -204,6 +207,20 @@ function CodeHelpDepartment({
     }
   }
 
+  useEffect(() => {
+    if (modalVisibleDept && dropdownRef.current) {
+      const dropdown = dropdownRef.current
+      dropdown.style.position = 'fixed'
+      dropdown.style.top = '50%'
+      dropdown.style.left = '50%'
+      dropdown.style.transform = 'translate(-50%, -50%)'
+      dropdown.style.zIndex = '1000'
+    }
+    const safeData = data || []
+    setFilteredDeptData(safeData)
+    setNumRows(safeData.length)
+  }, [modalVisibleDept])
+
   return (
     <div
       ref={dropdownRef}
@@ -222,11 +239,21 @@ function CodeHelpDepartment({
       </div>
       <div className="p-2 border-b border-t">
         <div className="w-full flex gap-2">
-          {isLoading ? (
-            <LoadingOutlined className="animate-spin" />
-          ) : (
-            <SearchOutlined />
-          )}
+          <button
+            onClick={() => {
+              if (!isLoading) {
+                fetchCodeHelpDataSearch(searchText)
+              }
+            }}
+            className="opacity-80 size-5 cursor-pointer"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <LoadingOutlined className="animate-spin" />
+            ) : (
+              <SearchOutlined />
+            )}
+          </button>
           <input
             value={deptSearchSh}
             onChange={handleDeptSearch}
@@ -236,6 +263,18 @@ function CodeHelpDepartment({
             autoFocus={true}
             className="h-full w-full border-none focus:outline-none hover:border-none bg-inherit"
           />
+          {deptSearchSh && (
+            <DeleteOutlined
+              className="absolute right-2 cursor-pointer opacity-50 hover:opacity-100"
+              onClick={() => {
+              setDeptName('')
+              setDeptSearchSh('')
+              setDeptSeq(0)
+              setFilteredDeptData(data)
+              setNumRows(data?.length)
+              }}
+            />
+          )}
         </div>
       </div>
       <DataEditor
@@ -244,7 +283,7 @@ function CodeHelpDepartment({
         height={500}
         onFill={onDeptFill}
         className="cursor-pointer rounded-md"
-        rows={filteredDeptData.length}
+        rows={filteredDeptData?.length}
         columns={colsDept}
         gridSelection={selectionDept}
         onGridSelectionChange={setSelectionDept}

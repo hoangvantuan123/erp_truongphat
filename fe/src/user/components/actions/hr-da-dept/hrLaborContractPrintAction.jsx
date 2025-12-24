@@ -17,7 +17,6 @@ export default function HrLaborContractPrintActions({
     <div className="flex items-center gap-2">
       <Button
         key="handle-check"
-        type="primary"
         icon={<MonitorOutlined />}
         size="middle"
         className="uppercase"
@@ -30,12 +29,10 @@ export default function HrLaborContractPrintActions({
 
       <Button
         key="handle-check_list"
-        type="primary"
         icon={<ImportOutlined />}
         size="middle"
         className="uppercase"
         onClick={onClickPrint}
-        style={{ backgroundColor: '#52c41a', borderColor: '#52c41a' }}
       >
         {t('16555')}
       </Button>

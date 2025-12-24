@@ -1064,7 +1064,7 @@ export default function PurOrdApprovalReqItemList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn chi tiết xin phép mua hàng')}</title>
+        <title>ITM - {t('Truy vấn chi tiết xin phép mua hàng')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

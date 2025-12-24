@@ -16,6 +16,7 @@ import { StockAgingListController } from './controllers/warehouse/warehouse/stoc
 import { StockDetailListController } from './controllers/warehouse/warehouse/stockDetailList.controller';
 import { StockListController } from './controllers/warehouse/warehouse/stockList.controller';
 import { WarehouseController } from './controllers/warehouse/warehouse/warehouse.controller';
+import { DaMaterialListController } from './controllers/warehouse/basic/daMaterialList.controller';
 import { CodeHelpComboQueryController } from './controllers/warehouse/codeHelp/codeHelpComboQuery.controller';
 import { CodeHelpQueryController } from './controllers/warehouse/codeHelp/codeHelpQuery.controller';
 
@@ -36,7 +37,6 @@ import { RoleGroupController } from './controllers/auth/roles/groupRole.controll
 /* PRODUTION_SERVICE */
 import { BomController } from './controllers/produce/BOM/bom.controller';
 import { ProductsController } from './controllers/produce/product/product.controller';
-import { BomReportAllController } from './controllers/produce/BOM/BOMReportAll.controller';
 import { BarcodeChangeController } from './controllers/label-print/change-label/barcodeChangeController';
 import { CustomersController } from './controllers/warehouse/customers/customers.controller';
 import { IqcController } from './controllers/qc/iqc/iqc.controller';
@@ -203,22 +203,14 @@ import { GrpcAcctReportService } from './controllers/grpc/service/grpc.report.ac
 import { AcctReportController } from './controllers/report/acctReport.controller';
 import { GrpcPdEquiptService } from './controllers/grpc/service/grpc.asset.pd_equipt.service';
 import { AssetEquipController } from './controllers/asset/assetEquip.controller';
-
-
-
-/* ALL SERVER AND CONTROLLER */
 import { ControllersModule } from './controllers/controller.module';
 import { GRPCServiceModule } from './grpc/grpc.module';
-import { GrpcPdEquiptInspectService } from './controllers/grpc/service/grpc.asset.pd_equipt_inspect.service';
-import { AssetEquipInspectController } from './controllers/asset/assetEquipInspect.controller';
-import { AssetEquipInspectDetailController } from './controllers/asset/assetEquipInspectDetail.controller';
-import { GrpcPdEquiptInspectDetailService } from './controllers/grpc/service/grpc.asset.pd_equipt_inspect_detail.service';
-import { GrpcPdMultiEquiptService } from './controllers/grpc/service/grpc.asset.pd_multi_equipt.service';
-import { AssetMultiEquipController } from './controllers/asset/assetMultiEquip.controller';
+import { PjtProjectController } from './controllers/report/pjtProject.controller';
+import { GrpcPjtProjectService } from './controllers/grpc/service/grpc.report.pjt.pjt_project.service';
 @Module({
   imports: [
-    ControllersModule, 
     GRPCServiceModule,
+    ControllersModule,
     ClientsModule.register([
       {
         name: 'WAREHOUSE_SERVICE',
@@ -339,6 +331,7 @@ import { AssetMultiEquipController } from './controllers/asset/assetMultiEquip.c
     StockAgingListController,
     StockDetailListController,
     StockListController,
+    DaMaterialListController,
     CodeHelpComboQueryController,
     CodeHelpQueryController,
     DeliveryListController,
@@ -379,7 +372,6 @@ import { AssetMultiEquipController } from './controllers/asset/assetMultiEquip.c
     BomController,
 
     ProductsController,
-    BomReportAllController,
     PdmpsProdQueryController,
     PdmpsProdItemListQueryController,
     PdmpsProdPlanListQueryController,
@@ -465,13 +457,11 @@ import { AssetMultiEquipController } from './controllers/asset/assetMultiEquip.c
     SalesReportController,
     HrReportController,
     AcctReportController,
+    PjtProjectController,
 
     // ASSET
-    AssetEquipController,
-    AssetEquipInspectController,
-    AssetEquipInspectDetailController,
-    AssetMultiEquipController,
-    
+    AssetEquipController
+
   ],
   providers: [
     GrpcClientService,
@@ -535,12 +525,10 @@ import { AssetMultiEquipController } from './controllers/asset/assetMultiEquip.c
     GrpcSalesReportService,
     GrpcHrReportService,
     GrpcAcctReportService,
+    GrpcPjtProjectService,
 
     // ASSET
-    GrpcPdEquiptService,
-    GrpcPdEquiptInspectService,
-    GrpcPdEquiptInspectDetailService,
-    GrpcPdMultiEquiptService
+    GrpcPdEquiptService
 
   ],
 })

@@ -1,11 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { ConfigProvider, AutoComplete, Input, Row, Col, DatePicker, Descriptions, Checkbox } from 'antd'
 import { useTranslation } from 'react-i18next'
-import DropdownDeptV2 from '../../../sheet/query/dropdownDeptV2'
-import DropdownUser from '../../../sheet/query/dropdownUsers'
-import Dropdown2006 from '../../../sheet/query/dropdown2006'
-import Dropdown2005 from '../../../sheet/query/dropdown2005'
-import Dropdown2004 from '../../../sheet/query/dropdown2004'
 import dayjs from 'dayjs'
 import 'dayjs/locale/vi'
 import viVN from 'antd/lib/locale/vi_VN';

@@ -5,6 +5,12 @@ import './App.css'
 import '@glideapps/glide-data-grid/dist/index.css'
 import { Modal } from 'antd'
 import { initializeDatabase } from './IndexedDB/initializeDatabase'
+// Trong file App.js hoặc index.js chính của bạn
+import moment from 'moment';
+import 'moment/locale/vi';
+
+// Set global locale
+moment.locale('vi');
 const App = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
@@ -43,7 +49,7 @@ const App = () => {
   }, []);
 
 
-  
+
   return (
     <div className="h-screen overflow-hidden ">
       <UserRouter />

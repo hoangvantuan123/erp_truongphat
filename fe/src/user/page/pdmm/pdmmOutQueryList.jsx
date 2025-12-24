@@ -551,7 +551,7 @@ export default function PdmmOutQueryList({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('800000121')}</title>
+                <title>ITM - {t('800000121')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">

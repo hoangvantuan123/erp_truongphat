@@ -27,14 +27,19 @@ export class GenerateXmlService {
   }
 
   private convertToNumber(value: boolean | string | null | undefined): number {
+
     if (typeof value === 'boolean') {
       return value ? 1 : 0;
     }
+
     if (typeof value === 'string') {
-      return value === '1' ? 1 : 0;
+      const v = value.trim().toLowerCase();
+      return v === '1' || v === 'true' ? 1 : 0;
     }
+
     return 0;
   }
+
 
   private safeValue(value: any): string {
     return this.escapeXml(value ?? '');
@@ -1043,6 +1048,27 @@ export class GenerateXmlService {
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
 
+  generateXMLSDACustEmpInfoQ(result: Array<{ [key: string]: any }>): string {
+    const xmlBlocks = result
+      .map(
+        (item) => `
+          <DataBlock1>
+            <WorkingTag>A</WorkingTag>
+            <IDX_NO>1</IDX_NO>
+            <Status>0</Status>
+            <DataSeq>1</DataSeq>
+            <Selected>1</Selected>
+            <TABLE_NAME>DataBlock1</TABLE_NAME>
+            <IsChangedMst>0</IsChangedMst>
+            <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+          </DataBlock1>
+        `
+      )
+      .join('');
+
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
+
 
 
   generateXMLSDACustAUD(result: Array<{ [key: string]: any }>, WorkingTag: string): string {
@@ -1144,6 +1170,129 @@ export class GenerateXmlService {
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
+  generateXMLSDACustKindSave(
+    result: Array<{ [key: string]: any }>,
+  ): string {
+    const xmlBlocks = result
+      .map(
+        (item) => `
+          <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>1</IDX_NO>
+    <DataSeq>1</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Điểm giao dịch doanh số trong nước</UMCustKindName>
+    <UMCustKind>1004001</UMCustKind>
+    <TABLE_NAME>DataBlock1</TABLE_NAME>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>2</IDX_NO>
+    <DataSeq>2</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Điểm giao dịch doanh số xuất khẩu (doanh nghiệp nước ngoài)</UMCustKindName>
+    <UMCustKind>1004002</UMCustKind>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>3</IDX_NO>
+    <DataSeq>3</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Điểm giao dịch nhập mua trong nước</UMCustKindName>
+    <UMCustKind>1004003</UMCustKind>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>4</IDX_NO>
+    <DataSeq>4</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Điểm giao dịch nhập khẩu (doanh nghiệp nước ngoài)</UMCustKindName>
+    <UMCustKind>1004004</UMCustKind>
+    <CustSeq>0${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>5</IDX_NO>
+    <DataSeq>5</DataSeq>
+    <Status>0</Status>
+    <Selected>1</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Nơi giao dịch xuất khẩu tại địa phương(Công ty)</UMCustKindName>
+    <UMCustKind>1004010</UMCustKind>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>6</IDX_NO>
+    <DataSeq>6</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Nơi giao dịch nhập khẩu tại địa phương(Công ty)</UMCustKindName>
+    <UMCustKind>1004011</UMCustKind>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>7</IDX_NO>
+    <DataSeq>7</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Khách hàng dịch vụ</UMCustKindName>
+    <UMCustKind>1004016</UMCustKind>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>8</IDX_NO>
+    <DataSeq>8</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Doanh nghiệp phát hành hóa đơn thuế VAT điện tử</UMCustKindName>
+    <UMCustKind>1004017</UMCustKind>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>9</IDX_NO>
+    <DataSeq>9</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>The retailer has no business code</UMCustKindName>
+    <UMCustKind>1004018</UMCustKind>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+  <DataBlock1>
+    <WorkingTag />
+    <IDX_NO>10</IDX_NO>
+    <DataSeq>10</DataSeq>
+    <Status>0</Status>
+    <Selected>0</Selected>
+    <Sel>1</Sel>
+    <UMCustKindName>Khách hàng gia công ngoài</UMCustKindName>
+    <UMCustKind>1004019</UMCustKind>
+    <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+  </DataBlock1>
+        `
+      )
+      .join('');
+
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
 
   generateXMLSDACustCheckD(
     result: Array<{ [key: string]: any }>,
@@ -1159,6 +1308,42 @@ export class GenerateXmlService {
             <Selected>${this.safeValue(item.Selected ?? 1)}</Selected>
             <Status>${this.safeValue(item.Status ?? 0)}</Status>
             <CustSeq>${this.safeValue(item.CustSeq)}</CustSeq>
+          </DataBlock1>
+        `
+      )
+      .join('');
+
+    return `<ROOT>${xmlBlocks}</ROOT>`;
+  }
+  generateXMLSDACustEmpInfo(
+    result: Array<{ [key: string]: any }>,
+    WorkingTag: string
+  ): string {
+    const xmlBlocks = result
+      .map(
+        (item) => `
+          <DataBlock1>
+            <WorkingTag>${this.safeValue(WorkingTag)}</WorkingTag>
+             <IDX_NO>${this.safeValue(item.IDX_NO ?? item.IdxNo ?? 1)}</IDX_NO>
+            <DataSeq>${this.safeValue(item.DataSeq ?? 1)}</DataSeq>
+            <Selected>${this.safeValue(item.Selected ?? 1)}</Selected>
+            <Status>${this.safeValue(item.Status ?? 0)}</Status>
+           <EmpSerl>${this.safeValue(item.EmpSerl !== '' ? item.IDX_NO : item.IdxNo)}</EmpSerl>
+
+            <EmpName>${this.safeValue(item.EmpName ?? '')} </EmpName>
+            <JpName>${this.safeValue(item.JpName ?? '')} </JpName>
+            <DeptName>${this.safeValue(item.DeptName ?? '')} </DeptName>
+            <TELNo>${this.safeValue(item.TELNo ?? '')} </TELNo>
+            <MobileNo>${this.safeValue(item.MobileNo ?? '')} </MobileNo>
+            <FAX>${this.safeValue(item.FAX ?? '')} </FAX>
+            <EMail>${this.safeValue(item.EMail ?? '')} </EMail>
+            <Remark>${this.safeValue(item.Remark ?? '')} </Remark>
+            <UMJobRollKindName>${this.safeValue(item.UMJobRollKindName ?? '')} </UMJobRollKindName>
+            <UMJobRollKind> ${this.safeValue(item.UMJobRollKind ?? '')}</UMJobRollKind>
+          <IsStd>${this.convertToNumber(item.IsStd)}</IsStd>
+
+            <TABLE_NAME>DataBlock1</TABLE_NAME>
+            <CustSeq>${this.safeValue(item.CustSeq ?? 0)}</CustSeq>
           </DataBlock1>
         `
       )

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package upload.hr.hr_emp_info;
+
+
+service UploadHrEmpInfoService {
+    rpc EmpInfoRptQ (EmpInfoRptQRequest) returns (Response);
+}
+
+message EmpInfoRptQResult { 
+  int32 EmpSeq = 1;
+  string EmpId = 2;
+
+}
+
+
+
+message EmpInfoRptQRequest {
+   EmpInfoRptQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool status = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

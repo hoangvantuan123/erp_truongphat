@@ -334,7 +334,7 @@ export default function BarcodeChange({ permissions, isMobile }) {
   return (
     <Layout className="h-screen bg-slate-50">
       <Helmet>
-        <title>HPM - {t('BARCODE CHANGE')}</title>
+        <title>ITM - {t('BARCODE CHANGE')}</title>
       </Helmet>
 
       <div className="flex flex-col h-full ">

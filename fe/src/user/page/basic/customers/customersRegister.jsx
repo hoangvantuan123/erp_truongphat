@@ -13,10 +13,6 @@ import { togglePageInteraction } from '../../../../utils/togglePageInteraction'
 import { HandleError } from '../../default/handleError'
 import { debounce } from 'lodash'
 import dayjs from 'dayjs'
-import { GetCodeHelpComboVer2 } from '../../../../features/codeHelp/getCodeHelpComboVer2'
-import { GetCodeHelpVer2 } from '../../../../features/codeHelp/getCodeHelpVer2'
-import { SDAItemListQ } from '../../../../features/basic/daMaterialList/SDAItemListQ'
-import { SDAItemListAUD } from '../../../../features/basic/daMaterialList/SDAItemListAUD'
 import CustomerRegistActionDetails from '../../../components/actions/basic/customers/customerRegistActionDetails'
 import CustomerRegistrationQuery from '../../../components/query/basic/customers/customerRegistrationQuery'
 import TableCustomerRegistration from '../../../components/table/basic/customers/tableCustomerRegistration'
@@ -478,11 +474,10 @@ export default function CustomersRegistration({ permissions, isMobile, canCreate
 
     try {
       const [res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11] = await Promise.allSettled([
+       
 
       ]);
-
-
-
+    
     } finally {
       decreaseFetchCount();
       controllers.current.fetchCodeHelpData = null;

@@ -4,14 +4,11 @@ import { SimpleQueryResult } from 'src/common/interfaces/simple-query-result.int
 import { ERROR_MESSAGES } from 'src/common/utils/constants';
 import { Observable, from, catchError, map, of, switchMap } from 'rxjs';
 import { GenerateXmlService } from '../generate-xml/generate-xml.service';
-import { DataSource, In } from 'typeorm';
-import { InjectDataSource } from '@nestjs/typeorm';
 @Injectable()
 export class PdEquiptService {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly generateXmlService: GenerateXmlService,
-    @InjectDataSource() private readonly dataSource2: DataSource,
   ) {}
 
   searchAssetEquipt(
@@ -214,10 +211,7 @@ export class PdEquiptService {
 
       if (dataAssyTool.length !== 0) {
         const xmlDocumentCheckAssyTool =
-          await this.generateXmlService.checkAssyTool(
-            dataAssyTool,
-            dataTool[0]?.ToolSeq,
-          );
+          await this.generateXmlService.checkAssyTool(dataAssyTool, dataTool[0]?.ToolSeq);
 
         const queryCheckAssyTool = `
           EXEC _SPDToolAssyCheck_Web
@@ -263,12 +257,11 @@ export class PdEquiptService {
         dataAssy = await this.databaseService.executeQuery(querySaveAssyTool);
       }
 
+      
+
       if (dataMng.length > 0) {
         const xmlDocumentCheckToolUserDefine =
-          await this.generateXmlService.checkToolUserDefine(
-            dataMng,
-            dataTool[0]?.ToolSeq,
-          );
+          await this.generateXmlService.checkToolUserDefine(dataMng, dataTool[0]?.ToolSeq);
         const queryCheckToolUserDefine = `
           EXEC _SPDToolUserDefineInfoCheck_Web
             @xmlDocument = N'${xmlDocumentCheckToolUserDefine}',
@@ -337,11 +330,10 @@ export class PdEquiptService {
     userSeq: number,
   ): Promise<SimpleQueryResult> {
     try {
+      console.log('dataMold', dataMold);
       const pgmSeq = 1080;
-      const xmlDocumentTool = await this.generateXmlService.checkDeleteAssyTool(
-        dataMold,
-        dataMold[0]?.ToolSeq || 0,
-      );
+      const xmlDocumentTool =
+        await this.generateXmlService.checkAssyTool(dataMold, dataMold[0]?.ToolSeq || 0);
       const queryToolAssyCheck = `
         EXEC _SPDToolAssyCheck_Web
           @xmlDocument = N'${xmlDocumentTool}',
@@ -360,12 +352,13 @@ export class PdEquiptService {
       if (dataCheck.length !== 0 && dataCheck[0]?.Status !== 0) {
         return {
           success: false,
-          message: dataCheck[0]?.Result ?? 'Error occurred during the check.',
+          message:
+            dataCheck[0]?.Result ?? 'Error occurred during the check.',
         };
       }
 
       const xmlDocumentSaveToolAssy =
-        await this.generateXmlService.deleteAssyTool(dataCheck);
+        await this.generateXmlService.saveAssyTool(dataCheck);
       const querySaveAssyTool = `
         EXEC _SPDToolAssySave_Web
           @xmlDocument = N'${xmlDocumentSaveToolAssy}',
@@ -393,7 +386,7 @@ export class PdEquiptService {
     }
   }
 
-  async deletePdEquip(
+    async deletePdEquip(
     dataPdEquip: any[],
     dataAssyTool: any[],
     dataMng: any[],
@@ -448,10 +441,7 @@ export class PdEquiptService {
 
       if (dataAssyTool.length !== 0) {
         const xmlDocumentCheckAssyTool =
-          await this.generateXmlService.checkAssyTool(
-            dataAssyTool,
-            dataTool[0]?.ToolSeq,
-          );
+          await this.generateXmlService.checkAssyTool(dataAssyTool, dataTool[0]?.ToolSeq);
 
         const queryCheckAssyTool = `
           EXEC _SPDToolAssyCheck_Web
@@ -497,12 +487,11 @@ export class PdEquiptService {
         dataAssy = await this.databaseService.executeQuery(querySaveAssyTool);
       }
 
+      
+
       if (dataMng.length > 0) {
         const xmlDocumentCheckToolUserDefine =
-          await this.generateXmlService.checkToolUserDefine(
-            dataMng,
-            dataTool[0]?.ToolSeq,
-          );
+          await this.generateXmlService.checkToolUserDefine(dataMng, dataTool[0]?.ToolSeq);
         const queryCheckToolUserDefine = `
           EXEC _SPDToolUserDefineInfoCheck_Web
             @xmlDocument = N'${xmlDocumentCheckToolUserDefine}',
@@ -565,122 +554,5 @@ export class PdEquiptService {
     }
   }
 
-  AssetFileQ(result: any): Observable<any> {
-    if (!result) {
-      return of({
-        success: false,
-        message: 'No query parameters provided',
-        data: [],
-      });
-    }
 
-    return from(
-      this.dataSource2.transaction(async (manager) => {
-        try {
-          const queryBuilder = manager
-            .createQueryBuilder()
-            .select([
-              'q.IdSeq as "IdSeq"',
-              'q.UserId as "UserId"',
-              'q.Filename as "Filename"',
-              'q.Type as "Type"',
-              'q.IsAvatar as "IsAvatar"',
-              'q.Path as "Path"',
-              'q.Size as "Size"',
-              'q.IdxNo as "IdxNo"',
-              'q.Originalname as "Originalname"',
-              'q.CreatedAt as "CreatedAt"',
-            ])
-            .from('_ERPUploadsUserFile', 'q');
-
-          if (result.KeyItem1) {
-            queryBuilder.andWhere('q.UserId = :KeyItem1', {
-              KeyItem1: result.KeyItem1,
-            });
-          }
-          if (result.KeyItem2) {
-            queryBuilder.andWhere('q.Type = :KeyItem2', {
-              KeyItem2: result.KeyItem2,
-            });
-          }
-          if (result.KeyItem3) {
-            queryBuilder.andWhere('q.IsAvatar = :KeyItem3', {
-              KeyItem3: result.KeyItem3,
-            });
-          }
-          queryBuilder.orderBy('q.IdSeq', 'DESC');
-          const queryResult = await queryBuilder.getRawMany();
-
-          return {
-            success: true,
-            data: queryResult,
-          };
-        } catch (error) {
-          return {
-            success: false,
-            message: error.message || 'Internal server error',
-            data: [],
-          };
-        }
-      }),
-    ).pipe(
-      catchError((error) => {
-        return of({
-          success: false,
-          message: error.message || 'Internal server error',
-          data: [],
-        });
-      }),
-    );
-  }
-
-  AssetFileD(records: any[]): Observable<any> {
-        if (!records || records.length === 0) {
-            return of({
-                success: false,
-                message: 'No records provided for deletion',
-                data: [],
-            });
-        }
-
-        const ids = records.map(record => record.IdSeq);
-
-        return from(this.dataSource2.transaction(async (manager) => {
-            try {
-
-
-
-                const result = await manager.delete('_ERPUploadsUserFile', { IdSeq: In(ids) });
-
-                if ((result.affected ?? 0) > 0) {
-                    return {
-                        success: true,
-                        message: `${result.affected} record(s) deleted successfully`,
-                        data: [],
-                    };
-                } else {
-                    return {
-                        success: false,
-                        message: 'No records found to delete',
-                        data: [],
-                    };
-                }
-            } catch (error) {
-                return {
-                    success: false,
-                    message: 79,
-                    data: [],
-                    error: error.message,
-                };
-            }
-        })).pipe(
-            catchError((error) => {
-                return of({
-                    success: false,
-                    message: error.message || 'Internal server error',
-                    data: [],
-                });
-            })
-        );
-    }
 }

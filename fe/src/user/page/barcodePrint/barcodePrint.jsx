@@ -1185,7 +1185,7 @@ export default function BarcodePrint({ permissions, isMobile }) {
   return (
     <Layout className="h-screen bg-slate-50">
       <Helmet>
-        <title>HPM - {t('PRINT BARCODE')}</title>
+        <title>ITM - {t('PRINT BARCODE')}</title>
       </Helmet>
 
       <div className="flex flex-col h-full ">

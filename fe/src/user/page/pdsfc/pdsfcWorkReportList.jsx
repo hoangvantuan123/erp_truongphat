@@ -892,7 +892,7 @@ export default function PdsfcWorkReportList({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('Truy vấn hiệu suất sản xuất')}</title>
+                <title>ITM - {t('Truy vấn hiệu suất sản xuất')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">

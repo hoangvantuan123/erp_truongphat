@@ -885,7 +885,7 @@ export default function PurDelvInList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn nhập kho mua hàng trong nước')}</title>
+        <title>ITM - {t('Truy vấn nhập kho mua hàng trong nước')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

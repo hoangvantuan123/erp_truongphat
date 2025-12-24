@@ -50,8 +50,7 @@ import ErrorListModal from '../default/errorListModal'
 import { updateIndexNo } from '../../components/sheet/js/updateIndexNo'
 import TopLoadingBar from 'react-top-loading-bar'
 import { togglePageInteraction } from '../../../utils/togglePageInteraction'
-import { playErrorSound } from '../../../utils/errorSound'
-import { playSuccessSound } from '../../../utils/errorSound'
+
 export default function LGEtcTrans({
   permissions,
   isMobile,
@@ -1241,25 +1240,23 @@ export default function LGEtcTrans({
           setGridData((prevData) =>
             prevData.map((item) =>
               item.ItemNo === formData[0].ItemNo &&
-                item.ReqSerl === formData[0].InOutReqItemSerl
+              item.ReqSerl === formData[0].InOutReqItemSerl
                 ? {
-                  ...item,
-                  ProgressingQty:
-                    (item?.ProgressingQty || 0) + formData[0].Qty,
-                  NotProgressQty:
-                    (item?.NotProgressQty || 0) - formData[0].Qty,
-                }
+                    ...item,
+                    ProgressingQty:
+                      (item?.ProgressingQty || 0) + formData[0].Qty,
+                    NotProgressQty:
+                      (item?.NotProgressQty || 0) - formData[0].Qty,
+                  }
                 : item,
             ),
           )
         })
-        playSuccessSound();
       } else {
         if (loadingBarRef.current) {
           loadingBarRef.current.complete()
           setDataError(resSuccess.data.errors)
         }
-        playErrorSound();
         setIsModalVisible(true)
       }
     }, 100),
@@ -1329,7 +1326,6 @@ export default function LGEtcTrans({
         setModal2Open(true)
         setError(resultMessage)
         setInputBarCode('')
-        playErrorSound();
       }
     }
     return () => {
@@ -2196,7 +2192,7 @@ export default function LGEtcTrans({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Di chuyển kho sản phẩm')}</title>
+        <title>ITM - {t('Di chuyển kho sản phẩm')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3  h-[calc(100vh-30px)] overflow-hidden">

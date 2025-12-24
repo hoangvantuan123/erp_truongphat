@@ -3262,7 +3262,7 @@ export default function PdsfcWorkReport({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('800000156')}</title>
+                <title>ITM - {t('800000156')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-40px)] overflow-hidden">

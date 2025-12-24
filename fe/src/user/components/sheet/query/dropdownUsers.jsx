@@ -319,7 +319,7 @@ const DropdownUser = ({ helpData, setHelpData05, setSearchText, searchText, setI
             </div>
             <DataEditor
                 ref={gridRef}
-                width={1200}
+                width={980}
                 height={500}
                 onFill={onFill}
                 className="cursor-pointer rounded-md"

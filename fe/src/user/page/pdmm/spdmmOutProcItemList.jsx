@@ -658,7 +658,7 @@ export default function SpdmmOutProcItemList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn yêu cầu xuất kho theo từng vật liệu')}</title>
+        <title>ITM - {t('Truy vấn yêu cầu xuất kho theo từng vật liệu')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">

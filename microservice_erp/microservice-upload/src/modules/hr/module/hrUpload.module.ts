@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DatabaseService } from 'src/common/database/database.service';
-import { sqlServerERP } from 'src/config/database.config';
-
+import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
+import { sqlServerITMV } from 'src/config/database.config';
 import { GenerateXmlService } from '../generate-xml/generate-xml.service';
 import { HrEmpInfoService } from '../service/hrEmpInfo.service';
 import { HrEmpInfoController } from '../controller/hrEmpInfo.controller';
@@ -14,7 +13,7 @@ import { HrContractPrintController } from '../controller/hrContractPrint.control
 @Module({
     imports: [
         TypeOrmModule.forFeature([]),
-        TypeOrmModule.forRoot(sqlServerERP)
+        TypeOrmModule.forRoot(sqlServerITMV)
     ],
     controllers: [
         HrEmpInfoController,

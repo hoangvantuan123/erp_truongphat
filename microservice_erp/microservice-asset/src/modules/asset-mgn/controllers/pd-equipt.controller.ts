@@ -142,7 +142,7 @@ export class PdEquiptController {
         serviceMethod(
           request.dataPdEquip,
           request.dataAssyTool,
-          request.dataMng,
+          request.dataMng,          
           decodedToken.CompanySeq,
           decodedToken.UserSeq,
         ),
@@ -175,51 +175,7 @@ export class PdEquiptController {
     }
   }
 
-  private handleGrpcFileRequest(
-    request: any,
-    serviceMethod: (
-      result: any,
-      companySeq: number,
-      userSeq: number,
-    ) => Observable<any>,
-  ): Observable<MetadataResponse> {
-    try {
-      const decodedToken = this.validateToken(request.metadata);
-
-      return from(
-        serviceMethod(
-          request.result,
-          decodedToken.CompanySeq,
-          decodedToken.UserSeq,
-        ),
-      ).pipe(
-        map((queryResult) => {
-          const isSuccess = queryResult?.success === true;
-          return {
-            status: isSuccess,
-            message: 'Query successful',
-            data: JSON.stringify(queryResult.data),
-            errors: JSON.stringify(queryResult.errors),
-          };
-        }),
-        catchError((error) => {
-          return of({
-            status: false,
-            message: error.message || 'Internal server error',
-            data: '',
-            errors: JSON.stringify(error.errors),
-          });
-        }),
-      );
-    } catch (error) {
-      return of({
-        status: false,
-        message: error.message || 'Internal server error',
-        data: '',
-        errors: JSON.stringify(error.errors),
-      });
-    }
-  }
+  
 
   @GrpcMethod('PdEquiptService', 'searchAssetEquipt')
   searchDaDept(request: any): Observable<MetadataResponse> {
@@ -285,19 +241,5 @@ export class PdEquiptController {
     );
   }
 
-  @GrpcMethod('PdEquiptService', 'AssetFileQ')
-  AssetFileQ(request: any): Observable<MetadataResponse> {
-    return this.handleGrpcFileRequest(
-      request,
-      this.pdEquipService.AssetFileQ.bind(this.pdEquipService),
-    );
-  }
-
-  @GrpcMethod('PdEquiptService', 'AssetFileD')
-  AssetFileD(request: any): Observable<MetadataResponse> {
-    return this.handleGrpcFileRequest(
-      request,
-      this.pdEquipService.AssetFileD.bind(this.pdEquipService),
-    );
-  }
+  
 }

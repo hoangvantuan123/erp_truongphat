@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package hr.daily_att.sprwk_abs_emp;
+
+
+service SPRWkAbsEmpService {
+  rpc SPRWkAbsEmpQ (SPRWkAbsEmpQRequest) returns (Response);
+  rpc SPRWkAbsEmpAUD (SPRWkAbsEmpAUDRequest) returns (Response);
+}
+
+
+message SPRWkAbsEmpQResult {
+  string AbsDate = 1;
+  string DeptSeq = 2;
+  string WkItemSeq = 3; 
+  int32 EmpSeq = 4; 
+  string EmpName = 5;
+  string EmpID = 6;
+  int32 PuSeq = 7;
+  int32 PtSeq = 8;
+
+  }
+
+message SPRWkAbsEmpAUDResult {
+
+  string EmpName = 1;
+  int32 EmpSeq = 2;
+  string EmpID = 3;
+  string DeptName = 4;
+  string UMJpName = 5;
+  string UMPgName = 6;
+  string UMJoName = 7;
+  int32 DeptSeq = 8;
+  int32 PuSeq = 9;
+  string PuName = 10;
+  int32 PtSeq = 11;
+  string PtName = 12;
+  string WkItemName = 13;
+  int32 WkItemSeq = 14;
+  string IsHalf = 15;
+  string Remark = 16;
+  int32 CCSeq = 17;
+  string InputType = 18;
+  int32 SMInputType = 19;
+  int32 UMGrpSeq = 20;
+  int32 UMWkGrpSeq = 21;
+  string Seq = 22;
+  string GrpName = 23;
+  string WkGrpName = 24;
+  int32 OldWkItemSeq = 25;
+  string TABLE_NAME = 26;
+  string AbsDate = 27;
+
+
+  string IdxNo = 28;
+  string WorkingTag = 29;
+
+  }
+
+
+
+
+
+message SPRWkAbsEmpQRequest {
+  repeated SPRWkAbsEmpQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPRWkAbsEmpAUDRequest {
+  repeated SPRWkAbsEmpAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

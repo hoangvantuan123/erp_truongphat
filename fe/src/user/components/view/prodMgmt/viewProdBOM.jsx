@@ -230,13 +230,38 @@ const ViewProdBOM = ({
         handleSearch({ target: { value: dataSheetSearch[0]?.ItemName } })
     }
 
+
+    const formatYYYYMMDD = (value, format = 'DD/MM/YYYY') => {
+        if (!value) return '';
+        const str = value.toString();
+        if (str.length !== 8) return value; // nếu không đúng định dạng, trả về nguyên giá trị
+
+        const year = parseInt(str.substring(0, 4));
+        const month = parseInt(str.substring(4, 6)) - 1; // JS: tháng 0-11
+        const day = parseInt(str.substring(6, 8));
+
+        switch (format) {
+            case 'DD/MM/YYYY':
+                return `${day.toString().padStart(2, '0')}/${(month + 1)
+                    .toString()
+                    .padStart(2, '0')}/${year}`;
+            case 'YYYY-MM-DD':
+                return `${year}-${(month + 1).toString().padStart(2, '0')}-${day
+                    .toString()
+                    .padStart(2, '0')}`;
+            default:
+                return new Date(year, month, day).toLocaleDateString();
+        }
+    };
+
     return (
-        <div className='h-full w-full'>
-            <div className='min-h-[28] w-full bg-white border p-2'>
-                <h2 className="text-[10px] font-medium flex items-center gap-2 uppercase">
+        <div className="w-full gap-1 h-full flex items-center justify-center">
+            <div className="w-full h-full flex flex-col  bg-white  overflow-hidden ">
+                <h2 className="text-xs border-b font-medium flex items-center gap-2 p-2 text-blue-600 uppercase">
                     {t('850000030')}
                 </h2>
-                <Form className='flex  items-center gap-3' >
+
+                <Form className='flex border-b p-2  items-center gap-3' >
                     {/* Row 1 */}
                     <Row gutter={16}>
                         <Col span={12}>
@@ -271,9 +296,10 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" readOnly value={dataSheetSearch[0]?.ItemNo} />
+                                <Input size="small" readOnly value={dataSheetSearch[0]?.ItemNo || ''} />
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('850000034')}</span>}
@@ -281,9 +307,10 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" readOnly value={dataSheetSearch[0]?.Spec} />
+                                <Input size="small" readOnly value={dataSheetSearch[0]?.Spec || ''} />
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('3279')}</span>}
@@ -291,9 +318,10 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" value={"00"} />
+                                <Input size="small" value={dataSheetSearch[0]?.SomeValue || '00'} />
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('809')}</span>}
@@ -301,13 +329,13 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" value={"00"} />
+                                <Input size="small" value={dataSheetSearch[0]?.SomeOtherValue || '00'} />
                             </Form.Item>
                         </Col>
                     </Row>
 
                     {/* Row 2 */}
-                    <Row gutter={16} >
+                    <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('2119')}</span>}
@@ -315,9 +343,15 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" value={dataSheetSearch[0]?.AssetName} />
+                                <Input
+                                    size="small"
+                                    className="bg-gray-100"
+                                    readOnly
+                                    value={dataSheetSearch[0]?.AssetName || ''}
+                                />
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('602')}</span>}
@@ -325,9 +359,15 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" value={dataSheetSearch[0]?.UnitName} />
+                                <Input
+                                    size="small"
+                                    className="bg-gray-100"
+                                    readOnly
+                                    value={dataSheetSearch[0]?.UnitName || ''}
+                                />
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('178')}</span>}
@@ -335,9 +375,15 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" readOnly value={verMng[0]?.RegDate} />
+                                <Input
+                                    size="small"
+                                    readOnly
+                                    className="bg-gray-100"
+                                    value={verMng[0]?.RegDate ? formatYYYYMMDD(verMng[0].RegDate) : ''}
+                                />
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('5309')}</span>}
@@ -345,9 +391,15 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" readOnly value={verMng[0]?.RegEmpName} />
+                                <Input
+                                    size="small"
+                                    readOnly
+                                    className="bg-gray-100"
+                                    value={verMng[0]?.RegEmpName || ''}
+                                />
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('1235')}</span>}
@@ -355,9 +407,15 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" readOnly value={verMng[0]?.LastEmpName} />
+                                <Input
+                                    size="small"
+                                    readOnly
+                                    className="bg-gray-100"
+                                    value={verMng[0]?.LastEmpName || ''}
+                                />
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item
                                 label={<span className="uppercase text-[9px]">{t('9437')}</span>}
@@ -365,41 +423,43 @@ const ViewProdBOM = ({
                                 labelCol={{ style: { marginBottom: 2, padding: 0 } }}
                                 wrapperCol={{ style: { padding: 0 } }}
                             >
-                                <Input size="small" readOnly value={verMng[0]?.LastUptDate} />
+                                <Input
+                                    size="small"
+                                    readOnly
+                                    className="bg-gray-100"
+                                    value={verMng[0]?.LastUptDate ? formatYYYYMMDD(verMng[0].LastUptDate) : ''}
+                                />
                             </Form.Item>
                         </Col>
 
                     </Row>
                 </Form>
 
+                <TableRegiBOM
+                    setSelection={setSelection}
+                    selection={selection}
+                    setShowSearch={setShowSearch}
+                    showSearch={showSearch}
+                    setEditedRows={setEditedRows}
+                    setGridData={setGridData}
+                    gridData={gridData}
+                    setNumRows={setNumRows}
+                    numRows={numRows}
+                    handleRowAppend={handleRowAppend}
+                    setCols={setCols}
+                    cols={cols}
+                    defaultCols={defaultCols}
+                    canEdit={canEdit}
+                    handleRestSheet={handleRestSheet}
+                    helpData02={helpData02}
+                    helpData03={helpData03}
+                    dataRootSeq={dataRootSeq}
+                    dataSheetSearch={dataSheetSearch}
+                    setHelpData02={setHelpData02}
+                    setHelpData03={setHelpData03}
+                />
             </div>
-            <Splitter className="w-full h-full">
-                <div className='h-full w-full bg-white border-r border-l overflow-auto'>
-                    <TableRegiBOM
-                        setSelection={setSelection}
-                        selection={selection}
-                        setShowSearch={setShowSearch}
-                        showSearch={showSearch}
-                        setEditedRows={setEditedRows}
-                        setGridData={setGridData}
-                        gridData={gridData}
-                        setNumRows={setNumRows}
-                        numRows={numRows}
-                        handleRowAppend={handleRowAppend}
-                        setCols={setCols}
-                        cols={cols}
-                        defaultCols={defaultCols}
-                        canEdit={canEdit}
-                        handleRestSheet={handleRestSheet}
-                        helpData02={helpData02}
-                        helpData03={helpData03}
-                        dataRootSeq={dataRootSeq}
-                        dataSheetSearch={dataSheetSearch}
-                        setHelpData02={setHelpData02}
-                        setHelpData03={setHelpData03}
-                    />
-                </div>
-            </Splitter>
+
 
 
         </div>

@@ -571,8 +571,7 @@ function TableRegiBOM({
     <div className="w-full gap-1 h-full flex items-center justify-center">
       <div className="w-full h-full flex flex-col  overflow-x-hidden overflow-hidden ">
         <h2 className="text-xs border-b font-medium flex items-center gap-2 p-2 text-blue-600 uppercase">
-          <TableOutlined />
-          SHEET DATAđấ
+          DANH SÁCH ĐĂNG KÝ BOM
         </h2>
         <DataEditor
           {...cellProps}
@@ -643,7 +642,6 @@ function TableRegiBOM({
                   setShowSearch={setShowSearch}
                   setShowMenu={setShowMenu}
                   layerProps={layerProps}
-                  handleReset={handleReset}
                   showDrawer={showDrawer}
                 />
               ) : (

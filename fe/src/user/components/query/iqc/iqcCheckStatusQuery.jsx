@@ -85,6 +85,7 @@ export default function IqcCheckStatusQuery({
     columns: CompactSelection.empty(),
     rows: CompactSelection.empty(),
   })
+  const [selectEmp, setSelectEmp] = useState(null)
 
   const onChangeBLDateFr = (date) => {
     setBLDateFr(date)
@@ -450,6 +451,8 @@ export default function IqcCheckStatusQuery({
                   setEmpSeq={setEmpSeq}
                   setUserId={setUserId}
                   dropdownRef ={dropdownRef}
+                  setSelectEmp={setSelectEmp}
+
                 />
               )}
             </Form.Item>

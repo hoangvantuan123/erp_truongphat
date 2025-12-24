@@ -23,7 +23,7 @@
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "@babel/register": "^7.23.7",
-    "@grpc/grpc-js": "^1.14.0",
+    "@grpc/grpc-js": "^1.14.1",
     "@nestjs/cache-manager": "^2.3.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.0",

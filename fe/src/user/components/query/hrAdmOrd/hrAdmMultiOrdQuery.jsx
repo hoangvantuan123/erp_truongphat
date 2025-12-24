@@ -111,6 +111,7 @@ export default function HrAdmMultiOrdQuery({
     rows: CompactSelection.empty(),
   })
   const [EmpSearchSh, setEmpSearchSh] = useState('')
+  const [selectEmp, setSelectEmp] = useState(null)
 
   const [modalVisibleUMJdName, setModalVisibleUMJdName] = useState(false)
   const [selectionUMJdName, setSelectionUMJdName] = useState({
@@ -440,6 +441,7 @@ export default function HrAdmMultiOrdQuery({
                   empSeq={EmpSeq}
                   setEmpSeq={setEmpSeq}
                   setUserId={setEmpID}
+                  setSelectEmp={setSelectEmp}
                 />
               )}
             </Form.Item>

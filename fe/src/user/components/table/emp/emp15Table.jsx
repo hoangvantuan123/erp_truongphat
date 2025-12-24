@@ -466,7 +466,7 @@ function Emp15Table({
         <div className="w-full gap-1 h-full flex items-center justify-center">
             <div className="w-full h-full flex flex-col  bg-white  overflow-hidden ">
                 <h2 className="text-[10px]  text-blue-600 border-b font-medium flex items-center gap-2 p-2  uppercase">
-                    QUẢN LÝ TỆP TIN CÁ NHÂN
+                    QUẢN LÝ TỆP TIN CÁ NHÂN 
                 </h2>
                 <div className="flex items-center gap-3 p-1 border-b">
 

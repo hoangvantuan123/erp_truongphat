@@ -649,7 +649,7 @@ export default function PdmmOutQueryDetailList({
     return (
         <>
             <Helmet>
-                <title>HPM - {t('Truy vấn chi tiết đề nghị xuất khi vật liệu')}</title>
+                <title>ITM - {t('Truy vấn chi tiết đề nghị xuất khi vật liệu')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">

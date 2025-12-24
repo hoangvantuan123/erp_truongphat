@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package hr.edu.edu_type;
+
+
+service HrEduTypeService {
+  rpc searchEduType (HrEduTypeSearchRequest) returns (Response);
+  rpc auEduType (HrEduTypeRequest) returns (Response);
+  rpc deleteEduType (HrEduTypeRequest) returns (Response);
+}
+
+
+message HrEduTypeSearch {
+  int32 UMEduGrpType = 1;
+  string EduTypeName = 2;
+
+  }
+
+message HrEduTypeResult {
+  string IdxNo = 1;
+  int32 EduTypeSeq = 2;
+  string EduTypeName = 3;
+  int32 UMEduGrpType = 4;
+  string UMEduGrpTypeName = 5;
+  string Remark = 6;
+  int32 DispSeq = 7;
+  string status = 8;
+}
+
+message HrEduTypeSearchRequest {
+  repeated HrEduTypeSearch result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEduTypeRequest {
+  repeated HrEduTypeResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

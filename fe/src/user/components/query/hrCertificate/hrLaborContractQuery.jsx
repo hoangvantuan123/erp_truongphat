@@ -34,6 +34,7 @@ export default function HrLaborContractQuery({
   })
   const [EmpSearchSh, setEmpSearchSh] = useState('')
   const [modalVisibleEmpName, setModalVisibleEmpName] = useState(false)
+  const [selectEmp, setSelectEmp] = useState(null)
 
   const onChangeContractKind = (value) => {
     if (value === null || value === undefined) {
@@ -129,6 +130,8 @@ export default function HrLaborContractQuery({
                   empSeq={EmpSeq}
                   setEmpSeq={setEmpSeq}
                   setUserId={setEmpID}
+                  setSelectEmp={setSelectEmp}
+
                 />
               )}
             </Form.Item>

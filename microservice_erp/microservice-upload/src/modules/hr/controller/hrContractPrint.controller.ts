@@ -18,7 +18,7 @@ import {
 import { jwtConstants } from 'src/config/security.config';
 import * as jwt from 'jsonwebtoken';
 import { GrpcMethod, RpcException } from '@nestjs/microservices';
-import { DatabaseService } from 'src/common/database/database.service';
+import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
 import { MetadataResponse } from '../interface/response';
 import { Observable, from, catchError, map, of } from 'rxjs';
 import { HrContractPrintService } from '../service/hrContractPrint.service';

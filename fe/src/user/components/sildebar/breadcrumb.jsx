@@ -166,7 +166,7 @@ export default function BreadcrumbRouter({ menuTransForm, rootMenu }) {
       <div className="flex items-center gap-3">
         <Dropdown
           overlay={
-            <div className="w-[300px] bg-white border shadow-lg rounded-lg max-h-80 overflow-y-auto">
+            <div className="w-[500px] bg-white border shadow-lg rounded-lg max-h-80 overflow-y-auto">
               {filteredResults.length > 0 ? (
                 <List
                   size="small"

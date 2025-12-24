@@ -486,7 +486,7 @@ export default function StockOutRequest({ permissions, isMobile, controllers,
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Stock Out Request')}</title>
+        <title>ITM - {t('Stock Out Request')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3 h-screen overflow-hidden">

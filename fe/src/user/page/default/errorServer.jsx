@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import { Input, Space, Table, Typography, message, Tabs } from 'antd'
 const { Search } = Input
 const { Title, Text } = Typography
-import BG from '../../../assets/RootLogo.png'
+import BG from '../../../assets/ItmLogo.png'
 import 'moment/locale/vi'
 import '../../static/css/scroll_container.css'
 
@@ -14,7 +14,7 @@ export default function ErrorServer() {
   return (
     <div className="w-full h-screen bg-slate-50">
       <Helmet>
-        <title>HPM - {t('Error')}</title>
+        <title>ITM - {t('Error')}</title>
       </Helmet>
 
       <div className="grid h-screen place-content-center bg-px-4 ">

@@ -853,7 +853,7 @@ export default function LGEtcTransReqItemList({
     <>
       <Helmet>
         <title>
-          HPM - {t('Truy vấn chi tiết yêu cầu di chuyển kho sản phẩm')}
+          ITM - {t('Truy vấn chi tiết yêu cầu di chuyển kho sản phẩm')}
         </title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />

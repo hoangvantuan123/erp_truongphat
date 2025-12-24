@@ -5,7 +5,7 @@ export default function ErrorPage() {
   return (
     <div className="w-full h-screen bg-slate-50">
       <Helmet>
-        <title>HPM</title>
+        <title>ITM</title>
       </Helmet>
       <div className="grid h-screen place-content-center bg-white px-4">
         <div className="text-center">

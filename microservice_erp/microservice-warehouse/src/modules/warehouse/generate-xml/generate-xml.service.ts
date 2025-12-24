@@ -586,7 +586,7 @@ export class GenerateXmlService {
     <CustName />
     <IsUnitQry>0</IsUnitQry>
     <BizUnit>${this.escapeXml(item.BizUnit || '')}</BizUnit>
-    <BizUnitName>${this.escapeXml(item.BizUnitName || '')}</BizUnitName>
+    <BizUnitName></BizUnitName>
     <DateFr>${this.escapeXml(item.DateFr || '')}</DateFr>
     <DateTo>${this.escapeXml(item.DateTo || '')}</DateTo>
     <ValiDateFrom />

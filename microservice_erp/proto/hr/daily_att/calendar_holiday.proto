@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package hr.daily_att.calendar_holiday;
+
+
+service CalendarHolidayService {
+  rpc CalendarHolidayQ (CalendarHolidayQRequest) returns (Response);
+  rpc CalendarHolidayAUD (CalendarHolidayAUDRequest) returns (Response);
+}
+
+
+message CalendarHolidayQResult {
+  string SMHolidayType = 1;
+  string HolidayName = 2;
+  string Solar = 3;
+  string CountrySeq = 4;
+  int32 IsCommon = 5;
+
+  }
+
+message CalendarHolidayAUDResult {
+  string IdxNo = 1;
+  string WorkingTag = 2;
+
+
+  string CompanySeq = 3;
+  string Solar = 4;
+  string SMHolidayType = 5;
+  string HolidayName = 6;
+
+  string CountrySeq = 7;
+  int32 IsCommon = 8;
+  string Remark = 9;
+  string SolarOld = 10;
+  }
+
+
+
+
+
+message CalendarHolidayQRequest {
+  repeated CalendarHolidayQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message CalendarHolidayAUDRequest {
+  repeated CalendarHolidayAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

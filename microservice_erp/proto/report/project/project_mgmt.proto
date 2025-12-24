@@ -1,0 +1,211 @@
+syntax = "proto3";
+
+package report.project.project_mgmt;
+
+
+
+
+service ProjectMgmtService {
+  rpc ProjectMgmtAUD (ProjectMgmtAUDRequest) returns (Response);
+  rpc SPJTSupplyContractResAUD (SPJTSupplyContractResAUDRequest) returns (Response);
+  rpc SupplyContractRemarkAUD (SupplyContractRemarkAUDRequest) returns (Response);
+  rpc SPJTSupplyContractQ (SPJTSupplyRequest) returns (Response);
+  rpc SPJTSupplyContractResQ (SPJTSupplyRequest) returns (Response);
+  rpc SPJTSupplyContractRemarkQ (SPJTSupplyRequest) returns (Response);
+  rpc SPJTSupplyContractListQ (SPJTSupplyContractListQRequest) returns (Response);
+  rpc SPJTSupplyContractD (SPJTSupplyContractDRequest) returns (Response);
+  rpc SPJTSupplyContractAmtListQ (SPJTSupplyContractAmtListQRequest) returns (Response);
+  rpc NotifiProjectQ (NotifiProjectQRequest) returns (Response);
+
+}
+
+message ProjectMgmtAUDResult {
+  int32 IdxNo = 1;
+  int32 CreatedBy = 2;
+  int32 UpdatedBy = 3;
+
+
+  string IsChangedMst = 4;
+  int32 SupplyContSeq = 5;
+  string SupplyContNo = 6;
+  string SupplyContAppSeq = 7;
+  string SMSupplyAdjType = 8;
+  string SupplyContRev = 9;
+  string SupplyContRevSeq = 10;
+  string SupplyContName = 11;
+  string BizUnit = 12;
+  string SupplyContDateFr = 13;
+  string SupplyContDateTo = 14;
+  string SupplyContCustSeq = 15;
+  string RegDate = 16;
+  string UMSupplyContType = 17;
+  string SupplyContEmpSeq = 18;
+  string SupplyContDeptSeq = 19;
+  string CurrSeq =20;
+  string CurrRate  = 21; 
+  string SMSupplyChkType = 22; 
+  string Remark = 23; 
+  string FileSeq  = 24; 
+  string WorkingTag = 25;
+}
+
+message SupplyContractResAUDResult {
+  int32 IdxNo = 1;
+  int32 CreatedBy = 2;
+  int32 UpdatedBy = 3;
+
+
+  string ResrcSerl = 4;
+  int32 ISStd = 5;
+  string ResrcName = 6;
+  string ResrcSeq = 7;
+  string Qty = 8;
+  string Price = 9;
+  string Amt = 10;
+  string VATAmt = 11;
+  string SumAmt = 12;
+  string DomPrice = 13;
+  string PriceUnitSeq = 14;
+  string SMResrcType = 15;
+  string DomAmt = 16;
+  string DomVATAmt = 17;
+  string DomSumAmt = 18;
+  string DelvDueDate = 19;
+  string SerialNo =20;
+  string UMContSupplyType  = 21; 
+  string PJTSeq = 22; 
+  string WBSSeq = 23; 
+  string Remark  = 24; 
+  string SupplyContSeq  = 25; 
+  string Status = 26;
+}
+message SupplyContractRemarkAUDResult {
+  int32 IdxNo = 1;
+  int32 CreatedBy = 2;
+  int32 UpdatedBy = 3;
+
+
+  string RemarkSerl = 4;
+  string  RemarkDate = 5;
+  string Remark = 6;
+  string SupplyContSeq = 7;
+  string Status = 8;
+ 
+}
+
+message PayConditionAResult {
+  int32 IdxNo = 1;
+  int32 CreatedBy = 2;
+  int32 UpdatedBy = 3;
+
+  int32 UMPayCondSeq = 4; // số nguyên
+  int32 SupplyContSeq = 5;
+
+  double PayRate = 6;     // double cho số thực
+  double PayAmt = 7;
+  double DomPayAmt = 8;
+  double PayVATAmt = 9;
+  double DomPayVATAmt = 10;
+  double SumPayAmt = 11;
+  double DomSumPayAmt = 12;
+
+  string PayPlanDate = 13;
+  double VATAmt = 14;
+
+  string PayCondRemark = 15;
+  string PayCondStatusSeq = 16;
+  string IdSeq = 17;
+  string Status = 18;
+  string PayRepeatDate = 19;
+}
+message SPJTSupplyQResult {
+  int32 SupplyContSeq = 1;
+ 
+}
+message SPJTSupplyContractListQResult {
+  int32 BizUnit = 1;
+  string QryFrDate = 2; 
+  string QryToDate = 3; 
+  string SupplyContName = 4; 
+
+ string SupplyContNo = 5; 
+ string SupplyContCustSeq =6;
+ string UMSupplyContType = 7; 
+ string SupplyContDeptSeq = 8; 
+ string SupplyContEmpSeq = 9; 
+ string ResrcName = 10; 
+ string SMSupplyChkType = 11; 
+ string PJTSeq = 12;
+ string PJTName = 13;
+ string SMProgress = 14;
+ string PJTNo = 15;
+
+
+
+}
+message SPJTSupplyContractAmtListQResult {
+  int32 BizUnit = 1;
+  string QryFrDate = 2; 
+  string QryToDate = 3; 
+  string SupplyContName = 4; 
+
+ string SupplyContNo = 5; 
+ string SupplyContCustSeq =6;
+ string UMSupplyContType = 7; 
+ string SupplyContDeptSeq = 8; 
+ string SupplyContEmpSeq = 9; 
+ string ResrcName = 10; 
+ string SMSupplyChkType = 11; 
+ string PJTSeq = 12;
+ string PJTName = 13;
+ string SMProgress = 14;
+ string PJTNo = 15;
+}
+message NotifiProjectQResult {
+  int32 BizUnit = 1;
+  
+}
+
+
+message ProjectMgmtAUDRequest {
+  repeated ProjectMgmtAUDResult result = 1;  
+  repeated SupplyContractResAUDResult result2 = 2;  
+  repeated SupplyContractRemarkAUDResult result3 = 3;  
+  repeated PayConditionAResult result4 = 4;  
+  map<string, string> metadata = 5;
+}
+message SPJTSupplyContractResAUDRequest {
+  repeated SupplyContractResAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SupplyContractRemarkAUDRequest {
+  repeated SupplyContractRemarkAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPJTSupplyRequest {
+  repeated SPJTSupplyQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPJTSupplyContractListQRequest {
+  repeated SPJTSupplyContractListQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPJTSupplyContractDRequest {
+  repeated ProjectMgmtAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPJTSupplyContractAmtListQRequest {
+  repeated SPJTSupplyContractAmtListQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message NotifiProjectQRequest {
+  repeated NotifiProjectQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

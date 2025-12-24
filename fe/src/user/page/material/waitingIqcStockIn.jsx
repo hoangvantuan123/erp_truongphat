@@ -680,7 +680,7 @@ export default function WaitingIqcStockIn({ permissions, isMobile, controllers,
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Waiting Iqc Stock In')}</title>
+        <title>ITM - {t('Waiting Iqc Stock In')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3 h-screen overflow-hidden">

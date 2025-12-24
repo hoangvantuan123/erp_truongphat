@@ -40,7 +40,7 @@ export class HrBasAcademicService {
         const xmlFlags = 2;
         const languageSeq = 6;
         const generateQuery = (xmlDocument: string, procedure: string, serviceSeq: number, pgmSeq: number) => `
-            EXEC ${procedure}
+            EXEC ${procedure}_WEB
             @xmlDocument = N'${xmlDocument}',
             @xmlFlags = ${xmlFlags},
             @ServiceSeq = ${serviceSeq},

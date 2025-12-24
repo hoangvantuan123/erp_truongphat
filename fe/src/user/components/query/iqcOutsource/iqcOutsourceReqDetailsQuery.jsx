@@ -120,6 +120,8 @@ export default function IqcOutsourceReqDetailQuery({
     columns: CompactSelection.empty(),
     rows: CompactSelection.empty(),
   })
+  const [selectEmp, setSelectEmp] = useState(null)
+
 
   const dropdownRefP = useRef()
 
@@ -663,6 +665,8 @@ export default function IqcOutsourceReqDetailQuery({
                     setEmpSeq={setEmpSeq}
                     setUserId={setUserId}
                     dropdownRef ={dropdownRef}
+                    setSelectEmp={setSelectEmp}
+
                   />
                 )}
               </Form.Item>

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package hr.edu.edu_course;
+
+
+service HrEduCourseService {
+  rpc searchEduCourse (HrEduCourseSearchRequest) returns (Response);
+  rpc auEduCourse (HrEduCourseRequest) returns (Response);
+  rpc deleteEduCourse (HrEduCourseRequest) returns (Response);
+}
+
+
+message HrEduCourseSearch {
+  int32 UMEduHighClass = 1;
+  string UMEduHighClassName = 2;
+  string UMEduMidClassName = 3;
+  int32 UMEduMidClass = 4;
+  int32 EduClassSeq = 5;
+  string EduClassName = 6;
+  string UMEduGrpType = 7;
+  int32 EduTypeSeq = 8;
+  string EduCourseName = 9;
+
+}
+
+message HrEduCourseResult {
+
+  string IdxNo = 1;
+  string EduCourseName = 2;
+  int32 EduClassSeq = 3;
+  string EduClassName = 4;
+  int32 UMEduHighClass = 5;
+  string UMEduHighClassName = 6;
+  int32 UMEduMidClass = 7;
+  string UMEduMidClassName = 8;
+  string EduCompeName = 9;
+  string UMEduGrpTypeName = 10;
+  int32 UMEduGrpType = 11;
+  string EduTypeName = 12;
+  int32 EduTypeSeq = 13;
+  string SMEduCourseTypeName = 14;
+  string EduRem = 15;
+  int32 IsUse = 16;
+  int32 EtcCourseYN = 17;
+  string status = 18;
+  int32 EduCourseSeq = 19;
+
+}
+
+message HrEduCourseSearchRequest {
+  repeated HrEduCourseSearch result = 1;  
+  map<string, string> metadata = 2;
+}
+message HrEduCourseRequest {
+  repeated HrEduCourseResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

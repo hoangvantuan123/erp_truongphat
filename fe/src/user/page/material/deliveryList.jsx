@@ -212,7 +212,7 @@ export default function DeliveryList({ permissions, isMobile, controllers,
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Delivery List')}</title>
+        <title>ITM - {t('Delivery List')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3 h-screen overflow-hidden">

@@ -21,20 +21,10 @@ async function bootstrap() {
       url: process.env.HOST_RGPC_ASST ?? 'localhost:5008',
       package: [
         'pdequipt',
-        'asset.regi_te.spd_tool_move',
-        'asset.regi_te.spd_tool_repair',
-        'pdequipt_inspect',
-        'pdequipt_inspect_detail',
-        'pd_multi_equipt'
       ],
       protoPath: [
 
         join(__dirname, '..', '..', 'proto', 'asset', 'pd_equipt.proto'),
-        join(__dirname, '..', '..', 'proto', 'asset', 'regi_te', 'spd_tool_move.proto'),
-        join(__dirname, '..', '..', 'proto', 'asset', 'regi_te', 'spd_tool_repair.proto'),
-        join(__dirname, '..', '..', 'proto', 'asset', 'pd_equipt_inspect.proto'),
-        join(__dirname, '..', '..', 'proto', 'asset', 'pd_equipt_inspect_detail.proto'),
-        join(__dirname, '..', '..', 'proto', 'asset', 'pd_multi_equipt.proto'),
 
       ],
       loader: {

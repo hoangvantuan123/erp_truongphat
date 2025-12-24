@@ -1327,7 +1327,7 @@ export default function PurOrdPOItemList({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Truy vấn chi tiết nhập đặt hàng trong nước')}</title>
+        <title>ITM - {t('Truy vấn chi tiết nhập đặt hàng trong nước')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

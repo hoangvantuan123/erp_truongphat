@@ -88,7 +88,7 @@ function TableWHAgingLotStockList({
         x: reorderColumns(cols).indexOf('More12MoQty'),
         y: 0,
         width: 1,
-        height: numRows - 1,
+        height: numRows,
       },
     },
     {
@@ -97,7 +97,7 @@ function TableWHAgingLotStockList({
         x: reorderColumns(cols).indexOf('Less12MoQty'),
         y: 0,
         width: 1,
-        height: numRows - 1,
+        height: numRows,
       },
     },
     {
@@ -106,7 +106,7 @@ function TableWHAgingLotStockList({
         x: reorderColumns(cols).indexOf('Less9MoQty'),
         y: 0,
         width: 1,
-        height: numRows - 1,
+        height: numRows,
       },
     },
     {
@@ -115,7 +115,7 @@ function TableWHAgingLotStockList({
         x: reorderColumns(cols).indexOf('Less6MoQty'),
         y: 0,
         width: 1,
-        height: numRows - 1,
+        height: numRows,
       },
     },
     {
@@ -124,7 +124,7 @@ function TableWHAgingLotStockList({
         x: reorderColumns(cols).indexOf('Less3MoQty'),
         y: 0,
         width: 1,
-        height: numRows - 1,
+        height: numRows,
       },
     },
     {
@@ -133,10 +133,18 @@ function TableWHAgingLotStockList({
         x: reorderColumns(cols).indexOf('ExpireQty'),
         y: 0,
         width: 1,
-        height: numRows - 1,
+        height: numRows,
       },
     },
-
+    {
+      color: '#E6F6DD', // Màu xanh
+      range: {
+        x: 0,
+        y: totalRowIndex,
+        width: reorderColumns(cols).length,
+        height: 1,
+      },
+    },
   ]
 
   const [keybindings, setKeybindings] = useState({
@@ -144,68 +152,14 @@ function TableWHAgingLotStockList({
     rightFill: true,
     selectColumn: false,
   })
-  const totalColumns = [
-    'ExpireQty',
-    'Less3MoQty',
-    'Less6MoQty',
-    'Less9MoQty',
-    'Less12MoQty',
-    'More12MoQty',
-    'PrevQty',
-    'InQty',
-    'OutQty',
-    'StockQty'
-  ];
 
   const getData = useCallback(
     ([col, row]) => {
-      const lastRowIndex = numRows - 1;
       const person = gridData[row] || {}
       const column = cols[col]
       const columnKey = column?.id || ''
       const value = person[columnKey] || ''
-      const getFractionDigits = (key) => ({ minimumFractionDigits: 5, maximumFractionDigits: 5 });
 
-      if (row === lastRowIndex) {
-        const cellTheme = {
-          textDark: "#009CA6",
-          bgIconHeader: "#009CA6",
-          accentColor: "#009CA6",
-          accentLight: "#009CA620",
-          fgIconHeader: "#FFFFFF",
-          baseFontStyle: "600 13px",
-          bgCell: "#E6F6DD",
-        };
-
-        if (totalColumns.includes(columnKey)) {
-          const total = gridData.reduce((sum, item) => {
-            const raw = item[columnKey]?.toString?.().replace(/,/g, '') || '0';
-            const num = parseFloat(raw);
-            return sum + (isNaN(num) ? 0 : num);
-          }, 0);
-
-          const { minimumFractionDigits, maximumFractionDigits } = getFractionDigits(columnKey);
-          const formattedTotal = total.toLocaleString('en-US', { minimumFractionDigits, maximumFractionDigits });
-
-          return {
-            kind: GridCellKind.Number,
-            data: total,
-            copyData: String(total),
-            displayData: formattedTotal,
-            readonly: true,
-            contentAlign: 'right',
-            themeOverride: cellTheme
-          };
-        }
-
-        return {
-          kind: GridCellKind.Text,
-          data: "",
-          displayData: "",
-          readonly: true,
-          themeOverride: cellTheme
-        };
-      }
       if (
         columnKey === 'PrevQty' ||
         columnKey === 'InQty' ||
@@ -252,7 +206,6 @@ function TableWHAgingLotStockList({
           hasMenu: false,
         }
       }
-
       return {
         kind: GridCellKind.Text,
         data: value,
@@ -262,7 +215,7 @@ function TableWHAgingLotStockList({
         hasMenu: false,
       }
     },
-    [gridData, cols, numRows],
+    [gridData, cols],
   )
 
   const onFill = useCallback(
@@ -610,14 +563,14 @@ function TableWHAgingLotStockList({
             }
             return i === hoverRow
               ? {
-                bgCell: '#f7f7f7',
-                bgCellMedium: '#f0f0f0',
-              }
+                  bgCell: '#f7f7f7',
+                  bgCellMedium: '#f0f0f0',
+                }
               : i % 2 === 0
                 ? undefined
                 : {
-                  bgCell: '#FBFBFB',
-                }
+                    bgCell: '#FBFBFB',
+                  }
           }}
           onItemHovered={onItemHovered}
           onPaste={true}

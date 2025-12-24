@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package hr.daily_att.sp_wk_emp_dd;
+
+
+service SPRWkEmpDdService {
+  rpc SPRWkEmpDdQ (SPRWkEmpDdQRequest) returns (Response);
+  rpc SPRWkEmpDdAUD (SPRWkEmpDdAUDRequest) returns (Response);
+}
+
+
+message SPRWkEmpDdQResult {
+  string WkDate = 1;
+  string PtSeq = 2;
+  string PuSeq = 3; 
+  string DeptSeq = 4;
+
+    string EmpSeq = 5;
+
+  }
+
+message SPRWkEmpDdAUDResult {
+  string IdxNo = 1;
+  string WorkingTag = 2;
+  int32 ROW_IDX = 3; 
+
+
+  string WkDate = 4;
+  string PtSeq = 5;
+  string PuSeq = 6; 
+  string DeptSeq = 7;
+
+    string EmpSeq = 8;
+
+
+
+  int32 WkItemSeq = 9;
+  string DTCnt = 10;
+ 
+  }
+
+
+
+
+
+message SPRWkEmpDdQRequest {
+  repeated SPRWkEmpDdQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPRWkEmpDdAUDRequest {
+  repeated SPRWkEmpDdAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

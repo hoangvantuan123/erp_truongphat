@@ -771,7 +771,7 @@ export default function PdsfcWorkOrderList({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('Truy vấn chỉ thị tác nghiệp')}</title>
+                <title>ITM - {t('Truy vấn chỉ thị tác nghiệp')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">

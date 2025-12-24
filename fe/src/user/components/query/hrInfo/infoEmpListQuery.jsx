@@ -76,6 +76,8 @@ export default function InfoEmpListQuery({
     columns: CompactSelection.empty(),
     rows: CompactSelection.empty(),
   })
+  const [selectEmp, setSelectEmp] = useState(null)
+
   const [selectionDept, setSelectionDept] = useState({
     columns: CompactSelection.empty(),
     rows: CompactSelection.empty(),
@@ -330,6 +332,8 @@ export default function InfoEmpListQuery({
                   empSeq={EmpSeq}
                   setEmpSeq={setEmpSeq}
                   setUserId={setUserId}
+                  setSelectEmp={setSelectEmp}
+
                 />
               )}
             </Form.Item>

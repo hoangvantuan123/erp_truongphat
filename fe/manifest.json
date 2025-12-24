@@ -1,7 +1,7 @@
 {
-  "name": "HPM ERP WEB",
-  "short_name": "HPM ERP WEB",
-  "description": "HPM ERP WEB",
+  "name": "ITM ERP WEB",
+  "short_name": "ITM ERP WEB",
+  "description": "ITM ERP WEB",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",

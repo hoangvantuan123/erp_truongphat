@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package hr.daily_att.sp_rwk_mm_emp_day;
+
+
+service SPRWkMmEmpDaysService {
+  rpc SPRWkMmEmpDaysQ (SPRWkMmEmpDaysQRequest) returns (Response);
+  rpc SPRWkMmEmpDaysObjQ (SPRWkMmEmpDaysObjQRequest) returns (Response);
+  rpc SPRWkMmEmpDaysProc (SPRWkMmEmpDaysProcRequest) returns (Response);
+  rpc SPRWkMmEmpDaysAUD (SPRWkMmEmpDaysAUDRequest) returns (Response);
+}
+
+
+message SPRWkMmEmpDaysQResult {
+  string YM = 1;
+  string PuSeq = 2;
+  string PtSeq = 3; 
+  int32 DeptSeq = 4; 
+  int32 EmpSeq = 5;
+
+  }
+message SPRWkMmEmpDaysObjQResult {
+    string YM = 1;
+    string PuSeq = 2;
+    string PtSeq = 3; 
+    int32 DeptSeq = 4; 
+    int32 EmpSeq = 5;
+
+  }
+message SPRWkMmEmpDaysProcResult {
+  string YyMm = 1;
+  string PuSeq = 2;
+ 
+
+  }
+  message SPRWkMmEmpDaysAUDResult {
+    int32 EmpSeq = 1;
+    string PayYM = 2;
+    string OccurFrDate = 3;
+    string OccurToDate = 4;
+    double OccurDays = 5;
+    string UseFrDate = 6;
+    string UseToDate = 7;
+    int32 PbSeq = 8;
+    string GnerAmtYyMm = 9;
+    string YM = 10;
+
+    string IdxNo = 11;
+    string WorkingTag = 12;
+  }
+  
+
+
+
+
+
+
+message SPRWkMmEmpDaysQRequest {
+  repeated SPRWkMmEmpDaysQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+message SPRWkMmEmpDaysObjQRequest {
+  repeated SPRWkMmEmpDaysObjQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message SPRWkMmEmpDaysProcRequest {
+  repeated SPRWkMmEmpDaysProcResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message SPRWkMmEmpDaysAUDRequest {
+  repeated SPRWkMmEmpDaysAUDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+  string errors = 4;
+}

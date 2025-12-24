@@ -1275,7 +1275,7 @@ export default function LGEtcTransReq({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Đăng ký yêu cầu di chuyển kho sản phẩm')}</title>
+        <title>ITM - {t('Đăng ký yêu cầu di chuyển kho sản phẩm')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3  h-[calc(100vh-30px)] overflow-hidden">

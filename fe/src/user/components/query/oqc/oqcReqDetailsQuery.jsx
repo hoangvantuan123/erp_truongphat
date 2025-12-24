@@ -121,6 +121,7 @@ export default function OqcReqDetailQuery({
     columns: CompactSelection.empty(),
     rows: CompactSelection.empty(),
   })
+  const [selectEmp, setSelectEmp] = useState(null)
 
   const dropdownRefP = useRef()
 
@@ -619,6 +620,7 @@ export default function OqcReqDetailQuery({
                     empSeq={EmpSeq}
                     setEmpSeq={setEmpSeq}
                     setUserId={setUserId}
+                    setSelectEmp={setSelectEmp}
                   />
                 )}
               </Form.Item>

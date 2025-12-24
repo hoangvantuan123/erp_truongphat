@@ -1,5 +1,5 @@
 import 'moment/locale/vi'
-import BG from '../../../assets/RootLogo.png'
+import BG from '../../../assets/ItmLogo.png'
 
 export default function NoneData({ permissions, isMobile }) {
   return (

@@ -61,8 +61,47 @@ export default function PdmmOutExtra({ permissions,
             icon: GridColumnIcon.HeaderLookup
         },
 
+        {
+            title: 'ItemSeq',
+            id: 'ItemSeq',
+            kind: 'Text',
+            readonly: true,
+            width: 150,
+            hasMenu: true,
+            visible: false,
+            icon: GridColumnIcon.HeaderString,
+            trailingRowOptions: {
+                disabled: true,
+            },
+        },
 
+        {
+            title: 'OutReqSeq',
+            id: 'OutReqSeq',
+            kind: 'Text',
+            readonly: true,
+            width: 150,
+            hasMenu: true,
+            visible: false,
+            icon: GridColumnIcon.HeaderString,
+            trailingRowOptions: {
+                disabled: true,
+            },
+        },
 
+        {
+            title: 'FactUnit',
+            id: 'FactUnit',
+            kind: 'Text',
+            readonly: true,
+            width: 150,
+            hasMenu: true,
+            visible: false,
+            icon: GridColumnIcon.HeaderString,
+            trailingRowOptions: {
+                disabled: true,
+            },
+        },
 
         {
             title: t('2170'),
@@ -73,7 +112,6 @@ export default function PdmmOutExtra({ permissions,
             hasMenu: true,
             visible: true,
             icon: GridColumnIcon.HeaderString,
-            themeOverride: { textHeader: '#DD1144', bgIconHeader: '#DD1144', fontFamily: '' },
             trailingRowOptions: {
                 disabled: true,
             },
@@ -192,7 +230,6 @@ export default function PdmmOutExtra({ permissions,
             width: 250,
             hasMenu: true,
             visible: true,
-            themeOverride: { textHeader: '#DD1144', bgIconHeader: '#DD1144', fontFamily: '' },
             icon: GridColumnIcon.HeaderNumber,
             trailingRowOptions: {
                 disabled: true,
@@ -207,20 +244,19 @@ export default function PdmmOutExtra({ permissions,
             hasMenu: true,
             visible: true,
             icon: GridColumnIcon.HeaderNumber,
-            themeOverride: { textHeader: '#DD1144', bgIconHeader: '#DD1144', fontFamily: '' },
             trailingRowOptions: {
                 disabled: true,
             },
         },
         {
-            title: t('Ghi Chú'),
-            id: 'Remark',
+            title: 'WorkCenterSeq',
+            id: 'WorkCenterSeq',
             kind: 'Text',
-            readonly: false,
-            width: 150,
+            readonly: true,
+            width: 250,
             hasMenu: true,
-            visible: true,
-            icon: GridColumnIcon.HeaderNumber,
+            visible: false,
+            icon: GridColumnIcon.HeaderString,
             trailingRowOptions: {
                 disabled: true,
             },
@@ -525,7 +561,7 @@ export default function PdmmOutExtra({ permissions,
     }, [helpData05]);
 
 
-
+    
     const handleRowAppendA = useCallback(
         (numRowsToAdd) => {
             if (canCreate === false) {
@@ -1262,7 +1298,7 @@ export default function PdmmOutExtra({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('800000120')}</title>
+                <title>ITM - {t('800000120')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">

@@ -21,7 +21,6 @@ export default function EmpOrgDeptActions({
     <div className="flex items-center gap-2">
       <Button
         key="handle-search"
-        type="primary"
         icon={<MonitorOutlined />}
         size="middle"
         className="uppercase"

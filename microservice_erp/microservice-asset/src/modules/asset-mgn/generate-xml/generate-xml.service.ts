@@ -175,9 +175,9 @@ export class GenerateXmlService {
           `
           <DataBlock1>
             <WorkingTag>${item.WorkingTag}</WorkingTag>
-            <IDX_NO>${item.IdxNo || item.IDX_NO || 1}</IDX_NO>
+            <IDX_NO>1</IDX_NO>
             <Status>0</Status>
-            <DataSeq>${index + 1}</DataSeq>
+            <DataSeq>1</DataSeq>
             <Selected>1</Selected>
             <TABLE_NAME>DataBlock1</TABLE_NAME>
             <IsChangedMst>1</IsChangedMst>
@@ -238,10 +238,10 @@ export class GenerateXmlService {
           <DataBlock2>
             <WorkingTag>${item.Status}</WorkingTag>
             <IDX_NO>${this.escapeXml(item.IdxNo) || 1 }</IDX_NO>
-            <DataSeq>${index + 1 || 1 }</DataSeq>
+            <DataSeq>${this.escapeXml(item.IdxNo) || 1 }</DataSeq>
             <Status>0</Status>
             <Selected>0</Selected>
-            <Serl>${this.escapeXml(item.Serl) || 1 }</Serl>
+            <Serl>${this.escapeXml(item.IdxNo) || 1 }</Serl>
             <ItemSeq>${this.escapeXml(item.ItemSeq || 0)}</ItemSeq>
             <ItemName>${this.escapeXml(item.ItemName || '')}</ItemName>
             <ItemNo>${this.escapeXml(item.ItemNo || '')}</ItemNo>
@@ -282,8 +282,8 @@ export class GenerateXmlService {
           `
           <DataBlock1>
             <WorkingTag>${item.WorkingTag}</WorkingTag>
-            <IDX_NO>${item.IDX_NO || 1}</IDX_NO>
-            <DataSeq>${item.DataSeq || 1}</DataSeq>
+            <IDX_NO>1</IDX_NO>
+            <DataSeq>1</DataSeq>
             <Selected>1</Selected>
             <Status>0</Status>
             <ToolSeq>${this.escapeXml(item.ToolSeq || 0)}</ToolSeq>
@@ -341,7 +341,7 @@ export class GenerateXmlService {
         (item, index) =>
           `
           <DataBlock2>
-            <WorkingTag>${item?.WorkingTag || item?.Status}</WorkingTag>
+            <WorkingTag>${item.WorkingTag}</WorkingTag>
             <IDX_NO>${item.IdxNo || item.IDX_NO}</IDX_NO>
             <DataSeq>${item.DataSeq || 1}</DataSeq>
             <Selected>0</Selected>
@@ -496,91 +496,5 @@ export class GenerateXmlService {
 
     return `<ROOT>${xmlBlocks}</ROOT>`;
   }
-
-    async checkDeleteAssyTool(result: Array<{ [key: string]: any }>, ToolSeq: any){
-    const xmlBlocks = result
-      .map(
-        (item, index) =>
-          `
-          <DataBlock2>
-            <WorkingTag>${item.Status}</WorkingTag>
-            <IDX_NO>${this.escapeXml(item.IdxNo) || 1 }</IDX_NO>
-            <DataSeq>${index + 1 || 1 }</DataSeq>
-            <Status>0</Status>
-            <Selected>0</Selected>
-            <Serl>${this.escapeXml(item.Serl) || 1 }</Serl>
-            <ItemSeq>${this.escapeXml(item.ItemSeq || 0)}</ItemSeq>
-            <ItemName>${this.escapeXml(item.ItemName || '')}</ItemName>
-            <ItemNo>${this.escapeXml(item.ItemNo || '')}</ItemNo>
-            <Spec>${this.escapeXml(item.Spec || '')}</Spec>
-            <UnitName>${this.escapeXml(item.UnitName || '')}</UnitName>
-            <ToolSeq>${this.escapeXml(ToolSeq)}</ToolSeq>
-            <TABLE_NAME>DataBlock2</TABLE_NAME>
-          </DataBlock2>
-          
-
-          `,
-      )
-      .join(`  `);
-
-       
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
-
-  async deleteAssyTool(result: Array<{ [key: string]: any }>){
-    const xmlBlocks = result
-      .map(
-        (item, index) =>
-          `
-          <DataBlock2>
-            <WorkingTag>${item?.WorkingTag || item?.Status}</WorkingTag>
-            <IDX_NO>${item.IdxNo || item.IDX_NO}</IDX_NO>
-            <DataSeq>${item.DataSeq || 1}</DataSeq>
-            <Selected>0</Selected>
-            <Status>0</Status>
-            <ToolSeq>${this.escapeXml(item.ToolSeq || 0)}</ToolSeq>
-            <Serl>${this.escapeXml(item.Serl) || 1 }</Serl>
-            <ItemSeq>${this.escapeXml(item.ItemSeq || 0)}</ItemSeq>
-            <ItemName>${this.escapeXml(item.ItemName || '')}</ItemName>
-            <ItemNo>${this.escapeXml(item.ItemNo || '')}</ItemNo>
-            <UnitName>${this.escapeXml(item.UnitName || '')}</UnitName>
-            <Spec>${this.escapeXml(item.Spec || '')}</Spec>
-          </DataBlock2>
-          
-          `,
-      )
-      .join(`
-          
-        `);
-
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
-
-  searchMultiEquipt(result: Array<{ [key: string]: any }>) {
-    const xmlBlocks = result
-      .map(
-        (item, index) =>
-          `
-        <DataBlock1>
-          <WorkingTag>A</WorkingTag>
-          <IDX_NO>1</IDX_NO>
-          <Status>0</Status>
-          <DataSeq>1</DataSeq>
-          <Selected>1</Selected>
-          <TABLE_NAME>DataBlock1</TABLE_NAME>
-          <IsChangedMst>0</IsChangedMst>
-          <ToolName>${this.escapeXml(item.ToolName || '')}</ToolName>
-          <ToolNo>${this.escapeXml(item.ToolNo || '')}</ToolNo>
-          <UMToolKind>${this.escapeXml(item.UMToolKind || '')}</UMToolKind>
-          <PUCustSeq>${this.escapeXml(item.PUCustSeq || 0)}</PUCustSeq>
-        </DataBlock1>
-
-          `,
-      )
-      .join('');
-
-    return `<ROOT>${xmlBlocks}</ROOT>`;
-  }
-
 
 }

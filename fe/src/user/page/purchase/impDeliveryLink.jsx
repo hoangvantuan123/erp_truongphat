@@ -2205,7 +2205,7 @@ export default function ImpDeliveryLink({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập kho sản phẩm nhập khẩu')}</title>
+        <title>ITM - {t('Nhập kho sản phẩm nhập khẩu')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

@@ -1931,7 +1931,7 @@ export default function PurDelv({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Nhập giao hàng trong nước')}</title>
+        <title>ITM - {t('Nhập giao hàng trong nước')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div

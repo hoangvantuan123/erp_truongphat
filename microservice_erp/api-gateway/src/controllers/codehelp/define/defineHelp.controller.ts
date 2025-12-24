@@ -42,42 +42,6 @@ export class OrgHelpDefineController {
     }
 
 
-    @Post('ItemAllH')
-    ItemAllH(@Body() body: { result: any }, @Req() req: Request) {
-        if (!body?.result) {
-            return { success: false, message: 'Invalid request: Missing "result"' };
-        }
-
-        const authorization = req.headers.authorization || '';
-        const requestData = { result: body.result, metadata: { authorization } };
-
-        return lastValueFrom(this.gRPCHelpDefineService.ItemAllH(requestData.result, requestData.metadata))
-            .then((resu) => {
-                return resu;
-            })
-            .catch((error) => {
-                return { success: false, message: 'Internal Server Error' };
-            });
-    }
-    @Post('CustAllH')
-    CustAllH(@Body() body: { result: any }, @Req() req: Request) {
-        if (!body?.result) {
-            return { success: false, message: 'Invalid request: Missing "result"' };
-        }
-
-        const authorization = req.headers.authorization || '';
-        const requestData = { result: body.result, metadata: { authorization } };
-
-        return lastValueFrom(this.gRPCHelpDefineService.CustAllH(requestData.result, requestData.metadata))
-            .then((resu) => {
-                return resu;
-            })
-            .catch((error) => {
-                return { success: false, message: 'Internal Server Error' };
-            });
-    }
-
-
 
 
 }

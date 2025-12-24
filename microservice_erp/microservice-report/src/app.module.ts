@@ -12,6 +12,8 @@ import { InventoryReportModule } from './modules/inventory/module/inventory.modu
 import { SalesReportModule } from './modules/sales/module/salesReport.module';
 import { HrReportModule } from './modules/hr/module/hrReport.module';
 import { AcctReportModule } from './modules/acct/module/acctReport.module';
+import { PMModule } from './modules/project/module/pm.mondule';
+import { PjtProjectModule } from './modules/pjtProject/module/pjtProject.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -25,7 +27,9 @@ import { AcctReportModule } from './modules/acct/module/acctReport.module';
     InventoryReportModule,
     SalesReportModule,
     HrReportModule,
-    AcctReportModule
+    AcctReportModule,
+    PMModule,
+    PjtProjectModule,
   ],
   providers: [
     {

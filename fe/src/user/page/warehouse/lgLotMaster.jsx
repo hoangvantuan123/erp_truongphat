@@ -15,7 +15,8 @@ import { filterAndSelectColumnsAUD } from '../../../utils/filterSheetAUD'
 import { generateEmptyData } from '../../components/sheet/js/generateEmptyData'
 import useDynamicFilter from '../../components/hooks/sheet/useDynamicFilter'
 import { validateColumns } from '../../../utils/validateColumns'
-
+import { formatNumberCellSum } from '../../../utils/formatNumberCellSum'
+import { GetCodeHelp } from '../../../features/codeHelp/getCodeHelp'
 import { GetCodeHelpVer2 } from '../../../features/codeHelp/getCodeHelpVer2'
 import ModalSheetDelete from '../../components/modal/default/deleteSheet'
 import WarningModal from '../default/warningModal'
@@ -117,7 +118,19 @@ export default function LGLotMaster({
         },
         icon: GridColumnIcon.HeaderString,
       },
-
+      {
+        title: t('2107'),
+        id: 'ItemSeq',
+        kind: 'Text',
+        readonly: true,
+        width: 120,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderRowID,
+      },
       {
         title: t('602'),
         id: 'UnitName',
@@ -132,31 +145,17 @@ export default function LGLotMaster({
         icon: GridColumnIcon.HeaderString,
       },
       {
-        title: t('Màu sắc'),
-        id: 'Dummy1',
+        title: t('868'),
+        id: 'UnitSeq',
         kind: 'Text',
-        readonly: false,
+        readonly: true,
         width: 150,
         hasMenu: true,
-        visible: true,
+        visible: false,
         trailingRowOptions: {
           disabled: true,
         },
-        icon: GridColumnIcon.HeaderString,
-      },
-
-      {
-        title: t('Pallet '),
-        id: 'Dummy2',
-        kind: 'Text',
-        readonly: false,
-        width: 150,
-        hasMenu: true,
-        visible: true,
-        trailingRowOptions: {
-          disabled: true,
-        },
-        icon: GridColumnIcon.HeaderString,
+        icon: GridColumnIcon.HeaderRowID,
       },
       {
         title: t('1628'),
@@ -221,7 +220,19 @@ export default function LGLotMaster({
         },
         icon: GridColumnIcon.HeaderDate,
       },
-
+      {
+        title: t('Giờ hết hạn'),
+        id: 'ValidTime',
+        kind: 'Text',
+        readonly: false,
+        width: 150,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderTime,
+      },
       {
         title: t('210'),
         id: 'RegDate',
@@ -253,7 +264,19 @@ export default function LGLotMaster({
         },
         icon: GridColumnIcon.HeaderString,
       },
-
+      {
+        title: t('14923'),
+        id: 'RegUserSeq',
+        kind: 'Text',
+        readonly: true,
+        width: 120,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
       {
         title: t('Nhà cung cấp'),
         id: 'CustName',
@@ -267,7 +290,19 @@ export default function LGLotMaster({
         },
         icon: GridColumnIcon.HeaderString,
       },
-
+      {
+        title: t('17376'),
+        id: 'CustSeq',
+        kind: 'Text',
+        readonly: false,
+        width: 100,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
       {
         title: t('5543'),
         id: 'SourceLotNo',
@@ -294,7 +329,84 @@ export default function LGLotMaster({
         },
         icon: GridColumnIcon.HeaderString,
       },
-
+      {
+        title: t('7629'),
+        id: 'OriLotNo',
+        kind: 'Text',
+        readonly: true,
+        width: 180,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('16253'),
+        id: 'OriItemName',
+        kind: 'Text',
+        readonly: true,
+        width: 120,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('16254'),
+        id: 'OriItemNo',
+        kind: 'Text',
+        readonly: true,
+        width: 150,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('16252'),
+        id: 'OriItemSeq',
+        kind: 'Text',
+        readonly: true,
+        width: 100,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('29561'),
+        id: 'LotNoOLD',
+        kind: 'Text',
+        readonly: true,
+        width: 180,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('29562'),
+        id: 'ItemSeqOLD',
+        kind: 'Text',
+        readonly: true,
+        width: 180,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
       {
         title: t('1901'),
         id: 'InNo',
@@ -309,7 +421,99 @@ export default function LGLotMaster({
         icon: GridColumnIcon.HeaderString,
       },
 
+      {
+        title: t('12607'),
+        id: 'SupplyCustSeq',
+        kind: 'Text',
+        readonly: true,
+        width: 120,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('698'),
+        id: 'SupplyName',
+        kind: 'Text',
+        readonly: true,
+        width: 150,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('29910'),
+        id: 'LotSeq',
+        kind: 'Text',
+        readonly: true,
+        width: 100,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('15354'),
+        id: 'PgmSeqModifying',
+        kind: 'Text',
+        readonly: true,
+        width: 180,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+      {
+        title: t('15353'),
+        id: 'PgmNameModifying',
+        kind: 'Text',
+        readonly: true,
+        width: 180,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
 
+      {
+        title: t('29783'),
+        id: 'Dummy1',
+        kind: 'Text',
+        readonly: false,
+        width: 150,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
+
+      {
+        title: t('29784'),
+        id: 'Dummy2',
+        kind: 'Text',
+        readonly: false,
+        width: 150,
+        hasMenu: true,
+        visible: false,
+        trailingRowOptions: {
+          disabled: true,
+        },
+        icon: GridColumnIcon.HeaderString,
+      },
 
       {
         title: t('30660'),
@@ -834,6 +1038,7 @@ export default function LGLotMaster({
       setIsSent(false)
       togglePageInteraction(false)
       setIsAPISuccess(true)
+      
       if (loadingBarRef.current) {
         loadingBarRef.current.complete()
         message.warning('Không có dữ liệu để lưu!')
@@ -956,7 +1161,7 @@ export default function LGLotMaster({
   return (
     <>
       <Helmet>
-        <title>{t('Đăng ký thông tin lô hàng của sản phẩm')}</title>
+        <title>ITM - {t('Đăng ký thông tin lô hàng của sản phẩm')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-35px)] overflow-hidden">
@@ -970,11 +1175,12 @@ export default function LGLotMaster({
               />
             </div>
             <details
-              className="group p-1 [&_summary::-webkit-details-marker]:hidden border-t  bg-white"
+              className="group p-2 [&_summary::-webkit-details-marker]:hidden border-t  bg-white"
               open
             >
               <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
                 <h2 className="text-xs font-medium flex items-center gap-2 text-blue-600  uppercase">
+                  <FilterOutlined />
                   Điều kiện truy vấn
                 </h2>
                 <span className="relative size-5 shrink-0">

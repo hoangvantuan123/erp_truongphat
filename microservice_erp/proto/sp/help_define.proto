@@ -4,8 +4,6 @@ package sp.basic.help_define;
 
 service HelpDefineService {
   rpc OrgDefineH (Empty) returns (Response);
-  rpc ItemAllH (Empty) returns (Response);
-  rpc CustAllH (Empty) returns (Response);
   rpc OrgDefineItemH (Empty) returns (Response);
   rpc OrgCodeHelpDefineItemH (Empty) returns (Response);
 }

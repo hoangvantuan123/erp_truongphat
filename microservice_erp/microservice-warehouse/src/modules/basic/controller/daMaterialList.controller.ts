@@ -4,87 +4,142 @@ import { Request } from 'express';
 import { jwtConstants } from 'src/config/security.config';
 import * as jwt from 'jsonwebtoken';
 import { DaMaterialListService } from '../service/daMaterialList.service';
+import { RpcException } from '@nestjs/microservices';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { GrpcMethod, RpcException } from '@nestjs/microservices';
-import { MetadataResponse } from '../interface/response';
-import { Observable, from, throwError, catchError, map, of, mergeMap, switchMap } from 'rxjs'
 @Controller()
 export class DaMaterialListController {
     constructor(private readonly caMaterialListService: DaMaterialListService) { }
 
 
-    private validateToken(metadata: any): { UserId: number; EmpSeq: number; UserSeq: number; CompanySeq: number } {
-        if (!metadata || !metadata["authorization"]) {
-            throw new RpcException({ code: 16, message: 'Missing authorization token' });
-        }
 
-        const token = metadata["authorization"].split(' ')[1];
+    @MessagePattern('sda-wh-item-list-base')
+    async SDAWHItemListBaseQuery(
+        @Payload() data: { result: any[], authorization: string }
+    ): Promise<SimpleQueryResult> {
+        const { result, authorization } = data;
+        if (!authorization) {
+            throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
+        const token = authorization.split(' ')[1];
+
+
         if (!token) {
-            throw new RpcException({ code: 16, message: 'Invalid or expired token' });
+             throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
         }
 
         try {
-            return jwt.verify(token, jwtConstants.secret) as any;
+            const decodedToken = jwt.verify(token, jwtConstants.secret) as { UserId: any, EmpSeq: any, UserSeq: any, CompanySeq: any };
+
+            return this.caMaterialListService.SDAWHItemListBaseQuery(result, decodedToken.CompanySeq, 6, decodedToken.UserSeq);
         } catch (error) {
-            throw new RpcException({ code: 16, message: 'Invalid or expired token' });
+             throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
+
+    }
+
+    @MessagePattern('da-material-list-create')
+    async AutoCheckA(
+        @Payload() data: { result: any[], authorization: string }
+    ): Promise<SimpleQueryResult> {
+        const { result, authorization } = data;
+        if (!authorization) {
+            throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
+        const token = authorization.split(' ')[1];
+
+        if (!token) {
+             throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
+
+        try {
+            const decodedToken = jwt.verify(token, jwtConstants.secret) as { UserId: any, EmpSeq: any, UserSeq: any, CompanySeq: any };
+
+            return this.caMaterialListService.AutoCheckA(result, decodedToken.CompanySeq, decodedToken.UserSeq);
+        } catch (error) {
+             throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
+
+    }
+    @MessagePattern('da-material-list-update')
+    async AutoCheckU(
+        @Payload() data: { result: any[], authorization: string }
+    ): Promise<SimpleQueryResult> {
+        const { result, authorization } = data;
+        if (!authorization) {
+            throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
+        const token = authorization.split(' ')[1];
+
+        if (!token) {
+             throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
+
+        try {
+            const decodedToken = jwt.verify(token, jwtConstants.secret) as { UserId: any, EmpSeq: any, UserSeq: any, CompanySeq: any };
+
+            return this.caMaterialListService.AutoCheckU(result, decodedToken.CompanySeq, decodedToken.UserSeq);
+        } catch (error) {
+             throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
         }
     }
-    private handleGrpcRequest(
-        request: any,
-        serviceMethod: (result: any, userSeq: number, companySeq: number) => Observable<any>
-    ): Observable<MetadataResponse> {
-        const decodedToken = this.validateToken(request.metadata);
-        return serviceMethod(request.result, decodedToken.UserSeq, decodedToken.CompanySeq).pipe(
-            map(queryResult => {
+    @MessagePattern('da-material-list-delete')
+    async AutoCheckD(
+        @Payload() data: { result: any[], authorization: string }
+    ): Promise<SimpleQueryResult> {
+        const { result, authorization } = data;
+        if (!authorization) {
+            throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
+        const token = authorization.split(' ')[1];
 
-                const isSuccess = queryResult?.success === true;
+        if (!token) {
+             throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
 
-                let formattedError = '';
-                let errorList: any[] = [];
+        try {
+            const decodedToken = jwt.verify(token, jwtConstants.secret) as { UserId: any, EmpSeq: any, UserSeq: any, CompanySeq: any };
 
-                if (!isSuccess && Array.isArray(queryResult?.errors) && queryResult.errors.length > 0) {
-                    errorList = queryResult.errors;
-                    const firstError = errorList[0];
-                    const remaining = errorList.length - 1;
+            return this.caMaterialListService.AutoCheckD(result, decodedToken.CompanySeq, decodedToken.UserSeq);
+        } catch (error) {
+             throw new RpcException({
+                statusCode: 401,
+                message: 'Invalid or expired token.',
+            });
+        }
 
-                    formattedError = `HÀNG ${firstError.IDX_NO}: ${firstError.result}`;
-                    if (remaining > 0) {
-                        formattedError += ` (còn ${remaining} lỗi nữa)`;
-                    }
-                }
-
-                return {
-                    success: isSuccess,
-                    message: isSuccess
-                        ? "Query successful"
-                        : (formattedError || queryResult?.message || "Query failed"),
-                    data: JSON.stringify(queryResult?.data || []),
-                    errors: isSuccess ? [] : errorList, // trả list thay vì string
-                };
-            }),
-            catchError(() => {
-                return of({
-                    success: false,
-                    message: 'Internal server error',
-                    data: '',
-                    errors: [],
-                });
-            })
-        );
-    }
-
-
-
-    @GrpcMethod('SDAItemListService', 'SDAItemListQ')
-    SDAItemListQ(request: any): Observable<MetadataResponse> {
-
-        return this.handleGrpcRequest(request, this.caMaterialListService.SDAItemListQ.bind(this.caMaterialListService));
-    }
-
-    @GrpcMethod('SDAItemListService', 'SDAItemListAUD')
-    SDAItemListAUD(request: any): Observable<MetadataResponse> {
-
-        return this.handleGrpcRequest(request, this.caMaterialListService.SDAItemListAUD.bind(this.caMaterialListService));
     }
 
 

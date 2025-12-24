@@ -488,14 +488,14 @@ export default function LGWHStockRealOpenListQuery({
                       getRowThemeOverride={(i) =>
                         i === hoverRow
                           ? {
-                            bgCell: '#e8f0ff',
-                            bgCellMedium: '#e8f0ff',
-                          }
+                              bgCell: '#e8f0ff',
+                              bgCellMedium: '#e8f0ff',
+                            }
                           : i % 2 === 0
                             ? undefined
                             : {
-                              bgCell: '#FBFBFB',
-                            }
+                                bgCell: '#FBFBFB',
+                              }
                       }
                       fillHandle={true}
                       smoothScrollY={true}
@@ -533,7 +533,7 @@ export default function LGWHStockRealOpenListQuery({
                 style={{
                   width: 190,
                 }}
-              //className=" text-sm p-2"
+                //className=" text-sm p-2"
               />
             </Form.Item>
           </Col>
@@ -653,14 +653,14 @@ export default function LGWHStockRealOpenListQuery({
                       getRowThemeOverride={(i) =>
                         i === hoverRow
                           ? {
-                            bgCell: '#e8f0ff',
-                            bgCellMedium: '#e8f0ff',
-                          }
+                              bgCell: '#e8f0ff',
+                              bgCellMedium: '#e8f0ff',
+                            }
                           : i % 2 === 0
                             ? undefined
                             : {
-                              bgCell: '#FBFBFB',
-                            }
+                                bgCell: '#FBFBFB',
+                              }
                       }
                       fillHandle={true}
                       smoothScrollY={true}

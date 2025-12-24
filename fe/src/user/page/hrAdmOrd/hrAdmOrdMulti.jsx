@@ -1287,7 +1287,7 @@ export default function HrAdmOrdMulti({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('10040512')}</title>
+        <title>ITM - {t('10040512')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-40px)] overflow-hidden">
@@ -1307,7 +1307,7 @@ export default function HrAdmOrdMulti({
               />
             </div>
             <details
-              className="group p-2 [&_summary::-webkit-details-marker]:hidden border rounded-lg bg-white"
+              className="group p-2 [&_summary::-webkit-details-marker]:hidden border bg-white"
               open
             >
               <summary className="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">

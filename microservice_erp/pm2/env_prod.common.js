@@ -43,6 +43,7 @@ module.exports = {
     HOST_RGPC_HR: '192.168.35.150:4005',
     HOST_GRPC_UPLOAD: 'localhost:4006',
     HOST_GRPC_REPORT: 'localhost:4007',
+    HOST_GRPC_SOCKET: 'localhost:5008',
     /* GRPC PORT */
     PORT_GRPC_AUTH: 4004,
     PORT_GRPC_PRODUCE: 4002,
@@ -50,7 +51,7 @@ module.exports = {
     HOST_PORT_HR: 4005,
     HOST_PORT_UPLOAD: 4006,
     HOST_PORT_REPORT: 4007,
-
+    HOST_PORT_SOCKET: 5008,
 
 
     /* UPLOAD */
@@ -67,6 +68,34 @@ module.exports = {
     UPLOAD_USER_PATHS: '/ERP_CLOUD/user_files',
     UPLOAD_USER_PATHS_ROOT: 'F:/ERP_CLOUD/user_files',
     PATH_PRINT_INFO_USER: 'localhost:8089',
+
+
+
+    // Cấu hình hệ thống lưu trữ file
+    STORAGE_ROOT: 'F:/storage_erp',
+    FILE_STORAGE_BASE_SYSTEM_TEMP_PATH: 'F:/storage_erp/system/temp',
+    FILE_STORAGE_BASE_SYSTEM_ASSETS_DOCX_PATH: 'F:/storage_erp/system/assets/docx',
+    FILE_STORAGE_BASE_SYSTEM_ASSETS_PDF_PATH: 'F:/storage_erp/system/assets/pdf',
+    FILE_STORAGE_BASE_SYSTEM_ITEM_PDF_PATH: 'F:/storage_erp/system/items/pdf',
+    FILE_STORAGE_BASE_SYSTEM_ASSETS_FILE_PATH: 'F:/storage_erp/system/assets/files',
+
+    PDF_CONVERT_STRATEGY: 'windows',
+    PYTHON_PATH: "C:/Users/Administrator/AppData/Local/Programs/Python/Python313/python.exe",
+
+    // Các path dạng "đường dẫn web"
+    UPLOAD_PATHS_LOWER: '/storage_erp/uploads',
+    UPLOAD_USER_PATHS_LOWER: '/storage_erp/user_files',
+    ROOT_ASSET_PATH: '/storage_erp/asset_files',
+    UPLOAD_USER_PATHS_ROOT_LOWER: 'F:/storage_erp/user_files',
+    PATH_INVOICES_LOWER: '/storage_erp/uploads/pdf',
+    PATHS_TEMPLATE_LOWER: '/storage_erp/templates',
+    PATH_PRINT_LOGS_DOCS_LOWER: '/storage_erp/print_logs_docs',
+    PATH_WINDOW_PRINT_LOGS_DOCS_LOWER: '/storage_erp/window_print_logs_docs',
+    PATH_PRINT_LOGS_LOWER: '/storage_erp/print_logs',
+    PATH_PRINT_DOCX_DIR_LOWER: '/storage_erp/print_logs/docx',
+    PATH_PRINT_PDF_DIR_LOWER: '/storage_erp/print_logs/pdf',
+
+
 
     /* SOCKET */
 

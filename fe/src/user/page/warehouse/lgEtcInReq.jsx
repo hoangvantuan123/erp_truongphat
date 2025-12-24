@@ -1027,7 +1027,7 @@ export default function LGEtcInReq({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('Đăng ký yêu cầu nhập kho khác')}</title>
+        <title>ITM - {t('Đăng ký yêu cầu nhập kho khác')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-38px)] overflow-hidden">

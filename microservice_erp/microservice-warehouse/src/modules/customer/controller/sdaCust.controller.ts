@@ -91,5 +91,14 @@ export class SDACustController {
         return this.handleGrpcRequest(request, this.SDACustService.SDACustD.bind(this.SDACustService));
     }
 
+    @GrpcMethod('SDACustService', 'SDACustEmpInfoQ')
+    SDACustEmpInfoQ(request: any): Observable<MetadataResponse> {
+        return this.handleGrpcRequest(request, this.SDACustService.SDACustEmpInfoQ.bind(this.SDACustService));
+    }
+    @GrpcMethod('SDACustService', 'SDACustEmpInfoAUD')
+    SDACustEmpInfoAUD(request: any): Observable<MetadataResponse> {
+        return this.handleGrpcRequest(request, this.SDACustService.SDACustEmpInfoAUD.bind(this.SDACustService));
+    }
+
 
 }

@@ -1,32 +1,40 @@
 import { Module } from '@nestjs/common';
-
-/* ASSET */
-import { GrpcSPDToolMoveService } from './service/asset/regi_te/SPDToolMove.service';
-import { GrpcSPDToolRepairService } from './service/asset/regi_te/PDToolRepair.service';
-import { gRPCGroupsTempService } from './service/upload/groupTemp.service';
+import { GrpcSPRWkItemService } from './service/hr/dailyAtt/SPRWkItem.service';
+import { GrpcCalendarHolidayService } from './service/hr/dailyAtt/CalendarHoliday.service';
+import { GrpcWkOverTimeApproveService } from './service/hr/dailyAtt/WkOverTimeApprove.service';
+import { GrpcSPRWkAbsEmpService } from './service/hr/dailyAtt/SPRWkAbsEmp.service';
+import { GrpcSPRWkMmEmpDaysService } from './service/hr/dailyAtt/SPRWkMmEmpDays.service';
+import { GrpcEduTypeService } from './service/hr/edu/hrEduType.service';
+import { GrpcEduCourseService } from './service/hr/edu/hrEduCourse.service';
+import { GrpcEduClassService } from './service/hr/edu/hrEduClass.service';
+import { GrpcEduLecturerService } from './service/hr/edu/hrEduLecturer.service';
+import { GrpcSPRWkEmpDdService } from './service/hr/dailyAtt/SPRWkEmpDd.service';
+import { GrpcEduPerRstService } from './service/hr/edu/hrEduPerRst.service';
 import { gRPCTempFileService } from './service/upload/tempFile.service';
-import { gRPCJIGQRTaggingService } from './service/upload/JIGQRTagging.service';
-import { GrpcSDAItemListService } from './service/wh/basic/SDAItemList.service';
+import { GrpcPayConditionService } from './service/report/project/PayCondition.service';
 import { GrpcSDACustService } from './service/wh/cust/SDACust.service';
-import { GrpcSLGWHInitStockService } from './service/wh/invOpen/SLGWHInitStock.service';
-import { GrpcItemPrintService } from './service/upload/itemPrint/itemPrint.service';
-import { gRPCItemPrintQRTaggingService } from './service/upload/itemPrint/ItemQRTagging.service';
-import { GrpcFilePrintService } from './service/upload/filePrint/filePrint.service';
-import { GrpcStockRealOpenService } from './service/wh/warehouse/StockRealOpen.service';
+/*  */
+import { GrpcProjectMgmtService } from './service/report/project/projectMgmt.service';
+import { GrpcBOMService } from './service/produce/BOM/bom.service';
+import { GrpcNotificationService } from './service/socket/notification/notification.service';
 const AllProviders = [
-    /* ASSET */
-    GrpcSPDToolMoveService,
-    GrpcSPDToolRepairService,
+    GrpcSPRWkItemService,
+    GrpcCalendarHolidayService,
+    GrpcWkOverTimeApproveService,
+    GrpcSPRWkAbsEmpService,
+    GrpcSPRWkMmEmpDaysService,
+    GrpcEduTypeService,
+    GrpcEduCourseService,
+    GrpcEduClassService,
+    GrpcEduLecturerService,
+    GrpcSPRWkEmpDdService,
+    GrpcEduPerRstService,
+    GrpcProjectMgmtService,
     gRPCTempFileService,
-    gRPCGroupsTempService,
-    gRPCJIGQRTaggingService,
-    GrpcSDAItemListService,
+    GrpcPayConditionService,
     GrpcSDACustService,
-    GrpcSLGWHInitStockService,
-    GrpcItemPrintService,
-    gRPCItemPrintQRTaggingService,
-    GrpcFilePrintService,
-    GrpcStockRealOpenService
+    GrpcBOMService, GrpcNotificationService
+
 ];
 
 @Module({

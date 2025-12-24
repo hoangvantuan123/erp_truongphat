@@ -525,7 +525,7 @@ export default function MailSettings({ permissions,
     return (
         <>
             <Helmet>
-                <title>HPM - {t('Cấu hình Mail')}</title>
+                <title>ITM - {t('Cấu hình Mail')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
             <div className="bg-slate-50 h-[calc(100vh-40px)] overflow-hidden">

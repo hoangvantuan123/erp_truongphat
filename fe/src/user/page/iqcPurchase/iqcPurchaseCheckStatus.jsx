@@ -993,7 +993,7 @@ export default function IqcPurchaseCheckStatus({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('800000100')}</title>
+        <title>ITM - {t('800000100')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 p-3 h-screen overflow-hidden">

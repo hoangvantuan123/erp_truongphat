@@ -31,3 +31,25 @@ export const sqlServerITMV: TypeOrmModuleOptions = {
 };
 
 
+export const sqlServerITMVCOMMON: TypeOrmModuleOptions = {
+  type: 'mssql',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE_COMMON,
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  synchronize: false,
+  logging: true,
+  cache: true,
+  extra: {
+    trustServerCertificate: true,
+    encrypt: false,
+    connectionTimeout: 15000,
+    max: 100,
+    min: 10,
+    idleTimeoutMillis: 30000,
+    requestTimeout: 30000
+  },
+  maxQueryExecutionTime: 15000
+};

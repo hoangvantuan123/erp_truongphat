@@ -1,43 +1,123 @@
-import { Controller, Post, Body, Req, HttpStatus } from '@nestjs/common';
-import { Request } from 'express';
-import { lastValueFrom } from 'rxjs';
-import { GrpcSDAItemListService } from 'src/grpc/service/wh/basic/SDAItemList.service';
-@Controller('v1/wh-basic')
-export class SDAItemListController {
-    constructor(private readonly grpcSDAItemListService: GrpcSDAItemListService) { }
+import {
+    Controller,
+    Post,
+    Body,
+    Req,
+    Res,
+    HttpStatus,
+    HttpException,
+    Inject,
+    Get,
+    Delete,
+    UnauthorizedException,
+    Query
+} from '@nestjs/common';
+import { timeout } from 'rxjs/operators';
+import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { Request, Response } from 'express';
+import { firstValueFrom } from 'rxjs';
+@Controller('v1/mssql/da-material-list')
+export class DaMaterialListController {
+    constructor(
+        @Inject('WAREHOUSE_SERVICE') private readonly warehouseService: ClientProxy,
+    ) { }
 
-    @Post('SDAItemListQ')
-    SDAItemListQ(@Body() body: { result: any }, @Req() req: Request) {
-        if (!body?.result) {
-            return { success: false, message: 'Invalid request: Missing "result"' };
+    private getAuthorization(req: Request) {
+        const authorization = req.headers.authorization;
+        if (!authorization) {
+            return {
+                success: false,
+                message: 'Authorization header is missing',
+                error: 'Unauthorized'
+            };
         }
 
-        const authorization = req.headers.authorization || '';
-        const requestData = { result: body.result, metadata: { authorization } };
-
-        return lastValueFrom(this.grpcSDAItemListService.SDAItemListQ(requestData.result, requestData.metadata))
-            .then((resu) => {
-                return resu;
-            })
-            .catch((error) => {
-                return { success: false, message: 'Internal Server Error' };
-            });
+        return authorization
     }
-    @Post('SDAItemListAUD')
-    SDAItemListAUD(@Body() body: { result: any }, @Req() req: Request) {
-        if (!body?.result) {
-            return { success: false, message: 'Invalid request: Missing "result"' };
+
+
+    private async sendRequest(pattern: string, payload: any) {
+        const requestTimeout = parseInt(process.env.REQUEST_TIMEOUT || '360000');
+        const controller = new AbortController();
+        const timeoutHandler = setTimeout(() => controller.abort(), requestTimeout);
+
+        try {
+            const result = await firstValueFrom(
+                this.warehouseService.send(pattern, payload).pipe(
+                    timeout(requestTimeout)    
+                )
+            );
+
+            clearTimeout(timeoutHandler); 
+            return result;
+        } catch (error) {
+            clearTimeout(timeoutHandler);
+
+            if (error.name === 'AbortError' || error.message.includes('Timeout')) {
+                return {
+                    success: false,
+                    message: 'Request timeout. Service might be busy or unavailable.',
+                    error: 'Timeout'
+                };
+            }
+
+            if (error instanceof RpcException) {
+                return {
+                    success: false,
+                    message: 'Service error occurred.',
+                    error: error.message
+                };
+            }
+
+            return {
+                success: false,
+                message: 'Internal communication error.',
+                error: error.message || 'Unknown error'
+            };
         }
-
-        const authorization = req.headers.authorization || '';
-        const requestData = { result: body.result, metadata: { authorization } };
-
-        return lastValueFrom(this.grpcSDAItemListService.SDAItemListAUD(requestData.result, requestData.metadata))
-            .then((resu) => {
-                return resu;
-            })
-            .catch((error) => {
-                return { success: false, message: 'Internal Server Error' };
-            });
     }
+
+
+    @Post('sda-wh-item-list-base')
+    async SDAWHItemListBaseQuery(
+        @Body('result') result: any[],
+        @Req() req: Request,
+        @Res() res: Response,
+    ) {
+        const authorization = this.getAuthorization(req);
+        const resu = await this.sendRequest('sda-wh-item-list-base', { result, authorization });
+        return res.status(HttpStatus.OK).json(resu);
+    }
+    @Post('da-material-list-create')
+    async AutoCheckA(
+        @Body('result') result: any[],
+        @Req() req: Request,
+        @Res() res: Response,
+    ) {
+        const authorization = this.getAuthorization(req);
+        const resu = await this.sendRequest('da-material-list-create', { result, authorization });
+        return res.status(HttpStatus.OK).json(resu);
+    }
+    @Post('da-material-list-update')
+    async AutoCheckU(
+        @Body('result') result: any[],
+        @Req() req: Request,
+        @Res() res: Response,
+    ) {
+        const authorization = this.getAuthorization(req);
+        const resu = await this.sendRequest('da-material-list-update', { result, authorization });
+        return res.status(HttpStatus.OK).json(resu);
+    }
+    @Post('da-material-list-delete')
+    async AutoCheckD(
+        @Body('result') result: any[],
+        @Req() req: Request,
+        @Res() res: Response,
+    ) {
+        const authorization = this.getAuthorization(req);
+        const resu = await this.sendRequest('da-material-list-delete', { result, authorization });
+        return res.status(HttpStatus.OK).json(resu);
+    }
+
+
 }

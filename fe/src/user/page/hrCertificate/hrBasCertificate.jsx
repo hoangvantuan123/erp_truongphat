@@ -1222,7 +1222,7 @@ export default function HrBasCertificate({
   return (
     <>
       <Helmet>
-        <title>HPM - {t('10009990')}</title>
+        <title>ITM - {t('10009990')}</title>
       </Helmet>
       <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
       <div className="bg-slate-50 h-[calc(100vh-40px)] overflow-hidden">

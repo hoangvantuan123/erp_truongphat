@@ -20,7 +20,7 @@ if (baseUrl === '192.168.35.150:3030') {
 } else if (baseUrl === '192.168.35.150:8080') {
     HOST_SOCKET = 'https://192.168.35.150:8081';
 } else {
-    HOST_SOCKET = 'https://192.168.35.150:3031';
+    HOST_SOCKET = 'http://localhost:8888';
 }
 
 export const initSocket = async () => {

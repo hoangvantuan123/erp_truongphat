@@ -584,14 +584,14 @@ export default function LGLotMasterQuery({
                       getRowThemeOverride={(i) =>
                         i === hoverRow
                           ? {
-                            bgCell: '#e8f0ff',
-                            bgCellMedium: '#e8f0ff',
-                          }
+                              bgCell: '#e8f0ff',
+                              bgCellMedium: '#e8f0ff',
+                            }
                           : i % 2 === 0
                             ? undefined
                             : {
-                              bgCell: '#FBFBFB',
-                            }
+                                bgCell: '#FBFBFB',
+                              }
                       }
                       fillHandle={true}
                       smoothScrollY={true}
@@ -693,14 +693,14 @@ export default function LGLotMasterQuery({
                       getRowThemeOverride={(i) =>
                         i === hoverRow
                           ? {
-                            bgCell: '#e8f0ff',
-                            bgCellMedium: '#e8f0ff',
-                          }
+                              bgCell: '#e8f0ff',
+                              bgCellMedium: '#e8f0ff',
+                            }
                           : i % 2 === 0
                             ? undefined
                             : {
-                              bgCell: '#FBFBFB',
-                            }
+                                bgCell: '#FBFBFB',
+                              }
                       }
                       fillHandle={true}
                       smoothScrollY={true}
@@ -805,14 +805,14 @@ export default function LGLotMasterQuery({
                       getRowThemeOverride={(i) =>
                         i === hoverRow
                           ? {
-                            bgCell: '#e8f0ff',
-                            bgCellMedium: '#e8f0ff',
-                          }
+                              bgCell: '#e8f0ff',
+                              bgCellMedium: '#e8f0ff',
+                            }
                           : i % 2 === 0
                             ? undefined
                             : {
-                              bgCell: '#FBFBFB',
-                            }
+                                bgCell: '#FBFBFB',
+                              }
                       }
                       fillHandle={true}
                       smoothScrollY={true}
@@ -847,7 +847,7 @@ export default function LGLotMasterQuery({
                   width: 190,
                   backgroundColor: '#d3d3d3',
                 }}
-              //className=" text-sm p-2"
+                //className=" text-sm p-2"
               />
             </Form.Item>
           </Col>
@@ -867,7 +867,7 @@ export default function LGLotMasterQuery({
                   width: 384,
                   backgroundColor: '#d3d3d3',
                 }}
-              //className=" text-sm p-2"
+                //className=" text-sm p-2"
               />
             </Form.Item>
           </Col>
@@ -888,7 +888,7 @@ export default function LGLotMasterQuery({
                 style={{
                   width: 250,
                 }}
-              //className=" text-sm p-2"
+                //className=" text-sm p-2"
               />
             </Form.Item>
           </Col>

@@ -7,6 +7,7 @@ import LayoutStatusMenuSheetNew from '../../sheet/jsx/layoutStatusMenuNew'
 import { Drawer, Checkbox, message, DatePicker } from 'antd'
 import { saveToLocalStorageSheet } from '../../../../localStorage/sheet/sheet'
 import { loadFromLocalStorageSheet } from '../../../../localStorage/sheet/sheet'
+import ModalHelpRootMenu from '../../modal/system/modalHelpRootMenu'
 import { reorderColumns } from '../../sheet/js/reorderColumns'
 import { updateEditedRows } from '../../sheet/js/updateEditedRows'
 import useOnFill from '../../hooks/sheet/onFillHook'
@@ -16,7 +17,6 @@ import { CellsCustName } from '../../sheet/cells/cellsCustName'
 import { updateIndexNo } from '../../sheet/js/updateIndexNo'
 import moment from 'moment'
 import { set } from 'lodash'
-import LayoutStatusMenuSheet from '../../sheet/jsx/layoutStatusMenu'
 
 function TableLGLotNoMaster({
   setSelection,
@@ -71,19 +71,27 @@ function TableLGLotNoMaster({
       })
     }
   }, [])
-  const blueColumns = [
-    'ItemName',
-    'CustName'
-  ];
 
-  const grayColumns = [
-    'ItemNo',
-    'Spec',
-    'UnitName'
-
-
-  ];
-
+  const highlightRegions = [
+    {
+      color: '#e8f0ff',
+      range: {
+        x: reorderColumns(cols).indexOf('ItemName'),
+        y: 0,
+        width: 1,
+        height: numRows - 1,
+      },
+    },
+    {
+      color: '#e8f0ff',
+      range: {
+        x: reorderColumns(cols).indexOf('CustName'),
+        y: 0,
+        width: 1,
+        height: numRows - 1,
+      },
+    },
+  ]
   const [keybindings, setKeybindings] = useState({
     downFill: true,
     rightFill: true,
@@ -98,13 +106,6 @@ function TableLGLotNoMaster({
       const columnKey = column?.id || ''
       const value = person[columnKey] || ''
       const boundingBox = document.body.getBoundingClientRect()
-
-      let themeOverride = undefined;
-      if (blueColumns.includes(columnKey)) {
-        themeOverride = { bgCell: "#ebf1ff" };
-      } else if (grayColumns.includes(columnKey)) {
-        themeOverride = { bgCell: "#F0F2F5" };
-      }
       if (row === lastRowIndex) {
 
         if (["Qty"].includes(columnKey)) {
@@ -165,7 +166,6 @@ function TableLGLotNoMaster({
           displayData: String(value),
           readonly: column?.readonly || false,
           hasMenu: column?.hasMenu || false,
-          themeOverride,
         }
       }
 
@@ -183,7 +183,6 @@ function TableLGLotNoMaster({
           displayData: String(value),
           readonly: column?.readonly || false,
           hasMenu: column?.hasMenu || false,
-          themeOverride,
         }
       }
 
@@ -270,7 +269,6 @@ function TableLGLotNoMaster({
         readonly: column?.readonly || false,
         allowOverlay: true,
         hasMenu: column?.hasMenu || false,
-        themeOverride,
       }
     },
     [gridData, cols, dataItemName, dataCustName],
@@ -310,19 +308,11 @@ function TableLGLotNoMaster({
       const indexes = reorderColumns(cols)
       const [col, row] = cell
       const key = indexes[col]
-      if (row === gridData.length - 1) {
-        return;
-      }
-      if (grayColumns.includes(key)) {
-        return;
-      }
+
       if (key === 'ItemName') {
         if (newValue.kind === GridCellKind.Custom) {
           setGridData((prev) => {
             const newData = [...prev]
-            if (row >= newData.length - 1) {
-              return prev
-            }
             const product = newData[row]
             const selectedName = newValue.data[0]
 
@@ -370,9 +360,6 @@ function TableLGLotNoMaster({
         if (newValue.kind === GridCellKind.Custom) {
           setGridData((prev) => {
             const newData = [...prev]
-            if (row >= newData.length - 1) {
-              return prev
-            }
             const product = newData[row]
             const selectedName = newValue.data[0]
 
@@ -671,7 +658,7 @@ function TableLGLotNoMaster({
           onRowAppended={() => handleRowAppend(1)}
           onCellEdited={onCellEdited}
           onCellClicked={onCellClicked}
-
+          highlightRegions={highlightRegions}
           onColumnResize={onColumnResize}
           onHeaderMenuClick={onHeaderMenuClick}
           onColumnMoved={onColumnMoved}
@@ -685,7 +672,7 @@ function TableLGLotNoMaster({
               className="border  w-72 rounded-lg bg-white shadow-lg cursor-pointer"
             >
               {showMenu.menuType === 'statusMenu' ? (
-                <LayoutStatusMenuSheet
+                <LayoutStatusMenuSheetNew
                   showMenu={showMenu}
 
                   data={gridData}
@@ -697,8 +684,11 @@ function TableLGLotNoMaster({
                   setShowSearch={setShowSearch}
                   setShowMenu={setShowMenu}
                   layerProps={layerProps}
+                  handleReset={handleReset}
                   showDrawer={showDrawer}
+                  fileName="LotMater"
                   gridData={gridData}
+                  customHeaders={visibleLotMasterHeaders}
                 />
               ) : (
                 <LayoutMenuSheet

@@ -69,6 +69,8 @@ export default function HrLaborContractPrintQuery({
     rows: CompactSelection.empty(),
   })
   const [EmpSearchSh, setEmpSearchSh] = useState('')
+  const [selectEmp, setSelectEmp] = useState(null)
+
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -253,6 +255,8 @@ export default function HrLaborContractPrintQuery({
                   empSeq={EmpSeq}
                   setEmpSeq={setEmpSeq}
                   setUserId={setEmpID}
+                  setSelectEmp={setSelectEmp}
+
                 />
               )}
             </Form.Item>

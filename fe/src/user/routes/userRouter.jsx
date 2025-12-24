@@ -29,9 +29,13 @@ import Login from '../auth/login'
 import decodeJWT from '../../utils/decode-JWT'
 import { transformDataMenu } from '../../utils/transformDataMenu'
 import ErrorPage from '../page/default/errorPage'
+import Notifications from '../page/notifications/notifications'
+import { deleteDatabase } from '../../IndexedDB/deleteIndexDB'
 import { CheckUser } from '../../features/auth/checkUser'
+import { NotifiProjectQ } from '../../features/project/NotifiProjectQ'
 const DeliveryList = lazy(() => import('../page/material/deliveryList'))
 const DefaultPage = lazy(() => import('../page/default/default'))
+import { useNotificationStorage } from '../components/hooks/notifications/useNotificationStorage'
 const WaitingIqcStockIn = lazy(
   () => import('../page/material/waitingIqcStockIn'),
 )
@@ -73,21 +77,13 @@ const IqcOutsourceReqDetailsList = lazy(
   () => import('../page/iqcOutsource/iqcOutsourceReqDetailsList'),
 )
 
-const OqcReqList = lazy(
-  () => import('../page/oqc/oqcReqList'),
-)
+const OqcReqList = lazy(() => import('../page/oqc/oqcReqList'))
 
-const OqcReqDetailsList = lazy(
-  () => import('../page/oqc/oqcReqDetailsList'),
-)
+const OqcReqDetailsList = lazy(() => import('../page/oqc/oqcReqDetailsList'))
 
-const OqcReqDetails = lazy(
-  () => import('../page/oqc/oqcReqDetails'),
-)
+const OqcReqDetails = lazy(() => import('../page/oqc/oqcReqDetails'))
 
-const OqcFinResultList = lazy(
-  () => import('../page/oqc/oqcFinResultList'),
-)
+const OqcFinResultList = lazy(() => import('../page/oqc/oqcFinResultList'))
 
 const QcFinalBadQtyResultList = lazy(
   () => import('../page/oqc/qcFinalBadQtyResultList'),
@@ -99,7 +95,6 @@ const QaItemQcTitle = lazy(() => import('../page/qaBasic/qaItemQcTitle'))
 const QaQcTitle = lazy(() => import('../page/qaBasic/qaQcTitle'))
 const QaItemClassQc = lazy(() => import('../page/qaBasic/qaItemClassQc'))
 const QaCustQcTitle = lazy(() => import('../page/qaBasic/qaCustQcTitle'))
-
 
 const WarehousRegistration = lazy(
   () => import('../page/basic/warehousRegistration'),
@@ -127,8 +122,28 @@ const LGEtcInReqItemList = lazy(
 const LGEtcInReq = lazy(() => import('../page/warehouse/lgEtcInReq'))
 const LGEtcInReqLink = lazy(() => import('../page/warehouse/lgEtcInReqLink'))
 const LGEtcIn = lazy(() => import('../page/warehouse/lgEtcIn'))
+
 const LGEtcInLink = lazy(() => import('../page/warehouse/lgEtcInLink'))
 const LGEtcInItemList = lazy(() => import('../page/warehouse/lgEtcInItemList'))
+
+const LGEtcInTP = lazy(() => import('../page/warehouse/lgEtcInTP'))
+const LGEtcInTPLink = lazy(() => import('../page/warehouse/lgEtcInTPLink'))
+const LGEtcInItemListTP = lazy(
+  () => import('../page/warehouse/lgEtcInItemListTP'),
+)
+const LGEtcOutTP = lazy(() => import('../page/warehouse/lgEtcOutTP'))
+const LGEtcOutTPLink = lazy(() => import('../page/warehouse/lgEtcOutTPLink'))
+const LGEtcOutItemListTP = lazy(
+  () => import('../page/warehouse/lgEtcOutItemListTP'),
+)
+
+const LGEtcTransTP = lazy(() => import('../page/warehouse/lgEtcTransTP'))
+const LGEtcTransTPLink = lazy(
+  () => import('../page/warehouse/lgEtcTransTPLink'),
+)
+const LGEtcTransItemListTP = lazy(
+  () => import('../page/warehouse/lgEtcTransItemListTP'),
+)
 
 const LGEtcOutReq = lazy(() => import('../page/warehouse/lgEtcOutReq'))
 const LGEtcOutReqLink = lazy(() => import('../page/warehouse/lgEtcOutReqLink'))
@@ -272,36 +287,28 @@ const PdmpsProdReqPlanList = lazy(
 const PdmmOutExtra = lazy(() => import('../page/pdmm/pdmmOutExtra'))
 const PdmmOutQueryList = lazy(() => import('../page/pdmm/pdmmOutQueryList'))
 
-const PdmmOutQueryDetailList = lazy(() => import('../page/pdmm/pdmmOutQueryDetailList'))
-const PdmmOutQueryDetailListSeq = lazy(() => import('../page/pdmm/pdmmOutQueryDetailListSeq'))
-const SpdmmOutProcItemList = lazy(() => import('../page/pdmm/spdmmOutProcItemList'))
+const PdmmOutQueryDetailList = lazy(
+  () => import('../page/pdmm/pdmmOutQueryDetailList'),
+)
+const PdmmOutQueryDetailListSeq = lazy(
+  () => import('../page/pdmm/pdmmOutQueryDetailListSeq'),
+)
+const SpdmmOutProcItemList = lazy(
+  () => import('../page/pdmm/spdmmOutProcItemList'),
+)
 const PublicIPSettings = lazy(() => import('../page/system/publicIpSettings'))
 const MailSettings = lazy(() => import('../page/system/mailSettings'))
 const PdmpsProdPlan = lazy(() => import('../page/pdmpsProd/pdmsProdPlan'))
-const PdsfcWorkOrderList = lazy(() => import('../page/pdsfc/pdsfcWorkOrderList'))
-const PdsfcMatProgressList = lazy(() => import('../page/pdsfc/pdsfcMatProgressList'))
-const PdsfcWorkReportList = lazy(() => import('../page/pdsfc/pdsfcWorkReportList'))
+const PdsfcWorkOrderList = lazy(
+  () => import('../page/pdsfc/pdsfcWorkOrderList'),
+)
+const PdsfcMatProgressList = lazy(
+  () => import('../page/pdsfc/pdsfcMatProgressList'),
+)
+const PdsfcWorkReportList = lazy(
+  () => import('../page/pdsfc/pdsfcWorkReportList'),
+)
 const PdsfcWorkReport = lazy(() => import('../page/pdsfc/pdsfcWorkReport'))
-
-import { initSocket, getSocket } from '../../services/socket'
-
-
-const Test = lazy(() => import('../page/test/index'))
-const RegiTempFile = lazy(() => import('../page/temp/regiTempFile'))
-
-/* TEM NVL */
-const TemNVLNew = lazy(() => import('../page/mngTemNvl/temNVLNew'))
-const HistoryTemNVLNew = lazy(() => import('../page/mngTemNvl/historyTemNVLNew'))
-const TemNVLUsed = lazy(() => import('../page/mngTemNvl/temNVLUsed'))
-
-
-const SLGWHInitStock = lazy(() => import('../page/invOpen/SLGWHInitStock'))
-const SctokReal5Page = lazy(() => import('../page/basic/stock/stockReal5'))
-const StockReal6 = lazy(() => import('../page/scan/stockReal6'))
-const StockReal6Seq = lazy(() => import('../page/scan/stockReal6Seq'))
-
-
-
 const HrEmps = lazy(() => import('../page/hr/hrEmp'))
 const HrBasFamily = lazy(() => import('../page/hr/hrBasFamily'))
 const HrBasAddress = lazy(() => import('../page/hr/hrBasAddress'))
@@ -316,7 +323,137 @@ const HrBasPrzPnl = lazy(() => import('../page/hr/hrBasPrzPnl'))
 const HrOrgJob = lazy(() => import('../page/hr/hrOrgJob'))
 const HrEmplnSeq = lazy(() => import('../page/hr/hrEmplnSeq'))
 
+const DaDeptList = lazy(() => import('../page/hrOrg/daDeptList'))
+const OrgDept = lazy(() => import('../page/hrOrg/orgDept'))
+const EmpOrgDept = lazy(() => import('../page/hrOrg/empOrgDept'))
+const HrEmpDate = lazy(() => import('../page/hr/hrEmpDate'))
+const InfoMontPerCnt = lazy(() => import('../page/hrInfo/infoMontPerCnt'))
+const InfoEmpList = lazy(() => import('../page/hrInfo/infoEmpList'))
+const InfoMultiEmpList = lazy(() => import('../page/hrInfo/infoMultiEmpList'))
+const HrAdmOrd = lazy(() => import('../page/hrAdmOrd/hrAdmOrd'))
+const HrAdmOrdMulti = lazy(() => import('../page/hrAdmOrd/hrAdmOrdMulti'))
+import Notifi1 from '../components/modal/notifi/notifi1'
+import { initSocket, getSocket } from '../../services/socket'
 
+const PdEquipList = lazy(() => import('../page/assetMng/pdEquipList'))
+const PdEquip = lazy(() => import('../page/assetMng/pdEquip'))
+const HrLaborContractPrint = lazy(
+  () => import('../page/hrCertificate/hrLaborContractPrint'),
+)
+const HrLaborContract = lazy(
+  () => import('../page/hrCertificate/hrLaborContract'),
+)
+const HrBasCertificateList = lazy(
+  () => import('../page/hrCertificate/hrBasCertificateList'),
+)
+const HrBasCertificate = lazy(
+  () => import('../page/hrCertificate/hrBasCertificate'),
+)
+const HrEduType = lazy(() => import('../page/hrEdu/hrEduType'))
+const HrEduCourse = lazy(() => import('../page/hrEdu/hrEduCourse'))
+const HrEduClass = lazy(() => import('../page/hrEdu/hrEduClass'))
+const HrEduLecturer = lazy(() => import('../page/hrEdu/hrEduLecturer'))
+const HrEduPerRst = lazy(() => import('../page/hrEduResult/hrEduPerRst'))
+const HrEduRst = lazy(() => import('../page/hrEduResult/hrEduRst'))
+const HrEduRstEnd = lazy(() => import('../page/hrEduResult/hrEduRstEnd'))
+const HrEduRstBatch = lazy(() => import('../page/hrEduResult/hrEduRstBatch'))
+const Test = lazy(() => import('../page/test/index'))
+import { NotificationQ } from '../../features/socket/notification/NotificationQ'
+/* TUYỂN DỤNG  */
+
+const HrRecruitment01 = lazy(
+  () => import('../page/hrRecruit/regi/recruitment01'),
+)
+const HrRecruitment02 = lazy(
+  () => import('../page/hrRecruit/regi/recruitment02'),
+)
+const HrRecruitment04 = lazy(
+  () => import('../page/hrRecruit/regi/recruitment04'),
+)
+const HrRecruitment05 = lazy(
+  () => import('../page/hrRecruit/regi/recruitment05'),
+)
+const HrRecruitment07 = lazy(
+  () => import('../page/hrRecruit/regi/recruitment07'),
+)
+const HrRecruitment06 = lazy(
+  () => import('../page/hrRecruit/regi/recruitment06'),
+)
+
+const OtherHrDefine = lazy(() => import('../page/hrRecruit/recMana/define'))
+const RecManage02 = lazy(() => import('../page/hrRecruit/recMana/recManage02'))
+const RecManage01 = lazy(() => import('../page/hrRecruit/recMana/recManage01'))
+const RecManage03 = lazy(() => import('../page/hrRecruit/recMana/recManage03'))
+
+/* REPORT */
+const FinQueryCm = lazy(() => import('../page/report/execFin/finQueryCm'))
+const MonthlyProfitLoss = lazy(
+  () => import('../page/report/execFin/monthlyProfitLoss'),
+)
+const MonthlyProductionCost = lazy(
+  () => import('../page/report/execFin/monthlyProductionCost'),
+)
+const FinancialReport = lazy(
+  () => import('../page/report/execFin/financialReport'),
+)
+const MonthlyFinancialReport = lazy(
+  () => import('../page/report/execFin/monthlyFinancialReport'),
+)
+const ProfitReport = lazy(() => import('../page/report/cogs/profitReport'))
+const SupplementIssue = lazy(
+  () => import('../page/report/inventory/supplementIssue'),
+)
+const MnfcostasReport = lazy(() => import('../page/report/cogs/mnfcostas'))
+const StockMonthlyAmt = lazy(
+  () => import('../page/report/inventory/stockMonthlyAmt'),
+)
+const RptSalesCat = lazy(() => import('../page/report/sales/rptSalesCat'))
+const RptHrInout = lazy(() => import('../page/report/hr/rptHrInout'))
+const AcctBalance = lazy(() => import('../page/report/acct/acctBalance'))
+const CogsMonthBasic = lazy(() => import('../page/report/cogs/cogsMonthBasic'))
+const CogsByProd = lazy(() => import('../page/report/cogs/cogsByProd'))
+const AcctDetailedBalanceList = lazy(
+  () => import('../page/report/acct/acctDetailedBalanceList'),
+)
+const AccRemBalanceLedger = lazy(
+  () => import('../page/report/acct/accRemBalanceLedger'),
+)
+const PjtProject = lazy(() => import('../page/project/pjtManage/pjtProject'))
+const PjtProjectList = lazy(
+  () => import('../page/project/pjtManage/pjtProjectList'),
+)
+
+/* LUOWNG */
+
+const DailyAtt01Page = lazy(
+  () => import('../page/salaryMgmt/dailyAtt/dailyAtt01'),
+)
+const DailyAtt02Page = lazy(
+  () => import('../page/salaryMgmt/dailyAtt/dailyAtt02'),
+)
+const DailyAtt03Page = lazy(
+  () => import('../page/salaryMgmt/dailyAtt/dailyAtt03'),
+)
+const DailyAtt04Page = lazy(
+  () => import('../page/salaryMgmt/dailyAtt/dailyAtt04'),
+)
+const DailyAtt05Page = lazy(
+  () => import('../page/salaryMgmt/dailyAtt/dailyAtt05'),
+)
+const DailyAtt06Page = lazy(
+  () => import('../page/salaryMgmt/dailyAtt/dailyAtt06'),
+)
+const DailyAtt07Page = lazy(
+  () => import('../page/salaryMgmt/dailyAtt/dailyAtt07'),
+)
+const DailyAtt08Page = lazy(
+  () => import('../page/salaryMgmt/dailyAtt/dailyAtt08'),
+)
+
+/* DUWJ AN  */
+const PM02Page = lazy(() => import('../page/project/contract/pm02'))
+const PM01Page = lazy(() => import('../page/project/contract/pm01'))
+const PM03Page = lazy(() => import('../page/project/contract/pm03'))
 const getLanguageData = async (typeLanguage) => {
   try {
     const db = await openDB('languageDatabase', 1, {
@@ -420,9 +557,10 @@ const LanguageProvider = ({ children, keyLanguage }) => {
 
 const UserRouter = () => {
   const controllers = useRef({})
-
+  const socketRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
+  const userFrom = JSON.parse(localStorage.getItem('userInfo'))
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [menuTransForm, setMenuTransForm] = useState([])
   const [rootMenuItems, setRootMenuItems] = useState([])
@@ -435,10 +573,11 @@ const UserRouter = () => {
     const savedState = localStorage.getItem('COLLAPSED_STATE')
     return savedState ? JSON.parse(savedState) : false
   })
-  const [message, setMessage] = useState('');
-  const [log, setLog] = useState([]);
-  const [notifi1, setNotifi1] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { unreadCount, saveNotificationCount } = useNotificationStorage()
+  const [message, setMessage] = useState('')
+  const [log, setLog] = useState([])
+  const [notifi1, setNotifi1] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const isLoggingOut = useRef(false)
   const processRolesMenu = useCallback(async () => {
     if (!rolesMenu) return
@@ -467,13 +606,14 @@ const UserRouter = () => {
   }
 
   const showAuthFailModal = () => {
-    const isLoginPage = location.pathname.startsWith('/u/login');
-    if (isLoginPage || isLoggingOut.current || isModalOpen) return;
-    setIsModalOpen(true);
+    const isLoginPage = location.pathname.startsWith('/u/login')
+    if (isLoginPage || isLoggingOut.current || isModalOpen) return
+    setIsModalOpen(true)
 
     Modal.confirm({
       title: 'Không thể xác thực',
-      content: 'Phiên đăng nhập không thể xác thực. Bạn muốn thử lại hay đăng xuất?',
+      content:
+        'Phiên đăng nhập không thể xác thực. Bạn muốn thử lại hay đăng xuất?',
       okText: 'Thử lại',
       cancelText: 'Đăng xuất',
       closable: false,
@@ -481,15 +621,15 @@ const UserRouter = () => {
       centered: true,
 
       onCancel: () => {
-        logoutAndRedirect();
-        setIsModalOpen(false);
+        logoutAndRedirect()
+        setIsModalOpen(false)
       },
       onOk: () => {
-        handleCheckUser();
-        setIsModalOpen(false);
+        handleCheckUser()
+        setIsModalOpen(false)
       },
-    });
-  };
+    })
+  }
 
   const handleCheckUser = () => {
     CheckUser()
@@ -503,86 +643,156 @@ const UserRouter = () => {
       })
   }
 
-
   useEffect(() => {
-    const isLoginPage = location.pathname.startsWith('/u/login');
-    const token = Cookies.get('a_a');
+    const isLoginPage = location.pathname.startsWith('/u/login')
+    const token = Cookies.get('a_a')
 
-    if (isLoginPage || isLoggingOut.current || !token) return;
+    if (isLoginPage || isLoggingOut.current || !token) return
 
-    handleCheckUser();
-  }, [processRolesMenu, location.pathname]);
+    handleCheckUser()
+  }, [processRolesMenu, location.pathname])
 
-
-
-
-  useEffect(() => {
-    let socketRef = null;
+  /* useEffect(() => {
+    let socketRef = null
 
     const setupSocket = async () => {
-      const socket = await initSocket();
+      const socket = await initSocket()
       if (!socket) {
-
-        return;
+        return
       }
 
-      socketRef = socket;
+      socketRef = socket
 
       socket.on('force_disconnect_notice', (msg) => {
-        socket.disconnect();
+        socket.disconnect()
         Cookies.remove('a_a')
         localStorage.removeItem('userInfo')
         localStorage.removeItem('rolesMenu')
         navigate('/u/login')
-      });
+      })
 
       socket.on('receive_message', (msg) => {
-        setLog((prev) => [...prev, `📥 ${msg}`]);
-      });
+        setLog((prev) => [...prev, `📥 ${msg}`])
+      })
 
       socket.on('connect', () => {
-        setLog((prev) => [...prev, '✅ Connected to server']);
-      });
+        setLog((prev) => [...prev, '✅ Connected to server'])
+      })
 
       socket.on('disconnect', () => {
-        setLog((prev) => [...prev, '❌ Disconnected']);
-      });
+        setLog((prev) => [...prev, '❌ Disconnected'])
+      })
 
       socket.on('error', (err) => {
-        setLog((prev) => [...prev, `⚠️ Error: ${err}`]);
-      });
+        setLog((prev) => [...prev, `⚠️ Error: ${err}`])
+      })
 
       const handleBeforeUnload = () => {
-        if (socket.connected) socket.disconnect();
-      };
+        if (socket.connected) socket.disconnect()
+      }
 
-      window.addEventListener('beforeunload', handleBeforeUnload);
+      window.addEventListener('beforeunload', handleBeforeUnload)
 
       return () => {
-        socket.off('force_disconnect_notice');
-        socket.off('receive_message');
-        socket.off('connect');
-        socket.off('disconnect');
-        socket.off('error');
+        socket.off('force_disconnect_notice')
+        socket.off('receive_message')
+        socket.off('connect')
+        socket.off('disconnect')
+        socket.off('error')
 
-        if (socket.connected) socket.disconnect();
-        window.removeEventListener('beforeunload', handleBeforeUnload);
-      };
-    };
+        if (socket.connected) socket.disconnect()
+        window.removeEventListener('beforeunload', handleBeforeUnload)
+      }
+    }
 
-    const cleanupPromise = setupSocket();
+    const cleanupPromise = setupSocket()
 
     return () => {
       cleanupPromise?.then((cleanup) => {
         if (typeof cleanup === 'function') {
-          cleanup();
+          cleanup()
         }
-      });
-    };
-  }, [processRolesMenu]);
+      })
+    }
+  }, [processRolesMenu]) */
+  useEffect(() => {
+    if (socketRef.current) return // tránh tạo socket mới nhiều lần
 
+    const setupSocket = async () => {
+      const socket = await initSocket() // tạo 1 socket duy nhất
+      if (!socket) return
 
+      socketRef.current = socket
+      const searchParams = {
+        UserId: userFrom?.UserSeq,
+        Page: 1,
+        PageSize: 1,
+        KeyItem1: '',
+        OnlyUnread: true,
+      }
 
+      socket.on('force_disconnect_notice', (msg) => {
+        socket.disconnect()
+        Cookies.remove('a_a')
+        localStorage.removeItem('userInfo')
+        localStorage.removeItem('rolesMenu')
+        navigate('/u/login')
+      })
+
+      socket.on('receive_message', (msg) => {
+        setLog((prev) => [...prev, `📥 ${msg}`])
+      })
+
+      // Connect / disconnect logs
+      socket.on('connect', () => {
+        setLog((prev) => [...prev, '✅ Connected'])
+
+        NotificationQ(searchParams)
+          .then((result) => {
+            if (result.success) {
+              const count = result?.data?.[0]?.unreadCount || 0
+              saveNotificationCount(count)
+
+              // Cũng có thể gửi qua BroadcastChannel cho các tab cùng origin
+              if (typeof BroadcastChannel !== 'undefined') {
+                const channel = new BroadcastChannel('notification_channel')
+                channel.postMessage({
+                  type: 'UPDATE_NOTIFICATION',
+                  count: count,
+                  timestamp: new Date().toISOString(),
+                })
+              }
+            }
+          })
+          .catch((error) => {})
+      })
+
+      socket.on('disconnect', () =>
+        setLog((prev) => [...prev, '❌ Disconnected']),
+      )
+
+      // Cleanup khi unmount
+      const handleBeforeUnload = () => {
+        if (socket.connected) socket.disconnect()
+      }
+      window.addEventListener('beforeunload', handleBeforeUnload)
+
+      return () => {
+        socket.off()
+        if (socket.connected) socket.disconnect()
+        window.removeEventListener('beforeunload', handleBeforeUnload)
+      }
+    }
+
+    setupSocket()
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect()
+        socketRef.current = null
+      }
+    }
+  }, [])
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 820)
@@ -806,6 +1016,67 @@ const UserRouter = () => {
       element: LGEtcInReqItemList,
       fallback: DefaultPage,
     },
+
+    {
+      path: '/wms/u/warehouse/etc-in/lg-etc-in-tp',
+      permission: 'etc-in-1-1',
+      element: LGEtcInTP,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/wms/u/warehouse/etc-in/lg-etc-in-tp-link/:id',
+      permission: 'etc-in-1-1',
+      element: LGEtcInTPLink,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/wms/u/warehouse/etc-in/lg-etc-in-tp-detail-list',
+      permission: 'etc-in-1-6',
+      element: LGEtcInItemListTP,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/wms/u/warehouse/etc-out/lg-etc-out-tp',
+      permission: 'etc-out-1-1',
+      element: LGEtcOutTP,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/wms/u/warehouse/etc-out/lg-etc-out-tp-link/:id',
+      permission: 'etc-out-1-1',
+      element: LGEtcOutTPLink,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/wms/u/warehouse/etc-out/lg-etc-out-tp-detail-list',
+      permission: 'etc-out-1-1',
+      element: LGEtcOutItemListTP,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/wms/u/warehouse/etc-trans/lg-etc-trans-tp',
+      permission: 'etc-trans-1-1',
+      element: LGEtcTransTP,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/wms/u/warehouse/etc-trans/lg-etc-trans-tp-link/:id',
+      permission: 'etc-trans-1-1',
+      element: LGEtcTransTPLink,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/wms/u/warehouse/etc-trans/lg-etc-trans-tp-detail-list',
+      permission: 'etc-trans-1-1',
+      element: LGEtcTransItemListTP,
+      fallback: DefaultPage,
+    },
+
     {
       path: '/wms/u/warehouse/etc-in/lg-etc-in/:id',
       permission: 'etc-in-1-6',
@@ -1170,7 +1441,7 @@ const UserRouter = () => {
       fallback: DefaultPage,
     },
     {
-      path: '/wms/u/basic/customers/register-details/:id',
+      path: '/wms/u/basic/customers/register-details',
       permission: 'customers-1-1',
       element: CustomersRegistrationDetails,
       fallback: DefaultPage,
@@ -1395,6 +1666,12 @@ const UserRouter = () => {
       fallback: DefaultPage,
     },
     {
+      path: '/wms/u/prod_mgmt/pdmm/pdmm_out_query_detail_list/detais',
+      permission: 'pdmm_out_query_detail_list',
+      element: PdmmOutQueryDetailListSeq,
+      fallback: DefaultPage,
+    },
+    {
       path: '/wms/u/prod_mgmt/pdmm/pdmm_out_extra/:seq',
       permission: 'pdmm_out_query_list',
       element: PdmmOutExtra,
@@ -1404,174 +1681,542 @@ const UserRouter = () => {
       path: '/wms/u/prod_mgmt/pdmm/pdmm_out_query_detail_item_list',
       permission: 'pdmm_out_query_detail_item_list',
       element: SpdmmOutProcItemList,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/wms/u/system_settings/system_configuration/public_ip_settings',
       permission: 'public_ip_settings',
       element: PublicIPSettings,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/wms/u/system_settings/system_configuration/mail_settings',
       permission: 'mail_settings',
       element: MailSettings,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/wms/u/prod_mgmt/pdmps/pdms_prod_plan',
       permission: 'pdms_prod_plan',
       element: PdmpsProdPlan,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/wms/u/prod_mgmt/pdmps/pdms_prod_plan/:seq',
       permission: 'pdms_prod_plan',
       element: PdmpsProdPlan,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/prod_mgmt/pdsfc_work_order_list',
       permission: 'pdsfc_work_order_list',
       element: PdsfcWorkOrderList,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/prod_mgmt/pdsfc_mat_progress_list',
       permission: 'pdsfc_mat_progress_list',
       element: PdsfcMatProgressList,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/prod_mgmt/pdsfc_work_report_list',
       permission: 'pdsfc_work_report_list',
       element: PdsfcWorkReportList,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/prod_mgmt/pdsfc_work_report',
       permission: 'pdsfc_work_report',
       element: PdsfcWorkReport,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/prod_mgmt/pdsfc_work_report/:seq',
       permission: 'pdsfc_work_report',
       element: PdsfcWorkReport,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
-
-
-
-    /* NVL */
-    {
-      path: '/u/warehouse/mng_tem_nvl/tem_nvl_new',
-      permission: 'tem_nvl_new',
-      element: TemNVLNew,
-      fallback: DefaultPage
-    },
-    {
-      path: '/u/warehouse/mng_tem_nvl/tem_nvl_used',
-      permission: 'tem_nvl_used',
-      element: TemNVLUsed,
-      fallback: DefaultPage
-    },
-    {
-      path: '/u/warehouse/mng_tem_nvl/history_tem_nvl_new',
-      permission: 'history_tem_nvl_new',
-      element: HistoryTemNVLNew,
-      fallback: DefaultPage
-    },
-    {
-      path: '/erp/u/template-management/register-template',
-      element: RegiTempFile,
-      permission: 'register_template',
-      fallback: DefaultPage
-    },
-    {
-      path: '/wms/u/warehouse/inventory-opening/inv-open-01',
-      element: SLGWHInitStock,
-      permission: 'inv_open_01',
-      fallback: DefaultPage
-    },
-
     {
       path: '/u/hr_mgmt/hr_empln',
       permission: 'hr_empln',
       element: HrEmps,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_emp_one',
       permission: 'hr_emp_one',
       element: HrEmpsOne,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_family',
       permission: 'hr_bas_family',
       element: HrBasFamily,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_academy',
       permission: 'hr_bas_academy',
       element: HrBasAcademy,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_address',
       permission: 'hr_bas_address',
       element: HrBasAddress,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_career',
       permission: 'hr_bas_career',
       element: HrBasCareer,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_lang_skill',
       permission: 'hr_bas_lang_skill',
       element: HrBasLangSkill,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_prz_pnl',
       permission: 'hr_bas_prz_pnl',
       element: HrBasPrzPnl,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_travel_rec',
       permission: 'hr_bas_travel_rec',
       element: HrBasTravelRec,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_org_pos',
       permission: 'hr_bas_org_pos',
       element: HrBasOrgPos,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_org_job',
       permission: 'hr_org_job',
       element: HrOrgJob,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_bas_union',
       permission: 'hr_bas_union',
       element: HrBasUnion,
-      fallback: DefaultPage
+      fallback: DefaultPage,
     },
     {
       path: '/u/hr_mgmt/hr_empln_seqs',
       permission: 'hr_empln_seqs',
       element: HrEmplnSeq,
-      fallback: DefaultPage
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/org/da-dept',
+      permission: 'hr_org',
+      element: DaDeptList,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/org/org-dept',
+      permission: 'hr-org-dept',
+      element: OrgDept,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/org/emp-org-dept',
+      permission: 'hr-org-dept-1',
+      element: EmpOrgDept,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/hr_mgmt/hr_emp_date',
+      permission: 'hr_emp_date',
+      element: HrEmpDate,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/info/month-per-cnt',
+      permission: 'hr-org-dept',
+      element: InfoMontPerCnt,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/info/emp-list',
+      permission: 'hr-org-dept',
+      element: InfoEmpList,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/hr/info/multi-emp-list',
+      permission: 'hr-org-dept',
+      element: InfoMultiEmpList,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/general/admin-ord',
+      permission: 'hr-org-dept',
+      element: HrAdmOrd,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/general/admin-ord-multi',
+      permission: 'hr-org-dept',
+      element: HrAdmOrdMulti,
+      fallback: DefaultPage,
+    },
+
+    /* TUYỂN DỤNG  */
+    {
+      path: '/hr/recruitment/recruit_register/recruitment_01',
+      permission: 'recruitment_01',
+      element: HrRecruitment01,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_register/recruitment_02',
+      permission: 'recruitment_02',
+      element: HrRecruitment02,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_register/recruitment_04',
+      permission: 'recruitment_04',
+      element: HrRecruitment04,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_register/recruitment_05',
+      permission: 'recruitment_05',
+      element: HrRecruitment05,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_register/recruitment_06',
+      permission: 'recruitment_06',
+      element: HrRecruitment06,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_register/recruitment_07',
+      permission: 'recruitment_07',
+      element: HrRecruitment07,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_manage/hr_define_register',
+      permission: 'hr_define_register',
+      element: OtherHrDefine,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_manage/recruitment_manage_02',
+      permission: 'recruitment_manage_02',
+      element: RecManage02,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_manage/recruitment_manage_01',
+      permission: 'recruitment_manage_01',
+      element: RecManage01,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/recruitment/recruit_manage/recruitment_manage_03',
+      permission: 'recruitment_manage_03',
+      element: RecManage03,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/certificate-manage/labor-contract',
+      permission: 'labor_contract',
+      element: HrLaborContract,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/certificate-manage/print-labor-contract',
+      permission: 'print_labor_contract',
+      element: HrLaborContractPrint,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/edu/edu-type',
+      permission: 'edu_type',
+      element: HrEduType,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/edu/edu-class',
+      permission: 'edu_class',
+      element: HrEduClass,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/edu/edu-course',
+      permission: 'edu_course',
+      element: HrEduCourse,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/edu/edu-lecturer',
+      permission: 'edu_per_rst',
+      element: HrEduLecturer,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/hr/edu-result/edu-per-rst',
+      permission: 'edu_lecturer',
+      element: HrEduPerRst,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/hr/edu-result/edu-rst',
+      permission: 'edu_lecturer',
+      element: HrEduRst,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/edu-result/edu-rst-end',
+      permission: 'edu_lecturer',
+      element: HrEduRstEnd,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/hr/edu-result/edu-rst-batch',
+      permission: 'edu_lecturer',
+      element: HrEduRstBatch,
+      fallback: DefaultPage,
+    },
+
+    /* REPORT  */
+    {
+      path: '/u/executive_report/exec_fin/er_biz',
+      permission: 'er_biz',
+      element: FinQueryCm,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/exec_fin/monthly_profit_loss',
+      permission: 'monthly_profit_loss',
+      element: MonthlyProfitLoss,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/exec_fin/monthly_production_cost',
+      permission: 'monthly_production_cost',
+      element: MonthlyProductionCost,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/exec_fin/financial_report',
+      permission: 'financial_report',
+      element: FinancialReport,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/exec_fin/monthly_financial_report',
+      permission: 'monthly_financial_report',
+      element: MonthlyFinancialReport,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/cogs_report/profit_report',
+      permission: 'profit_report',
+      element: ProfitReport,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/inventory_value_report/supplement_issue',
+      permission: 'supplement_issue',
+      element: SupplementIssue,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/cogs_report/mnfcostas_report',
+      permission: 'mnfcostas_report',
+      element: MnfcostasReport,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/inventory_value_report/stock_monthly_amt',
+      permission: 'stock_monthly_amt',
+      element: StockMonthlyAmt,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/sales_report/rpt_sales_cat',
+      permission: 'rpt_sales_cat',
+      element: RptSalesCat,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/hr_report/rpt_hr_inout',
+      permission: 'rpt_hr_inout',
+      element: RptHrInout,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/acct_report/acct_balance',
+      permission: 'acct_balance',
+      element: AcctBalance,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/cogs_report/cogs_month_basic',
+      permission: 'cogs_month_basic',
+      element: CogsMonthBasic,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/cogs_report/cogs_by_prod',
+      permission: 'cogs_by_prod',
+      element: CogsByProd,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/acct_report/acct_detailed_balance_list/:seq',
+      permission: 'acct_balance',
+      element: AcctDetailedBalanceList,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/executive_report/acct_report/acct_rem_balance_ledger/:seq',
+      permission: 'acct_balance',
+      element: AccRemBalanceLedger,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/pm/project-mgmt/pjt-project',
+      permission: 'pjt_project',
+      element: PjtProject,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/pm/project-mgmt/pjt-project-list',
+      permission: 'pjt_project_list',
+      element: PjtProjectList,
+      fallback: DefaultPage,
+    },
+
+    /* HR */
+    {
+      path: '/hr/certificate-manage/certificate-issue',
+      permission: 'certificate_issue',
+      element: HrBasCertificate,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/hr/certificate-manage/certificate-issue-query',
+      permission: 'certificate_issue_query',
+      element: HrBasCertificateList,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/u/asset/asset-manage/pd-equip',
+      permission: 'pd_equip',
+      element: PdEquip,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/asset/asset-manage/pd-equip-list',
+      permission: 'pd_equip',
+      element: PdEquipList,
+      fallback: DefaultPage,
+    },
+
+    /* LUUOWNG */
+    {
+      path: '/u/daily_att/daily_att_01',
+      permission: 'daily_att_01',
+      element: DailyAtt01Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/daily_att/daily_att_02',
+      permission: 'daily_att_02',
+      element: DailyAtt02Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/daily_att/daily_att_03',
+      permission: 'daily_att_03',
+      element: DailyAtt03Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/daily_att/daily_att_04',
+      permission: 'daily_att_04',
+      element: DailyAtt04Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/daily_att/daily_att_05',
+      permission: 'daily_att_05',
+      element: DailyAtt05Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/daily_att/daily_att_06',
+      permission: 'daily_att_06',
+      element: DailyAtt06Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/daily_att/daily_att_07',
+      permission: 'daily_att_07',
+      element: DailyAtt07Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/u/daily_att/daily_att_08',
+      permission: 'daily_att_08',
+      element: DailyAtt08Page,
+      fallback: DefaultPage,
+    },
+
+    /* DU AN */
+
+    {
+      path: '/pm/project-mgmt/pm02',
+      permission: 'pm02',
+      element: PM02Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/pm/project-mgmt/pm03',
+      permission: 'pm03',
+      element: PM03Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/pm/project-mgmt/pm03/:seq',
+      permission: 'pm03',
+      element: PM03Page,
+      fallback: DefaultPage,
+    },
+
+    {
+      path: '/pm/project-mgmt/pm01',
+      permission: 'pm01',
+      element: PM01Page,
+      fallback: DefaultPage,
+    },
+    {
+      path: '/pm/project-mgmt/pm01/:seq',
+      permission: 'pm01',
+      element: PM01Page,
+      fallback: DefaultPage,
     },
     {
       path: '/',
@@ -1583,6 +2228,11 @@ const UserRouter = () => {
       element: Home,
       fallback: Home,
     },
+    {
+      path: '/u/notifications',
+      element: Notifications,
+      fallback: Notifications,
+    },
   ]
 
   const cancelAllRequests = () => {
@@ -1593,30 +2243,7 @@ const UserRouter = () => {
     })
     controllers.current = {}
   }
-  const routesNoSiidebar = [
-    {
-      path: '/wms/u/warehouse/basic/stock-real-1-5',
-      element: SctokReal5Page,
-      permission: 'stock-real-1-5',
-      fallback: DefaultPage
-    },
 
-    {
-      path: '/wms/u/warehouse/stock-real/stock-real-1-6',
-      element: StockReal6,
-      permission: 'stock-real-1-6',
-      fallback: DefaultPage
-    },
-    {
-      path: '/wms/u/warehouse/stock-real/stock-real-1-6/:seq',
-      element: StockReal6Seq,
-      permission: 'stock-real-1-6',
-      fallback: DefaultPage
-    },
-
-
-
-  ]
   return (
     <Routes>
       <Route
@@ -1628,14 +2255,7 @@ const UserRouter = () => {
           />
         }
       />
-      <Route
-        path="/u/test"
-        element={
-          <Test
-
-          />
-        }
-      />
+      <Route path="/u/test" element={<Test />} />
 
       <Route
         path="*"
@@ -1649,6 +2269,7 @@ const UserRouter = () => {
                   menuTransForm={menuTransForm}
                   collapsed={collapsed}
                   setCollapsed={setCollapsed}
+                  unreadCount={unreadCount}
                 />
                 <Layout>
                   <Content className="bg-slate-50">
@@ -1734,102 +2355,6 @@ const UserRouter = () => {
                               />
                             )
                           },
-                        )}
-                      </Routes>
-                    </Suspense>
-                  </Content>
-                </Layout>
-              </Layout>
-            </LanguageProvider>
-          </Suspense>
-        }
-      />
-
-
-
-      <Route
-        path="/app/*"
-        element={
-
-          <Suspense fallback={<Spinner />}>
-            <LanguageProvider keyLanguage={keyLanguage}>
-              <Layout >
-
-                <Layout className='border-t'>
-                  <Content className="bg-slate-50">
-                    <Suspense fallback={<Spinner />}>
-                      <Routes>
-                        {routesNoSiidebar.map(
-                          ({
-                            path,
-                            element: Element,
-                            permission,
-                            public: isPublic,
-                            fallback: Fallback
-                          }) => {
-                            const canCreate = checkActionPermission(
-                              userPermissions,
-                              permission,
-                              'Create'
-                            )
-                            const canEdit = checkActionPermission(
-                              userPermissions,
-                              permission,
-                              'Edit'
-                            )
-                            const canDelete = checkActionPermission(
-                              userPermissions,
-                              permission,
-                              'Delete'
-                            )
-                            const canView = checkActionPermission(
-                              userPermissions,
-                              permission,
-                              'View'
-                            )
-                            return (
-                              <Route
-                                key={path}
-                                path={path}
-                                element={
-                                  isPublic ? (
-                                    <Element
-                                      permissions={userPermissions}
-                                      isMobile={isMobile}
-                                      canCreate={canCreate}
-                                      canEdit={canEdit}
-                                      canDelete={canDelete}
-                                      cancelAllRequests={cancelAllRequests}
-                                      controllers={controllers}
-                                      menuTransForm={menuTransForm}
-                                    />
-                                  ) : canView ? (
-                                    <Element
-                                      permissions={userPermissions}
-                                      isMobile={isMobile}
-                                      canCreate={canCreate}
-                                      canEdit={canEdit}
-                                      canDelete={canDelete}
-                                      cancelAllRequests={cancelAllRequests}
-                                      controllers={controllers}
-                                    />
-                                  ) : Fallback ? (
-                                    <Fallback
-                                      permissions={userPermissions}
-                                      isMobile={isMobile}
-                                      canCreate={canCreate}
-                                      canEdit={canEdit}
-                                      canDelete={canDelete}
-                                      cancelAllRequests={cancelAllRequests}
-                                      controllers={controllers}
-                                    />
-                                  ) : (
-                                    <ErrorPage />
-                                  )
-                                }
-                              />
-                            )
-                          }
                         )}
                       </Routes>
                     </Suspense>

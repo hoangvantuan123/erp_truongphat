@@ -1,5 +1,5 @@
 import { Spin } from 'antd'
-import BG from '../../../assets/RootLogo.png'
+import BG from '../../../assets/ItmLogo.png'
 import { LoadingOutlined } from '@ant-design/icons'
 const Spinner = () => {
   return (

@@ -7,7 +7,7 @@ import { LoginEmailOTP } from '../../features/auth/loginEmailOtp'
 import decodeJWT from '../../utils/decode-JWT'
 import Cookies from 'js-cookie'
 import { ChangePassword } from '../../features/auth/changePassword'
-import Logo from '../../assets/RootLogo.png'
+import Logo from '../../assets/ItmLogo.png'
 import { GetLangSeq } from '../../features/lang/getLangSeq'
 import { saveLanguageData } from '../../IndexedDB/saveLanguageData'
 import { initSocket } from '../../services/socket'
@@ -321,12 +321,12 @@ export default function Login({
                 <h1 className="text-2xl font-bold sm:text-3xl">OTP Verification</h1>
 
                 <p className="mt-4 text-gray-500 text-xs">
-                  Vui lòng kiểm tra email của bạn:<span className="font-semibold  text-gray-700 ml-1">{emailOTP}</span> để nhận OTP.
+                  Please check your email:<span className="font-semibold  text-gray-700 ml-1">{emailOTP}</span> to receive the OTP.
 
                 </p>
 
                 <p className="mt-2 text-red-500 text-sm">
-                  OTP sẽ hết hạn sau:{formatTime(timeLeft)}
+                  OTP will expire in: {formatTime(timeLeft)}
                 </p>
 
 
@@ -382,10 +382,10 @@ export default function Login({
             <>
               <div className="mx-auto max-w-lg text-center mb-5 mt-3">
                 <h1 className="text-2xl font-bold sm:text-3xl">
-                  Thay đổi mật khẩu
+                  Change Password
                 </h1>
                 <p className="mt-4 text-gray-500 text-xs">
-                  Vui lòng nhập mật khẩu mới và xác nhận.
+                  Please enter your new password and confirm it.
                 </p>
               </div>
               <Form
@@ -568,9 +568,9 @@ export default function Login({
             // UI Login khi currentView === 'login' và không có trạng thái nào khác được bật
             <>
               <div className="mx-auto w-full flex flex-col items-center justify-center text-center mb-5 mt-3">
-                <h1 className="text-2xl font-bold sm:text-3xl">Chào mừng bạn đã quay trở lại!</h1>
+                <h1 className="text-2xl font-bold sm:text-3xl">Welcome Back!</h1>
                 <p className="mt-4 text-gray-500 text-xs w-96">
-                  Cùng Nhựa Công nghệ cao Việt Nam chinh phục những đỉnh cao mới.
+                Đây là hệ thống MES và ERP tích hợp, được thiết kế nhằm nâng cao hiệu quả sản xuất và tối ưu hóa các hoạt động vận hành nội bộ.
                 </p>
               </div>
               <Form

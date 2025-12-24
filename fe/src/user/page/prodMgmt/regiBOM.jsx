@@ -3,13 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet'
 import { FilterOutlined } from '@ant-design/icons'
 import { ArrowIcon } from '../../components/icons'
-import { Input, Typography, Row, Col, message, Form, Select, Switch, Tree } from 'antd'
+import { Input, Typography, Row, Splitter, message, Form, Select, Switch, Tree } from 'antd'
 import { CarryOutOutlined, CheckOutlined, FormOutlined } from '@ant-design/icons';
 const { Title, Text } = Typography
 import { debounce } from 'lodash'
 import { CompactSelection, GridColumnIcon } from '@glideapps/glide-data-grid'
 import ViewProdBOM from '../../components/view/prodMgmt/viewProdBOM'
-import { Splitter, SplitterPanel } from 'primereact/splitter'
 import { onRowAppended } from '../../components/sheet/js/onRowAppended'
 import { loadFromLocalStorageSheet } from '../../../localStorage/sheet/sheet'
 import RegiBOMQuery from '../../components/query/prodMgmt/regiBOMQuery'
@@ -780,18 +779,15 @@ export default function RegiBOM({
     return (
         <>
             <Helmet>
-                <title>HPM - {t('850000022')}</title>
+                <title>ITM - {t('850000022')}</title>
             </Helmet>
             <TopLoadingBar color="blue" height={2} ref={loadingBarRef} />
 
 
-            <div className="bg-slate-50 h-[calc(100vh-35px)] p-3 overflow-hidden">
-                <div className="flex flex-col gap-2  md:grid-rows-[auto_1fr] md:gap-2 h-full">
-                    <div className="col-start-1 col-end-5 row-start-1 w-full rounded-lg ">
-                        <div className="flex items-center justify-between pl-4">
-                            <Title level={4} className="mt-2 uppercase opacity-85 ">
-                                {t('850000022')}
-                            </Title>
+            <div className="bg-slate-50 h-[calc(100vh-42px)] overflow-hidden">
+                <div className="flex flex-col h-full">
+                    <div className="col-start-1 col-end-5 row-start-1 w-full">
+                        <div className="flex p-2 items-end justify-end">
                             <RegiBOMAcction handleSave={handleSave} handleDeleteDataSheet={handleDeleteDataSheet} handleSearch={handleSearch} handleResetFrom={handleResetFrom} />
                         </div>
                         <div className="group p-2 border-t border-b  bg-white">
@@ -820,9 +816,9 @@ export default function RegiBOM({
                         </div>
                     </div>
 
-                    <div className="col-start-1 col-end-5 row-start-2 w-full h-full overflow-hidden">
+                    <div className="col-start-1 col-end-5 row-start-2 w-full flex-1 min-h-0 overflow-auto relative">
                         <Splitter className="w-full h-full">
-                            <SplitterPanel size={35} minSize={10}>
+                            <Splitter.Panel defaultSize="35%" min="25%" >
                                 <div className='h-full w-full bg-white border-r border-t p-3 overflow-auto'>
                                     <h2 className="text-[10px] mb-4 font-medium flex items-center gap-2 uppercase">
                                         {t('850000023')}
@@ -835,14 +831,13 @@ export default function RegiBOM({
                                                 }
                                                 : false
                                         }
-                                        /*   showIcon={true} */
                                         defaultExpandAll
                                         onSelect={onSelect}
                                         treeData={dataTree}
                                     />
                                 </div>
-                            </SplitterPanel>
-                            <SplitterPanel size={65} minSize={20}>
+                            </Splitter.Panel>
+                            <Splitter.Panel defaultSize="65%" min="35%">
                                 <ViewProdBOM
                                     dataSearch={dataSearch}
                                     setSelection={setSelection}
@@ -884,7 +879,7 @@ export default function RegiBOM({
                                     setHelpData03={setHelpData03}
                                     setHelpData01={setHelpData01}
                                 />
-                            </SplitterPanel>
+                            </Splitter.Panel>
                         </Splitter>
                     </div>
                 </div>

@@ -94,7 +94,7 @@ export const filterAndSelectColumnsNoStatus = (
 }
 
 
-export const filterValidRows  = (editedRows, status) => {
+export const filterValidRows = (editedRows, status) => {
   const filteredRows = editedRows
     .filter((row) => row.Status === status)
     .map((row) => {
@@ -109,12 +109,12 @@ export const filterValidRows  = (editedRows, status) => {
             isValidRow = true;
           }
         }
-        selectedRow[col] = row[col]; 
+        selectedRow[col] = row[col];
       });
 
       return isValidRow ? selectedRow : null;
     })
-    .filter((row) => row !== null); 
+    .filter((row) => row !== null);
 
   return filteredRows;
 };
