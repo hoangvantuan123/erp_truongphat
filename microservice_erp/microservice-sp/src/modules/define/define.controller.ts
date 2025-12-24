@@ -70,6 +70,14 @@ export class ErpDefineController {
     OrgDefineH(request: any): Observable<MetadataResponse> {
         return this.handleGrpcRequest(request, this.erpDefineService.OrgDefineH.bind(this.erpDefineService));
     }
+    @GrpcMethod('HelpDefineService', 'ItemAllH')
+    ItemAllH(request: any): Observable<MetadataResponse> {
+        return this.handleGrpcRequest(request, this.erpDefineService.ItemAllH.bind(this.erpDefineService));
+    }
+    @GrpcMethod('HelpDefineService', 'CustAllH')
+    CustAllH(request: any): Observable<MetadataResponse> {
+        return this.handleGrpcRequest(request, this.erpDefineService.CustAllH.bind(this.erpDefineService));
+    }
 
     @GrpcMethod('HelpDefineService', 'OrgDefineItemH')
     OrgDefineItemH(request: any): Observable<MetadataResponse> {

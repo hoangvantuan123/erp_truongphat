@@ -14,7 +14,6 @@ export class EmpSPService {
                     'q.EmpSeq AS EmpSeq',
                     'q.EmpName AS EmpName',
                     'q.Empid AS Empid',
-                    'q.Empid AS EmpID',
                 ])
                 .from('_TDAEmp', 'q')
                 .orderBy('q.EmpSeq', 'ASC')
