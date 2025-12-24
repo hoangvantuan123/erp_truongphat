@@ -6,12 +6,12 @@ module.exports = {
     LOG_STORAGE: '/ERP/microservice_erp/grafana-logs/logs',
 
     /*  HOST REDIS*/
-    HOST_REDIS: '192.168.35.150',
-    HOST_REDIS_WAREHOUSE: '192.168.35.150',
-    HOST_REDIS_AUTH: '192.168.35.150',
-    HOST_REDIS_PRODUCTION: '192.168.35.150',
-    HOST_REDIS_PURCHASEN: '192.168.35.150',
-    HOST_REDIS_QC: '192.168.35.150',
+    HOST_REDIS: 'localhost',
+    HOST_REDIS_WAREHOUSE: 'localhost',
+    HOST_REDIS_AUTH: 'localhost',
+    HOST_REDIS_PRODUCTION: 'localhost',
+    HOST_REDIS_PURCHASEN: 'localhost',
+    HOST_REDIS_QC: 'localhost',
 
     /* REDIS  PORT*/
     PORT_REDIS_AUTH: 7383,
@@ -23,27 +23,26 @@ module.exports = {
 
 
     /* DB */
-    DB_HOST: '192.168.35.150',
-    DB_PORT: '14233',
+    DB_HOST: 'localhost',
+    DB_PORT: '1433',
     DB_USERNAME: 'genuine',
     DB_PASSWORD: 'Itmv209#',
     DB_DATABASE: 'ITMV',
 
-
-
     EMAIL_USER: 'erp@itmv.vn',
-    EMAIL_PASS: 'Itm#semi567@',
+    EMAIL_PASS: 'Itm#semi567',
 
 
     /* GRPC SERVER */
-    HOST_RGPC_PDMM: '192.168.35.150:4002',
-    HOST_RGPC_SP: '192.168.35.150:4003',
-    HOST_RGPC_WC: '192.168.35.150:4002',
-    HOST_RGPC_AUTH: '192.168.35.150:4004',
-    HOST_RGPC_HR: '192.168.35.150:4005',
+    HOST_RGPC_PDMM: 'localhost:4002',
+    HOST_RGPC_SP: 'localhost:4003',
+    HOST_RGPC_WC: 'localhost:4002',
+    HOST_RGPC_AUTH: 'localhost:4004',
+    HOST_RGPC_HR: 'localhost:4005',
     HOST_GRPC_UPLOAD: 'localhost:4006',
     HOST_GRPC_REPORT: 'localhost:4007',
-    HOST_GRPC_SOCKET: 'localhost:5008',
+    HOST_GRPC_SOCKET: 'localhost:4008',
+    HOST_RGPC_WH: 'localhost:4009',
     /* GRPC PORT */
     PORT_GRPC_AUTH: 4004,
     PORT_GRPC_PRODUCE: 4002,
@@ -51,7 +50,8 @@ module.exports = {
     HOST_PORT_HR: 4005,
     HOST_PORT_UPLOAD: 4006,
     HOST_PORT_REPORT: 4007,
-    HOST_PORT_SOCKET: 5008,
+    HOST_PORT_SOCKET: 4008,
+    HOST_PORT_WH: 4009,
 
 
     /* UPLOAD */
@@ -64,7 +64,7 @@ module.exports = {
     PATH_PRINT_LOGS: '/ERP_CLOUD/print_logs',
     PATH_PRINT_DOCX_DIR: 'F:/ERP_CLOUD/print_logs/docx',
     PATH_PRINT_PDF_DIR: 'F:/ERP_CLOUD/print_logs/pdf',
-    HOST_QR_CODE: '192.168.35.150:8098',
+    HOST_QR_CODE: 'localhost:8098',
     UPLOAD_USER_PATHS: '/ERP_CLOUD/user_files',
     UPLOAD_USER_PATHS_ROOT: 'F:/ERP_CLOUD/user_files',
     PATH_PRINT_INFO_USER: 'localhost:8089',

@@ -75,7 +75,7 @@ async function bootstrap() {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          imgSrc: ["'self'", 'data:', 'http://localhost:8089'],
+          imgSrc: ["'self'", 'data:', 'http://localhost:8089',   'https://truongphat.ierps.vn',],
         },
       },
     })
