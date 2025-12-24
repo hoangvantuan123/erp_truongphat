@@ -15,6 +15,7 @@ export const appConfig = {
             'https://192.168.35.150:8080',
             'http://192.168.63.64:8181', 
             'https://192.168.63.64:8181', 
+            'https://truongphat.ierps.vn',
         ],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
         allowedHeaders: ['Content-Type', 'Authorization'],
