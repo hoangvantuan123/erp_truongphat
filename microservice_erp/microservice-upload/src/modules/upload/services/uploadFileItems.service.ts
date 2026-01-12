@@ -4,7 +4,7 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
+import { DatabaseService } from 'src/common/database/database.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ERPUploadsFileItems } from '../entities/uploadFileItems.entity';
 import { Repository, In } from 'typeorm';

@@ -27,7 +27,6 @@ import { GetCodeHelp } from '../../../features/codeHelp/getCodeHelp'
 import ModalSheetDelete from '../../components/modal/default/deleteSheet'
 import ModalMasterDelete from '../../components/modal/default/deleteMaster'
 import WarningModal from '../default/warningModal'
-
 import LGEtcTransTPActions from '../../components/actions/warehouse/lgEtcTransTPActions'
 import LGEtcTransTPQuery from '../../components/query/warehouse/lgEtcTransTPQuery'
 import TableLGEtcTransTP from '../../components/table/warehouse/tableLGEtcTransTP'
@@ -38,12 +37,13 @@ import { PostInventoryCheck } from '../../../features/warehouse/lgEtcTransTP/pos
 import { PostAUD } from '../../../features/warehouse/lgEtcTransTP/postAUD'
 import { PostMasterDelete } from '../../../features/warehouse/lgEtcTransTP/postMasterDelete'
 import { PostSheetDelete } from '../../../features/warehouse/lgEtcTransTP/postSheetDelete'
-
+import { generatePrintCode } from '../../../utils/generatePrintCode'
 import ErrorListModal from '../default/errorListModal'
 import { updateIndexNo } from '../../components/sheet/js/updateIndexNo'
 import TopLoadingBar from 'react-top-loading-bar'
+import { PrintLGEtcTrans } from '../../../features/print/wh/printLGEtcTrans'
 import { togglePageInteraction } from '../../../utils/togglePageInteraction'
-
+import { HOST_API_SERVER_11 } from '../../../services'
 export default function LGEtcTransTPLink({
   permissions,
   isMobile,
@@ -64,6 +64,9 @@ export default function LGEtcTransTPLink({
   const secretKey = 'TEST_ACCESS_KEY'
   const [totalQuantity, setTotalQuantity] = useState(0)
   const [totalAmount, setTotalAmount] = useState(0)
+
+  const [reqSeq, setReqSeq] = useState('0')
+  const [etcReqNo, setEtcReqNo] = useState('')
   const defaultCols = useMemo(
     () => [
       {
@@ -1516,7 +1519,44 @@ export default function LGEtcTransTPLink({
     setNumRows(emptyData.length)
     resetTable()
   }, [defaultCols, gridData])
+  const handleOnClickPrint = useCallback(() => {
 
+
+    if (!String(inOutSeq ?? '').trim() || !String(inOutNo ?? '').trim()) {
+      HandleError([{ success: false, message: 'Vui lòng kiểm tra lại số yêu cầu di chuyển!' }]);
+      return;
+    }
+
+    const resultData = {
+      ReqSeq: inOutSeq,
+      FileName: generatePrintCode(),
+      CodeQr: inOutNo
+    };
+
+    if (loadingBarRef.current) {
+      loadingBarRef.current.continuousStart();
+    }
+    togglePageInteraction(true);
+
+    PrintLGEtcTrans(resultData)
+      .then(responseOutReq => {
+        if (responseOutReq.success) {
+          const url = `${HOST_API_SERVER_11}/${responseOutReq?.data}`;
+          window.open(url, "_blank");
+        } else {
+          message.error(responseOutReq.message || 'Lỗi khi lấy dữ liệu in.');
+        }
+      })
+      .catch(error => {
+        message.error('Lỗi khi lấy dữ liệu in.', error);
+      })
+      .finally(() => {
+        if (loadingBarRef.current) {
+          loadingBarRef.current.complete();
+        }
+        togglePageInteraction(false);
+      });
+  }, [inOutNo, inOutSeq]);
   return (
     <>
       <Helmet>
@@ -1536,6 +1576,7 @@ export default function LGEtcTransTPLink({
                 handleResetData={handleResetData}
                 handleSaveData={handleSaveData}
                 handleInventoryCheckData={handleInventoryCheckData}
+                handleOnClickPrint={handleOnClickPrint}
               />
             </div>
             <details

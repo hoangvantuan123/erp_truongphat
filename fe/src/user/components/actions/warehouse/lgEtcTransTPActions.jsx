@@ -24,7 +24,9 @@ import {
   SearchOutlined,
   RestOutlined,
   ReloadOutlined,
+
   CheckSquareOutlined,
+  PrinterOutlined
 } from '@ant-design/icons'
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
@@ -35,6 +37,7 @@ export default function LGEtcTransTPActions({
   setModalMasterDeleteOpen,
   setModalOpen,
   handleInventoryCheckData,
+  handleOnClickPrint
 }) {
   const { t } = useTranslation()
   return (
@@ -86,6 +89,15 @@ export default function LGEtcTransTPActions({
         style={{ backgroundColor: '#FEAE00', borderColor: '#FEAE00' }}
       >
         Trạng thái tồn kho
+      </Button>
+      <Button
+        type="primary"
+        icon={<PrinterOutlined />}
+        size="middle"
+        className="uppercase"
+        onClick={handleOnClickPrint}
+      >
+        IN PHIẾU DI CHUYỂN
       </Button>
     </div>
   )

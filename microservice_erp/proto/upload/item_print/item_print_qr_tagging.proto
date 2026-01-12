@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package upload.item_print.item_print_qr_tagging;
+
+service ItemPrintQRTaggingService {
+  rpc ItemPrintQRTaggingPrint (ItemPrintQRTaggingPrintRequest) returns (Response);
+  rpc ItemPrintQRTaggingPrintQ (ItemPrintQRTaggingPrintQRequest) returns (Response);
+
+}
+
+
+message ItemPrintQRTaggingPrintResult { 
+    string IdSeq = 1;
+    string CodeQR = 2;
+    string MaNVL = 3;
+    string Grade = 4;
+    string Color = 5;
+    string NCC = 6;
+    string QtyBox = 7;
+    string PONo = 8;
+    string BagBoxNo = 9;
+    string LotNo = 10;
+    string ItemSeq = 11;
+    string TemType = 12;
+    string TenNVL = 13; 
+    string NgayNhap = 14;
+    string UnitName = 15;
+
+}
+
+message ItemPrintQRTaggingPrintQResult { 
+  string KeyItem1 = 1; 
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+  string KeyItem5 = 5;
+  string KeyItem6 = 6;
+  string KeyItem7  = 7;
+  string KeyItem8  = 8;
+  string KeyItem9  = 9;
+  string KeyItem10  = 10;
+
+}
+
+
+message ItemPrintQRTaggingPrintTypeResult {
+  string TemplatePath = 1;
+  string FileName = 2;
+
+  string PrintSeq = 3;
+  int32 UserId  = 4;
+  int32 TypeFile = 5;
+}
+
+message ItemPrintQRTaggingPrintRequest {
+  repeated ItemPrintQRTaggingPrintResult result = 1;  
+  ItemPrintQRTaggingPrintTypeResult typeData = 2;  
+  map<string, string> metadata = 3;
+}
+message ItemPrintQRTaggingPrintQRequest {
+  ItemPrintQRTaggingPrintQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

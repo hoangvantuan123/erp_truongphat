@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
+import { DatabaseService } from 'src/common/database/database.service';
 import { Observable, from, of, forkJoin, throwError } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
 import 'dotenv/config';

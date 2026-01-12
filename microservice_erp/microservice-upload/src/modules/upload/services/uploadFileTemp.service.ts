@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
+import { DatabaseService } from 'src/common/database/database.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ERPUploadsFileTemp } from '../entities/uploadFileTemp.entity';
 import { Repository, In } from 'typeorm';

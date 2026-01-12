@@ -85,7 +85,6 @@ function PM01Table({
         'ItemNo',
         'SumAmt',
         'DomPrice',
-        'DomAmt',
         'DomVATAmt',
         'DomSumAmt'
     ];
@@ -498,8 +497,36 @@ function PM01Table({
 
                     const qty = Number(newData[row]["Qty"]) || 0;
                     const price = Number(newData[row]["Price"]) || 0;
+                    const domAmt = Number(newData[row]["DomAmt"]) || 0;
 
-                    const amt = parseFloat((qty * price).toFixed(2));
+                    const amt = parseFloat((qty * domAmt * price).toFixed(2));
+                    newData[row]["Amt"] = amt;
+
+                    newData[row]["SumAmt"] = parseFloat(((Number(newData[row]["Amt"]) || 0) + (Number(newData[row]["VATAmt"]) || 0)).toFixed(2));
+
+                    newData[row].isEdited = true;
+                    newData[row].IdxNo = row + 1;
+
+                    const currentStatus = newData[row]["Status"] || "U";
+                    newData[row]["Status"] = currentStatus === "A" ? "A" : "U";
+
+                    return newData;
+                });
+
+                return;
+            }
+            if (key === "DomAmt") {
+                setGridData((prev) => {
+                    const newData = [...prev];
+                    if (!newData[row]) newData[row] = {};
+
+                    newData[row][key] = Number(newValue.data) || 0;
+
+                    const qty = Number(newData[row]["Qty"]) || 0;
+                    const price = Number(newData[row]["Price"]) || 0;
+                    const domAmt = Number(newData[row]["DomAmt"]) || 0;
+
+                    const amt = parseFloat((qty * domAmt * price).toFixed(2));
                     newData[row]["Amt"] = amt;
 
                     newData[row]["SumAmt"] = parseFloat(((Number(newData[row]["Amt"]) || 0) + (Number(newData[row]["VATAmt"]) || 0)).toFixed(2));
@@ -524,8 +551,8 @@ function PM01Table({
 
                     const qty = Number(newData[row]["Qty"]) || 0;
                     const price = Number(newData[row]["Price"]) || 0;
-
-                    const amt = parseFloat((qty * price).toFixed(2));
+                    const domAmt = Number(newData[row]["DomAmt"]) || 0;
+                    const amt = parseFloat((qty * domAmt * price).toFixed(2));
                     newData[row]["Amt"] = amt;
                     newData[row]["SumAmt"] = parseFloat(((Number(newData[row]["Amt"]) || 0) + (Number(newData[row]["VATAmt"]) || 0)).toFixed(2));
 

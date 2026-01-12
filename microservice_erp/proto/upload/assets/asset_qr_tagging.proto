@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package upload.assets.asset_qr_tagging;
+
+service JIGQRTaggingService {
+  rpc JIGQRTaggingPrint (JIGQRTaggingPrintRequest) returns (Response);
+
+}
+
+
+message JIGQRTaggingPrintResult { 
+    string IdSeq = 1;
+    string CodeQR = 2;
+    string ItemName = 3;
+    string LotNo = 4;
+}
+
+
+message JIGQRTaggingPrintTypeResult {
+  string TemplatePath = 1;
+  string FileName = 2;
+
+  string PrintSeq = 11;
+  int32 UserId  = 12;
+}
+
+message JIGQRTaggingPrintRequest {
+  repeated JIGQRTaggingPrintResult result = 1;  
+  JIGQRTaggingPrintTypeResult typeData = 2;  
+  map<string, string> metadata = 3;
+}
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

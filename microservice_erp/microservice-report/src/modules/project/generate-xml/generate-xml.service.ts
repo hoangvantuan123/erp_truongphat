@@ -125,7 +125,7 @@ export class GenerateXmlService {
                 <DomPrice>${this.safeValue(item.DomPrice || 0)}</DomPrice>
                 <PriceUnitSeq>${this.safeValue(item.PriceUnitSeq || 0)}</PriceUnitSeq>
                 <SMResrcType>${smResrcType}</SMResrcType>
-                <DomAmt>${this.safeValue(item.DomAmt || 0)}</DomAmt>
+                <DomAmt>${this.safeValue(item.DomAmt || 1)}</DomAmt>
                 <DomVATAmt>${this.safeValue(item.DomVATAmt || 0)}</DomVATAmt>
                 <DomSumAmt>${this.safeValue(item.DomSumAmt || 0)}</DomSumAmt>
                 <DelvDueDate>${this.safeValue(item.DelvDueDate ?? '')}</DelvDueDate>

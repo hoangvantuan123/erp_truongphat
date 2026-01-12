@@ -1,18 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { SimpleQueryResult } from 'src/common/interfaces/simple-query-result.interface';
-import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
 import { ERROR_MESSAGES } from 'src/common/utils/constants';
+import { InjectDataSource } from '@nestjs/typeorm';
 import { GenerateXmlService } from '../generate-xml/generate-xml.service';
-
+import { DataSource } from 'typeorm';
 @Injectable()
 export class PrintLgEtcOutService {
-    constructor(private readonly databaseService: DatabaseService,
+    constructor(
+        @InjectDataSource() private readonly dataSource: DataSource,
         private readonly generateXmlService: GenerateXmlService
     ) { }
 
-
-    async _SLGInOutReqPrintQuery_WEB(result: any[], companySeq: number, userSeq: number): Promise<SimpleQueryResult> {
+    async _SLGInOutReqPrintQuery_WEB(
+        result: any[],
+        companySeq: number,
+        userSeq: number
+    ): Promise<SimpleQueryResult> {
         const xmlDocument = await this.generateXmlService.generateXMLSLGInOutReqPrintQuery(result);
+
         const query = `
       EXEC _SLGInOutReqPrintQuery_WEB
         @xmlDocument = N'${xmlDocument}',
@@ -24,20 +29,21 @@ export class PrintLgEtcOutService {
         @UserSeq = ${userSeq},
         @PgmSeq = 6885;
     `;
+
         try {
-            const result = await this.databaseService.executeQuery(query);
+            // Sử dụng query trực tiếp từ DataSource
+            const resultRaw = await this.dataSource.query(query);
+
             const data = {
-                ...result[0],
-                DataSheets: result
-            }
+                ...resultRaw[0],
+                DataSheets: resultRaw
+            };
 
             return { success: true, data: data };
         } catch (error) {
-            console.log('error', error)
+            console.error('Database error:', error);
             return { success: false, message: error.message || ERROR_MESSAGES.DATABASE_ERROR };
         }
     }
-
-
-
 }
+

@@ -48,16 +48,16 @@ export default function PM02Page({ permissions, isMobile, canCreate, canEdit, ca
     ], [t]);
     const defaultColsB = useMemo(() => [
         { title: '', id: 'Status', kind: 'Text', readonly: true, width: 50, hasMenu: true, visible: true, themeOverride: { textDark: "#225588", baseFontStyle: "600 13px" }, trailingRowOptions: { disabled: false }, icon: GridColumnIcon.HeaderLookup },
+        { title: t('Dự án'), id: 'PJTName', kind: 'Text', readonly: false, width: 90, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, contentAlign: 'right' },
         { title: t('Nguồn cung ứng'), id: 'ResrcName', kind: 'Text', readonly: false, width: 120, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
         { title: t('Số lượng'), id: 'Qty', kind: 'Text', readonly: false, width: 170, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
         { title: t('Đơn giá'), id: 'Price', kind: 'Text', readonly: false, width: 160, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+        { title: t('Thời gian thuê (Ngày)'), id: 'DomAmt', kind: 'Text', readonly: false, width: 150, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
         { title: t('Số tiền'), id: 'Amt', kind: 'Text', readonly: false, width: 150, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
-        { title: t('Đơn giá tiền nguyên tệ'), id: 'DomPrice', kind: 'Text', readonly: false, width: 120, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, },
-        { title: t('Số tiền nguyên tệ'), id: 'DomAmt', kind: 'Text', readonly: false, width: 120, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
-        { title: t('Thuế giá trị gia tăng'), id: 'VATAmt', kind: 'Text', readonly: false, width: 120, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
-        { title: t('Tổng số tiền nguyên tệ'), id: 'SumAmt', kind: 'Text', readonly: false, width: 120, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+        { title: t('Thuế giá trị gia tăng'), id: 'VATAmt', kind: 'Text', readonly: false, width: 140, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
+        { title: t('Tổng số tiền'), id: 'SumAmt', kind: 'Text', readonly: false, width: 120, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
         { title: t('Ngày dự định giao hàng'), id: 'DelvDueDate', kind: 'Text', readonly: false, width: 90, hasMenu: true, visible: true, trailingRowOptions: { disabled: true } },
-        { title: t('Dự án'), id: 'PJTName', kind: 'Text', readonly: false, width: 90, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, contentAlign: 'right' },
+
         { title: t('Ghi chú nguồn cung ứng'), id: 'Remark', kind: 'Text', readonly: false, width: 90, hasMenu: true, visible: true, trailingRowOptions: { disabled: true }, contentAlign: 'right' },
     ], [t]);
     const defaultColsC = useMemo(() => [

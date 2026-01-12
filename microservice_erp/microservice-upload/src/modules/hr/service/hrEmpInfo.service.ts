@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DatabaseService } from 'src/common/database/sqlServer/ITMV/database.service';
+import { DatabaseService } from 'src/common/database/database.service';
 import { GenerateXmlService } from '../generate-xml/generate-xml.service';
 import { Observable, from, of, forkJoin, throwError } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
@@ -72,51 +72,51 @@ export class HrEmpInfoService {
         );
     }
 
-  /*   private async convertToPdf(docxPath: string, pdfDir: string): Promise<string> {
-        const pythonScript = join(__dirname, '..', '..', '..', '..', '..', 'python', 'convert.py');
-
-        const command = `python "${pythonScript}" "${docxPath}" "${pdfDir}"`;
-
-        return new Promise((resolve, reject) => {
-            exec(command, { windowsHide: true }, (error, stdout, stderr) => {
-                if (error) {
-                    return reject(error);
-                }
-
-                const outputPath = stdout.trim();
-                if (!outputPath.endsWith('.pdf')) {
-                    return reject(new Error('Không lấy được file PDF đầu ra'));
-                }
-
-                resolve(outputPath);
-            });
-        });
-    } */
+    /*   private async convertToPdf(docxPath: string, pdfDir: string): Promise<string> {
+          const pythonScript = join(__dirname, '..', '..', '..', '..', '..', 'python', 'convert.py');
+  
+          const command = `python "${pythonScript}" "${docxPath}" "${pdfDir}"`;
+  
+          return new Promise((resolve, reject) => {
+              exec(command, { windowsHide: true }, (error, stdout, stderr) => {
+                  if (error) {
+                      return reject(error);
+                  }
+  
+                  const outputPath = stdout.trim();
+                  if (!outputPath.endsWith('.pdf')) {
+                      return reject(new Error('Không lấy được file PDF đầu ra'));
+                  }
+  
+                  resolve(outputPath);
+              });
+          });
+      } */
 
 
     private async convertToPdf(docxPath: string, pdfDir: string): Promise<string> {
         const pythonPath = 'C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python313\\python.exe';
         const pythonScript = join(__dirname, '..', '..', '..', '..', '..', 'python', 'convert.py');
-    
+
         const command = `"${pythonPath}" "${pythonScript}" "${docxPath}" "${pdfDir}"`;
-    
+
         return new Promise((resolve, reject) => {
             exec(command, { windowsHide: true }, (error, stdout, stderr) => {
                 if (error) {
                     console.error('Lỗi khi chạy lệnh:', error);
                     return reject(error);
                 }
-    
+
                 const outputPath = stdout.trim();
                 if (!outputPath.endsWith('.pdf')) {
                     return reject(new Error('Không lấy được file PDF đầu ra'));
                 }
-    
+
                 resolve(outputPath);
             });
         });
     }
-    
+
     generateDocx(data: any): Observable<{ docxPath: string; pdfPath: string }> {
         if (!data.FileName) {
             return throwError(() => new Error('File name is required'));

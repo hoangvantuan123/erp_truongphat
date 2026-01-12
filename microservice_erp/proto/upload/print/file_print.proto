@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package upload.print.file_print;
+
+service FilePrintService {
+  rpc FilePrintA (FilePrintARequest) returns (Response);
+  rpc FilePrintU (FilePrintURequest) returns (Response);
+  rpc FilePrintD (FilePrintDRequest) returns (Response);
+  rpc FilePrintQ (FilePrintQRequest) returns (Response);
+
+}
+
+
+message FilePrintAResult { 
+    int32 IdxNo = 1;
+    int32 CreatedBy = 2;
+    int32 UpdatedBy = 3;
+
+    string PrintSeq =4;
+    string TypeFile = 5; 
+    string Module = 6;
+    string PathFile = 7;
+}
+
+
+
+message FilePrintUResult { 
+    int32 IdxNo = 1;
+    int32 CreatedBy = 2;
+    int32 UpdatedBy = 3;
+
+    string PrintSeq =4;
+    string TypeFile = 5; 
+    string Module = 6;
+    string PathFile = 7;
+    string IdSeq = 8;
+
+}
+message FilePrintDResult { 
+  int32 IdxNo = 1;
+  string IdSeq = 2;
+  string PathFile = 3;
+  string FileSeq = 4;
+}
+
+message FilePrintQResult { 
+  string KeyItem1 = 1;
+  string KeyItem2 = 2;
+  string KeyItem3 = 3;
+  string KeyItem4 = 4;
+}
+
+
+
+message FilePrintARequest {
+  repeated FilePrintAResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message FilePrintURequest {
+  repeated  FilePrintUResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message FilePrintDRequest {
+  repeated  FilePrintDResult result = 1;  
+  map<string, string> metadata = 2;
+}
+message FilePrintQRequest {
+  FilePrintQResult result = 1;  
+  map<string, string> metadata = 2;
+}
+
+
+message Response {
+  bool success = 1;  
+  string message = 2;      
+  string data = 3; 
+}

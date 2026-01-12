@@ -34,6 +34,20 @@ export class GenerateXmlService {
   </DataBlock3>
 </ROOT>`;
   }
+  generateXMLSLGEtcOutReqItemQ(result: any): string {
+    return `<ROOT> 
+     <DataBlock2>
+      <WorkingTag>A</WorkingTag>
+    <IDX_NO>1</IDX_NO>
+    <Status>0</Status>
+    <DataSeq>1</DataSeq>
+    <Selected>1</Selected>
+    <TABLE_NAME>DataBlock2</TABLE_NAME>
+    <IsChangedMst>1</IsChangedMst>
+    <InOutSeq>${result.ReqSeq ?? ''}</InOutSeq>
+  </DataBlock2>
+</ROOT>`;
+  }
   generateXMLSPDMMOutReqQuery(result: any): string {
     return `<ROOT> 
      <DataBlock1>
@@ -45,6 +59,20 @@ export class GenerateXmlService {
     <TABLE_NAME>DataBlock1</TABLE_NAME>
     <IsChangedMst>0</IsChangedMst>
     <OutReqSeq>${result.OutReqSeq ?? ''}</OutReqSeq>
+  </DataBlock1>
+</ROOT>`;
+  }
+  generateXMLSLGEtcOutReqQ(result: any): string {
+    return `<ROOT> 
+     <DataBlock1>
+      <WorkingTag>A</WorkingTag>
+    <IDX_NO>1</IDX_NO>
+    <Status>0</Status>
+    <DataSeq>1</DataSeq>
+    <Selected>1</Selected>
+    <TABLE_NAME>DataBlock1</TABLE_NAME>
+    <IsChangedMst>0</IsChangedMst>
+    <InOutSeq>${result.ReqSeq ?? ''}</InOutSeq>
   </DataBlock1>
 </ROOT>`;
   }

@@ -177,16 +177,12 @@ export class ERPTempFileService {
                         'q.Filename as "Filename"',
                         'q.Path as "Path"',
                         'q.PathRoot as "PathRoot"',
-                        'q.SupplyContSeq as "SupplyContSeq"',
-                        'q.CreatedAt as "CreatedAt"',
+                        'q.GroupsTempSeq as "GroupsTempSeq"',
                     ])
 
                     ;
                 if (result.KeyItem1) {
-                    queryBuilder.andWhere('q.SupplyContSeq =  :KeyItem1', { KeyItem1: result.KeyItem1 });
-                }
-                if (result.KeyItem2) {
-                    queryBuilder.andWhere('q.GroupsTempCode =  :KeyItem2', { KeyItem2: result.KeyItem2 });
+                    queryBuilder.andWhere('q.GroupsTempCode =  :KeyItem1', { KeyItem1: result.KeyItem1 });
                 }
                 queryBuilder.orderBy('q.IdSeq', 'ASC');
                 const queryResult = await queryBuilder.getRawMany();
@@ -305,7 +301,7 @@ export class ERPTempFileService {
             });
         }
 
-        const targetDir = path.join(STORAGE_ROOT, 'system', 'wh', String(IdSeq), String(Time));
+        const targetDir = path.join(STORAGE_ROOT, 'system', 'temp', String(IdSeq), String(Time));
 
         try {
             if (!fs.existsSync(targetDir)) {
@@ -327,8 +323,8 @@ export class ERPTempFileService {
             });
 
             const records: Partial<any>[] = savedFiles.map(file => ({
-                SupplyContSeq: IdSeq,
-                GroupsTempCode: 'HĐ',
+                GroupsTempSeq: IdSeq,
+                GroupsTempCode: GroupsTempCode,
                 FieldName: file.fieldname,
                 Size: file.size,
                 Encoding: file.encoding,
