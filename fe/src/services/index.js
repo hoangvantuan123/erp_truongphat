@@ -51,7 +51,7 @@ if (baseUrl === '192.168.35.150:3030') {
   HOST_API_SERVER_1 = 'https://truongphat.ierps.vn/tp1/api/v1'
   HOST_API_SERVER_2 = 'https://truongphat.ierps.vn/tp1/api/v2'
   HOST_API_SERVER_3 = 'https://truongphat.ierps.vn/tp1/api/v3'
-  HOST_API_SERVER_4 = 'https://truongphat.ierps.vn/tp2/v4'
+  HOST_API_SERVER_4 = 'https://truongphat.ierps.vn/tp2/api/v4'
   HOST_API_SERVER_5 = 'https://truongphat.ierps.vn/tp2/uploads'
   HOST_API_SERVER_1 = 'https://truongphat.ierps.vn/tp1/api/v1'
   HOST_API_SERVER_6 = 'https://truongphat.ierps.vn/tp1/api/v5'
