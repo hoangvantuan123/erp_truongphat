@@ -327,7 +327,7 @@ export class ERPTempFileService {
 
             const records: Partial<any>[] = savedFiles.map(file => ({
                 SupplyContSeq: IdSeq,
-                GroupsTempCode: GroupsTempCode,
+                GroupsTempCode: "HĐ",
                 FieldName: file.fieldname,
                 Size: file.size,
                 Encoding: file.encoding,
