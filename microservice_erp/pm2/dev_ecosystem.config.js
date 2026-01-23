@@ -1,8 +1,8 @@
-const commonEnv = require('./env_dev.common');
+const commonEnv = require('./env_tp.common');
 
 module.exports = {
     apps: [{
-            name: 'api-gateway-dev',
+            name: 'api-gateway-tp',
             script: '../api-gateway/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
@@ -15,7 +15,7 @@ module.exports = {
             },
         },
         {
-            name: 'microservice-auth-dev',
+            name: 'micr-auth-tp',
             script: '../microservice-auth/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
@@ -28,7 +28,7 @@ module.exports = {
             },
         },
         {
-            name: 'microservice-hr-dev',
+            name: 'micr-hr-tp',
             script: '../microservice-hr/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
@@ -41,7 +41,7 @@ module.exports = {
             },
         },
         {
-            name: 'microservice-produce-dev',
+            name: 'micr-produce-tp',
             script: '../microservice-produce/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
@@ -54,7 +54,7 @@ module.exports = {
             },
         },
         {
-            name: 'microservice-purchase-dev',
+            name: 'micr-purchase-tp',
             script: '../microservice-purchase/dist/main.js',
             instances: 1,
             exec_mode: 'cluster',
@@ -67,7 +67,7 @@ module.exports = {
             },
         },
         {
-            name: 'microservice-qc-dev',
+            name: 'micr-qc-tp',
             script: '../microservice-qc/dist/main.js',
             instances: 1,
             exec_mode: 'cluster',
@@ -80,7 +80,7 @@ module.exports = {
             },
         },
         {
-            name: 'microservice-sp-dev',
+            name: 'micr-sp-tp',
             script: '../microservice-sp/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
@@ -94,7 +94,7 @@ module.exports = {
 
         },
         {
-            name: 'microservice-warehouse-dev',
+            name: 'micr-warehouse-tp',
             script: '../microservice-warehouse/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
@@ -108,7 +108,7 @@ module.exports = {
 
         },
         {
-            name: 'microservice-upload-dev',
+            name: 'micr-upload-tp',
             script: '../microservice-upload/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
@@ -122,7 +122,7 @@ module.exports = {
 
         },
         {
-            name: 'socket-gateway-dev',
+            name: 'socket-gateway-tp',
             script: '../socket-gateway/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
@@ -136,7 +136,7 @@ module.exports = {
 
         },
         {
-            name: 'microservice-report-dev',
+            name: 'micr-report-tp',
             script: '../microservice-report/dist/main.js',
             instances: 1,
             exec_mode: 'fork',
