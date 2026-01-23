@@ -109,7 +109,7 @@ async function bootstrap() {
   serveStatic(() => process.env.PATH_PRINT_PDF_DIR, '/print/file');
   await app.startAllMicroservices();
 
-  const httpPort = Number(process.env.HTTP_PORT_UPLOAD ?? 5106);
+  const httpPort = Number(process.env.HTTP_PORT_UPLOAD ?? 4089);
   await app.listen(httpPort);
 
   logger.log(`🚀 REST API chạy trên http://localhost:${httpPort}`);
