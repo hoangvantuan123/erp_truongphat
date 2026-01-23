@@ -52,6 +52,7 @@ module.exports = {
     HOST_PORT_REPORT: 4007,
     HOST_PORT_SOCKET: 4008,
     HOST_PORT_WH: 4009,
+    HTTP_PORT_UPLOAD: 4006,
 
 
     /* UPLOAD */
