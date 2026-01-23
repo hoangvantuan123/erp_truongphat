@@ -24,7 +24,7 @@ module.exports = {
 
     /* DB */
     DB_HOST: 'localhost',
-    DB_PORT: '1433',
+    DB_PORT: '14233',
     DB_USERNAME: 'genuine',
     DB_PASSWORD: 'Itmv209#',
     DB_DATABASE: 'ITMV',
