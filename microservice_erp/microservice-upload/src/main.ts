@@ -23,7 +23,7 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.GRPC,
     options: {
-      url: process.env.HOST_GRPC_UPLOAD ?? 'localhost:5006',
+      url: process.env.HOST_GRPC_UPLOAD,
       package: [
         'upload.upload.group_temp',
         'upload.upload.temp_file',
@@ -109,7 +109,7 @@ async function bootstrap() {
   serveStatic(() => process.env.PATH_PRINT_PDF_DIR, '/print/file');
   await app.startAllMicroservices();
 
-  const httpPort = Number(process.env.HOST_PORT_UPLOAD ?? 4089);
+  const httpPort = Number(process.env.HOST_PORT_UPLOAD);
   await app.listen(httpPort);
 
   logger.log(`🚀 REST API chạy trên http://localhost:${httpPort}`);
