@@ -4,10 +4,9 @@ import {
     Param,
     Res,
     Req,
-    Injectable,
-    CanActivate,
-    ExecutionContext,
-    UseGuards,
+    Header,
+    HttpCode,
+    Options,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { join, normalize } from 'path';
@@ -18,69 +17,77 @@ import { ConfigService } from '@nestjs/config';
 import 'dotenv/config';
 
 
-@Injectable()
-class JwtAuthGuard implements CanActivate {
-    canActivate(context: ExecutionContext): boolean {
-        const req = context.switchToHttp().getRequest<Request>();
-        const res = context.switchToHttp().getResponse<Response>();
 
-        const authHeader = req.headers['authorization'];
-        const publicDir = join(__dirname, '..', '..', '..', '..', 'public');
 
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            res.status(401).sendFile(join(publicDir, '401.html'));
-            return false;
-        }
 
-        const token = authHeader.split(' ')[1];
-
-        try {
-            const decoded = jwt.verify(token, jwtConstants.secret);
-            (req as any).user = decoded;
-            return true;
-        } catch {
-            res.status(401).sendFile(join(publicDir, '401.html'));
-            return false;
-        }
-    }
-}
-  
 
 @Controller('secure-file')
 export class SecureFileController {
     private readonly basePath: string;
-    private readonly publicDir = join(__dirname, '..', '..', '..',  'public');
+    private readonly publicDir = join(__dirname, '..', '..', '..', 'public');
 
     constructor(private readonly configService: ConfigService) {
-        this.basePath =
-            this.configService.get<string>('FILE_STORAGE_BASE_SYSTEM_TEMP_PATH')
+        this.basePath = this.configService.get<string>(
+            'STORAGE_ROOT',
+        );
     }
 
-    @Get('system/temp/:userId/:date/:filename')
-    getFile(
+    @Options('system/temp/:userId/:date/:filename')
+    @HttpCode(204)
+    handlePreflight(
         @Param('userId') userId: string,
         @Param('date') date: string,
         @Param('filename') filename: string,
         @Res() res: Response,
         @Req() req: Request,
     ) {
+        const origin = req.headers.origin || '*';
+        res
+            .header('Access-Control-Allow-Origin', origin)
+            .header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+            .header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+            .header('Access-Control-Allow-Credentials', 'true');
+        return res.send();
+    }
+
+    @Get('system/temp/:userId/:date/:filename')
+    async getFile(
+       @Param('userId') userId: string,
+        @Param('date') date: string,
+        @Param('filename') filename: string,
+        @Res() res: Response,
+        @Req() req: Request,
+    ) {
         try {
-            const rawPath = join(this.basePath, userId, date, filename);
+            const rawPath = join(this.basePath, userId, date,filename);
             const filePath = normalize(rawPath);
 
+            const origin = req.headers.origin || '*';
+            res
+                .header('Access-Control-Allow-Origin', origin)
+                .header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+                .header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+                .header('Access-Control-Allow-Credentials', 'true');
+
             if (!filePath.startsWith(normalize(this.basePath))) {
-                return res.status(403).sendFile(join(this.publicDir, '403.html'));
+                return res
+                    .status(403)
+                    .sendFile(join(this.publicDir, '403.html'));
             }
 
             if (!fs.existsSync(filePath)) {
-                return res.status(404).sendFile(join(this.publicDir, '404.html'));
+                return res
+                    .status(404)
+                    .sendFile(join(this.publicDir, '404.html'));
             }
 
-            // Trả file
+            res.type('application/pdf');
+
             return res.sendFile(filePath);
         } catch (error) {
-            return res.status(500).sendFile(join(this.publicDir, '500.html'));
+            return res
+                .status(500)
+                .sendFile(join(this.publicDir, '500.html'));
         }
     }
-
 }
