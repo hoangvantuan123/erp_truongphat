@@ -6,7 +6,7 @@ export class ERPTempFile {
   IdSeq: string;
 
 
-  @Column({ nullable: true, type: 'uuid' })
+  @Column({ nullable: true})
   SupplyContSeq: string;
   @Column({ nullable: true})
   GroupsTempCode: string;
