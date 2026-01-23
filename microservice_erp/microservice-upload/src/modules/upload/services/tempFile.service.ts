@@ -177,12 +177,15 @@ export class ERPTempFileService {
                         'q.Filename as "Filename"',
                         'q.Path as "Path"',
                         'q.PathRoot as "PathRoot"',
-                        'q.GroupsTempSeq as "GroupsTempSeq"',
+                        'q.SupplyContSeq as "SupplyContSeq"',
                     ])
 
                     ;
                 if (result.KeyItem1) {
-                    queryBuilder.andWhere('q.GroupsTempCode =  :KeyItem1', { KeyItem1: result.KeyItem1 });
+                    queryBuilder.andWhere('q.SupplyContSeq =  :KeyItem1', { KeyItem1: result.KeyItem1 });
+                }
+                if (result.KeyItem2) {
+                    queryBuilder.andWhere('q.GroupsTempCode =  :KeyItem2', { KeyItem2: result.KeyItem2 });
                 }
                 queryBuilder.orderBy('q.IdSeq', 'ASC');
                 const queryResult = await queryBuilder.getRawMany();
@@ -323,7 +326,7 @@ export class ERPTempFileService {
             });
 
             const records: Partial<any>[] = savedFiles.map(file => ({
-                GroupsTempSeq: IdSeq,
+                SupplyContSeq: IdSeq,
                 GroupsTempCode: GroupsTempCode,
                 FieldName: file.fieldname,
                 Size: file.size,
