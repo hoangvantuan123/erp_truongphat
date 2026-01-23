@@ -84,17 +84,17 @@ module.exports = {
     PYTHON_PATH: "C:/Users/Administrator/AppData/Local/Programs/Python/Python313/python.exe",
 
     // Các path dạng "đường dẫn web"
-    UPLOAD_PATHS_LOWER: '/storage_erp/uploads',
-    UPLOAD_USER_PATHS_LOWER: '/storage_erp/user_files',
-    ROOT_ASSET_PATH: '/storage_erp/asset_files',
+    UPLOAD_PATHS_LOWER: 'G:/storage_erp/uploads',
+    UPLOAD_USER_PATHS_LOWER: 'G:/storage_erp/user_files',
+    ROOT_ASSET_PATH: 'G:/storage_erp/asset_files',
     UPLOAD_USER_PATHS_ROOT_LOWER: 'G:/storage_erp/user_files',
-    PATH_INVOICES_LOWER: '/storage_erp/uploads/pdf',
-    PATHS_TEMPLATE_LOWER: '/storage_erp/templates',
-    PATH_PRINT_LOGS_DOCS_LOWER: '/storage_erp/print_logs_docs',
-    PATH_WINDOW_PRINT_LOGS_DOCS_LOWER: '/storage_erp/window_print_logs_docs',
-    PATH_PRINT_LOGS_LOWER: '/storage_erp/print_logs',
-    PATH_PRINT_DOCX_DIR_LOWER: '/storage_erp/print_logs/docx',
-    PATH_PRINT_PDF_DIR_LOWER: '/storage_erp/print_logs/pdf',
+    PATH_INVOICES_LOWER: 'G:/storage_erp/uploads/pdf',
+    PATHS_TEMPLATE_LOWER: 'G:/storage_erp/templates',
+    PATH_PRINT_LOGS_DOCS_LOWER: 'G:/storage_erp/print_logs_docs',
+    PATH_WINDOW_PRINT_LOGS_DOCS_LOWER: 'G:/storage_erp/window_print_logs_docs',
+    PATH_PRINT_LOGS_LOWER: 'G:/storage_erp/print_logs',
+    PATH_PRINT_DOCX_DIR_LOWER: 'G:/storage_erp/print_logs/docx',
+    PATH_PRINT_PDF_DIR_LOWER: 'G:/storage_erp/print_logs/pdf',
 
 
 

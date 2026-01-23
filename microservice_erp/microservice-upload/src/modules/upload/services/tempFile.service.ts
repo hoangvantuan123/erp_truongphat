@@ -178,6 +178,8 @@ export class ERPTempFileService {
                         'q.Path as "Path"',
                         'q.PathRoot as "PathRoot"',
                         'q.SupplyContSeq as "SupplyContSeq"',
+                        'q.CreatedAt as "CreatedAt"',
+                        'q.UpdatedAt as "UpdatedAt"',
                     ])
 
                     ;
